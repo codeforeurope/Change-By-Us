@@ -180,8 +180,8 @@ When running the python scripts you may get:
 or something similar. The reason is that Python uses ASCII encoding by default. 
 It's worthwhile to change python's default encoding to utf-8 to avoid this issue.
 The way to do this is:
-    if [ ! -e /usr/lib/python2.6/site-packages/sitecustomize.py ];then
-        touch /usr/lib/python2.6/site-packages/sitecustomize.py
-        echo -n "import sys\nsys.setdefaultencoding('utf-8')" >> /usr/lib/python2.6/site-packages/sitecustomize.py
+    if [ ! -e /usr/lib/python2.7/site-packages/sitecustomize.py ];then
+        touch /usr/lib/python2.7/site-packages/sitecustomize.py
+        echo -n "import sys\nsys.setdefaultencoding('utf-8')" >> /usr/lib/python2.7/site-packages/sitecustomize.py
     fi
 

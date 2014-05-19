@@ -78,14 +78,17 @@ COOKBOOK:
         
     # Set up and deploy the database backup script(s) 
         fab --config=rcfile.dev dev setup_db_backup
-        
+
+    WARNING: the 'deploy' command does not work //GM
+    WARNING: the 'setup_application' command gives an error in the 'git fetch' command "not a git repository" //GM
+
 """
 # GLOBALS
 DEBUG = True
 
 # WHether to clean the build_path folder before the build. This is set
 # using the clean_build option
-env.clean_build = False
+env.clean_build = True
 
 # SSH Key configuration
 env.key_filename = os.path.expanduser(env.key_filename)
@@ -131,7 +134,7 @@ env.packages = {'rhel5': {
                         [ 'mysql55', 'mysql55-libs', 'php53', 'php53-cli', 'php53-cgi', 'php53-gd', 'php-pear-Net-Curl',
                           'php53-common', 'php53-mysql', 'php53-xmlrpc', 'php53-pecl-memcache','php53-mysql', 
                           'python26', 'python26-setuptools', 'python26-imaging', 'python26-mysqldb', 'python26-simplejson',
-                          'elinks', 'httpd', 'apachetop', 'sendmail', 'exim', 's3cmd' ],
+                          'elinks', 'httpd', 'apachetop', 'sendmail', 'exim', 's3cmd', 'git' ],
                     'optional' : []  },
                     
                 # Ubuntu 10.04 has python2.6.5 by default
@@ -141,7 +144,7 @@ env.packages = {'rhel5': {
                           'php5-common', 'php5-mysql', 'php5-xmlrpc', 'php5-memcache', 'php5-curl',
                           'python-setuptools' , 'python-imaging', 'python-mysqldb', 'python-simplejson', 
                           'elinks', 'apache2', 'apachetop', 'apache2-utils', 'libapache2-mod-php5', 'sendmail', 'exim4',
-                          's3cmd' ],
+                          's3cmd', 'git' ],
                     'optional': [],
                     'additional_commands':['a2enmod php5', 'a2enmod headers'] }
                 }
@@ -161,18 +164,18 @@ env.minifier_cmd = 'python %(build_path)s/scripts/minifier/minifier.py -v -c %(b
 #------------------------------------------------
 # AWS related tasks require some configurations
 #------------------------------------------------
-# env.ec2Conn = EC2Connection(env.aws_access_key_id, env.aws_secret_access_key)
-# env.asConn  = AutoScaleConnection(env.aws_access_key_id, env.aws_secret_access_key)
+env.ec2Conn = EC2Connection(env.aws_access_key_id, env.aws_secret_access_key)
+env.asConn  = AutoScaleConnection(env.aws_access_key_id, env.aws_secret_access_key)
 
 # Production Alias is the alias/tag that all production instances use
-env.production_alias = '911memorial_names_'
+env.production_alias = 'cbu_ams_'
 
 # Security groups that are given access to newly generated production AMIs
 env.aws = { 'security_groups': ['ns11_multiplatform_prod'],
             'key_pair': 'ns11_0630', 'as_group': 'n11asgroup', 
-            'balancers': ['n11loadbalancer'], 'instance_type':'m1.large',
-            'availability_zones': ['us-east-1a', 'us-east-1b', 'us-east-1c', 'us-east-1d'] }
-            # 'min_size': 3, 'max_size': 12 }
+            'balancers': ['n11loadbalancer'], 'instance_type':'m1.micro',
+            'availability_zones': ['eu-west-1a', 'eu-west-1a'],
+            'min_size': 1, 'max_size': 2 }
 
 #----- Decorator(s) -----
 def common_config(func):
@@ -343,7 +346,7 @@ def create_config_files():
 
     # Make sure that the code is the latest in the build_path
     with lcd(env.build_path):
-        local('/usr/local/bin/git fetch && /usr/local/bin/git checkout %(branch)s' % env)
+        local('git fetch && git checkout %(branch)s' % env)
     for item in env.config_files:
         if not os.path.exists(item.get('local_config_template')):
             raise Exception("Unable to find configuration template file (%s) to create config from" % item.get('local_config_template'))
@@ -372,6 +375,13 @@ def upload_config_files():
     " Upload the interpolated config.yaml to the target servers"
     for item in env.config_files:
         put(item.get('local_config_file'), env.shared_path)
+
+def install_pip_requirements():
+    #GM WIP
+    # run('cp /home/ubuntu/www/gam2/current/requirements.live /home/ubuntu/www/gam2/current/requirements.txt')
+    # run('pip freeze /home/ubuntu/www/gam2/current/requirements.txt')
+    sudo_as('pip install -r /home/ubuntu/www/gam2/current/requirements.live')
+
 
 @roles('web')
 def deploy_app_configurations():
@@ -570,6 +580,8 @@ def setup_system():
     # Validate that requisites are in place
     check_system()
 
+    setup_database()
+
 
 @roles('web')
 def setup_application():
@@ -598,6 +610,52 @@ def setup_directories():
         sudo_as('chgrp -R %(webserver_group)s %(app_path)s/%(temp_var)s; chmod -R g+w %(app_path)s/%(temp_var)s;' % env)
 
 """
+DATABASE related stuff
+"""
+
+def migrate_database():
+    #TODO: check if it works  #GM
+    # https://github.com/localprojects/Change-By-Us/wiki/Data-and-Schema-Migrations
+    run('migrate manage manage.py --repository=sql/migrations/ --url=mysql://[username]:[password]@localhost/[dbname]')
+    run('python manage.py version_control')
+    run('python manage.py upgrade')
+
+
+def install_mysql():
+    with settings(hide('warnings', 'stderr'), warn_only=True):
+        result = sudo('dpkg-query --show mysql-server')
+    if result.failed is False:
+        warn('MySQL is already installed')
+        return
+    mysql_root_password = prompt('Please enter MySQL root password:')
+    sudo('echo "mysql-server-5.0 mysql-server/root_password password ' \
+                              '%s | debconf-set-selections' % mysql_root_password  )
+    sudo('echo "mysql-server-5.0 mysql-server/root_password_again password ' \
+                              '%s | debconf-set-selections' % mysql_root_password  )
+    apt_get('mysql-server')
+
+def setup_database():
+    install_mysql()
+    env.mysql_root_password = prompt('Please enter MySQL root password:')
+    # TODO!!!
+
+    run('mysql -u root -p%(mysql_root_password)s ' \
+            'create database %(database_db)s; grant all on %(database_db)s.* to %(database_user)s@%(database_host)s identified by \'\'; ' \
+            ' set password for  %(database_user)s@%(database_host)s = PASSWORD(\'%(database_password)s\');'  \
+            ' exit' % env)
+    run('cd %(app_path)s/current' % env)
+    run('mysql -u %(database_db)s -p%(database_password)s %(database_user)s < sql/models.sql' % env)
+    run('mysql -u %(database_db)s -p%(database_password)s %(database_user)s < sql/data_badwords.sql' % env)
+    run('mysql -u %(database_db)s -p%(database_password)s %(database_user)s < sql/data_tasks.sql' % env)
+    run('mysql -u %(database_db)s -p%(database_password)s %(database_user)s < sql/data_user_groups.sql' % env)
+
+
+    run('mysql -u %(database_db)s -p%(database_password)s %(database_user)s < sql/test_data/data_keywords.sql' % env)
+    run('mysql -u %(database_db)s -p%(database_password)s %(database_user)s < sql/test_data/data_location_amsterdam.sql' % env)
+    run('mysql -u %(database_db)s -p%(database_password)s %(database_user)s < sql/test_data/data_community_leaders_amsterdam.sql' % env)
+
+
+"""
 SCM and Code related functions
 """
 def bundle_code():
@@ -620,41 +678,41 @@ def bundle_code():
     if env.scm == 'git':
         if not os.path.exists(env.build_path):
             "Create an archive from the current Git master branch and upload it"
-            local('/usr/local/bin/git clone %(repository)s %(build_path)s' % env)
+            local('git clone %(repository)s %(build_path)s' % env)
         else:
             with lcd(env.build_path):
-                local('if [ $(/usr/local/bin/git config --get remote.origin.url) != "%(repository)s" ];then echo "Existing repository is not the one requested. Deleting build path."; rm -rf %(build_path)s; fi' % env)
+                local('if [ $(git config --get remote.origin.url) != "%(repository)s" ];then echo "Existing repository is not the one requested. Deleting build path."; rm -rf %(build_path)s; fi' % env)
             
         try:
             with lcd(env.build_path):
-                local('/usr/local/bin/git clean -d -x -f' % env)
+                local('git clean -d -x -f' % env)
         except:
             local('rm -rf %(build_path)s' % env)
             "Create an archive from the current Git master branch and upload it"
-            local('/usr/local/bin/git clone %(repository)s %(build_path)s' % env)
+            local('git clone %(repository)s %(build_path)s' % env)
             
         with lcd(env.build_path):
-            local('/usr/local/bin/git clean -d -x -f && /usr/local/bin/git fetch && /usr/local/bin/git checkout %(branch)s' % env)
-            local('/usr/local/bin/git submodule init && /usr/local/bin/git submodule update' % env)
-            env.release = local('/usr/local/bin/git rev-parse %(branch)s | cut -c 1-9' % env, capture=True)
+            local('git clean -d -x -f && git fetch && git checkout %(branch)s' % env)
+            local('git submodule init && git submodule update' % env)
+            env.release = local('git rev-parse %(branch)s | cut -c 1-9' % env, capture=True)
             # Save the revision information to a file for post-deployment info
-            local('/usr/local/bin/git rev-parse %(branch)s > REVISION.txt' % env)
+            local('git rev-parse %(branch)s > REVISION.txt' % env)
             # To be safe, remove any newline characters
             env.release = re.sub('[\r\n]', '', env.release)
             # Archive the bundle for upload
-            local('/usr/local/bin/git archive --format=tar %(branch)s > %(build_path)s/%(release)s.tar' % env)
+            local('git archive --format=tar %(branch)s > %(build_path)s/%(release)s.tar' % env)
 
             if env.run_minifier == True and env.get('minifier_cmd') is not None: 
                 with settings(warn_only=True):
                     # If minification fails, we only want to warn about it, not crash
                     local(env.minifier_cmd) # 'python %(build_path)s/scripts/minifier/minifier.py -v -c %(build_path)s/scripts/minifier.conf --force' % env)
-                    local('/usr/local/bin/git status -s | grep -i "^ M" | tr -s " " | cut -d\  -f 3 | xargs tar -v --append --file=%(release)s.tar ' % env)
+                    local('git status -s | grep -i "^ M" | tr -s " " | cut -d\  -f 3 | xargs tar -v --append --file=%(release)s.tar ' % env)
 
             # Add any updated files
             local('tar --append --file=%(release)s.tar REVISION.txt' % env)
     elif env.scm == "git-svn":
         # Get repo information and store it to REVISION.txt
-        local('cd %(repository)s && /usr/local/bin/git svn info > %(build_path)s/REVISION.txt' % env)
+        local('cd %(repository)s && git svn info > %(build_path)s/REVISION.txt' % env)
         local('cd %(build_path)s && tar --append --file=%(release)s.tar REVISION.txt' % env)
     elif env.scm == 'svn':
         local('svn export %(repository)s/%(branch)s %(build_path)s' % env)
@@ -712,7 +770,16 @@ def install_requirements():
         raise "Unable to proceed - don't know os_name = %s" % env.os_name
     
     # Set up python's default encoding as utf-8
-    sudo_as('echo -e "import sys\nsys.setdefaultencoding(\'utf-8\')\n" > /usr/lib/python2.6/site-packages/sitecustomize.py')
+    try:
+        sudo_as('mkdir /usr/lib/python2.7/site-packages')
+    except:
+        print "Directory exists"
+    try:
+        sudo_as('touch /usr/lib/python2.7/site-packages/sitecustomize.py')
+    except:
+        print "File exists"
+    # This program should be safe to run
+    sudo_as('echo -e "import sys\nsys.setdefaultencoding(\'utf-8\')\n" >> /usr/lib/python2.7/site-packages/sitecustomize.py')
     
 def install_rhel5_packages():
     """
@@ -793,11 +860,17 @@ def create_app_context():
     except SystemExit:
         print "WARNING: Failed to create app context since it probably already exists. Continuing."
 
+    with settings(warn_only=True):
+        result = sudo_as('mkdir %(home_path)s/%(tmpuser)s/.ssh/' % env)
+    if result.failed:
+        print "WARNING: could not create directory to copy SSH keys into user %(tmpuser)s context" % env
+
     try:
-        sudo_as('mkdir %(home_path)s/%(tmpuser)s/.ssh/ && cp ~/.ssh/authorized_keys %(home_path)s/%(tmpuser)s/.ssh/ && chown -R %(tmpuser)s %(home_path)s/%(tmpuser)s/.ssh' % env)
         sudo_as('chmod 755 %(home_path)s/%(tmpuser)s && chgrp -R %(webuser)s %(home_path)s/%(tmpuser)s' % env)
+        sudo_as('cp ~/.ssh/authorized_keys %(home_path)s/%(tmpuser)s/.ssh/ && chown -R %(tmpuser)s %(home_path)s/%(tmpuser)s/.ssh' % env)
     except:
         print "WARNING: something failed in copying SSH keys into user %(tmpuser)s context" % env
+
     return True
     
 def check_system():
@@ -805,7 +878,7 @@ def check_system():
     Ensure that the prerequisites and system locations exist
     """
     sudo_as('php --version | grep -i "php 5"')
-    sudo_as('python2.6 --version')
+    sudo_as('python --version')
     # sudo_as('mysql --version | grep -i "distrib 5"')
     if env.os_name == 'rhel5':
         sudo_as('apachectl -v | grep -i "apache\/2"')
@@ -867,6 +940,7 @@ def deploy_webapp_and_configs():
     """
     deploy_webapp()
     deploy_configurations()
+    install_pip_requirements()
     
 @roles('web')
 def deploy_app():
@@ -917,8 +991,10 @@ def _webserver_do(action=''):
         # If we get an exception here it's probably not catastrophic
 
         if env.webserver == 'lighttpd':
+            sudo_as('killall lighttpd') # GM
+            sudo_as('cp /home/ubuntu/www/gam2/etc/lighttpd/lighttpd.conf /etc/lighttpd/lighttpd.conf')
             # Keep in mind that this has to be configured for the new lighttpd init script
-            sudo_as('/etc/init.d/%(webserver)s %(action)s %(app_path)s' % params, shell=False, pty=False)
+            sudo_as('/etc/init.d/%(webserver)s %(action)s' % params, shell=False, pty=False)
         elif env.webserver == 'apache':
             if env.os_name == 'rhel5':
                 sudo_as('/usr/sbin/apachectl %(action)s' % params)
