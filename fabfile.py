@@ -21,15 +21,8 @@ INSTRUCTIONS:
 This fabfile requires a set of parameters to be set in an rcfile, for fabric to load. 
 A minimum of fabric 1.2.0 is required
 
-Install fabric:
+Install fabric on your development machine:
     pip install fabric
-
-CAVEATS AND NOTES:
-    * Do NOT user short if[] syntax, meaning [ -e "foobar.txt' ] && {do_something}, in fabric scripts.
-      Go for explicit if [ -e "foobar.txt" ];then do_something; fi
-      The short syntax does not return the correct value for success, and this causes scripts to fail
-    * ROLES (and other decorators) MUST be on the parent function. 
-      Running a child function through a decorator just won't work due to some fabric stupidity!
 
 TODO:
     * Easy way to install pip/pear/cpan packages when RHEL does not have them:
@@ -47,8 +40,11 @@ COOKBOOK:
     Setup the initial system with prerequisites
         fab --config=rcfile.dev dev setup_system
 
-    A quick way to get the initial system setup
-        fab --config=rcfile.demo demo setup_application deploy_configurations bundle_code deploy
+    Install the application for the first time (including database and default data)
+        fab --config=rcfile.xxxx demo install_app
+
+    A quick way to get the initial application setup (after having run setup_system)
+        fab --config=rcfile.demo demo setup_application deploy_configurations bundle_code deploy_webapp_and_configs
 
     Setup a set of web servers
         fab --config=rcfile.dev dev setup_application
@@ -135,17 +131,17 @@ env.config_files = [{'filename': 'config.yaml', 'path': '', 'templatename': 'con
 env.packages = {'rhel5': {
     'required':
         ['mysql55', 'mysql55-libs', 'php53', 'php53-cli', 'php53-cgi', 'php53-gd', 'php-pear-Net-Curl',
-         'php53-common', 'php53-mysql', 'php53-xmlrpc', 'php53-pecl-memcache', 'php53-mysql',
-         'python26', 'python26-setuptools', 'python26-imaging', 'python26-mysqldb', 'python26-simplejson',
+         'php53-common', 'php53-mysql', 'php53-xmlrpc', 'php53-pecl-memcache', 'php53-mysql', 'memcached',
+         'python26', 'python27-setuptools', 'python27-imaging', 'python27-mysqldb', 'python27-simplejson',
          'elinks', 'httpd', 'apachetop', 'sendmail', 'exim', 's3cmd', 'git'],
     'optional': []},
 
-                # Ubuntu 10.04 has python2.6.5 by default
-                'ubuntu10': {
+                # Ubuntu 10.04 and following have python2.6.5 by default. We explicitly request 2.7
+                'ubuntu': {
                     'required':
-                        ['mysql-server', 'mysql-client', 'php5', 'php5-cli', 'php5-cgi', 'php5-gd',
+                        ['mysql-server', 'mysql-client', 'php5', 'php5-cli', 'php5-cgi', 'php5-gd', 'memcached',
                          'php5-common', 'php5-mysql', 'php5-xmlrpc', 'php5-memcache', 'php5-curl', 'python2.7',
-                         'python-setuptools', 'python-imaging', 'python-mysqldb', 'python-simplejson',
+                         'python-setuptools', 'python-pip', 'python-imaging', 'python-mysqldb', 'python-simplejson',
                          'elinks', 'apache2', 'apachetop', 'apache2-utils', 'libapache2-mod-php5', 'sendmail', 'exim4',
                          's3cmd', 'git'],
                     'optional': [],
@@ -164,19 +160,19 @@ env.template_paths = []
 # Should we minify?
 env.run_minifier = True
 env.minifier_cmd = 'python %(build_path)s/scripts/minifier/minifier.py -v -c %(build_path)s/scripts/minifier.conf --force'
-# 
+
 # #------------------------------------------------
 # # AWS related tasks require some configurations
 # #------------------------------------------------
 # env.ec2Conn = EC2Connection(env.aws_access_key_id, env.aws_secret_access_key)
 # env.asConn  = AutoScaleConnection(env.aws_access_key_id, env.aws_secret_access_key)
-# 
+#
 # # Production Alias is the alias/tag that all production instances use
 # env.production_alias = 'cbu_ams_'
-# 
+#
 # # Security groups that are given access to newly generated production AMIs
 # env.aws = { 'security_groups': ['ns11_multiplatform_prod'],
-#             'key_pair': 'ns11_0630', 'as_group': 'n11asgroup', 
+#             'key_pair': 'ns11_0630', 'as_group': 'n11asgroup',
 #             'balancers': ['n11loadbalancer'], 'instance_type':'m1.micro',
 #             'availability_zones': ['eu-west-1a', 'eu-west-1a'],
 #             'min_size': 1, 'max_size': 2 }
@@ -270,7 +266,7 @@ def get_remote_host_info():
         env.os_name = 'rhel5'
         env.webuser = 'apache'
     elif re.search('Ubuntu', uname):
-        env.os_name = 'ubuntu10'
+        env.os_name = 'ubuntu'
         env.webuser = 'www-data'
     elif re.search('Darwin', uname):
         env.os_name = 'osx'
@@ -394,10 +390,8 @@ def upload_config_files():
 
 
 def install_pip_requirements():
-    #GM WIP
-    run('cp %(app_path)s/current/requirements.live %(app_path)s/current/requirements.txt')
-    # run('pip freeze /home/ubuntu/www/gam2/current/requirements.txt')
-    sudo('pip install -r %(app_path)s/current/requirements.txt')
+    run('cp %(app_path)s/current/requirements.live %(app_path)s/current/requirements.txt' % env)
+    sudo('pip install -r %(app_path)s/current/requirements.txt' % env)
 
 
 @roles('web')
@@ -616,10 +610,12 @@ def setup_application():
     """
     Set up the application path and all the application specific things
     """
+
+    #TOTALLY USELESS!!!!!!! #GM
+
     require('branch')
 
     setup_directories()
-    setup_database()
     deploy_configurations()
 
 
@@ -711,16 +707,14 @@ def setup_database():
     mysql_create_user('root', env.database_root_password, env.database_user, env.database_password)
 
     #Fill default CBU data
-    run('cd %(app_path)s/current' % env)
-    run('mysql -u %(database_db)s -p%(database_password)s %(database_user)s < sql/models.sql' % env)
-    run('mysql -u %(database_db)s -p%(database_password)s %(database_user)s < sql/data_badwords.sql' % env)
-    run('mysql -u %(database_db)s -p%(database_password)s %(database_user)s < sql/data_tasks.sql' % env)
-    run('mysql -u %(database_db)s -p%(database_password)s %(database_user)s < sql/data_user_groups.sql' % env)
+    run('mysql -u %(database_db)s -p%(database_password)s %(database_user)s < %(app_path)s/current/sql/models.sql' % env)
+    run('mysql -u %(database_db)s -p%(database_password)s %(database_user)s < %(app_path)s/current/sql/data_badwords.sql' % env)
+    run('mysql -u %(database_db)s -p%(database_password)s %(database_user)s < %(app_path)s/current/sql/data_tasks.sql' % env)
+    run('mysql -u %(database_db)s -p%(database_password)s %(database_user)s < %(app_path)s/current/sql/data_user_groups.sql' % env)
 
-    run('mysql -u %(database_db)s -p%(database_password)s %(database_user)s < sql/test_data/data_keywords.sql' % env)
-    run('mysql -u %(database_db)s -p%(database_password)s %(database_user)s < sql/test_data/data_location_%(database_script_city)s.sql' % env)
-    run('mysql -u %(database_db)s -p%(database_password)s %(database_user)s < sql/test_data/data_community_leaders_%(database_script_city)s.sql' % env)
-
+    run('mysql -u %(database_db)s -p%(database_password)s %(database_user)s < %(app_path)s/current/sql/test_data/data_keywords.sql' % env)
+    run('mysql -u %(database_db)s -p%(database_password)s %(database_user)s < %(app_path)s/current/sql/test_data/data_location_%(database_script_city)s.sql' % env)
+    run('mysql -u %(database_db)s -p%(database_password)s %(database_user)s < %(app_path)s/current/sql/test_data/data_community_leaders_%(database_script_city)s.sql' % env)
 
 def mysql_execute(sql, user='', password=''):
     """
@@ -849,8 +843,8 @@ def install_requirements():
     """
     if env.os_name == 'rhel5':
         install_rhel5_packages()
-    elif env.os_name == 'ubuntu10':
-        install_ubuntu10_packages()
+    elif env.os_name == 'ubuntu':
+        install_ubuntu_packages()
     else:
         raise "Unable to proceed - don't know os_name = %s" % env.os_name
 
@@ -915,7 +909,7 @@ def install_rhel5_packages():
     print "Please ensure that you've disabled SELinux and any Firewalls via system-config-securitylevel-tui"
 
 
-def install_ubuntu10_packages():
+def install_ubuntu_packages():
     """
     Install the defined packages on Ubuntu
     """
@@ -927,19 +921,19 @@ def install_ubuntu10_packages():
         "debconf-set-selections <<< 'mysql-server mysql-server/root_password_again password %(database_root_password)s'" % env)
 
     try:
-        sudo('aptitude -y install %s' % ' '.join(env.packages.get('ubuntu10').get('required')))
+        sudo('aptitude -y install %s' % ' '.join(env.packages.get('ubuntuXX').get('required')))
     except Exception, e:
         print "Required packages installation process failed. Cannot proceed!"
         raise
 
     try:
-        sudo('aptitude -y install %s' % ' '.join(env.packages.get('ubuntu10').get('optional')))
-        sudo('aptitude -y remove %s' % ' '.join(env.packages.get('ubuntu10').get('remove')))
+        sudo('aptitude -y install %s' % ' '.join(env.packages.get('ubuntuXX').get('optional')))
+        sudo('aptitude -y remove %s' % ' '.join(env.packages.get('ubuntuXX').get('remove')))
     except Exception, e:
         print "Optional packages installation process failed. But proceeding nevertheless. Assuming it'll be fixed manually!"
         print "Error was %s", e
 
-    for action in env.packages.get('ubuntu10').get('additional_commands'):
+    for action in env.packages.get('ubuntuXX').get('additional_commands'):
         try:
             sudo(action)
         except Exception, e:
@@ -985,7 +979,7 @@ def check_system():
             sudo('apache2ctl -v | grep -i "apache\/2"')
         elif env.webserver == 'lighttpd':
             sudo('lighttpd -v | grep -i "a light and fast webserver"')
-    elif env.os_name == 'ubuntu10':
+    elif env.os_name == 'ubuntuXX':
         if env.webserver == 'apache2':
             sudo('apache2ctl -v | grep -i "apache\/2"')
         elif env.webserver == 'lighttpd':
@@ -995,6 +989,12 @@ def check_system():
 """
 Deployment Related Tasks
 """
+
+def install_app():
+    bundle_code()
+    deploy_webapp_and_configs()
+    setup_database()
+
 
 
 def deploy_assets_to_s3():
@@ -1113,13 +1113,13 @@ def _webserver_do(action=''):
 
         if env.webserver == 'lighttpd':
             sudo('killall lighttpd')  # in case it was started from console
-            sudo('cp %(app_path)s/etc/lighttpd/lighttpd.conf /etc/lighttpd/lighttpd.conf')
+            sudo('cp %(app_path)s/etc/lighttpd/lighttpd.conf /etc/lighttpd/lighttpd.conf' % env)
             # Keep in mind that this has to be configured for the new lighttpd init script
             sudo('/etc/init.d/%(webserver)s %(action)s' % params, shell=False, pty=False)
         elif env.webserver == 'apache':
             if env.os_name == 'rhel5':
                 sudo('/usr/sbin/apachectl %(action)s' % params)
-            elif env.os_name == 'ubuntu10':
+            elif env.os_name == 'ubuntuXX':
                 sudo('/usr/sbin/apache2ctl %(action)s' % params)
         elif env.webserver == 'nginx':
             sudo('/etc/init.d/%(webserver)s %(action)s' % params, shell=False, pty=False)
