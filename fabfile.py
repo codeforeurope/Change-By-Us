@@ -2,6 +2,7 @@
     :copyright: (c) 2011 Local Projects, all rights reserved
     :license: Affero GNU GPL v3, see LICENSE for more details.
 """
+import fabric
 from fabric.api import *
 from fabric.contrib import files as files
 import os
@@ -93,7 +94,8 @@ env.clean_build = True
 # SSH Key configuration
 env.key_filename = os.path.expanduser(env.key_filename)
 while not os.path.exists(env.key_filename):
-    env.key_filename = prompt("Keffile %s not found. Provide valid SSH keyfile (eg. ~/.ssh/ChangeByUs.pem: " % env.key_filename)
+    env.key_filename = prompt(
+        "Keyfile %s not found. Provide valid SSH keyfile (eg. ~/.ssh/ChangeByUs.pem: " % env.key_filename)
     env.key_filename = os.path.expanduser(env.key_filename)
 env.ssh_port = 48022
 
@@ -102,8 +104,9 @@ env.hosts = env.hosts.split(',')
 
 # Interpolate the build_path if necessary
 env.build_path = env.build_path % env
-if not env.build_path: 
-    raise Exception("Option build_path (%(build_path)s is incorrect, or does not exist. Please correct it before proceeding" % env)
+if not env.build_path:
+    raise Exception(
+        "Option build_path (%(build_path)s is incorrect, or does not exist. Please correct it before proceeding" % env)
 
 if not os.path.exists(env.build_path):
     os.makedirs(env.build_path)
@@ -113,41 +116,42 @@ if not env.get('home_path'):
 
 # Roles for different targets clusters
 env.roledefs = {
-   'web': env.hosts,
+    'web': env.hosts,
 }
 
 # Miscellaneous options
 env.vars = {}
 
 # Params for config_files are:
-#   filename        : post-interpolated filename on the remote host
-#   templatename    : name of the template file that interpolation is performed on
-#   path:           : path on the remote host to store filename to
+# filename        : post-interpolated filename on the remote host
+# templatename    : name of the template file that interpolation is performed on
+# path:           : path on the remote host to store filename to
 # CAVEAT: Don't link anything into the web/ path unless you want it visible to the public!
 # [ {'filename':'config.yaml', 'templatename':'config.yaml.sample', 'path':'etc'} ]
-env.config_files = [ {'filename':'config.yaml', 'path': '', 'templatename': 'config.yaml.tmpl'} ]
+env.config_files = [{'filename': 'config.yaml', 'path': '', 'templatename': 'config.yaml.tmpl'}]
 
 # Packages required to run the application. Used by system_setup
 # The specific package key (os-name) is determined on system setup
-env.packages = {'rhel5': { 
-                    'required' : 
-                        [ 'mysql55', 'mysql55-libs', 'php53', 'php53-cli', 'php53-cgi', 'php53-gd', 'php-pear-Net-Curl',
-                          'php53-common', 'php53-mysql', 'php53-xmlrpc', 'php53-pecl-memcache','php53-mysql', 
-                          'python26', 'python26-setuptools', 'python26-imaging', 'python26-mysqldb', 'python26-simplejson',
-                          'elinks', 'httpd', 'apachetop', 'sendmail', 'exim', 's3cmd', 'git' ],
-                    'optional' : []  },
-                    
+env.packages = {'rhel5': {
+    'required':
+        ['mysql55', 'mysql55-libs', 'php53', 'php53-cli', 'php53-cgi', 'php53-gd', 'php-pear-Net-Curl',
+         'php53-common', 'php53-mysql', 'php53-xmlrpc', 'php53-pecl-memcache', 'php53-mysql',
+         'python26', 'python26-setuptools', 'python26-imaging', 'python26-mysqldb', 'python26-simplejson',
+         'elinks', 'httpd', 'apachetop', 'sendmail', 'exim', 's3cmd', 'git'],
+    'optional': []},
+
                 # Ubuntu 10.04 has python2.6.5 by default
-                'ubuntu10': { 
-                    'required': 
-                        [ 'mysql-client', 'php5', 'php5-cli', 'php5-cgi', 'php5-gd',
-                          'php5-common', 'php5-mysql', 'php5-xmlrpc', 'php5-memcache', 'php5-curl',
-                          'python-setuptools' , 'python-imaging', 'python-mysqldb', 'python-simplejson', 
-                          'elinks', 'apache2', 'apachetop', 'apache2-utils', 'libapache2-mod-php5', 'sendmail', 'exim4',
-                          's3cmd', 'git' ],
+                'ubuntu10': {
+                    'required':
+                        ['mysql-server', 'mysql-client', 'php5', 'php5-cli', 'php5-cgi', 'php5-gd',
+                         'php5-common', 'php5-mysql', 'php5-xmlrpc', 'php5-memcache', 'php5-curl', 'python2.7',
+                         'python-setuptools', 'python-imaging', 'python-mysqldb', 'python-simplejson',
+                         'elinks', 'apache2', 'apachetop', 'apache2-utils', 'libapache2-mod-php5', 'sendmail', 'exim4',
+                         's3cmd', 'git'],
                     'optional': [],
-                    'additional_commands':['a2enmod php5', 'a2enmod headers'] }
-                }
+                    'remove': ['apache2'],
+                    'additional_commands': []}
+}
 
 # Protected folders are those under .htaccess control, and are always relative to the document root
 env.protected_folders = []
@@ -160,22 +164,22 @@ env.template_paths = []
 # Should we minify?
 env.run_minifier = True
 env.minifier_cmd = 'python %(build_path)s/scripts/minifier/minifier.py -v -c %(build_path)s/scripts/minifier.conf --force'
-
-#------------------------------------------------
-# AWS related tasks require some configurations
-#------------------------------------------------
-env.ec2Conn = EC2Connection(env.aws_access_key_id, env.aws_secret_access_key)
-env.asConn  = AutoScaleConnection(env.aws_access_key_id, env.aws_secret_access_key)
-
-# Production Alias is the alias/tag that all production instances use
-env.production_alias = 'cbu_ams_'
-
-# Security groups that are given access to newly generated production AMIs
-env.aws = { 'security_groups': ['ns11_multiplatform_prod'],
-            'key_pair': 'ns11_0630', 'as_group': 'n11asgroup', 
-            'balancers': ['n11loadbalancer'], 'instance_type':'m1.micro',
-            'availability_zones': ['eu-west-1a', 'eu-west-1a'],
-            'min_size': 1, 'max_size': 2 }
+# 
+# #------------------------------------------------
+# # AWS related tasks require some configurations
+# #------------------------------------------------
+# env.ec2Conn = EC2Connection(env.aws_access_key_id, env.aws_secret_access_key)
+# env.asConn  = AutoScaleConnection(env.aws_access_key_id, env.aws_secret_access_key)
+# 
+# # Production Alias is the alias/tag that all production instances use
+# env.production_alias = 'cbu_ams_'
+# 
+# # Security groups that are given access to newly generated production AMIs
+# env.aws = { 'security_groups': ['ns11_multiplatform_prod'],
+#             'key_pair': 'ns11_0630', 'as_group': 'n11asgroup', 
+#             'balancers': ['n11loadbalancer'], 'instance_type':'m1.micro',
+#             'availability_zones': ['eu-west-1a', 'eu-west-1a'],
+#             'min_size': 1, 'max_size': 2 }
 
 #----- Decorator(s) -----
 def common_config(func):
@@ -183,6 +187,7 @@ def common_config(func):
     Common are the environment variables that need to be evaluated after the others are loaded
     due to dependencies. There has to be a way to inherist this stuff though!!!
     """
+
     def wrapper():
         if env.rcfile is None:
             env.rcfile = 'rcfile.%s' % env.settings
@@ -191,11 +196,11 @@ def common_config(func):
         func()
 
         get_remote_host_info()
-        
+
         # Now load all the configurations that were dependent on the caller's var-space
         if env.get('deploy_to') is None:
-            env.deploy_to = '%(home_path)s/%(user)s' % env # The base path should always be the logged-in user
-            
+            env.deploy_to = '%(home_path)s/%(user)s' % env  # The base path should always be the logged-in user
+
         env.deploy_to = env.deploy_to % env
 
         # System paths are under app_path, so provide the relative paths that we need
@@ -221,12 +226,12 @@ def common_config(func):
         for conf in env.config_files:
             conf['local_config_template'] = '%s/%s' % (env.local_etc_path, conf.get('templatename'))
             conf['local_config_file'] = '%s/%s/%s' % (env.build_path, conf.get('path'), conf.get('filename'))
-        
+
         # Each webservec can have its own set of configurations
         # Eg. apache, lighttpd, etc.
         env.webserver_template = '%(local_etc_path)s/%(webserver)s/%(application)s.conf.sample' % env
         env.webserver_file = '%(local_etc_path)s/%(webserver)s/%(application)s.conf' % env
-        
+
         # Some vars may need to be interpolated after we have all the data:
         # TODO: Wonder if this can be done globally (ie on all vars)
         for item in env:
@@ -234,7 +239,7 @@ def common_config(func):
                 # We may have to recursively keep interpolating
                 while '%(' in env[item]:
                     env[item] = env[item] % env
-                debug("Interpolated %s to %s" % (item, env[item]))
+                print("Interpolated %s to %s" % (item, env[item]))
 
         # for item in ['deploy_to', 'build_path', 'script_working_path', 'media_store_path', 'webserver_docroot', 'media_url',
         #              'app_path', 'current_path', 'shared_path', 'run_path', 'log_path', 'local_etc_path', ]:
@@ -245,18 +250,19 @@ def common_config(func):
 
         # Template paths are the folders to be interpolated in addition to etc
         env.template_paths = [x % env for x in env.template_paths]
-        
+
     return wrapper
+
 
 def get_remote_host_info():
     """
     Determine the remote host's OS, and based on this set environment options
     """
-    # We do this as sudo_as() since it's part of initial setup and the 
+    # We do this as sudo() since it's part of initial setup and the 
     # app user may not yet exist
-    uname = sudo_as('uname -a')
-    debug("Uname is %s" % uname)
-    
+    uname = sudo('uname -a')
+    print("Uname is %s" % uname)
+
     # TODO; add support for getting the exact target version
     # ver = run('more /etc/issue')
     # .. then parse the resp and convert into ver
@@ -271,23 +277,24 @@ def get_remote_host_info():
         env.webuser = '_www'
     else:
         raise Exception("Cannot proceed with platform %s. This platform is currently not supported" % uname)
-    
-    debug("Remote host is %s" % env.os_name)
+
+    print("Remote host is %s" % env.os_name)
+
 
 #----- /decorator(s) -----
 
-#----- Utility Functions -----
-def sudo_as(cmd, **kwargs):
-    """
-    Perform sudo as a higher-rights user
-    """
-    temp_user = env.user
-    env.user = env.sudo_as
-    debug("sudoing command %s as user %s" % (cmd, env.sudo_as))
-    resp = sudo(cmd, **kwargs)
-    env.user = temp_user
-    return resp
-     
+# #----- Utility Functions -----
+# def sudo(cmd, **kwargs):
+#     """
+#     Perform sudo as a higher-rights user
+#     """
+#     temp_user = env.user
+#     env.user = env.sudo_as
+#     print("sudoing command %s as user %s" % (cmd, env.sudo_as))
+#     resp = sudo(cmd, **kwargs)
+#     env.user = temp_user
+#     return resp
+
 #----- /utility funcs -----
 
 # Environments
@@ -301,7 +308,8 @@ def live():
     """
     if env.rcfile is None:
         env.rcfile = 'rcfile.%s' % env.settings
-        debug("Using default rcfile since one was not provided with --config option:" % env.rcfile)
+        print("Using default rcfile since one was not provided with --config option:" % env.rcfile)
+
 
 @common_config
 def demo():
@@ -310,7 +318,8 @@ def demo():
     """
     if env.rcfile is None:
         env.rcfile = 'rcfile.%s' % env.settings
-        debug("Using default rcfile since one was not provided with --config option:" % env.rcfile)
+        print("Using default rcfile since one was not provided with --config option:" % env.rcfile)
+
 
 @common_config
 def dev():
@@ -319,7 +328,8 @@ def dev():
     """
     if env.rcfile is None:
         env.rcfile = 'rcfile.%s' % env.settings
-        debug("Using default rcfile since one was not provided with --config option:" % env.rcfile)
+        print("Using default rcfile since one was not provided with --config option:" % env.rcfile)
+
 
 def clean_build():
     """
@@ -327,12 +337,14 @@ def clean_build():
     """
     env.clean_build = True
 
+
 def dump_env():
     """
     Test function for dumping all current environment variables
     """
     for key in env.keys():
-        debug("%s => %s" % (key, env.get(key)))
+        print("%s => %s" % (key, env.get(key)))
+
 
 #------------------------------------------------
 # Create Configuration files from rcfile
@@ -342,19 +354,22 @@ def create_config_files():
     Create configuration files from templates, as defined in the env.config_files option
     """
     if not os.path.exists(env.rcfile):
-        raise Exception("%(rcfile)s does not exist. See rcfile.sample and run fab --config=rcfile.name <commands>!" % env)
+        raise Exception(
+            "%(rcfile)s does not exist. See rcfile.sample and run fab --config=rcfile.name <commands>!" % env)
 
     # Make sure that the code is the latest in the build_path
     with lcd(env.build_path):
         local('git fetch && git checkout %(branch)s' % env)
     for item in env.config_files:
         if not os.path.exists(item.get('local_config_template')):
-            raise Exception("Unable to find configuration template file (%s) to create config from" % item.get('local_config_template'))
+            raise Exception("Unable to find configuration template file (%s) to create config from" % item.get(
+                'local_config_template'))
 
         infilename = item.get('local_config_template')
         outfilename = item.get('local_config_file')
         _interpolate_file(infilename, outfilename)
-        
+
+
 def _interpolate_file(infilename=None, outfilename=None):
     infile = open(infilename, 'r')
     outfile = open(outfilename, 'w')
@@ -371,16 +386,18 @@ def _interpolate_file(infilename=None, outfilename=None):
     outfile.close()
     infile.close()
 
+
 def upload_config_files():
     " Upload the interpolated config.yaml to the target servers"
     for item in env.config_files:
         put(item.get('local_config_file'), env.shared_path)
 
+
 def install_pip_requirements():
     #GM WIP
-    # run('cp /home/ubuntu/www/gam2/current/requirements.live /home/ubuntu/www/gam2/current/requirements.txt')
+    run('cp %(app_path)s/current/requirements.live %(app_path)s/current/requirements.txt')
     # run('pip freeze /home/ubuntu/www/gam2/current/requirements.txt')
-    sudo_as('pip install -r /home/ubuntu/www/gam2/current/requirements.live')
+    sudo('pip install -r %(app_path)s/current/requirements.txt')
 
 
 @roles('web')
@@ -392,11 +409,11 @@ def deploy_app_configurations():
     upload_config_files()
 
     _upload_interpolated_files(_interpolate_templates())
-    
+
     # Load the cronfile for the current user
     if files.exists('%(shared_path)s/etc/cron/cron_table' % env):
         run('crontab %(shared_path)s/etc/cron/cron_table' % env)
-    
+
 
 @roles('web')
 def deploy_configurations():
@@ -407,7 +424,8 @@ def deploy_configurations():
     # Serve the media folder if necessary
     # _create_media_link()
     restart_webserver()
-    
+
+
 #---- /create-config-files ----------------------
 
 #----- CONFIGURATION related tasks -----    
@@ -419,7 +437,8 @@ def create_local_configs():
     print "Local configuration files will be generated in %(build_path)s" % env
     create_config_files()
     _interpolate_templates()
-    
+
+
 def _interpolate_templates():
     """
     Translate template files to replace all python string-substitution points
@@ -428,7 +447,8 @@ def _interpolate_templates():
     to perform the first step of config-file deployment
     """
     if not os.path.exists(env.rcfile):
-        raise Exception("%(rcfile)s does not exist. See rcfile.sample and run fab --config=rcfile.name <commands>!" % env)
+        raise Exception(
+            "%(rcfile)s does not exist. See rcfile.sample and run fab --config=rcfile.name <commands>!" % env)
 
     interpolated_files = []
     # Get a list of all template files in /etc/ that we need to interpolate
@@ -436,13 +456,13 @@ def _interpolate_templates():
     template_paths.extend(env.template_paths)
     template_paths.append(env.local_etc_path)
 
-    for template_path in template_paths:        
+    for template_path in template_paths:
         for root, dirs, files in os.walk(template_path):
             for name in files:
                 infilename = os.path.join(root, name)
                 if re.search('.tmpl$', infilename):
-                    debug("Processing template file %s" % infilename)
-                
+                    print("Processing template file %s" % infilename)
+
                     outfilename = os.path.splitext(infilename)[0]
                     _interpolate_file(infilename, outfilename)
                     # infile = open(infilename, 'r')
@@ -463,8 +483,9 @@ def _interpolate_templates():
                     # outfile.close()
                     # infile.close()
                     interpolated_files.append(outfilename)
-                
+
     return interpolated_files
+
 
 def _upload_interpolated_files(files):
     """ 
@@ -492,10 +513,10 @@ def _upload_interpolated_files(files):
                         env.temp = filename.split(env.build_path)[1]
                     else:
                         raise Exception("Unknown root path - not etc or build_path. Please check your configs!")
-                    
+
                     # Now that we found something, we can move on    
                     break
-                    
+
             base = [x for x in env.temp.split('/') if x is not None and x != '']
             temp_path = list(base)  # redundant, but helps
             # Template file are either in the etc/ or under the current/
@@ -503,27 +524,28 @@ def _upload_interpolated_files(files):
                 temp_path.insert(0, env.etc_path)
             elif re.match(env.build_path, filename):
                 temp_path.insert(0, env.current_path)
-            
+
             remote_path = os.path.join(*temp_path[:-1])
             remote_file = os.path.join(*temp_path)
-            # debug("remote_path: %s; remote_file: %s" % (remote_path, remote_file))
-            
+            # print("remote_path: %s; remote_file: %s" % (remote_path, remote_file))
+
             run('mkdir -p %s' % remote_path)
             put(filename, remote_file)
-            # sudo_as('chgrp %s %s' % (env.webserver_group, remote_file))
-        
+            # sudo('chgrp %s %s' % (env.webserver_group, remote_file))
+
             if re.match('/cron', env.temp) or re.match('/logrotate.d', env.temp):
                 # Set the cron script to be executable
                 run('chmod +x %s' % remote_file)
-                
+
                 # # Symlink the cron job to the correct place
                 # temp_path = list(base)
                 # temp_path.insert(0, '/etc')
                 # abs_etc_path = os.path.join(*temp_path[:-1])    # assuming the last index is the file
                 # abs_etc_file = os.path.join(*temp_path)
                 # # We want the target path to exist, but not the target file
-                # sudo_as('if [ -d %s ];then if [ ! -e %s ];then sudo ln -snf %s %s; else echo "Target file already exists! Will not overwrite"; fi; else echo "Target path is incorrect"; fi' % (abs_etc_path, abs_etc_file, remote_file, abs_etc_file))
-   
+                # sudo('if [ -d %s ];then if [ ! -e %s ];then sudo ln -snf %s %s; else echo "Target file already exists! Will not overwrite"; fi; else echo "Target path is incorrect"; fi' % (abs_etc_path, abs_etc_file, remote_file, abs_etc_file))
+
+
 def _create_media_link():
     """
     Create symlink for local media path as a URL in web docroot
@@ -531,32 +553,37 @@ def _create_media_link():
 
     if env.get('serve_media') and env.serve_media == "True":
         src = env.media_store_path % env
-        
+
         if re.match('s3://', env.media_store_path):
-            raise Exception("Cannot create a media link to an S3 resource. Terminating due to risk of other misconfigurations.")
+            raise Exception(
+                "Cannot create a media link to an S3 resource. Terminating due to risk of other misconfigurations.")
         link = "%(webserver_docroot)s/_store" % env
         with settings(warn_only=True):
             if files.exists(src):
                 run('ln -s %s %s' % (src, link))
     else:
         print "This environment does not need media to be served"
-        
+
 #----- /configuration related tasks -----
 
 """
 Branches
 """
+
+
 def stable():
     """
     Work on stable branch.
     """
     branch('stable')
 
+
 def master():
     """
     Work on development branch.
     """
     branch('master')
+
 
 def branch(branch_name):
     """
@@ -565,9 +592,12 @@ def branch(branch_name):
     env.branch = branch_name
     print "Branch has been manually overridden to %(branch)s" % env
 
+
 """
 SETUP AND INITIALIZATION TASKS
 """
+
+
 @roles('web')
 def setup_system():
     """ 
@@ -580,8 +610,6 @@ def setup_system():
     # Validate that requisites are in place
     check_system()
 
-    setup_database()
-
 
 @roles('web')
 def setup_application():
@@ -591,7 +619,9 @@ def setup_application():
     require('branch')
 
     setup_directories()
+    setup_database()
     deploy_configurations()
+
 
 def setup_directories():
     """
@@ -607,11 +637,13 @@ def setup_directories():
         env.temp_var = path
         run('mkdir -p %(app_path)s/%(temp_var)s' % env)
         # Change ownership of paths.
-        sudo_as('chgrp -R %(webserver_group)s %(app_path)s/%(temp_var)s; chmod -R g+w %(app_path)s/%(temp_var)s;' % env)
+        sudo('chgrp -R %(webserver_group)s %(app_path)s/%(temp_var)s; chmod -R g+w %(app_path)s/%(temp_var)s;' % env)
+
 
 """
 DATABASE related stuff
 """
+
 
 def migrate_database():
     #TODO: check if it works  #GM
@@ -621,43 +653,88 @@ def migrate_database():
     run('python manage.py upgrade')
 
 
-def install_mysql():
-    with settings(hide('warnings', 'stderr'), warn_only=True):
-        result = sudo('dpkg-query --show mysql-server')
-    if result.failed is False:
-        warn('MySQL is already installed')
+def _mysql_is_installed():
+    with fabric.api.settings(fabric.api.hide('stderr'), warn_only=True):
+        output = fabric.api.run('mysql --version')
+    return output.succeeded
+
+
+# def install_mysql():
+#     with settings(hide('warnings', 'stderr'), warn_only=True):
+#         result = sudo('dpkg-query --show mysql-server')
+#     if result.failed is False:
+#         warn('MySQL is already installed')
+#         return
+#     mysql_root_password = prompt('Please enter MySQL root password:')
+#     sudo('echo "mysql-server-5.0 mysql-server/root_password password ' \
+#                               '%s | debconf-set-selections' % database_root_password  )
+#     sudo('echo "mysql-server-5.0 mysql-server/root_password_again password ' \
+#                               '%s | debconf-set-selections' % mysql_root_password  )
+#     sudo('apt-get install mysql-server')
+
+def mysql_create_user(user='', password='', new_user='', new_password=''):
+    """ Create a new mysql user. """
+    if not _mysql_is_installed():
+        fabric.api.warn(fabric.colors.yellow('MySQL must be installed.'))
         return
-    mysql_root_password = prompt('Please enter MySQL root password:')
-    sudo('echo "mysql-server-5.0 mysql-server/root_password password ' \
-                              '%s | debconf-set-selections' % mysql_root_password  )
-    sudo('echo "mysql-server-5.0 mysql-server/root_password_again password ' \
-                              '%s | debconf-set-selections' % mysql_root_password  )
-    apt_get('mysql-server')
+
+    if not user:
+        user = fabric.api.prompt('Please enter username:')
+    if not new_user:
+        new_user = fabric.api.prompt('Please enter new username:')
+    if not new_password:
+        new_password = fabric.api.prompt('Please enter new password for %s:' % new_user)
+
+    #!!! This script grants permissions on the whole DB to the newly created user.
+    mysql_execute("""GRANT ALL privileges ON *.* TO "%s" IDENTIFIED BY "%s";FLUSH PRIVILEGES;""" %
+                  (new_user, new_password), user, password)
+
+def _db_exists(database):
+    sql = 'use %s' % database
+    try:
+        mysql_execute(sql, 'root', env.database_root_password)
+        return True
+    except:
+        return False
+
 
 def setup_database():
-    install_mysql()
-    env.mysql_root_password = prompt('Please enter MySQL root password:')
-    # TODO!!!
+    #Check that MySQL is installed
+    if not _mysql_is_installed():
+        fabric.api.warn(fabric.colors.yellow('MySQL must be installed.'))
+        return
 
-    run('mysql -u root -p%(mysql_root_password)s ' \
-            'create database %(database_db)s; grant all on %(database_db)s.* to %(database_user)s@%(database_host)s identified by \'\'; ' \
-            ' set password for  %(database_user)s@%(database_host)s = PASSWORD(\'%(database_password)s\');'  \
-            ' exit' % env)
+    #Create the database
+    if not _db_exists(env.database_db):
+        run('mysqladmin -u root -p%(database_root_password)s create %(database_db)s' % env)
+    #Create the user
+    mysql_create_user('root', env.database_root_password, env.database_user, env.database_password)
+
+    #Fill default CBU data
     run('cd %(app_path)s/current' % env)
     run('mysql -u %(database_db)s -p%(database_password)s %(database_user)s < sql/models.sql' % env)
     run('mysql -u %(database_db)s -p%(database_password)s %(database_user)s < sql/data_badwords.sql' % env)
     run('mysql -u %(database_db)s -p%(database_password)s %(database_user)s < sql/data_tasks.sql' % env)
     run('mysql -u %(database_db)s -p%(database_password)s %(database_user)s < sql/data_user_groups.sql' % env)
 
-
     run('mysql -u %(database_db)s -p%(database_password)s %(database_user)s < sql/test_data/data_keywords.sql' % env)
-    run('mysql -u %(database_db)s -p%(database_password)s %(database_user)s < sql/test_data/data_location_amsterdam.sql' % env)
-    run('mysql -u %(database_db)s -p%(database_password)s %(database_user)s < sql/test_data/data_community_leaders_amsterdam.sql' % env)
+    run('mysql -u %(database_db)s -p%(database_password)s %(database_user)s < sql/test_data/data_location_%(database_script_city)s.sql' % env)
+    run('mysql -u %(database_db)s -p%(database_password)s %(database_user)s < sql/test_data/data_community_leaders_%(database_script_city)s.sql' % env)
+
+
+def mysql_execute(sql, user='', password=''):
+    """
+	Executes passed sql command using mysql shell.
+	"""
+    with fabric.api.settings(warn_only=True):
+        return fabric.api.run("echo '%s' | mysql -u%s -p%s" % (sql, user, password))
 
 
 """
 SCM and Code related functions
 """
+
+
 def bundle_code():
     """
     Pull the latest code from the SCM and bundle for deployment
@@ -681,8 +758,9 @@ def bundle_code():
             local('git clone %(repository)s %(build_path)s' % env)
         else:
             with lcd(env.build_path):
-                local('if [ $(git config --get remote.origin.url) != "%(repository)s" ];then echo "Existing repository is not the one requested. Deleting build path."; rm -rf %(build_path)s; fi' % env)
-            
+                local(
+                    'if [ $(git config --get remote.origin.url) != "%(repository)s" ];then echo "Existing repository is not the one requested. Deleting build path."; rm -rf %(build_path)s; fi' % env)
+
         try:
             with lcd(env.build_path):
                 local('git clean -d -x -f' % env)
@@ -690,7 +768,7 @@ def bundle_code():
             local('rm -rf %(build_path)s' % env)
             "Create an archive from the current Git master branch and upload it"
             local('git clone %(repository)s %(build_path)s' % env)
-            
+
         with lcd(env.build_path):
             local('git clean -d -x -f && git fetch && git checkout %(branch)s' % env)
             local('git submodule init && git submodule update' % env)
@@ -702,11 +780,13 @@ def bundle_code():
             # Archive the bundle for upload
             local('git archive --format=tar %(branch)s > %(build_path)s/%(release)s.tar' % env)
 
-            if env.run_minifier == True and env.get('minifier_cmd') is not None: 
+            if env.run_minifier == True and env.get('minifier_cmd') is not None:
                 with settings(warn_only=True):
                     # If minification fails, we only want to warn about it, not crash
-                    local(env.minifier_cmd) # 'python %(build_path)s/scripts/minifier/minifier.py -v -c %(build_path)s/scripts/minifier.conf --force' % env)
-                    local('git status -s | grep -i "^ M" | tr -s " " | cut -d\  -f 3 | xargs tar -v --append --file=%(release)s.tar ' % env)
+                    local(
+                        env.minifier_cmd)  # 'python %(build_path)s/scripts/minifier/minifier.py -v -c %(build_path)s/scripts/minifier.conf --force' % env)
+                    local(
+                        'git status -s | grep -i "^ M" | tr -s " " | cut -d\  -f 3 | xargs tar -v --append --file=%(release)s.tar ' % env)
 
             # Add any updated files
             local('tar --append --file=%(release)s.tar REVISION.txt' % env)
@@ -731,18 +811,20 @@ def bundle_code():
     print "----- ATTENTION -----"
     # Don't delete the local copy in case we need to debug - that will be done on the next cycle
 
+
 def upload_and_explode_code_bundle():
     """
     Upload the local tarball of latest code to the target host
     """
     put('%(build_path)s/%(release)s.tar.gz' % env, '%(releases_path)s' % env)
-    
+
     with settings(warn_only=True):
         result = run('cd %(releases_path)s/ && mkdir -p %(release)s && tar -xf %(release)s.tar.gz -C %(release)s' % env)
     if result.failed:
         print "Ignoring as though everything is good"
     run('cd %(releases_path)s/ && if [ -e %(release)s.tar.gz ];then rm -rf %(release)s.tar.gz; fi' % env)
-    sudo_as('chgrp -R %(webuser)s %(releases_path)s/%(release)s' % env)
+    sudo('chgrp -R %(webuser)s %(releases_path)s/%(release)s' % env)
+
 
 def symlink_current_release():
     """
@@ -750,13 +832,16 @@ def symlink_current_release():
     """
     require('release', provided_by=[deploy_webapp, setup_application])
     # if exists('%(app_path)s/previous' % env):
-    run('if [ -e %(app_path)s/previous ];then rm %(app_path)s/previous; fi; if [ -e %(app_path)s/current ];then mv %(app_path)s/current %(app_path)s/previous; fi' % env)
+    run(
+        'if [ -e %(app_path)s/previous ];then rm %(app_path)s/previous; fi; if [ -e %(app_path)s/current ];then mv %(app_path)s/current %(app_path)s/previous; fi' % env)
     # Link the shared config file into the current configuration
     for item in env.config_files:
         run('rm -f %s/%s/%s/%s' % (env.releases_path, env.release, item.get('path'), item.get('filename')))
-        run('ln -nsf %s %s' % (os.path.join(env.etc_path, item.get('filename')), os.path.join(env.releases_path, env.release, item.get('path'), item.get('filename'))))
+        run('ln -nsf %s %s' % (os.path.join(env.etc_path, item.get('filename')),
+                               os.path.join(env.releases_path, env.release, item.get('path'), item.get('filename'))))
 
     run('ln -s %(releases_path)s/%(release)s %(app_path)s/current' % env)
+
 
 def install_requirements():
     """
@@ -768,135 +853,160 @@ def install_requirements():
         install_ubuntu10_packages()
     else:
         raise "Unable to proceed - don't know os_name = %s" % env.os_name
-    
+
     # Set up python's default encoding as utf-8
     try:
-        sudo_as('mkdir /usr/lib/python2.7/site-packages')
+        sudo('mkdir /usr/lib/python2.7/site-packages')
     except:
         print "Directory exists"
     try:
-        sudo_as('touch /usr/lib/python2.7/site-packages/sitecustomize.py')
+        sudo('touch /usr/lib/python2.7/site-packages/sitecustomize.py')
     except:
         print "File exists"
     # This program should be safe to run
-    sudo_as('echo -e "import sys\nsys.setdefaultencoding(\'utf-8\')\n" >> /usr/lib/python2.7/site-packages/sitecustomize.py')
-    
+    sudo(
+        'echo -e "import sys\nsys.setdefaultencoding(\'utf-8\')\n" >> /usr/lib/python2.7/site-packages/sitecustomize.py')
+
+
 def install_rhel5_packages():
     """
     Install the required packages using yum. 
     We can assume that security and other "core" system updates have already been applied. So no need to run "yum update"
     """
     # First install the IUS Community repo to get RHEL5 up to date with the newer requirements
-    sudo_as('cd /tmp && rm -f *.rpm*')  # initial cleanup
+    sudo('cd /tmp && rm -f *.rpm*')  # initial cleanup
     print "Checking if wget is installed. Ignore any errors here ..."
     with settings(warn_only=True):
-        result = sudo_as('wget')
+        result = sudo('wget')
     if result.failed:
-        sudo_as("yum -y install wget")
-    sudo_as('cd /tmp && wget http://dl.iuscommunity.org/pub/ius/stable/Redhat/5/x86_64/ius-release-1.0-8.ius.el5.noarch.rpm')
-    sudo_as('cd /tmp && wget http://dl.iuscommunity.org/pub/ius/archive/Redhat/5/x86_64/epel-release-1-1.ius.el5.noarch.rpm')
-    
+        sudo("yum -y install wget")
+    sudo(
+        'cd /tmp && wget http://dl.iuscommunity.org/pub/ius/stable/Redhat/5/x86_64/ius-release-1.0-8.ius.el5.noarch.rpm')
+    sudo(
+        'cd /tmp && wget http://dl.iuscommunity.org/pub/ius/archive/Redhat/5/x86_64/epel-release-1-1.ius.el5.noarch.rpm')
+
     with settings(warn_only=True):
-        sudo_as('cd /tmp && rpm -Uhv epel-release-1-1.ius.el5.noarch.rpm && rpm -Uhv ius-release-1.0-8.ius.el5.noarch.rpm')
+        sudo('cd /tmp && rpm -Uhv epel-release-1-1.ius.el5.noarch.rpm && rpm -Uhv ius-release-1.0-8.ius.el5.noarch.rpm')
     if result.failed:
         print "IUS community may already have been installed. Ignoring and continuing"
-        
+
     # Now that IUS Community in installed let's clean things up and continue
-    sudo_as('yum clean all && yum -y upgrade')
+    sudo('yum clean all && yum -y upgrade')
     # Remove existing mysql if it exists, so that there's no conflict
-    sudo_as('yum -y remove mysql mysql-libs')
-    
+    sudo('yum -y remove mysql mysql-libs')
+
     # Python dependencies - these don't seem to want to work without a good repo :(
     if len(env.packages.get('rhel5').get('required')) > 0:
         try:
-            sudo_as('yum -y --skip-broken install %s' % ' '.join(env.packages.get('rhel5').get('required')))
+            sudo('yum -y --skip-broken install %s' % ' '.join(env.packages.get('rhel5').get('required')))
         except Exception, e:
             print "Required packages installation process failed. Cannot proceed!"
             raise
-    
+
     # Python dependencies - these don't seem to want to work without a good repo :(
     if len(env.packages.get('rhel5').get('optional')) > 0:
         try:
-            sudo_as('yum -y --skip-broken install %s' % ' '.join(env.packages.get('rhel5').get('optional')))
+            sudo('yum -y --skip-broken install %s' % ' '.join(env.packages.get('rhel5').get('optional')))
         except Exception, e:
             print "Optional packages installation process failed. But proceeding nevertheless. Assuming it'll be fixed manually!"
             print "Error was %s", e
-        
+
     # Disable firewall on RHEL5 since EC2 configuration should be managed by security groups
     print "Please ensure that you've disabled SELinux and any Firewalls via system-config-securitylevel-tui"
+
 
 def install_ubuntu10_packages():
     """
     Install the defined packages on Ubuntu
     """
-    sudo_as('aptitude clean && aptitude update')
+    sudo('aptitude clean && aptitude update')
+    #Set the default password for mysql to avoid prompt
+    sudo(
+        "debconf-set-selections <<< 'mysql-server mysql-server/root_password password %(database_root_password)s'" % env)
+    sudo(
+        "debconf-set-selections <<< 'mysql-server mysql-server/root_password_again password %(database_root_password)s'" % env)
+
     try:
-        sudo_as('aptitude -y install %s' % ' '.join(env.packages.get('ubuntu10').get('required')))
+        sudo('aptitude -y install %s' % ' '.join(env.packages.get('ubuntu10').get('required')))
     except Exception, e:
         print "Required packages installation process failed. Cannot proceed!"
         raise
-        
+
     try:
-        sudo_as('aptitude -y install %s' % ' '.join(env.packages.get('ubuntu10').get('optional')))
+        sudo('aptitude -y install %s' % ' '.join(env.packages.get('ubuntu10').get('optional')))
+        sudo('aptitude -y remove %s' % ' '.join(env.packages.get('ubuntu10').get('remove')))
     except Exception, e:
         print "Optional packages installation process failed. But proceeding nevertheless. Assuming it'll be fixed manually!"
-        print "Error was %s", e  
+        print "Error was %s", e
 
     for action in env.packages.get('ubuntu10').get('additional_commands'):
         try:
-            sudo_as(action)
+            sudo(action)
         except Exception, e:
             print "Additional_command %s failed. Continuing anyway!" % action
             print "Error was %s", e
             continue
-    
+
+
 def create_app_context():
     """
     Create the user context under which the application will run
     """
     env.tmpuser = env.user
     try:
-        sudo_as('useradd -d %(home_path)s/%(tmpuser)s -m %(tmpuser)s' % env)
+        sudo('useradd -d %(home_path)s/%(tmpuser)s -m %(tmpuser)s' % env)
     except SystemExit:
         print "WARNING: Failed to create app context since it probably already exists. Continuing."
 
     with settings(warn_only=True):
-        result = sudo_as('mkdir %(home_path)s/%(tmpuser)s/.ssh/' % env)
+        result = sudo('mkdir %(home_path)s/%(tmpuser)s/.ssh/' % env)
     if result.failed:
-        print "WARNING: could not create directory to copy SSH keys into user %(tmpuser)s context" % env
+        print "WARNING: could not create directory to copy SSH keys into user %(tmpuser)s context, maybe it already exists. Continuing." % env
 
     try:
-        sudo_as('chmod 755 %(home_path)s/%(tmpuser)s && chgrp -R %(webuser)s %(home_path)s/%(tmpuser)s' % env)
-        sudo_as('cp ~/.ssh/authorized_keys %(home_path)s/%(tmpuser)s/.ssh/ && chown -R %(tmpuser)s %(home_path)s/%(tmpuser)s/.ssh' % env)
+        sudo('chmod 755 %(home_path)s/%(tmpuser)s && chgrp -R %(webuser)s %(home_path)s/%(tmpuser)s' % env)
+        sudo(
+            'cp ~/.ssh/authorized_keys/*.* %(home_path)s/%(tmpuser)s/.ssh/ && chown -R %(tmpuser)s %(home_path)s/%(tmpuser)s/.ssh' % env)
     except:
         print "WARNING: something failed in copying SSH keys into user %(tmpuser)s context" % env
 
     return True
-    
+
+
 def check_system():
     """
     Ensure that the prerequisites and system locations exist
     """
-    sudo_as('php --version | grep -i "php 5"')
-    sudo_as('python --version')
-    # sudo_as('mysql --version | grep -i "distrib 5"')
+    sudo('php --version | grep -i "php 5"')
+    sudo('python --version')
+    # sudo('mysql --version | grep -i "distrib 5"')
     if env.os_name == 'rhel5':
-        sudo_as('apachectl -v | grep -i "apache\/2"')
+        if env.webserver == 'apache2':
+            sudo('apache2ctl -v | grep -i "apache\/2"')
+        elif env.webserver == 'lighttpd':
+            sudo('lighttpd -v | grep -i "a light and fast webserver"')
     elif env.os_name == 'ubuntu10':
-        sudo_as('apache2ctl -v | grep -i "apache\/2"')
-    
+        if env.webserver == 'apache2':
+            sudo('apache2ctl -v | grep -i "apache\/2"')
+        elif env.webserver == 'lighttpd':
+            sudo('lighttpd -v | grep -i "a light and fast webserver"')
+
+
 """
 Deployment Related Tasks
 """
+
+
 def deploy_assets_to_s3():
     """
     Deploy the latest assets and JS to S3 bucket
     """
-#    run('s3cmd del --recursive s3://%(s3_bucket)s/%(application)s/%(admin_media_prefix)s/' % env)
-#    run('s3cmd -P --guess-mime-type sync %(venv_path)s/src/django/django/contrib/admin/media/ s3://%(s3_bucket)s/%(application)s/%(site_media_prefix)s/' % env)
-#    run('s3cmd del --recursive s3://%(s3_bucket)s/%(application)s/%(newsapps_media_prefix)s/' % env)
-#    run('s3cmd -P --guess-mime-type sync %(venv_path)s/src/newsapps/newsapps/na_media/ s3://%(s3_bucket)s/%(application)s/%(newsapps_media_prefix)s/' % env)
+    #    run('s3cmd del --recursive s3://%(s3_bucket)s/%(application)s/%(admin_media_prefix)s/' % env)
+    #    run('s3cmd -P --guess-mime-type sync %(venv_path)s/src/django/django/contrib/admin/media/ s3://%(s3_bucket)s/%(application)s/%(site_media_prefix)s/' % env)
+    #    run('s3cmd del --recursive s3://%(s3_bucket)s/%(application)s/%(newsapps_media_prefix)s/' % env)
+    #    run('s3cmd -P --guess-mime-type sync %(venv_path)s/src/newsapps/newsapps/na_media/ s3://%(s3_bucket)s/%(application)s/%(newsapps_media_prefix)s/' % env)
     pass
+
 
 @roles('web')
 def deploy_webapp():
@@ -912,12 +1022,13 @@ def deploy_webapp():
     upload_and_explode_code_bundle()
     # Apply requirements.txt, if it exists
     # _install_pip_requirements()
-    
+
     # Restart the web server with the latest code
     stop_webserver()
     symlink_current_release()
     # maintenance_down()
     start_webserver()
+
 
 def _install_pip_requirements():
     '''
@@ -925,14 +1036,16 @@ def _install_pip_requirements():
     TODO: This should be moved to a virtualenv context
     '''
     if files.exists('%(releases_path)s/%(release)s/requirements.txt' % env):
-        sudo_as('pip install -r %(releases_path)s/%(release)s/requirements.txt' % env)
-        
+        sudo('pip install -r %(releases_path)s/%(release)s/requirements.txt' % env)
+
+
 def _db_migrations():
     '''
     Apply database migrations as necessary
     '''
     pass
-        
+
+
 @roles('web')
 def deploy_webapp_and_configs():
     """
@@ -941,7 +1054,8 @@ def deploy_webapp_and_configs():
     deploy_webapp()
     deploy_configurations()
     install_pip_requirements()
-    
+
+
 @roles('web')
 def deploy_app():
     """
@@ -953,6 +1067,7 @@ def deploy_app():
     upload_and_explode_code_bundle()
     symlink_current_release()
 
+
 @roles('web')
 def deploy_app_and_configs():
     """
@@ -961,23 +1076,29 @@ def deploy_app_and_configs():
     deploy_app()
     deploy_app_configurations()
 
+
 """
 WebServer related tasks
 """
+
+
 def stop_webserver():
     """ Stop the webserver. 
     Note that some web servers allow for command-line definition of the configuration file to use. Others don't
     """
     _webserver_do('stop')
-    
+
+
 def start_webserver():
     """ Start the webserver """
     _webserver_do('start')
-    
+
+
 def restart_webserver():
     """Restart the webserver """
     _webserver_do('restart')
-    
+
+
 def _webserver_do(action=''):
     """
     Helper function to perform an action on the webserver (start, stop, restart, etc).
@@ -986,41 +1107,46 @@ def _webserver_do(action=''):
     params['webserver'] = env.webserver
     params['action'] = action
     params['app_path'] = env.app_path
-    
+
     with settings(warn_only=True):
         # If we get an exception here it's probably not catastrophic
 
         if env.webserver == 'lighttpd':
-            sudo_as('killall lighttpd') # GM
-            sudo_as('cp /home/ubuntu/www/gam2/etc/lighttpd/lighttpd.conf /etc/lighttpd/lighttpd.conf')
+            sudo('killall lighttpd')  # in case it was started from console
+            sudo('cp %(app_path)s/etc/lighttpd/lighttpd.conf /etc/lighttpd/lighttpd.conf')
             # Keep in mind that this has to be configured for the new lighttpd init script
-            sudo_as('/etc/init.d/%(webserver)s %(action)s' % params, shell=False, pty=False)
+            sudo('/etc/init.d/%(webserver)s %(action)s' % params, shell=False, pty=False)
         elif env.webserver == 'apache':
             if env.os_name == 'rhel5':
-                sudo_as('/usr/sbin/apachectl %(action)s' % params)
+                sudo('/usr/sbin/apachectl %(action)s' % params)
             elif env.os_name == 'ubuntu10':
-                sudo_as('/usr/sbin/apache2ctl %(action)s' % params)
+                sudo('/usr/sbin/apache2ctl %(action)s' % params)
         elif env.webserver == 'nginx':
-            sudo_as('/etc/init.d/%(webserver)s %(action)s' % params, shell=False, pty=False)
+            sudo('/etc/init.d/%(webserver)s %(action)s' % params, shell=False, pty=False)
             params['application'] = env.application
-            sudo_as('supervisorctl %(action)s %(application)s' % params, shell=False, pty=False)
-                
+            sudo('supervisorctl %(action)s %(application)s' % params, shell=False, pty=False)
+
+
 def secure_website():
     """
     Apply htaccess (basicAuth) to folders defined by env.protected_folders
     """
     if env.webserver == 'apache':
         # Symlink the .htaccess file to the webserver root
-        run ('if [ ! -e %(etc_path)s/htpasswd ];then touch %(etc_path)s/htpasswd; fi && htpasswd -b %(etc_path)s/htpasswd %(webserver_auth_user)s %(webserver_auth_password)s ' % env)
+        run(
+            'if [ ! -e %(etc_path)s/htpasswd ];then touch %(etc_path)s/htpasswd; fi && htpasswd -b %(etc_path)s/htpasswd %(webserver_auth_user)s %(webserver_auth_password)s ' % env)
         for path in env.get('protected_folders'):
             env.temp = path
             run('ln -snf %(etc_path)s/%(webserver)s/htaccess %(webserver_docroot)s/%(temp)s/.htaccess' % env)
     else:
         raise "Cannot set security parameters for webserver %(webserver)s yet. Please contact the developer." % env
-        
+
+
 """
 Rollback deployed code tasks
 """
+
+
 def rollback(commit_id=None):
     """
     Rolls back to specified git/svn commit hash or tag or timestamp.
@@ -1031,18 +1157,23 @@ def rollback(commit_id=None):
     """
     if commit_id is not None:
         raise Exception('Rolling back to a specific commit-id is not yet supported')
-    
-    run('if [ [ -e %(previous_path)s ] && [ -e %(current_path)s ] ];then mv %(current_path)s %(next_path)s && mv %(previous_path)s %(current_path)s; fi' % env)
+
+    run(
+        'if [ [ -e %(previous_path)s ] && [ -e %(current_path)s ] ];then mv %(current_path)s %(next_path)s && mv %(previous_path)s %(current_path)s; fi' % env)
 
     stop_webserver()
     start_webserver()
-    
+
+
 """
 Database Related Tasks 
 """
+
+
 def setup_db_backup():
     """  """
     pass
+
 
 def create_mycnf():
     """
@@ -1052,17 +1183,19 @@ def create_mycnf():
     env.temp = re.sub('\$', '\\$', env.database_password)
     # env.temp = env.database_password
     run('echo "[client]\nuser=%(database_user)s\npassword=%(temp)s\n" > $HOME/.my.cnf && chmod 600 $HOME/.my.cnf' % env)
-    
+
 
 """
-Miscellaneaus Tasks
+Miscellaneous Tasks
 """
+
 
 def echo_host():
     """
     Echo the current host to the command line.
     """
     run('echo %(settings)s; echo %(hosts)s' % env)
+
 
 @roles('web')
 def test():
@@ -1073,6 +1206,7 @@ def test():
     for item in env.keys():
         print "%s => %s" % (item, env.get(item))
 
+
 @roles('web')
 def disable_cron():
     """
@@ -1080,106 +1214,107 @@ def disable_cron():
     """
     run('crontab -r')
 
+
 """
 AWS, EC2 AND CLOUD-RELATED TASKS
 """
 # EC2 bundling, scaling and other such tasks
-def _put_ec2_credentials_for_bundling():
-    pass
-
-def aws_create_ami_from():
-    """
-    Provides a list of instances matching the ProdAlias, and allows
-    user to select the instance to create an AMI from
-    """
-    hosts = _get_ec2_prod_instances()
-    print "------------------------------------------------------------------------"
-    print "  This is a DESTRUCTIVE AND DANGEROUS tool! "
-    print "  Please think before you proceed! After you finish, check the following: "
-    print "    * The Launch Configuration and AMI - to make sure that the AMI is healthy "
-    print "    * The AutoScaling Group's configs. They may have been violated/corrupted"
-    print "  Consider yourself WARNED!"
-    print "Please select the instance number to create an AMI from the list below. "
-    for i in range(0, len(hosts)):
-        print "    %s. %s" % (i+1, hosts[i].dns_name)
-    ans = prompt("Instance number to create AMI from: ", validate=int)
-    ami_host = hosts[int(ans)-1]
-    print "\nYou selected instance %s" % ami_host.id
-
-    # Let's actually create the AMI
-    dt = time.strftime('%Y%m%d%H%M', time.gmtime())
-    
-    ami_id = env.ec2Conn.create_image(ami_host.id, 'ns11rhel5_%s' % dt, description='Autogenerated by Fabric', no_reboot=False)
-    print "Created AMI ID %s" % ami_id
-    return ami_id
-
-def aws_update_autoscaler():
-    """
-    Update auto-scaling configuration for the configured (see env.aws) scaler
-    """
-    ami_id = aws_create_ami_from()
-    cur_date = time.strftime('%Y%m%d', time.gmtime())
-    lcName = 'ns11-%s' % cur_date
-    lc = LaunchConfiguration(name=lcName, 
-                             image_id=ami_id, instance_type=env.aws.get('instance_type'),
-                             key_name=env.aws.get('key_pair'), 
-                             security_groups=env.aws.get('security_groups'))
-    env.asConn.create_launch_configuration(lc)
-    print "Created launchConfiguration %s" % lcName
-    
-    ag = AutoScalingGroup(
-            connection=env.asConn,
-            launch_config=lc, 
-            group_name=env.aws.get('as_group'), load_balancers=env.aws.get('balancers'),
-            availability_zones=env.aws.get('availability_zones'))
-            # min_size=env.aws.get('min_size'), max_size=env.aws.get('max_size'))
-    ag.update()
-    # env.asConn.create_auto_scaling_group(ag)    
-    print "Added launchConfiguration %s to group %s (updated AutoScaleGroup)" % (lcName, env.aws.get('as_group'))
-
-def aws_update_ec2_instances():
-    """
-    Set the new list of hosts in the env.hosts option
-    """
-    hosts = _get_ec2_prod_instances()
-    hosts_dns = ["%s:%s" % (host.dns_name, env.ssh_port) for host in hosts]
-    print "Updated EC2 instances list is: %s" % ', '.join(hosts_dns)
-    env.hosts = hosts_dns
-    env.roledefs['web'] = env.hosts
-    
-def _get_ec2_prod_instances():
-    print "current hosts are: %(hosts)s" % env
-    hosts = []
-    for tag in env.ec2Conn.get_all_tags():
-        if tag.name != 'Name':
-            continue
-        if re.match(env.production_alias, tag.value):
-            # Get the reservation id, then figure out the instance id
-            tag.res_id
-            res = env.ec2Conn.get_all_instances(filters={'tag:Name':tag.value})
-            hosts.append(res[0].instances[0])
-    return hosts
-    
-def mount_ephemeral_storage():
-    """
-    If ephemeral storage is not mounted, create a mount point, initialize the block and mount it
-    """
-    sudo_as("if [ ! $(mount | grep -i 'mnt') ];then mkfs.ext3 /dev/sdf && mount /dev/sdf /mnt; mkdir -p /mnt/%(application)s/var; chmod -R a+rw /mnt/%(application)s; fi" % env)
-    run('mkdir -p %(script_working_path)s' % env)
-    
-def debug(msg=None):
-    """
-    Print the input message based on the current DEBUG status
-    """
-    if DEBUG:
-        print msg
-
+# def _put_ec2_credentials_for_bundling():
+#     pass
+#
+# def aws_create_ami_from():
+#     """
+#     Provides a list of instances matching the ProdAlias, and allows
+#     user to select the instance to create an AMI from
+#     """
+#     hosts = _get_ec2_prod_instances()
+#     print "------------------------------------------------------------------------"
+#     print "  This is a DESTRUCTIVE AND DANGEROUS tool! "
+#     print "  Please think before you proceed! After you finish, check the following: "
+#     print "    * The Launch Configuration and AMI - to make sure that the AMI is healthy "
+#     print "    * The AutoScaling Group's configs. They may have been violated/corrupted"
+#     print "  Consider yourself WARNED!"
+#     print "Please select the instance number to create an AMI from the list below. "
+#     for i in range(0, len(hosts)):
+#         print "    %s. %s" % (i+1, hosts[i].dns_name)
+#     ans = prompt("Instance number to create AMI from: ", validate=int)
+#     ami_host = hosts[int(ans)-1]
+#     print "\nYou selected instance %s" % ami_host.id
+#
+#     # Let's actually create the AMI
+#     dt = time.strftime('%Y%m%d%H%M', time.gmtime())
+#
+#     ami_id = env.ec2Conn.create_image(ami_host.id, 'ns11rhel5_%s' % dt, description='Autogenerated by Fabric', no_reboot=False)
+#     print "Created AMI ID %s" % ami_id
+#     return ami_id
+#
+# def aws_update_autoscaler():
+#     """
+#     Update auto-scaling configuration for the configured (see env.aws) scaler
+#     """
+#     ami_id = aws_create_ami_from()
+#     cur_date = time.strftime('%Y%m%d', time.gmtime())
+#     lcName = 'ns11-%s' % cur_date
+#     lc = LaunchConfiguration(name=lcName,
+#                              image_id=ami_id, instance_type=env.aws.get('instance_type'),
+#                              key_name=env.aws.get('key_pair'),
+#                              security_groups=env.aws.get('security_groups'))
+#     env.asConn.create_launch_configuration(lc)
+#     print "Created launchConfiguration %s" % lcName
+#
+#     ag = AutoScalingGroup(
+#             connection=env.asConn,
+#             launch_config=lc,
+#             group_name=env.aws.get('as_group'), load_balancers=env.aws.get('balancers'),
+#             availability_zones=env.aws.get('availability_zones'))
+#             # min_size=env.aws.get('min_size'), max_size=env.aws.get('max_size'))
+#     ag.update()
+#     # env.asConn.create_auto_scaling_group(ag)
+#     print "Added launchConfiguration %s to group %s (updated AutoScaleGroup)" % (lcName, env.aws.get('as_group'))
+#
+# def aws_update_ec2_instances():
+#     """
+#     Set the new list of hosts in the env.hosts option
+#     """
+#     hosts = _get_ec2_prod_instances()
+#     hosts_dns = ["%s:%s" % (host.dns_name, env.ssh_port) for host in hosts]
+#     print "Updated EC2 instances list is: %s" % ', '.join(hosts_dns)
+#     env.hosts = hosts_dns
+#     env.roledefs['web'] = env.hosts
+#
+# def _get_ec2_prod_instances():
+#     print "current hosts are: %(hosts)s" % env
+#     hosts = []
+#     for tag in env.ec2Conn.get_all_tags():
+#         if tag.name != 'Name':
+#             continue
+#         if re.match(env.production_alias, tag.value):
+#             # Get the reservation id, then figure out the instance id
+#             tag.res_id
+#             res = env.ec2Conn.get_all_instances(filters={'tag:Name':tag.value})
+#             hosts.append(res[0].instances[0])
+#     return hosts
+#
+# def mount_ephemeral_storage():
+#     """
+#     If ephemeral storage is not mounted, create a mount point, initialize the block and mount it
+#     """
+#     sudo("if [ ! $(mount | grep -i 'mnt') ];then mkfs.ext3 /dev/sdf && mount /dev/sdf /mnt; mkdir -p /mnt/%(application)s/var; chmod -R a+rw /mnt/%(application)s; fi" % env)
+#     run('mkdir -p %(script_working_path)s' % env)
+#
+# def print(msg=None):
+#     """
+#     Print the input message based on the current DEBUG status
+#     """
+#     if DEBUG:
+#         print msg
+#
 def cleanup():
     """
     Clean up old releases. By default, the last 5 releases are kept on each
     server (though you can change this with the keep_releases variable). All
-    other deployed revisions are removed from the servers. By default, this 
-    will use sudo to clean up the old releases, but if sudo is not available 
+    other deployed revisions are removed from the servers. By default, this
+    will use sudo to clean up the old releases, but if sudo is not available
     for your environment, set the :use_sudo variable to false instead.
     """
     if not env.get('keep_releases'):
@@ -1192,6 +1327,6 @@ def cleanup():
         print "No old releases to clean up"
     else:
         print "Keeping %s of %s deployed releases" % (env.keep_releases, len(releases))
-        for release in releases[0:0-int(env.keep_releases)]:
+        for release in releases[0:0 - int(env.keep_releases)]:
             print "Will rm -rf %s/%s" % (env.releases_path, release)
             run('rm -rf %s/%s' % (env.releases_path, release))
