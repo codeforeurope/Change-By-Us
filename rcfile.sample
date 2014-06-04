@@ -107,6 +107,8 @@ blog_host = http://blog.changeby.us/
 blog_host_feed = http://blog.changeby.us/?feed=cbujson
 
 # Database stuff
+database_root_password = root
+
 database_db = gam2
 database_user = gam
 database_password = 'gam'

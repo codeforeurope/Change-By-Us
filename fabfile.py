@@ -41,7 +41,7 @@ COOKBOOK:
         fab --config=rcfile.dev dev setup_system
 
     Install the application for the first time (including database and default data)
-        fab --config=rcfile.xxxx demo install_app
+        fab --config=rcfile.xxxx demo install_single_instance
 
     A quick way to get the initial application setup (after having run setup_system)
         fab --config=rcfile.demo demo setup_application deploy_configurations bundle_code deploy_webapp_and_configs
@@ -139,13 +139,13 @@ env.packages = {'rhel5': {
                 # Ubuntu 10.04 and following have python2.6.5 by default. We explicitly request 2.7
                 'ubuntu': {
                     'required':
-                        ['mysql-server', 'mysql-client', 'php5', 'php5-cli', 'php5-cgi', 'php5-gd', 'memcached',
+                        ['mysql-client', 'php5', 'php5-cli', 'php5-cgi', 'php5-gd', 'memcached',
                          'php5-common', 'php5-mysql', 'php5-xmlrpc', 'php5-memcache', 'php5-curl', 'python2.7',
                          'python-setuptools', 'python-pip', 'python-imaging', 'python-mysqldb', 'python-simplejson',
                          'elinks', 'apache2', 'apachetop', 'apache2-utils', 'libapache2-mod-php5', 'sendmail', 'exim4',
                          's3cmd', 'git'],
                     'optional': [],
-                    'remove': ['apache2'],
+                    'remove': ['apache2'],  # We don't want apache, we want lighttpd
                     'additional_commands': []}
 }
 
@@ -172,9 +172,9 @@ env.minifier_cmd = 'python %(build_path)s/scripts/minifier/minifier.py -v -c %(b
 #
 # # Security groups that are given access to newly generated production AMIs
 # env.aws = { 'security_groups': ['ns11_multiplatform_prod'],
-#             'key_pair': 'ns11_0630', 'as_group': 'n11asgroup',
-#             'balancers': ['n11loadbalancer'], 'instance_type':'m1.micro',
-#             'availability_zones': ['eu-west-1a', 'eu-west-1a'],
+# 'key_pair': 'ns11_0630', 'as_group': 'n11asgroup',
+# 'balancers': ['n11loadbalancer'], 'instance_type':'m1.micro',
+# 'availability_zones': ['eu-west-1a', 'eu-west-1a'],
 #             'min_size': 1, 'max_size': 2 }
 
 #----- Decorator(s) -----
@@ -610,9 +610,6 @@ def setup_application():
     """
     Set up the application path and all the application specific things
     """
-
-    #TOTALLY USELESS!!!!!!! #GM
-
     require('branch')
 
     setup_directories()
@@ -641,6 +638,35 @@ DATABASE related stuff
 """
 
 
+def mysql_install():
+    """ Installs MySQL """
+    if _mysql_is_installed():
+        fabric.api.warn(fabric.colors.yellow('MySQL is already installed.'))
+        return
+
+    get_remote_host_info()
+
+    # get the password
+    if env.database_root_password:
+        #Set the default password for mysql to avoid prompt
+        sudo(
+            "debconf-set-selections <<< 'mysql-server mysql-server/root_password password %(database_root_password)s'" % env)
+        sudo(
+            "debconf-set-selections <<< 'mysql-server mysql-server/root_password_again password %(database_root_password)s'" % env)
+    else:
+        passwd = fabric.api.prompt('Please enter MySQL root password:')
+        sudo("debconf-set-selections <<< 'mysql-server mysql-server/root_password password %s'" % passwd)
+        sudo("debconf-set-selections <<< 'mysql-server mysql-server/root_password_again password %s'" % passwd)
+
+    if env.os_name == 'rhel5':
+        sudo('yum install mysql mysql-server')
+    elif env.os_name == 'ubuntu':
+        sudo('aptitude clean && aptitude update')
+        sudo('aptitude -y install mysql-server')
+    else:
+        raise "Unable to proceed - don't know os_name = %s" % env.os_name
+
+
 def migrate_database():
     #TODO: check if it works  #GM
     # https://github.com/localprojects/Change-By-Us/wiki/Data-and-Schema-Migrations
@@ -654,19 +680,6 @@ def _mysql_is_installed():
         output = fabric.api.run('mysql --version')
     return output.succeeded
 
-
-# def install_mysql():
-#     with settings(hide('warnings', 'stderr'), warn_only=True):
-#         result = sudo('dpkg-query --show mysql-server')
-#     if result.failed is False:
-#         warn('MySQL is already installed')
-#         return
-#     mysql_root_password = prompt('Please enter MySQL root password:')
-#     sudo('echo "mysql-server-5.0 mysql-server/root_password password ' \
-#                               '%s | debconf-set-selections' % database_root_password  )
-#     sudo('echo "mysql-server-5.0 mysql-server/root_password_again password ' \
-#                               '%s | debconf-set-selections' % mysql_root_password  )
-#     sudo('apt-get install mysql-server')
 
 def mysql_create_user(user='', password='', new_user='', new_password=''):
     """ Create a new mysql user. """
@@ -685,13 +698,14 @@ def mysql_create_user(user='', password='', new_user='', new_password=''):
     mysql_execute("""GRANT ALL privileges ON *.* TO "%s" IDENTIFIED BY "%s";FLUSH PRIVILEGES;""" %
                   (new_user, new_password), user, password)
 
+
 def _db_exists(database):
     sql = 'use %s' % database
-    try:
-        mysql_execute(sql, 'root', env.database_root_password)
-        return True
-    except:
-        return False
+    if mysql_execute(sql, 'root', env.database_root_password).find(
+            '1049') == -1:  #Means it returned error 1049 "Database exists"
+        return True  #DB exists
+    else:
+        return False  #DB does not exist
 
 
 def setup_database():
@@ -707,19 +721,25 @@ def setup_database():
     mysql_create_user('root', env.database_root_password, env.database_user, env.database_password)
 
     #Fill default CBU data
-    run('mysql -u %(database_db)s -p%(database_password)s %(database_user)s < %(app_path)s/current/sql/models.sql' % env)
-    run('mysql -u %(database_db)s -p%(database_password)s %(database_user)s < %(app_path)s/current/sql/data_badwords.sql' % env)
-    run('mysql -u %(database_db)s -p%(database_password)s %(database_user)s < %(app_path)s/current/sql/data_tasks.sql' % env)
-    run('mysql -u %(database_db)s -p%(database_password)s %(database_user)s < %(app_path)s/current/sql/data_user_groups.sql' % env)
+    run(
+        'mysql -u %(database_db)s -p%(database_password)s %(database_user)s < %(app_path)s/current/sql/models.sql' % env)
+    run(
+        'mysql -u %(database_db)s -p%(database_password)s %(database_user)s < %(app_path)s/current/sql/data_badwords.sql' % env)
+    run(
+        'mysql -u %(database_db)s -p%(database_password)s %(database_user)s < %(app_path)s/current/sql/data_tasks.sql' % env)
+    run(
+        'mysql -u %(database_db)s -p%(database_password)s %(database_user)s < %(app_path)s/current/sql/data_user_groups.sql' % env)
 
-    run('mysql -u %(database_db)s -p%(database_password)s %(database_user)s < %(app_path)s/current/sql/test_data/data_keywords.sql' % env)
-    run('mysql -u %(database_db)s -p%(database_password)s %(database_user)s < %(app_path)s/current/sql/test_data/data_location_%(database_script_city)s.sql' % env)
-    run('mysql -u %(database_db)s -p%(database_password)s %(database_user)s < %(app_path)s/current/sql/test_data/data_community_leaders_%(database_script_city)s.sql' % env)
+    run(
+        'mysql -u %(database_db)s -p%(database_password)s %(database_user)s < %(app_path)s/current/sql/test_data/data_keywords.sql' % env)
+    run(
+        'mysql -u %(database_db)s -p%(database_password)s %(database_user)s < %(app_path)s/current/sql/test_data/data_location_%(database_script_city)s.sql' % env)
+    run(
+        'mysql -u %(database_db)s -p%(database_password)s %(database_user)s < %(app_path)s/current/sql/test_data/data_community_leaders_%(database_script_city)s.sql' % env)
+
 
 def mysql_execute(sql, user='', password=''):
-    """
-	Executes passed sql command using mysql shell.
-	"""
+    """	Executes passed sql command using mysql shell. """
     with fabric.api.settings(warn_only=True):
         return fabric.api.run("echo '%s' | mysql -u%s -p%s" % (sql, user, password))
 
@@ -914,26 +934,21 @@ def install_ubuntu_packages():
     Install the defined packages on Ubuntu
     """
     sudo('aptitude clean && aptitude update')
-    #Set the default password for mysql to avoid prompt
-    sudo(
-        "debconf-set-selections <<< 'mysql-server mysql-server/root_password password %(database_root_password)s'" % env)
-    sudo(
-        "debconf-set-selections <<< 'mysql-server mysql-server/root_password_again password %(database_root_password)s'" % env)
 
     try:
-        sudo('aptitude -y install %s' % ' '.join(env.packages.get('ubuntuXX').get('required')))
+        sudo('aptitude -y install %s' % ' '.join(env.packages.get('ubuntu').get('required')))
     except Exception, e:
         print "Required packages installation process failed. Cannot proceed!"
         raise
 
     try:
-        sudo('aptitude -y install %s' % ' '.join(env.packages.get('ubuntuXX').get('optional')))
-        sudo('aptitude -y remove %s' % ' '.join(env.packages.get('ubuntuXX').get('remove')))
+        sudo('aptitude -y install %s' % ' '.join(env.packages.get('ubuntu').get('optional')))
+        sudo('aptitude -y remove %s' % ' '.join(env.packages.get('ubuntu').get('remove')))
     except Exception, e:
         print "Optional packages installation process failed. But proceeding nevertheless. Assuming it'll be fixed manually!"
         print "Error was %s", e
 
-    for action in env.packages.get('ubuntuXX').get('additional_commands'):
+    for action in env.packages.get('ubuntu').get('additional_commands'):
         try:
             sudo(action)
         except Exception, e:
@@ -979,22 +994,69 @@ def check_system():
             sudo('apache2ctl -v | grep -i "apache\/2"')
         elif env.webserver == 'lighttpd':
             sudo('lighttpd -v | grep -i "a light and fast webserver"')
-    elif env.os_name == 'ubuntuXX':
+    elif env.os_name == 'ubuntu':
         if env.webserver == 'apache2':
             sudo('apache2ctl -v | grep -i "apache\/2"')
         elif env.webserver == 'lighttpd':
             sudo('lighttpd -v | grep -i "a light and fast webserver"')
 
 
+def update_and_restart_system():
+    '''
+    Updates all the installed packages and restarts the system
+    '''
+    get_remote_host_info()
+    if env.os_name == 'rhel5':
+        pass
+    elif env.os_name == 'ubuntu':
+        sudo('aptitude clean && aptitude update')
+        sudo('aptitude dist-upgrade')
+    else:
+        raise "Unable to proceed - don't know os_name = %s" % env.os_name
+
+    sudo('reboot')
+
+
 """
 Deployment Related Tasks
 """
 
-def install_app():
+
+def install_single_instance():
+    '''
+    This installs all the necessary for running Change by Us in a single server (application + database on the same machine)
+    '''
+    setup_system()
+    mysql_install()
     bundle_code()
     deploy_webapp_and_configs()
     setup_database()
 
+
+def install_database_server():
+    '''
+    This installs all the necessary for the database server that runs separate from the Change by Us web application
+    '''
+    env.hosts = [env.database_host]  #This time the host target is the database server
+    #prepare system
+    create_app_context()
+    setup_directories()
+    #Install Mysql
+    mysql_install()
+    #Bundle the code on the local machine
+    # bundle_code()
+    #Upload the code and extract it
+    # upload_and_explode_code_bundle()
+    try:
+        run('mkdir %(app_path)s/current' % env)
+    except:
+        print "Unable to create folder. Probably already in place"
+
+    sql_files_path = '%(local_path)s/sql' % env
+    remote_app_path = '%(app_path)s/current' % env
+    put(sql_files_path, remote_app_path)
+    #Setup the database
+    setup_database()
 
 
 def deploy_assets_to_s3():
@@ -1119,7 +1181,7 @@ def _webserver_do(action=''):
         elif env.webserver == 'apache':
             if env.os_name == 'rhel5':
                 sudo('/usr/sbin/apachectl %(action)s' % params)
-            elif env.os_name == 'ubuntuXX':
+            elif env.os_name == 'ubuntu':
                 sudo('/usr/sbin/apache2ctl %(action)s' % params)
         elif env.webserver == 'nginx':
             sudo('/etc/init.d/%(webserver)s %(action)s' % params, shell=False, pty=False)
