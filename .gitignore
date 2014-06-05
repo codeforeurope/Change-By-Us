@@ -9,6 +9,7 @@ data/*
 
 # Documentation
 naturaldocs
+docs
 
 # Custom files
 static/files/*
