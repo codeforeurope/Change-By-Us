@@ -142,7 +142,7 @@ env.packages = {'rhel5': {
                         ['mysql-client', 'php5', 'php5-cli', 'php5-cgi', 'php5-gd', 'memcached',
                          'php5-common', 'php5-mysql', 'php5-xmlrpc', 'php5-memcache', 'php5-curl', 'python2.7',
                          'python-setuptools', 'python-pip', 'python-imaging', 'python-mysqldb', 'python-simplejson',
-                         'elinks', 'apache2', 'apachetop', 'apache2-utils', 'libapache2-mod-php5', 'sendmail', 'exim4',
+                         'elinks', 'sendmail', 'exim4',
                          's3cmd', 'git'],
                     'optional': [],
                     'remove': ['apache2'],  # We don't want apache, we want lighttpd
@@ -1027,9 +1027,9 @@ def install_single_instance():
     This installs all the necessary for running Change by Us in a single server (application + database on the same machine)
     '''
     setup_system()
-    mysql_install()
     bundle_code()
     deploy_webapp_and_configs()
+    mysql_install()
     setup_database()
 
 

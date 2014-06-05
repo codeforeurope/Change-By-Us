@@ -23,9 +23,6 @@ application = gam2
 # We need at least a specific python version
 python = python2.6
 
-# the user to run sudo() as, since this account probably has higher rights
-sudo_as = ubuntu
-
 # settings defines the environment that we're in. Usually this is the extension
 # eg. demo, dev, prod, live, etc.
 settings = demo
@@ -114,6 +111,8 @@ database_user = gam
 database_password = 'gam'
 database_host = 127.0.0.1
 database_test = gam2_test
+#The script to populate the database is in the format "data_location_xxxxxx.sql"
+database_script_city = nyc
 
 # Email configurations
 email_from_noreplies_email = noreplies@nyc.changeby.us
