@@ -142,7 +142,7 @@ env.packages = {'rhel5': {
                         ['mysql-client', 'php5', 'php5-cli', 'php5-cgi', 'php5-gd', 'memcached',
                          'php5-common', 'php5-mysql', 'php5-xmlrpc', 'php5-memcache', 'php5-curl', 'python2.7',
                          'python-setuptools', 'python-pip', 'python-imaging', 'python-mysqldb', 'python-simplejson',
-                         'elinks', 'sendmail', 'exim4',
+                         'elinks', 'sendmail', 'exim4', 'lighttpd',
                          's3cmd', 'git'],
                     'optional': [],
                     'remove': ['apache2'],  # We don't want apache, we want lighttpd
@@ -640,9 +640,9 @@ DATABASE related stuff
 
 def mysql_install():
     """ Installs MySQL """
-    if _mysql_is_installed():
-        fabric.api.warn(fabric.colors.yellow('MySQL is already installed.'))
-        return
+    # if _mysql_is_installed():
+    #     fabric.api.warn(fabric.colors.yellow('MySQL is already installed.'))
+    #     return
 
     get_remote_host_info()
 
@@ -1027,6 +1027,7 @@ def install_single_instance():
     This installs all the necessary for running Change by Us in a single server (application + database on the same machine)
     '''
     setup_system()
+    setup_application()
     bundle_code()
     deploy_webapp_and_configs()
     mysql_install()
