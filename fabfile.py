@@ -40,6 +40,9 @@ COOKBOOK:
     Setup the initial system with prerequisites
         fab --config=rcfile.dev dev setup_system
 
+    Setup a database server
+        fab --config=rcfile.xxx demo install_database_server
+
     Install the application for the first time (including database and default data)
         fab --config=rcfile.xxxx demo install_single_instance
 
@@ -75,9 +78,6 @@ COOKBOOK:
         
     # Set up and deploy the database backup script(s) 
         fab --config=rcfile.dev dev setup_db_backup
-
-    WARNING: the 'deploy' command does not work //GM
-    WARNING: the 'setup_application' command gives an error in the 'git fetch' command "not a git repository" //GM
 
 """
 # GLOBALS
@@ -365,6 +365,8 @@ def create_config_files():
         outfilename = item.get('local_config_file')
         _interpolate_file(infilename, outfilename)
 
+def create_config_yaml():
+    _interpolate_file('config.template.yaml', 'config.yaml')
 
 def _interpolate_file(infilename=None, outfilename=None):
     infile = open(infilename, 'r')
