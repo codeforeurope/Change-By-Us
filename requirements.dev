@@ -14,7 +14,7 @@ PyYAML
 python-memcached
 boto==2.1.0
 MySQL-python
-PIL
+Pillow==2.3.0
 oauth2
 python-dateutil
 flup
