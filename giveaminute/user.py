@@ -561,7 +561,7 @@ def createUserFromAuthGuid(db, authGuid):
     try:
         sql = "select email, password, salt, phone, first_name, last_name, redirect_link from unauthenticated_user where auth_guid = $guid limit 1"
         data = list(db.query(sql, {'guid':authGuid}))
-        
+        key = util.random_string(10)
         if (len(data) == 1):
             userData = data[0]
             redirectLink = userData.redirect_link
@@ -571,7 +571,8 @@ def createUserFromAuthGuid(db, authGuid):
                                         phone = userData.phone,
                                         first_name = userData.first_name,
                                         last_name = userData.last_name,
-                                        created_datetime = None)
+                                        created_datetime = None,
+                                        user_key = key)
     except Exception, e:
         log.info("*** problem creating user from auth guid %s" % authGuid)
         log.error(e)
