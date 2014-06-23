@@ -8,7 +8,7 @@
 	<div class="hd clearfix">
 		<h2>
 			<span>
-				Resources
+				{{ _(Resources) }}
 			</span>
 		</h2>
 	</div>
@@ -18,8 +18,8 @@
 		{% if d.template_data.project_user.data.is_member == True or d.template_data.project.data.info.resources.links['items']|length > 0 %}
 		<div class="external-links">
 			<div class="sub-hd">
-				<h3>External Links</h3>
-				<p class="hint">These sites are not managed by {{ d.config.site.name }}, but have been added by this project's members.</p>
+				<h3>{{ _(External Links) }}</h3>
+				<p class="hint">{{ _(These sites are not managed by %(sitename)s, but have been added by this project's members.)format(sitename=d.config.site.name) }}</p>
 			</div>
 
 			<div class="sub-bd links-not-empty" style="{% if d.template_data.project.data.info.resources.links['items']|length == 0 %}display:none;{% endif %}">
@@ -32,7 +32,7 @@
 							<td rel="#link,{{ link.link_id }}" title="{{ link.title }}">
 								<span class="thumb">
 									{% if d.template_data and d.template_data.project_user and d.template_data.project_user.data.is_project_admin or d.template_data and d.template_data.user and d.template_data.user.is_admin %}
-										<a class="close" href="#removeLink,{{ link.link_id }}"><span>remove</span></a>
+										<a class="close" href="#removeLink,{{ link.link_id }}"><span>{{ _(remove) }}</span></a>
 									{% endif %}
 									{% if link.image_id %}
 										<img width='30' src='{{d.template_data.media_root}}images/{{ link.image_id % 10 }}/{{ link.image_id }}.png' alt=""/>
@@ -56,15 +56,15 @@
 
 			{% if d.template_data.project_user.data.is_member == True %}
 			<div class="sub-ft clearfix links-not-empty" style="{% if d.template_data.project.data.info.resources.links['items']|length == 0 %}display:none;{% endif %}">
-				<a href="#show,add_link" class="rounded-button small add-link">Add a Link</a>
+				<a href="#show,add_link" class="rounded-button small add-link">{{ _(Add a Link) }}</a>
 			</div>
 			{% endif %}
 
 			<div class="sub-bd links-empty" style="{% if d.template_data.project.data.info.resources.links['items']|length > 0 %}display:none;{% endif %}">
 				<div class="empty-state-box">
 					<!--<a class="close" href="#"><span>Close</span></a>-->
-					<p>Link to blogs, news, Facebook, Meetup or Kickstarter.</p>
-					<a href="#show,add_link" class='rounded-button small add-link'>Add a Link</a>
+					<p>{{ _(Link to blogs, news, Facebook, Meetup or Kickstarter.) }}</p>
+					<a href="#show,add_link" class='rounded-button small add-link'>{{ _(Add a Link) }}</a>
 				</div>
 			</div>
 		</div>

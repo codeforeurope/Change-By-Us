@@ -26,13 +26,13 @@
 					</li>
 					<li class="userland">
 						<div class='logout' style="{% if d.template_data and d.template_data.user %}{% else %}display:none;{% endif %}">
-							<a href='#'>Logout</a>
+							<a href='#'>{{ _('Logout') }}</a>
 						</div>
 						<div class='login' style="{% if d.template_data and d.template_data.user %}display:none;{% endif %}">
-							<a href='#'>Login</a>
+							<a href='#'>{{ _('Login') }}</a>
 						</div>
 						<div class="join" style="{% if d.template_data and d.template_data.user %}display:none;{% endif %}">
-							<a href='#'>Sign Up</a>
+							<a href='#'>{{ _('Sign Up') }}</a>
 						</div>
 					</li>
 				</ul>
@@ -48,7 +48,7 @@
 				<div class="west">
 				</div>
 				<div class="east">
-					<a href="/feedback" class="feedback-button rounded-button small" target="_blank">Contact Us</a>
+					<a href="/feedback" class="feedback-button rounded-button small" target="_blank">{{ _('Contact Us') }}</a>
 				</div>
 			</div>
 			<div class="row logos">
@@ -68,10 +68,10 @@
 					<ul>
 						<li><a href='/about'>About {{ d.config.site.name }}</a></li>
             <li><a href='/faq'>{{ _('Frequently Asked Questions') }}</a></li>
-						<li><a href='{{ d.config.blog_host }}'>News</a></li>
-						<li><a href='/tou#community-policy'>Community Policy</a></li>
-						<li class="sitemap-tou"><a href='/tou'>Terms of Use</a></li>
-						<li><a href='/tou#privacy'>Privacy Policy</a></li>
+						<li><a href='{{ d.config.blog_host }}'>{{ _('News') }}</a></li>
+						<li><a href='/tou#community-policy'>{{ _('Community Policy') }}</a></li>
+						<li class="sitemap-tou"><a href='/tou'>{{ _('Terms of Use') }}</a></li>
+						<li><a href='/tou#privacy'>{{ _('Privacy Policy') }}</a></li>
 					</ul>
 				</div>
 			</div>
@@ -80,6 +80,7 @@
 					<p class="fancy-caps">Design <span>and</span> Development</p>
 					<p>&copy; 2011 <strong>Local Projects, LLC.</strong><br />All rights reserved.</p>
 					<p>&copy; 2011 <strong>Code for America</strong><br />All rights reserved.</p>
+                    <p>&copy; 2014 <strong>Code for Europe</strong><br />All rights reserved.</p>
 				</div>
 			</div>
 		</div><!-- end .seafloor -->

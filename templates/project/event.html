@@ -6,12 +6,12 @@
     <div class="hd clearfix">
         <h2>
             <span>
-                Events
+                {{ _(Events) }}
             </span>
         </h2>
         <div class="actions">
             <a href="#show,events" class="back fancy-caps">
-                <span>Go Back</span>
+                <span>{{ _(Go Back) }}</span>
             </a>
         </div>
     </div>
@@ -26,7 +26,7 @@
         (d.template_data.project_user.data.is_project_admin) or
         (d.template_data and d.template_data.user and d.template_data.user.is_admin) or
         (d.template_data and d.template_data.user and d.template_data.user.is_leader) %}
-        <a href="#show,event-form,{{ '{{id}}' }}" class="event-edit">Edit This</a>
+        <a href="#show,event-form,{{ '{{id}}' }}" class="event-edit">{{ _(Edit This) }}</a>
 {% endif %}
 {% raw %}
     <div class="bd clearfix event-detail-cont">
@@ -35,7 +35,7 @@
           (d.template_data.project_user.data.is_project_admin) or
           (d.template_data and d.template_data.user and d.template_data.user.is_admin) or
           (d.template_data and d.template_data.user and d.template_data.user.is_leader) %}
-          <a href="#removeEvent,{{ '{{id}}' }}" class="event-delete" title="Delete this event">Delete</a>
+          <a href="#removeEvent,{{ '{{id}}' }}" class="event-delete" title="Delete this event">{{ _(Delete) }}</a>
         {% endif %}
 {% raw %}
         <div class="wrapper">
@@ -52,7 +52,8 @@
 
                 <div class="event-loc-title serif">
                     at <a href="#">{{address}}</a>
-                    <a href="http://maps.google.com/maps?q={{address}} near {% endraw %}{{d.config.site.city}}{% raw %}" target="_blank" class="rounded-button small">Map it</a>
+                    <a href="http://maps.google.com/maps?q={{address}} near {% endraw %}{{d.config.site.city}}{% raw %}" target="_blank" class="rounded-button small">{{
+                        _(Map it) }}</a>
                 </div>
 
                 <div class="event-description">
@@ -64,12 +65,13 @@
 
             <div class="event-rsvp">
                 {{#rsvp_url}}
-                    <a href="{{rsvp_url}}" target="_blank" class="rsvp-link">RSVP{{#rsvp_service_name}} <span class="rsvp-site">on <span class="rsvp-site-name">{{ rsvp_service_name }}</span></span>{{/rsvp_service_name}}</a>
+                    <a href="{{rsvp_url}}" target="_blank" class="rsvp-link">{{ _(RSVP) }}{{#rsvp_service_name}} <span class="rsvp-site">{{ _(on) }} <span class="rsvp-site-name">{{ rsvp_service_name }}</span></span>{{/rsvp_service_name}}</a>
                 {{/rsvp_url}}
                 
                 {{#has_need}}
-                    <span class="event-need serif">We need <a href="#show,need-detail,{{need_id}}" class="vol-need"><span class="vol-count">{{ need_quantity }}</span> volunteer {{ need_request }}</a></span>
-                    <span class="more-event-needs"><a href="#show,event-needs,{{id}}">Show all needs for this event<span class="sm-arrow-forward dark"></span></a></span>
+                    <span class="event-need serif">We need <a href="#show,need-detail,{{need_id}}" class="vol-need"><span class="vol-count">{{ need_quantity }}</span>
+                        {{ _(volunteer) }} {{ need_request }}</a></span>
+                    <span class="more-event-needs"><a href="#show,event-needs,{{id}}">{{ _(Show all needs for this event) }}<span class="sm-arrow-forward dark"></span></a></span>
                 {{/has_need}}
             </div>
 
@@ -86,7 +88,7 @@
 
             <div class="empty-state-box" style="display:none;">
                 <!--<a class="close" href="#"><span>Close</span></a>-->
-                <p>No events found.</p>
+                <p>{{ _(No events found.) }}</p>
             </div>
         </div>
     </div>

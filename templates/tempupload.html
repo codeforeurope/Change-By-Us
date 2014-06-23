@@ -15,11 +15,11 @@
     </head>
 <body>
 <form  id="frmUpload" name="frmUpload" action="/tempupload" method="POST" enctype="multipart/form-data">
-    <h1>Upload Resource Images</h1>
+    <h1>{{ _(Upload Resource Images) }}</h1>
     <table cellpadding="5" cellspacing="0">
         <tr>
             <td colspan="3" align="center">
-                <input type="submit" name="btnSubmit" class="button" value="submit all"/>
+                <input type="submit" name="btnSubmit" class="button" value="{{ _(submit all) }}"/>
             </td>
         </tr>
         {% for item in d.template_data.res %}
@@ -39,7 +39,7 @@
         {% endfor %}
         <tr>
             <td colspan="3" align="center">
-                <input type="submit" name="btnSubmit" class="button" value="submit all"/>
+                <input type="submit" name="btnSubmit" class="button" value="{{ _(submit all) }}"/>
             </td>
         </tr>
     </table>

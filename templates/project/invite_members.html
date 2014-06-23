@@ -6,12 +6,12 @@
     <div class="hd clearfix">
         <h2>
             <span>
-                Members <span class="counter members-counter">{{ d.template_data.project.data.info.members['items']|length }}</span>
+                {{ _(Members) }} <span class="counter members-counter">{{ d.template_data.project.data.info.members['items']|length }}</span>
             </span>
         </h2>
         <div class="actions">
             <a class="back fancy-caps" href="#project-home">
-                <span>Back <span>to</span> Project Home</span>
+                <span>{{ _(Back <span>to</span> Project Home) }}</span>
             </a>
         </div>
     </div>
@@ -25,7 +25,7 @@
             <div>
                 <div class="facebook-invite">
                     <div class="sub-hd">
-                        <h3>Invite <span>your</span> friends</h3>
+                        <h3>{{ _(Invite <span>your</span> friends) }}</h3>
                     </div>
 
                     <div>
@@ -47,7 +47,7 @@
 
                     <div class='step email-invite-info'>
                         <div class="sub-hd">
-                            <h3>Invite People <span>by</span> Email</h3>
+                            <h3>{{ _(Invite People <span>by</span> Email) }}</h3>
                         </div>
                         <div class="sub-bd form-pane">
                             <div class="fields">
@@ -68,19 +68,19 @@
                         <div class="sub-bd form-pane">
                             <div class="fields">
                                 <div class="row clearfix" style='margin-top:0px;'>
-                                    <input class="rounded-button email-invite-submit-button" id="send-invites" name="send-invites" type="submit" value="Send Invites" />
+                                    <input class="rounded-button email-invite-submit-button" id="send-invites" name="send-invites" type="submit" value="{{ _(Send Invites) }}" />
                                 </div>
                             </div>
                         </div>
                     </div>
 
                     <div class='step email-invite-submit clearfix spinner-message' style='display:none;'>
-                        <p>Thank you for inviting more users!</p>
+                        <p>{{ _(Thank you for inviting more users!) }}</p>
                         <p><img src='/static/images/loader32x32.gif' /></p>
                     </div>
 
                     <div class='step email-invite-error' style='display:none;'>
-                        <p>There was an error sending the email invites!</p>
+                        <p>{{ _(There was an error sending the email invites!) }}</p>
                     </div>
 
                 </div>
@@ -105,9 +105,11 @@
                                             <li rel="idea-{{ idea.idea_id }}">
                                                 <div class="note-card-public-controls">
                                                     {% if not(d.template_data.user and (d.template_data.user.data.u_id == idea.owner.u_id)) %}
-                                                        <a class="invite rounded-button" href="#invite,{{ idea.idea_id }},{{ idea.owner.name }}">Invite</a>
+                                                        <a class="invite rounded-button" href="#invite,{{ idea.idea_id }},{{ idea.owner.name }}">{{
+                                                            _(Invite) }}</a>
                                                     {% endif %}
-                                                    <span class="flag"><a href="#flagIdea,{{ idea.idea_id }}" class='flag-idea'>Flag as Inappropriate</a></span>
+                                                    <span class="flag"><a href="#flagIdea,{{ idea.idea_id }}" class='flag-idea'>{{
+                                                        _(Flag as Inappropriate) }}</a></span>
                                                 </div>
                                                 <div class="note-card">
                                                     <div class="membrane">
@@ -117,7 +119,8 @@
 
                                                         {% if idea.owner.name %}
                                                             <cite class="note-meta-hd">
-                                                                <strong><a href="/useraccount/{{ idea.owner.u_id }}">{{ idea.owner.name }}</a></strong> said &mdash;
+                                                                <strong><a href="/useraccount/{{ idea.owner.u_id }}">{{ idea.owner.name }}</a></strong>
+                                                                {{ _(said) }} &mdash;
                                                             </cite>
                                                         {% endif %}
                                                         <blockquote>{% if d.template_data and d.template_data.user and d.template_data.user.is_admin %}{% if not idea.owner.name %}<span class="topright-spacer"></span>{% endif %}{% endif %}<p>{{ idea.message|truncate(175) }}</p></blockquote>
@@ -132,7 +135,7 @@
                                 </div>
                                 <div class="carousel-controls">
                                     <a class="next" href="#">
-                                        <span>Next</span>
+                                        <span>{{ _(Next) }}</span>
                                     </a>
                                 </div>
                             </div>

@@ -7,7 +7,7 @@
     <div class="hd clearfix">
         <h2>
             <span>
-                Discussion
+                {{ _(Discussion) }}
             </span>
         </h2>
     </div>
@@ -26,11 +26,11 @@
 
                 <div class="filters">
                     <select class='message_filter_select'>
-                        <option selected='true' value='all'>All Messages</option>
-                        <option value='member_comment'>Member Comments</option>
-                        <option value='admin_comment'>Admin Comments</option>
-                        <option value='join'>Join</option>
-                        <option value='endorsement'>Endorsement</option>
+                        <option selected='true' value='all'>{{ _(All Messages) }}</option>
+                        <option value='member_comment'>{{ _(Member Comments) }}</option>
+                        <option value='admin_comment'>{{ _(Admin Comments) }}</option>
+                        <option value='join'>{{ _(Join) }}</option>
+                        <option value='endorsement'>{{ _(Endorsement) }}</option>
                     </select>
                 </div>
 
@@ -52,26 +52,26 @@
                             </div>
 
                             <div class="conversation-input-message-field">
-                                <label>Post a message</label>
+                                <label>{{ _(Post a message) }}</label>
                                 <textarea class='message-input'></textarea>
                             </div>
                         </span>
                     </div>
                     <div class="primary-action">
                         <a class="ca-btn submit-button" href="#">
-                            <span>Post</span>
+                            <span>{{ _(Post) }}</span>
                         </a>
                     </div>
-                    <p class="hint">Post your update as a comment or add links to photos and videos.</p>
+                    <p class="hint">{{ _(Post your update as a comment or add links to photos and videos.) }}</p>
                     <input style='display:none;' name='main_text' class='main_text' />
                 </div>
                 <div class='step submit clearfix spinner-message' style='display:none;'>
-                    <p>Thank you for submitting a message!</p>
+                    <p>{{ _(Thank you for submitting a message!) }}</p>
                     <p><img src='/static/images/loader32x32.gif' /></p>
                 </div>
 
                 <div class='step submit-error clearfix' style='display:none;'>
-                    <p>There was an error submitting your message!</p>
+                    <p>{{ _(There was an error submitting your message!) }}</p>
                 </div>
             </div>
         </div>
@@ -91,9 +91,10 @@
                             <img src="/static/images/thumb_genAvatar.jpg" alt=" " class="avatar"/>
                         </div>
                         <div class="main">
-                            <cite class="meta-hd"><strong>Administrator</strong> says</cite>
+                            <cite class="meta-hd">{{ _(<strong>Administrator</strong> says) }}</cite>
                             <blockquote class="serif">
-                                <p>Hey &ndash; welcome to {{ d.config.site.name }}! I&#39;m an administrator of the site. If there is anything we can help you with, please email us at <span class="nospam infomail"></span></p>
+                                <p>{{ _(Hey &ndash; welcome to %(sitename)s! I&#39;m an administrator of the
+                                    site. If there is anything we can help you with, please email us at)|format(sitename=d.config.site.name) }} <span class="nospam infomail"></span></p>
                             </blockquote>
                         </div>
                     </div>
@@ -103,7 +104,7 @@
     </ol>
 
     <div class="load-more" {% if d.template_data.project.data.info.messages['n_returned'] < 10 %} style='display:none;' {% endif %}>
-        <a href="#" class='load_more_button'><span>Older Posts</span></a>
+        <a href="#" class='load_more_button'><span>{{ _(Older Posts) }}</span></a>
     </div>
 
     <!--
@@ -120,17 +121,17 @@
         <div class="carousel">
             <a class="carousel-controls prev" href="javascript:void(0);">
                 <div class="carousel-controls-icon"></div>
-                <span>Previous</span>
+                <span>{{ _(Previous) }}</span>
             </a>
             <div class="scrollable">
                 <ul class="items"></ul>
             </div>
             <a class="carousel-controls next" href="javascript:void(0);">
                 <div class="carousel-controls-icon"></div>
-                <span>Next</span>
+                <span>{{ _(Next) }}</span>
             </a>
         </div>
-        <a class='close' href="#"><span>close</span></a>
+        <a class='close' href="#"><span>{{ _(close) }}</span></a>
     </div>
 
 </div>
@@ -155,23 +156,23 @@
 
         <span class="aside">
             <cite class="meta-hd"><strong class="username"></strong><span class="useraction"></span></cite>
-            <cite class="meta-ft">Just Now&hellip;</cite>
+            <cite class="meta-ft">{{ _(Just Now) }}&hellip;</cite>
         </span>
     </div>
 </div>
 
 <div class="template-content modal-content confirm-delete remove-message">
     <div class="step">
-        <h2><strong>Delete</strong> this Message?</h2>
+        <h2>{{ _(<strong>Delete</strong> this Message?) }}</h2>
         <div>
-            <p>This deletes the message from the system permanently! <br/>Are you sure?</p>
+            <p>{{ _(This deletes the message from the system permanently! <br/>Are you sure?) }}</p>
         </div>
         <div class="actions">
-            <a class="submit rounded-button" href="#">Yes, Delete Message</a>
-            <a class="cancel" href="#">No, keep it.</a>
+            <a class="submit rounded-button" href="#">{{ _(Yes, Delete Message) }}</a>
+            <a class="cancel" href="#">{{ _(No, keep it.) }}</a>
         </div>
     </div>
-    <a class='close' href="#"><span>close</span></a>
+    <a class='close' href="#"><span>{{ _(close) }}</span></a>
 </div>
 </div>
 

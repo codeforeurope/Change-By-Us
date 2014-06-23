@@ -6,13 +6,13 @@
     <div class="hd clearfix">
         <h2>
             <span>
-                Needs
+                {{ _(Needs) }}
             </span>
         </h2>
         <div class="actions">
             {% if d.template_data.project.needs|length > 1 %}
             <a href="#show,needs" class="forward fancy-caps">
-                <span>See More</span>
+                <span>{{ _(See More) }}</span>
             </a>
             {% endif %}
         </div>
@@ -38,7 +38,7 @@
         <div class="actions">
           {% if d.template_data.project.events|length > 1 %}
             <a href="#show,events" class="forward fancy-caps">
-                <span>See More</span>
+                <span>{{ _(See More) }}</span>
             </a>
           {% endif %}
         </div>
@@ -58,13 +58,13 @@
     <div class="hd clearfix">
         <h2>
             <span>
-                Discussion
+                {{ _(Discussion) }}
             </span>
         </h2>
         <div class="actions">
           {% if d.template_data.project.data.info.messages['n_returned'] > 0 %}
             <a href="#show,conversation" class="forward fancy-caps">
-                <span>See More</span>
+                <span>{{ _(See More) }}</span>
             </a>
           {% endif %}
         </div>
@@ -88,9 +88,10 @@
                             <img src="/static/images/thumb_genAvatar.jpg" alt=" " class="avatar"/>
                         </div>
                         <div class="main">
-                            <cite class="meta-hd"><strong>Administrator</strong> says</cite>
+                            <cite class="meta-hd">{{ _(<strong>Administrator</strong> says) }}</cite>
                             <blockquote class="serif">
-                                <p>Hey &ndash; welcome to {{ d.config.site.name }}! Site admins are here to help you get your project set up and running. If you have any questions, email us at <span class="nospam infomail"></span></p>
+                                <p>{{ _(Hey &ndash; welcome to %(sitename)s!)format(sitename=d.config.site.name) }} {{ _(Site admins are here to help
+                                    you get your project set up and running. If you have any questions, email us at) }} <span class="nospam infomail"></span></p>
                             </blockquote>
                         </div>
                     </div>

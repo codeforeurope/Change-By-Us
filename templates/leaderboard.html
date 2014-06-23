@@ -11,17 +11,18 @@
 <div class='continent leaderboard'>
 	<div class='headlands'>
 		<a href="/" class="back east"><span>Go Back</span></a>
-		<h1><span><strong>Top {{ d.template_data.leaderboard|length }}*</strong> Projects<br />on Change by Us</span>Leaderboard</h1>
+		<h1><span><strong>{{ _('Top') }} {{ d.template_data.leaderboard|length }}*</strong> {{ _('Projects') }}<br />{{ _('on Change by Us') }}</span>{{
+            _('Leaderboard') }}</h1>
 	</div>
 
 	<div class='midlands clearfix'>
 		<table class="leaderboard">
 			<thead>
 				<tr>
-					<th class='pos'><span>Pos</span></th>
-					<th class='project-header'><span>Project</th>
-					<th class='members'><span>Members <span class="unbold">(<span class="uncaps">x</span>5)</span></span></th>
-					<th class='total last'><span>Total</span></th>
+					<th class='pos'><span>{{ _('Pos') }}</span></th>
+					<th class='project-header'><span>{{ _('Project') }}</span></th>
+					<th class='members'><span>{{ _('Members') }} <span class="unbold">(<span class="uncaps">x</span>5)</span></span></th>
+					<th class='total last'><span>{{ _('Total') }}</span></th>
 				</tr>
 			</thead>
 			<tbody>
@@ -43,7 +44,7 @@
 							<cite class="meta"><em>Created by</em> <a href="/useraccount/{{ item.owner_user_id }}">{{ item.owner_first_name }} {{ item.owner_last_name }}</a></cite>
 						</div>
 					</td>
-					<td class='members'>{{ item.user_count * 5 }}<span><strong>{{ item.user_count }}</strong> members</span></td>
+					<td class='members'>{{ item.user_count * 5 }}<span><strong>{{ item.user_count }}</strong> {{ _('members') }}</span></td>
 					<td class='total'>{{ (item.user_count * 5) }}</td>
 				</tr>
 				{% endfor %}
@@ -53,7 +54,7 @@
 	</div><!--end midlands-->
 
 	<div class='foothills'>
-		<p>* The score for each project is based on a variety of other factors.</p>
+		<p>* {{ _('The score for each project is based on a variety of other factors.') }}</p>
 	</div>
 </div>
 

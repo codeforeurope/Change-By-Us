@@ -7,12 +7,12 @@
     <div class="hd clearfix">
         <h2>
             <span>
-                Members <span class="counter members-counter">{{ d.template_data.project.data.info.members['items']|length }}</span>
+                {{ _(Members) }} <span class="counter members-counter">{{ d.template_data.project.data.info.members['items']|length }}</span>
             </span>
         </h2>
         <div class="actions">
             <a class="back fancy-caps" href="#project-home">
-                <span>Back <span>to</span> Project Home</span>
+                <span>{{ _(Back <span>to</span> Project Home) }}</span>
             </a>
         </div>
     </div>
@@ -42,7 +42,7 @@
                 <!-- carousel controls -->
 				<div class="pagination-controls members clearfix">
 					<span class="control">
-						<a class="prev members-carousel-prev" href="#"><span class="sm-arrow-back light"></span><span>Previous</span></a>
+						<a class="prev members-carousel-prev" href="#"><span class="sm-arrow-back light"></span><span>{{ _(Previous) }}</span></a>
 						<span class="carousel-page-info">
 							<span class='current_page_number'>
 							    1 -
@@ -53,7 +53,7 @@
 							     {% endif %}</span> of
 							<span class='n_pages'>{{ num_members }}</span>
 						</span>
-						<a class="next members-carousel-next" href="#"><span>Next</span><span class="sm-arrow-forward light"></span></a>
+						<a class="next members-carousel-next" href="#"><span>{{ _(Next) }}</span><span class="sm-arrow-forward light"></span></a>
 					</span>
 				</div>
 
@@ -118,8 +118,8 @@
                     <!-- Begin Members.Empty -->
                     <div class="empty-state-box">
                         <!--<a class="close" href="#"><span>Close</span></a>-->
-                        <p>Invite people to join! Project members will appear here.</p>
-                        <a href="#show,link_add" class="rounded-button small">Add Link</a>
+                        <p>{{ _(Invite people to join! Project members will appear here.) }}</p>
+                        <a href="#show,link_add" class="rounded-button small">{{ _(Add Link) }}</a>
                     </div>
                     <!-- End Members.Empty -->
                 {% endif %}
@@ -134,16 +134,17 @@
 
 <div class="template-content modal-content confirm-delete remove-member">
     <div class="step">
-        <h2><strong>Delete</strong> this Project Member?</h2>
+        <h2><strong>{{ _(Delete) }}</strong> {{ _(this Project Member?) }}</h2>
         <div>
-            <p>You are about delete <span class="person-name serif">this member</span> from the project permanently! <br/>Are you sure?</p>
+            <p>{{ _(You are about delete) }} <span class="person-name serif">{{ _(this member) }}</span> {{ _(from the
+                project permanently!) }} <br/>{{ _(Are you sure?) }}</p>
         </div>
         <div class="actions">
-            <a class="submit rounded-button" href="#">Yes, Delete <span class="person-name">Member</span></a>
-            <a class="cancel" href="#">No, keep them.</a>
+            <a class="submit rounded-button" href="#">{{ _(Yes, Delete) }} <span class="person-name">{{ _(Member) }}</span></a>
+            <a class="cancel" href="#">{{ _(No, keep them.) }}</a>
         </div>
     </div>
-    <a class='close' href="#"><span>close</span></a>
+    <a class='close' href="#"><span>{{ _(close) }}</span></a>
 </div>
 </div>
 

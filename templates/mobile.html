@@ -9,8 +9,8 @@
 
 	<div class="nav">
 		<ul>
-			<li><a class="idea current" href="#">Add an Idea</a></li>
-			<li><a class='join' href="#">Join a Project</a></li>
+			<li><a class="idea current" href="#">{{ _('Add an Idea') }}</a></li>
+			<li><a class='join' href="#">{{ _('Join a Project') }}</a></li>
 		</ul>
 	</div>
 
@@ -32,7 +32,7 @@
 			</div>
 			<div class="about">
 				<p class="m14 welcome-about">
-					<strong>{{ d.config.site.name }}</strong> is a place to share ideas, create projects, build teams, and make our city better.
+                    {{ _('<strong>%(sitename)s</strong> is a place to share ideas, create projects, build teams, and make our city better.')|format(sitename=d.config.site.name) }}
 				</p>
 			</div>
 		</div>

@@ -32,11 +32,11 @@
 
     <div class='headlands clearfix project-header'>
         <div class="green-nyc-project-tag">
-            <span>Official Project</span>
+            <span>{{ _('Official Project') }}</span>
         </div>
         <div class="thumb">
             {% if d.template_data.project_user.data.is_project_admin %}
-            <a class="change-image"><span>Change Photo</span></a>
+            <a class="change-image"><span>{{ _('Change Photo') }}</span></a>
             {% endif %}
             {% if d.template_data.project.data.info.image_id > -1 %}
                 <img width='100' src='{{d.template_data.media_root}}images/{{ d.template_data.project.data.info.image_id % 10 }}/{{ d.template_data.project.data.info.image_id }}.png' alt="" class='proj'/>
@@ -50,7 +50,7 @@
             <div class="member-content">
                 <span class="vertical-align-middle-hack">
                 {% if d.template_data.project_user.data.is_member %}
-                    <div class="control invite"><a href="#show,invite">Invite More People</a></div>
+                    <div class="control invite"><a href="#show,invite">{{ _('Invite More People') }}</a></div>
                 {% endif %}
 
                 <div class="members {% if not d.template_data.project_user.data.is_member %}not-member{% else %}is-member{% endif %}">
@@ -71,7 +71,7 @@
                 {%  if not d.template_data.project_user.data.is_member %}
                 <div class="join">
                     <a class="ca-btn join-project" href="#">
-                        <span>Join</span>
+                        <span>{{ _('Join') }}</span>
                     </a>
                 </div>
                 {%  endif %}
@@ -81,7 +81,7 @@
                 {% if d.template_data.project_user.data.is_member %}
                     <div class="members-empty" style="{% if d.template_data.project.data.info.members['items']|length > 1 %}display:none;{% endif %}">
                         <div class="empty-state-box big">
-                            <p><a href="#show,members">Invite</a> your friends and other people to help!</p>
+                            <p>{{ _('<a href="#show,members">Invite</a> your friends and other people to help!') }}</p>
                         </div>
                     </div>
                 {% endif %}
@@ -117,10 +117,10 @@
             {% endif %}
 
             <ul class="project-tabs">
-                <li><a href="#show,home" class="project-tab home current">Home</a></li>
-                <li><a href="#show,needs" class="project-tab needs">Needs</a></li>
-                <li><a href="#show,events" class="project-tab events">Events</a></li>
-                <li><a href="#show,conversation" class="project-tab conversation">Discussions</a></li>
+                <li><a href="#show,home" class="project-tab home current">{{ _('Home') }}</a></li>
+                <li><a href="#show,needs" class="project-tab needs">{{ _('Needs') }}</a></li>
+                <li><a href="#show,events" class="project-tab events">{{ _('Events') }}</a></li>
+                <li><a href="#show,conversation" class="project-tab conversation">{{ _('Discussions') }}</a></li>
             </ul>
         </div>
 
@@ -154,21 +154,21 @@
             <form action='#'>
                 <div class='box note-card'>
                     <cite class="note-meta-hd">
-                        <strong>You</strong> say &ndash;
+                        {{ _('<strong>You</strong> say &ndash;') }}
                     </cite>
                     <textarea name='introduce-message' class='introduce-message serif'></textarea>
                 </div>
                 <div class='box'>
-                    <h2><strong>Introduce</strong> yourself to the project team.</h2>
+                    <h2>{{ _('<strong>Introduce</strong> yourself to the project team.') }}</h2>
                     <!--<h3>What's your idea for this project?</h3>-->
-                    <a href="#" class='submit rounded-button'>Send</a>
+                    <a href="#" class='submit rounded-button'>{{ _(Send) }}</a>
                 </div>
             </form>
             <div style="clear:both"></div>
         </div>
 
         <div class='step finish'>
-            <p>Thanks for introducing yourself&hellip;</p>
+            <p>{{ _('Thanks for introducing yourself&hellip;') }}</p>
             <p><img src='/static/images/loader32x32.gif' /></p>
         </div>
 
@@ -176,82 +176,84 @@
     </div>
 
     <div class='template-content modal-content join-no-user'>
-        <h2><strong>Hold your horses!</strong> Please register.</h2>
-        <p>You must <strong><a href='/join'>register</a></strong> or <strong><a href='/login'>login</a></strong> with {{ d.config.site.name }} in order to Join a project.</p>
-        <a class='close' href="#"><span>close</span></a>
+        <h2>{{ _('<strong>Hold your horses!</strong> Please register.') }}</h2>
+        <p>{{ _('You must <strong><a href='/join'>register</a></strong> or <strong><a href='/login'>login</a></strong>
+            with %(sitename)s in order to Join a project.')|format(sitename=d.config.site.name) }}</p>
+        <a class='close' href="#"><span>{{ _('close') }}</span></a>
     </div>
 
     <div class='template-content modal-content volunteer-no-member'>
-        <h2><strong>Hold your horses!</strong> Please join this project.</h2>
-        <p>Please <strong>join this project</strong> to volunteer.</p>
-        <a class='close' href="#"><span>close</span></a>
+        <h2>{{ _('<strong>Hold your horses!</strong> Please join this project.') }}</h2>
+        <p>{{ _('Please <strong>join this project</strong> to volunteer.') }}</p>
+        <a class='close' href="#"><span>{{ _('close') }}</span></a>
     </div>
 
     <div class='template-content modal-content upload-image'>
         <div class='step'>
-            <h2><strong>Upload</strong> a photo for your project.</h2>
+            <h2>{{ _('<strong>Upload</strong> a photo for your project.') }}</h2>
             <div>
-                <p>Photos should be <strong>under 1MB</strong> please. (We also crop photos to <strong>90px by 90px</strong>)</p>
+                <p>{{ _(Photos should be <strong>under 1MB</strong> please. (We also crop photos to <strong>90px by
+                    90px</strong>)) }}</p>
             </div>
             <div class="file-uploader"></div>
         </div>
-        <a class='close' href="#"><span>close</span></a>
+        <a class='close' href="#"><span>{{ _(close) }}</span></a>
     </div>
 
     {% if d.template_data and d.template_data.user and d.template_data.user.is_admin %}
         <!-- feature this project merlin template -->
         <div class="template-content modal-content merlin feature-project-dialog">
             <div class="step feature-this-project">
-                <h2><strong>Feature</strong> This Project</h2>
+                <h2>{{ _(<strong>Feature</strong> This Project) }}</h2>
                 <div class="replace-prompt">
-                    Do you want to replace
+                    {{ _(Do you want to replace
                     <select class="replace-project-options"></select>
                     with <span class="serif project-name">&nbsp;</span>
-                    in the Featured Projects section on the homepage?
+                    in the Featured Projects section on the homepage?) }}
                 </div>
                 <div class="actions yesno">
-                    <a class="submit rounded-button" href="#">Yes</a>
-                    <a class="cancel rounded-button" href="#">Cancel</a>
+                    <a class="submit rounded-button" href="#">{{ _(Yes) }}</a>
+                    <a class="cancel rounded-button" href="#">{{ _(Cancel) }}</a>
                 </div>
             </div>
             <div class="step feature-this-project-submit">
-                <p>Featuring project&hellip;</p>
+                <p>{{ _(Featuring project&hellip;) }}</p>
                 <p><img src='/static/images/loader32x32.gif' /></p>
             </div>
             <div class="step feature-this-project-error">
                 <p>Unable to Feature this project!</p>
             </div>
-            <a class='close' href="#"><span>close</span></a>
+            <a class='close' href="#"><span>{{ _(close) }}</span></a>
         </div>
 
         <div class="template-content modal-content confirm-delete project-delete">
             <div class="step">
-                <h2><strong>Delete</strong> this Project?</h2>
+                <h2><strong>{{ _(Delete) }}</strong> {{ _(this Project?) }}</h2>
                 <div>
-                    <p>You are about to delete this project from the system permanently! <br/>Are you sure?</p>
+                    <p>{{ _(You are about to delete this project from the system permanently! <br/>Are you sure?) }}</p>
                 </div>
                 <div class="actions">
-                    <a class="submit rounded-button" href="#">Yes, Delete Project</a>
-                    <a class="cancel" href="#">No, keep them.</a>
+                    <a class="submit rounded-button" href="#">{{ _(Yes, Delete Project) }}</a>
+                    <a class="cancel" href="#">{{ _(No, keep them.) }}</a>
                 </div>
             </div>
-            <a class='close' href="#"><span>close</span></a>
+            <a class='close' href="#"><span>{{ _(close) }}</span></a>
         </div>
     {% endif %}
 
     {% if d.template_data and d.template_data.project_user and d.template_data.project_user.data.is_project_admin or d.template_data and d.template_data.user and d.template_data.user.is_admin %}
         <div class="template-content modal-content confirm-delete remove-resource">
             <div class="step">
-                <h2><strong>Delete</strong> this Resource?</h2>
+                <h2>{{ _(<strong>Delete</strong> this Resource?) }}</h2>
                 <div>
-                    <p>You are about to delete this Resource from the system permanently! <br/>Are you sure?</p>
+                    <p>{{ _(You are about to delete this Resource from the system permanently! <br/>Are you sure?) }}</p>
                 </div>
                 <div class="actions">
-                    <a class="submit rounded-button" href="#">Yes, Delete Resource</a>
-                    <a class="cancel" href="#">No, keep it.</a>
+                    <a class="submit rounded-button" href="#">{{ _(Yes, Delete Resource) }}</a>
+                    <a class="cancel" href="#">{{ _(No, keep it.) }}</a>
                 </div>
             </div>
-            <a class='close' href="#"><span>close</span></a>
+            <a class='close' href="#"><span>{{ _(close) }}</span></a>
         </div>
     {% endif %}
 
@@ -259,16 +261,16 @@
         {% if not d.template_data.project_user.data.is_project_admin %}
             <div class="template-content modal-content confirm-delete leave-project">
                 <div class="step">
-                    <h2><strong>Leave</strong> this Project?</h2>
+                    <h2>{{ _(<strong>Leave</strong> this Project?) }}</h2>
                     <div>
-                        <p>You will no longer be a member of this project!<br/>Are you sure?</p>
+                        <p>{{ _(You will no longer be a member of this project!<br/>Are you sure?) }}</p>
                     </div>
                     <div class="actions">
-                        <a class="submit rounded-button" href="#">Yes, Leave Project</a>
-                        <a class="cancel" href="#">No, stay.</a>
+                        <a class="submit rounded-button" href="#">{{ _(Yes, Leave Project) }}</a>
+                        <a class="cancel" href="#">{{ _(No, stay.) }}</a>
                     </div>
                 </div>
-                <a class='close' href="#"><span>close</span></a>
+                <a class='close' href="#"><span>{{ _(close) }}</span></a>
             </div>
         {% endif %}
     {% endif %}
@@ -276,32 +278,32 @@
     {% if d.template_data and d.template_data.project_user and d.template_data.project_user.data.is_project_admin or d.template_data and d.template_data.user and d.template_data.user.is_admin %}
         <div class="template-content modal-content confirm-delete remove-need">
             <div class="step">
-                <h2><strong>Delete</strong> this Need?</h2>
+                <h2><strong>{{ _(Delete) }}</strong> {{ _(this Need?) }}</h2>
                 <div>
-                    <p>You are about to delete this Need from the system permanently! <br/>Are you sure?</p>
+                    <p>{{ _(You are about to delete this Need from the system permanently! <br/>Are you sure?) }}</p>
                 </div>
                 <div class="actions">
-                    <a class="submit rounded-button" href="#">Yes, Delete Need</a>
-                    <a class="cancel" href="#">No, keep it.</a>
+                    <a class="submit rounded-button" href="#">{{ _(Yes, Delete Need) }}</a>
+                    <a class="cancel" href="#">{{ _(No, keep it.) }}</a>
                 </div>
             </div>
-            <a class='close' href="#"><span>close</span></a>
+            <a class='close' href="#"><span>{{ _(close) }}</span></a>
         </div>
     {% endif %}
 
     {% if d.template_data and d.template_data.project_user and d.template_data.project_user.data.is_project_admin or d.template_data and d.template_data.user and d.template_data.user.is_admin %}
         <div class="template-content modal-content confirm-delete remove-event">
             <div class="step">
-                <h2>Are you sure you want to delete this event?</h2>
+                <h2>{{ _(Are you sure you want to delete this event?) }}</h2>
                 <div>
-                    <p>This will permanently delete the event.</p>
+                    <p>{{ _(This will permanently delete the event.) }}</p>
                 </div>
                 <div class="actions">
-                    <a class="submit rounded-button" href="#">Yes, Delete Event</a>
-                    <a class="cancel" href="#">No, keep it.</a>
+                    <a class="submit rounded-button" href="#">{{ _(Yes, Delete Event) }}</a>
+                    <a class="cancel" href="#">{{ _(No, keep it.) }}</a>
                 </div>
             </div>
-            <a class='close' href="#"><span>close</span></a>
+            <a class='close' href="#"><span>{{ _(close) }}</span></a>
         </div>
     {% endif %}
 

@@ -25,12 +25,12 @@
             <div class="box user-account-nav">
                 <div class="hd clearfix">
                     <div class='box box-thumb'>
-                        <div class="leader-tag"><span>Local Leader</span></div>
+                        <div class="leader-tag"><span>{{ _(Local Leader) }}</span></div>
 
                         <div class="thumb">
                             {% if d.template_data.user and d.template_data.user.data.u_id == d.template_data.user_activity.data.user.u_id %}
                                 <a class="change-image change-profile-image" href="#">
-                                    <span>Change Photo</span>
+                                    <span>{{ _(Change Photo) }}</span>
                                 </a>
                             {% endif %}
                             {% if d.template_data.user_activity.data.user.image_id > 0 %}
