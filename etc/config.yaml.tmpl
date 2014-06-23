@@ -290,6 +290,9 @@ aws:
     access_key_id: %(aws_access_key_id)s
     secret_access_key: %(aws_secret_access_key)s
     bucket: %(s3_bucket)s
+# The server should be either something like s3-eu-west-1.amazonaws.com or s3.amazonaws.com
+# Note that, if omitted, the S3 library already has a default setting to s3.amazonaws.com
+    server: %(s3_server)s
 
 # Typekit key is the name of the JS file, like http://use.typekit.com/XXXXXX.js
 typekit:

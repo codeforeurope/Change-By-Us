@@ -18,7 +18,7 @@ class S3Uploader():
     @classmethod
     def upload(cls, source, destination):
         aws_config = Config.get('aws')
-        conn = S3.AWSAuthConnection(aws_config['access_key_id'], aws_config['secret_access_key'])
+        conn = S3.AWSAuthConnection(aws_config['access_key_id'], aws_config['secret_access_key'], True, aws_config['server'])
         print source
         if source == '.' or not os.path.isfile(source):
             log.error("file not found (%s)" % source)
@@ -29,7 +29,10 @@ class S3Uploader():
             content_type = 'text/plain'
         log.info("Uploading %s to %s/%s" % (source, aws_config['bucket'], destination))
         response = conn.put(aws_config['bucket'], destination, S3.S3Object(filedata), {'x-amz-acl': 'public-read', 'Content-Type': content_type})
-        log.info("--> %s" % response.message)
+        if response.http_response.status > 299:
+            log.error("--> %s" % response.message)
+        else:
+            log.info("--> %s" % response.message)
         return response.message
 
 if __name__ == "__main__":

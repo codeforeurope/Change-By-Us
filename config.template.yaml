@@ -290,6 +290,7 @@ aws:
     access_key_id: %(aws_access_key_id)s
     secret_access_key: %(aws_secret_access_key)s
     bucket: %(s3_bucket)s
+    server: %(s3_server)s
 
 # Typekit key is the name of the JS file, like http://use.typekit.com/XXXXXX.js
 typekit:

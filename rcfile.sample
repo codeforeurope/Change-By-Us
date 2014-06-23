@@ -179,6 +179,7 @@ aws_access_key_id = XXXXXXXXXX
 
 # S3 configs
 s3_bucket = xxxxxxxxxx
+s3_server = s3-eu-west-1.amazonaws.com
 
 # Twilio Credentials
 twilio_sid = XXXXXXXXXX
