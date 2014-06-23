@@ -6,12 +6,12 @@
     <div class="hd clearfix">
         <h2>
             <span>
-                {{ _(Needs) }}
+                {{ _('Needs') }}
             </span>
         </h2>
         <div class="actions">
             <a href="#show,needs" class="back fancy-caps">
-                <span>{{ _(Go Back) }}</span>
+                <span>{{ _('Go Back') }}</span>
             </a>
         </div>
     </div>
@@ -28,10 +28,10 @@
     (d.template_data and d.template_data.user and d.template_data.user.is_leader) %}
     {% raw %}
       {{#isVolunteer}}
-        <a href="#show,vol-form,{{id}}" class="need-edit">{{ _(Edit This) }}</a>
+        <a href="#show,vol-form,{{id}}" class="need-edit">{{ _('Edit This') }}</a>
       {{/isVolunteer}}
       {{#isInKind}}
-        <a href="#show,inkind-form,{{id}}" class="need-edit">{{ _(Edit This) }}</a>
+        <a href="#show,inkind-form,{{id}}" class="need-edit">{{ _('Edit This') }}</a>
       {{/isInKind}}
     {% endraw %}
 {% endif %}
@@ -43,7 +43,7 @@
         {{/isInKind}}
         {{#isVolunteer}}
         We need <a href="#show,need-detail,{{id}}" class="vol-need"><span class="vol-count">{{quantity}}</span> {{
-        _(volunteer) }} {{request}}</a>
+        _('volunteer') }} {{request}}</a>
         {{/isVolunteer}}
 
         {{#reason}} for {{reason}}{{/reason}}
@@ -64,19 +64,19 @@
 
       {{#event}}
       <div class="need-event">
-          {{ _(Linked to event:) }}
-        <p class="need-event-details serif"><a href="#show,event-detail,{{id}}">{{name}}</a> {{ _(on) }} {{start_displaydate}}</p>
+          {{ _('Linked to event:') }}
+        <p class="need-event-details serif"><a href="#show,event-detail,{{id}}">{{name}}</a> {{ _('on') }} {{start_displaydate}}</p>
       </div>
       {{/event}}
 
-      <span>{{ _(Who&#39;s helping) }}</span>
+      <span>{{ _('Who&#39;s helping') }}</span>
       <div class="volunteers">
           {{#has_first}}
             {{#first_vol}}
             <a href="/useraccount/{{id}}" title="{{ display_name }}"><img class="vol-first" src="{{ avatar }}" alt="{{ display_name }}"></img></a>
             <div class="vol-desc"><span>{{ display_name }}</span> and
             {{/first_vol}}
-                {{ _(%(number_of_people)s others volunteered.)format(number_of_people=vol_count_minus_one) }}
+                {{ _('%(number_of_people')s others volunteered.)format(number_of_people=vol_count_minus_one) }}
             </div>
           {{/has_first}}
           <div class="vol-avatars"></div>
@@ -84,24 +84,24 @@
       </div>
     </div>
     <div class="volunteer-details serif">
-      <div class="volunteer-count">{{ _(We have) }} <strong>{{ quantity_committed }}</strong>
-        {{#isInKind}} {{ _(donations) }} {{/isInKind}}
-        {{#isVolunteer}} {{ _(volunteers) }} {{/isVolunteer}}
+      <div class="volunteer-count">{{ _('We have') }} <strong>{{ quantity_committed }}</strong>
+        {{#isInKind}} {{ _('donations') }} {{/isInKind}}
+        {{#isVolunteer}} {{ _('volunteers') }} {{/isVolunteer}}
       </div>
       <div class="progress-wrapper"><div class="progress" style="width:150px;"><div class="progress-pin"></div></div></div>
-      <a href="#" class="help-link active">{{ _(I can help) }}</a>
+      <a href="#" class="help-link active">{{ _('I can help') }}</a>
       {{#isVolunteer}}
       <div class="time-detail">
-        <span>{{ _(We&#39;ll need you at) }}<br>
+        <span>{{ _('We&#39;ll need you at') }}<br>
           <span class="time">{{time}}</span>
-          <span class="">{{ _(for) }}</span> <span class="time-length">{{duration}} {{ _(hrs) }}</span></span>
+          <span class="">{{ _('for') }}</span> <span class="time-length">{{duration}} {{ _('hrs') }}</span></span>
       </div>
-      <div class="location">{{ _(We&#39;ll need you to go to) }}
+      <div class="location">{{ _('We&#39;ll need you to go to') }}
         <ul>
           <li class="location-name">{{display_address}}</li>
         </ul>
         <a href="http://maps.google.com/maps?q={{display_address}} near {% endraw %}{{d.config.site.city}}{% raw %}" target="_blank" class="rounded-button small">{{
-            _(Map it) }}</a>
+            _('Map it') }}</a>
       </div>
       {{/isVolunteer}}
     </div>

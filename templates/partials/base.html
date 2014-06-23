@@ -14,7 +14,7 @@
 
         <!-- Basic meta data -->
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-        <meta name="description" content="{{ _('%(sitename)s is a place to put your ideas into action by creating projects and building teams to make your city a better place to live.')|format(sitename=d.config.site.name) }}" />
+        <meta name="description" content="{{ _('%(sitename')s is a place to put your ideas into action by creating projects and building teams to make your city a better place to live.)|format(sitename=d.config.site.name) }}" />
         <meta name="viewport" content="width=1020" />
 
         <!-- Open Graph and Facebook -->
@@ -27,7 +27,7 @@
         <meta property="og:url" content="{% if d.full_url %}{{ d.full_url }}{% else %}{{ d.default_host }}{% endif %}" />
         <meta property="og:image" content="{{ d.default_host }}static/images/fb-share100x100.png" />
         {% block og_description %}
-             <meta property="og:description" content="{{ _('%(sitename)s is a place to put your ideas into action by creating projects and building teams to make your city a better place to live.')|format(sitename=d.config.site.name) }}" />
+             <meta property="og:description" content="{{ _('%(sitename')s is a place to put your ideas into action by creating projects and building teams to make your city a better place to live.)|format(sitename=d.config.site.name) }}" />
         {% endblock %}
 
         <!-- Links -->

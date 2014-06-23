@@ -6,12 +6,12 @@
     <div class="hd clearfix">
         <h2>
             <span>
-                {{ _(Needs for the event:) }}
+                {{ _('Needs for the event:') }}
             </span>
         </h2>
         <div class="actions">
             <a href="#show,needs" class="back fancy-caps">
-                <span>{{ _(Go back to all needs) }}</span>
+                <span>{{ _('Go back to all needs') }}</span>
             </a>
         </div>
     </div>
@@ -61,13 +61,13 @@
     (d.template_data.project_user.data.is_project_admin) or
     (d.template_data and d.template_data.user and d.template_data.user.is_admin) or
     (d.template_data and d.template_data.user and d.template_data.user.is_leader) %}
-    <a href="#show,vol-form,{{ '{{id}}' }}" class="need-edit">{{ _(Edit This) }}</a>
+    <a href="#show,vol-form,{{ '{{id}}' }}" class="need-edit">{{ _('Edit This') }}</a>
 {% endif %}
 {% raw %}
   <div class="bd clearfix need-detail-cont">
     <div class="vol-title serif">
         We need <a href="#show,need-detail,{{id}}" class="vol-need"><span class="vol-count">{{quantity}}</span> {{
-        _(volunteer) }} {{request}}</a>
+        _('volunteer') }} {{request}}</a>
         {{#reason}} for {{reason}}{{/reason}}
         {{#display_date}} on {{display_date}}{{/display_date}}
     </div>
@@ -77,7 +77,7 @@
       (d.template_data.project_user.data.is_project_admin) or
       (d.template_data and d.template_data.user and d.template_data.user.is_admin) or
       (d.template_data and d.template_data.user and d.template_data.user.is_leader) %}
-      <a href="#deleteNeed,{{ '{{id}}' }}" class="need-delete" title="Delete this need">{{ _(Delete) }}</a>
+      <a href="#deleteNeed,{{ '{{id}}' }}" class="need-delete" title="Delete this need">{{ _('Delete') }}</a>
     {% endif %}
 {% raw %}
 
@@ -85,11 +85,11 @@
       <p class="serif">
           {{ truncated_description }}
           {{# more_to_read }}
-              <a href="#show,need-detail,{{ id }}" class="read-more">{{ _(Read More) }}</a>
+              <a href="#show,need-detail,{{ id }}" class="read-more">{{ _('Read More') }}</a>
           {{/ more_to_read }}
       </p>
 
-      <span>{{ _(Who&#39;s helping) }}</span>
+      <span>{{ _('Who&#39;s helping') }}</span>
       <div class="volunteers teaser">
           <div class="vol-avatars teaser">
               {{# volunteers }}
@@ -103,7 +103,7 @@
                   </a>
               {{/ volunteers }}
               {{^ volunteers }}
-              {{ _(Be the first to volunteer!) }}
+              {{ _('Be the first to volunteer!') }}
               {{/ volunteers }}
           </div>
       </div>
@@ -111,9 +111,9 @@
     </div>
 
     <div class="volunteer-details serif">
-      <div class="volunteer-count">{{ _(We have <strong>%(volunteers)d</strong> volunteers)format(volunteers=volunteer_count) }}</div>
+      <div class="volunteer-count">{{ _('We have <strong>%(volunteers')d</strong> volunteers)format(volunteers=volunteer_count) }}</div>
       <div class="progress-wrapper"><div class="progress" style="width:{{ progress_amount }}px;"><div class="progress-pin"></div></div></div>
-      <a href="#" class="help-link active">{{ _(I can help) }}</a>
+      <a href="#" class="help-link active">{{ _('I can help') }}</a>
     </div>
   </div>
 </li>

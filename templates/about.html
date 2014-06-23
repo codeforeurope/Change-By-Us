@@ -4,12 +4,12 @@
  #}
 {% extends "./partials/base.html" %}
 
-{% block title %} {{ _("About") }} {% endblock title %}
+{% block title %} {{ _('"About"') }} {% endblock title %}
 
 {% block continent %}
     <div class="continent about">
         <div class="headlands">
-            <h1>{{ _('<span class="unbold">What is</span> %(site_name)s?')|format(site_name=d.config.site.name) }}</h1>
+            <h1>{{ _('<span class="unbold">What is</span> %(site_name')s?)|format(site_name=d.config.site.name) }}</h1>
         </div>
 
         <div class="midlands clearfix">

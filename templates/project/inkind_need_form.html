@@ -6,18 +6,18 @@
     <div class="hd clearfix">
         <h2>
             <span>
-                {{ _(Create a new in-kind need) }}
+                {{ _('Create a new in-kind need') }}
             </span>
         </h2>
         <div class="actions">
             <a href="#show,add-need" class="back fancy-caps">
-                <span>{{ _(Go Back) }}</span>
+                <span>{{ _('Go Back') }}</span>
             </a>
         </div>
     </div>
 
     <div>
-      <a href="#" class="submit need-submit">{{ _(Submit) }}</a>
+      <a href="#" class="submit need-submit">{{ _('Submit') }}</a>
       <br style="clear:both;" />
     </div>
     <div class="bd clearfix merlin add-need add-inkind-need">
@@ -25,7 +25,7 @@
         </div>
 
         <div class='step submit-need-step spinner-message'>
-          <p>{{ _(Thank you for submitting a link!) }}</p>
+          <p>{{ _('Thank you for submitting a link!') }}</p>
           <p><img src='/static/images/loader32x32.gif' /></p>
         </div>
     </div>
@@ -36,15 +36,15 @@
 <form action='#' class="form-pane">
   <div class="fields serif">
     <div class="row need-header">
-      <span class="inkind-type-label">{{ _(We need to) }}</span>
+      <span class="inkind-type-label">{{ _('We need to') }}</span>
       <div class="inkind-type-cont">
         <div>
         <input type="radio" name="inkind-type-radio" id="inkind-borrow-check" value="borrow" checked="checked" class="inkind-borrow-check has-prettycheckbox">
-        <label for="inkind-borrow-check"></label><span class="inkind-label">{{ _(borrow) }}</span>
+        <label for="inkind-borrow-check"></label><span class="inkind-label">{{ _('borrow') }}</span>
         </div>
         <div>
         <input type="radio" name="inkind-type-radio" id="inkind-donate-check" value="donate" class="inkind-donate-check has-prettycheckbox">
-        <label for="inkind-donate-check"></label><span class="inkind-label">{{ _(get a donation of) }}</span>
+        <label for="inkind-donate-check"></label><span class="inkind-label">{{ _('get a donation of') }}</span>
         </div>
       </div>
     </div>
@@ -54,13 +54,13 @@
     </div>
     <div class="row">
       <div id="inkind-desc-cont" class="desc-cont">
-        <p>{{ _(We&#39;re going to use this for) }}...</p>
+        <p>{{ _('We&#39;re going to use this for') }}...</p>
         <span class="charlimit title">200</span>
         <textarea name="inkind-desc" class="need-desc" id="inkind-desc">{{description}}</textarea>
       </div>
       <div id="inkind-event-link-cont" class="event-link-cont">
         <select id="inkind-event-list" class="need-event-list">
-          <option value="">{{ _(Link to an event) }}</option>
+          <option value="">{{ _('Link to an event') }}</option>
           {{{eventOpts}}}
         </select>
       </div>

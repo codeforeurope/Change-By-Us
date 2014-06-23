@@ -6,7 +6,7 @@
     <div class="hd clearfix">
         <h2>
             <span>
-                {{ _(Events) }} <span class="counter"></span>
+                {{ _('Events') }} <span class="counter"></span>
             </span>
         </h2>
         {% if
@@ -15,7 +15,7 @@
             (d.template_data and d.template_data.user and d.template_data.user.is_leader) %}
         <div class="actions">
             <a href="#show,event-form" class="add fancy-caps">
-                <span>{{ _(Add an Event) }}</span>
+                <span>{{ _('Add an Event') }}</span>
             </a>
         </div>
         {% endif %}

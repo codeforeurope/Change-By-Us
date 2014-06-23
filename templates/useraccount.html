@@ -25,12 +25,12 @@
             <div class="box user-account-nav">
                 <div class="hd clearfix">
                     <div class='box box-thumb'>
-                        <div class="leader-tag"><span>{{ _(Local Leader) }}</span></div>
+                        <div class="leader-tag"><span>{{ _('Local Leader') }}</span></div>
 
                         <div class="thumb">
                             {% if d.template_data.user and d.template_data.user.data.u_id == d.template_data.user_activity.data.user.u_id %}
                                 <a class="change-image change-profile-image" href="#">
-                                    <span>{{ _(Change Photo) }}</span>
+                                    <span>{{ _('Change Photo') }}</span>
                                 </a>
                             {% endif %}
                             {% if d.template_data.user_activity.data.user.image_id > 0 %}
@@ -97,11 +97,11 @@
                         <div class="hd">
                             <h2>
                                 {% if d.template_data.user and d.template_data.user.data.u_id == d.template_data.user_activity.data.user.u_id %}
-                                    <span class="light">My</span>
+                                    <span class="light">{{ _('My') }}</span>
                                 {% else %}
-                                    <span class="light">{{ d.template_data.user_activity.data.user.name }}'s</span>
+                                    <span class="light">{{ _('%(username)s&#39;s')|format(username=d.template_data.user_activity.data.user.name) }}</span>
                                 {% endif %}
-                                Projects <span class="counter">{{ d.template_data.user_activity.data.projects|length }}</span>
+                                {{ _('Projects') }} <span class="counter">{{ d.template_data.user_activity.data.projects|length }}</span>
                             </h2>
                         </div>
 
@@ -144,11 +144,11 @@
                         <div class="hd">
                             <h2>
                                 {% if d.template_data.user and d.template_data.user.data.u_id == d.template_data.user_activity.data.user.u_id %}
-                                    <span class="light">My</span>
+                                    <span class="light">{{ _('My') }}</span>
                                 {% else %}
-                                    <span class="light">{{ d.template_data.user_activity.data.user.name }}'s</span>
+                                    <span class="light">{{ _('%(username)s&#39;s')|format(username=d.template_data.user_activity.data.user.name) }}</span>
                                 {% endif %}
-                                Ideas <span class="counter">{{ d.template_data.user_activity.data.ideas|length }}</span>
+                                {{ _('Ideas') }} <span class="counter">{{ d.template_data.user_activity.data.ideas|length }}</span>
                             </h2>
                         </div>
 
@@ -188,11 +188,11 @@
                         <div class="hd">
                             <h2>
                                 {% if d.template_data.user and d.template_data.user.data.u_id == d.template_data.user_activity.data.user.u_id %}
-                                    <span class="light">My</span>
+                                    <span class="light">{{ _('My') }}</span>
                                 {% else %}
-                                    <span class="light">{{ d.template_data.user_activity.data.user.name }}'s</span>
+                                    <span class="light">{{ _('%(username)s&#39;s')|format(username=d.template_data.user_activity.data.user.name) }}</span>
                                 {% endif %}
-                                Resources <span class="counter">{{ d.template_data.user_activity.data.resources|length }}</span>
+                                {{ _('Resources') }} <span class="counter">{{ d.template_data.user_activity.data.resources|length }}</span>
                             </h2>
                         </div>
                         <div class="bd">
@@ -218,8 +218,8 @@
                                                     </span>
                                                 </span>
                                                 <div class="added-dialog">
-                                                    <span class="added-header">Added <em>to</em> your project<br /></span>
-                                                    <span class="added-text">We've sent them a link to your project page.</span>
+                                                    <span class="added-header">{{ _('Added <em>to</em> your project') }}<br /></span>
+                                                    <span class="added-text">{{ _('We&#39;ve sent them a link to your project page.') }}</span>
                                                     <!-- <span class="added-close"></span> -->
                                                 </div>
                                             </td>
@@ -242,7 +242,7 @@
                                 {% if d.template_data.user and d.template_data.user.data.u_id == d.template_data.user_activity.data.user.u_id %}
                                     <span class="light">My</span>
                                 {% else %}
-                                    <span class="light">{{ d.template_data.user_activity.data.user.name }}'s</span>
+                                    <span class="light">{{ d.template_data.user_activity.data.user.name }}&#39;s</span>
                                 {% endif %}
                                 Supported Projects <span class="counter">{{ d.template_data.user_activity.data.endorsed_projects|length }}</span>
                             </h2>

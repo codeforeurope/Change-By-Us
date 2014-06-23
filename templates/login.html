@@ -12,7 +12,7 @@
 <div class='continent login'>
 	<div class='headlands clearfix'>
 		<div class='west'>
-			<h1>{{ _('%(sitename)s is a place to make your community better.')|format(sitename=d.config.site.name) }} </h1>
+			<h1>{{ _('%(sitename')s is a place to make your community better.)|format(sitename=d.config.site.name) }} </h1>
 			<h3>{{ _('Share ideas. Do projects. Make it happen.') }}</h3>
 		</div>
 	</div>
@@ -64,14 +64,12 @@
 
 		<div class="step login-failure" style="display:none;">
 			<p>{{ _('Your username or password was incorrect.') }}</p>
-			<a href="#start" class="retry-login-link"><span class="sm-arrow-back light"></span>{{ _('Click here to go
-                back to the<br/><span class="spacer"></span>login screen and try again') }}</a>
+			<a href="#start" class="retry-login-link"><span class="sm-arrow-back light"></span>{{ _('Click here to go back to the<br/><span class="spacer"></span>login screen and try again') }}</a>
 		</div><!--end .step-->
 
 		<div class="step forgot-password clearfix" style="display:none;">
 			<div class='west'>
-				<h4>{{ _('Forgot your password?
-                    <span>We\'ll send you an email with instructions to reset your password.</span>') }}</h4>
+				<h4>{{ _('Forgot your password? <span>We\'ll send you an email with instructions to reset your password.</span>') }}</h4>
 				<div class='email-login'>
 						<div class="row">
 							<label for='email'>{{ _('Enter your email') }}</label>
@@ -102,8 +100,7 @@
 
 		<div class="step forgot-password-error" style="display:none;">
 			<p>{{ _('There was an error finding your account. Please double check your email.') }}</p>
-			<a href="#forgot-password" class="retry-login-link"><span class="sm-arrow-back light"></span>{{ _('Click here
-                to go back to the<br/><span class="spacer"></span>forgot password screen and try again') }}</a>
+			<a href="#forgot-password" class="retry-login-link"><span class="sm-arrow-back light"></span>{{ _('Click here to go back to the<br/><span class="spacer"></span>forgot password screen and try again') }}</a>
 		</div><!--end .step-->
 
 	</div>

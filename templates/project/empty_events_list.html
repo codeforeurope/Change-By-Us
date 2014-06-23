@@ -8,10 +8,10 @@
             <!--<a class="close" href="#"><span>Close</span></a>-->
 
             {% if  d.sqla_user in d.template_data.project.admins %}
-                <p>{{ _(Events are a great way to bring motivated people together!) }}
-                   <a href="#show,event-form">{{ _(Create an event now) }}</a>!</p>
+                <p>{{ _('Events are a great way to bring motivated people together!') }}
+                   <a href="#show,event-form">{{ _('Create an event now') }}</a>!</p>
             {% else %}
-                <p>{{ _(There are no events yet on this project. Contact the project admins to see how you can help!) }}</p>
+                <p>{{ _('There are no events yet on this project. Contact the project admins to see how you can help!') }}</p>
             {% endif %}
         </div>
     </div>

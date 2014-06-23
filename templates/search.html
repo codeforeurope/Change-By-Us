@@ -217,14 +217,14 @@
 																<span class="thumb">{% if d.template_data and d.template_data.user and d.template_data.user.is_admin %}<a class="close delete-resource" href="#removeResource,{{ resource.link_id }}"><span>Close</span></a>{% endif %}<img width='35' height='35' src='/static/images/thumb_genAvatar50.png' alt="" /></span>
 															{% endif %}
 															<span class="resource-name">
-																{% if resource.is_official %}<span class="official-resource-alt">Official Resource</span>{% endif %}
+																{% if resource.is_official %}<span class="official-resource-alt">{{ _('Official Resource') }}</span>{% endif %}
 																<span rel="#organization,{{ resource.link_id }}" class='resource-tooltip_trigger tooltip_trigger'>
 																	<span>{% if resource.url %}<a target='_blank' href="{{ resource.url }}">{% endif %}<span>{{ resource.title|truncate(25, true) }}</span>{% if resource.url %}</a>{% endif %}</span>
 																</span>
 															</span>
 															<div class="added-dialog">
-																<span class="added-header">Added <em>to</em> your project<br /></span>
-																<span class="added-text">We've sent them a link to your project page.</span>
+																<span class="added-header">{{ _('Added <em>to</em> your project') }}<br /></span>
+																<span class="added-text">{{ _('We\'ve sent them a link to your project page.') }}</span>
 																<!-- <span class="added-close"></span> -->
 															</div>
 														</td>
@@ -436,7 +436,7 @@
 				
 				<div class="box results-box results-resources">
 					<div class="hd">
-						<h2>Resources <span class="counter">{{ d.template_data.total_count.data.resources }}</span></h2>
+						<h2>{{ _('Resources') }} <span class="counter">{{ d.template_data.total_count.data.resources }}</span></h2>
 						{% if d.template_data.total_count.data.resources > 0 %}
 						<span class="control"><a href="#resources">See all <span class="sm-arrow-forward light"></span></a></span>
 						{% endif %}
@@ -464,8 +464,8 @@
 												</span>
 											</span>
 											<div class="added-dialog">
-												<span class="added-header">Added <em>to</em> your project<br /></span>
-												<span class="added-text">We've sent them a link to your project page.</span>
+												<span class="added-header">{{ _('Added <em>to</em> your project') }}<br /></span>
+												<span class="added-text">{{ _('We\'ve sent them a link to your project page.') }}</span>
 												<!-- <span class="added-close"></span> -->
 											</div>
 										</td>
@@ -561,14 +561,14 @@
 		
 		<span class="thumb">{% if d.template_data and d.template_data.user and d.template_data.user.is_admin %}<a class="close delete-resource" href="#removeResource,"><span>Close</span></a>{% endif %}<img width='35' height='35' src='/static/images/thumb_genAvatar50.png' alt="" /></span>
 		<span class="resource-name">
-			<span class="official-resource-alt" style="display:none">Official Resource</span>
+			<span class="official-resource-alt" style="display:none">{{ _('Official Resource') }}</span>
 			<span rel="#organization," class='resource-tooltip_trigger tooltip_trigger'>
 				<span><a target='_blank' href="" class='resource_link'><span>&nbsp;</span></a></span>
 			</span>
 		</span>
 		<div class="added-dialog">
-			<span class="added-header">Added <em>to</em> your project<br /></span>
-			<span class="added-text">We've sent them a link to your project page.</span>
+			<span class="added-header">{{ _('Added <em>to</em> your project') }}<br /></span>
+			<span class="added-text">{{ _('We\'ve sent them a link to your project page.') }}</span>
 			<!-- <span class="added-close"></span> -->
 		</div>
 	</div>

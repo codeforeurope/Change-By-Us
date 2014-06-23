@@ -114,7 +114,7 @@
 		
 			<div class="step joined-project">
 				<h1>{{ _('Thanks, you\'ve joined the project:') }}</h1>
-				<h1><span class="unbold"><span class="title"></span><br /><span class="creator"><em>{{ _(Created by) }} </em><span></span></span></span></h1>
+				<h1><span class="unbold"><span class="title"></span><br /><span class="creator"><em>{{ _('Created by') }} </em><span></span></span></span></h1>
 				<div class="box">
 					<p class="large">{{ _('Leave the mobile site and') }}</p>
 					<input type="button" id="view-project" class="view-project large dark" name="view-project" value="{{ _('View this project') }}" />
@@ -167,7 +167,7 @@
 		</div><!--end .continent-->
 	
 		<div class="seafloor">
-			<p>{{ _('<strong>%(sitename)s</strong> is a place to share ideas, create projects, build teams, and make our city better.')|format(sitename=d.config.site.name) }}</p>
+			<p>{{ _('<strong>%(sitename')s</strong> is a place to share ideas, create projects, build teams, and make our city better.)|format(sitename=d.config.site.name) }}</p>
 			<p>
 				<a href="/feedback" class="contact east">{{ _('Contact Us') }}</a>
 			</p>

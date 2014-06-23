@@ -12,7 +12,7 @@
 <div class='continent register'>
 	<div class='headlands clearfix'>
 		<div class='west'>
-			<h1>{{ _('%(sitename)s is a place to make your community better.')format(sitename=d.config.site.name ) }}</h1>
+			<h1>{{ _('%(sitename')s is a place to make your community better.)format(sitename=d.config.site.name ) }}</h1>
 			<h3>{{ _('Share ideas. Do projects. Make it happen.') }}</h3>
 		</div>
 		<div class='east'>
@@ -45,7 +45,7 @@
 					<a class="login-twitter west" href='/twitter/login'><span>Twitter</span></a>
 				</div>
 				{% endif %}
-				<p><a class='step_link' href='#user-info'>{{ _('Click Here') }}</a> <span class="italic">{{ _(if you want to create a login without Facebook or Twitter) }}</span></p>
+				<p><a class='step_link' href='#user-info'>{{ _('Click Here') }}</a> <span class="italic">{{ _('if you want to create a login without Facebook or Twitter') }}</span></p>
 			</div><!--end step-->
 
 			<div class='step facebook-login-preprocess clearfix spinner-message ' style='display:none;'>
@@ -93,7 +93,7 @@
 			</div><!--end step-->
 
 			<div class='step twitter-step clearfix ' style='display:none;'>
-				<p><strong>{{ _('Enter your email to get updates from %(sitename)s projects.')|format(sitename=d.config.site.name) }}</strong></p>
+				<p><strong>{{ _('Enter your email to get updates from %(sitename')s projects.)|format(sitename=d.config.site.name) }}</strong></p>
 
 				<div class="west">
 					<div class="row">
@@ -157,7 +157,7 @@
 
 			<div class='step sms-lookup clearfix ' style='display:none;'>
 				<div class='west'>
-					<p>{{ _('Did you text your ideas to %(sitename)s?  Enter your phone number to link them to your profile.')|format(sitename=d.config.site.name) }}</p>
+					<p>{{ _('Did you text your ideas to %(sitename')s?  Enter your phone number to link them to your profile.)|format(sitename=d.config.site.name) }}</p>
 					<p>
 						<input type='text' name='phone_1' id='phone_1' class='phone_1'/>
 						<input type='text' name='phone_2' id='phone_2' class='phone_2'/>
@@ -183,7 +183,7 @@
 			</div><!--end step-->
 
 			<div class='step sms-no-results clearfix ' style='display:none;'>
-				<p>{{ _('We couldn't find any ideas sent from') }}</p>
+				<p>{{ _('We couldn&#39;t find any ideas sent from') }}</p>
 				<p class='phone-num'>(XXX) XXX-XXXX</p>
 			</div><!--end step-->
 
@@ -199,9 +199,9 @@
 			</div><!--end step-->
 
 			<div class='step email-authentication-email-send-success clearfix' style='display:none;'>
-				<p>{{ _('Thanks! You're almost there.') }}</p>
+				<p>{{ _('Thanks! You\'re almost there.') }}</p>
 				<p>{{ _('We sent an email to <strong class='email'>&nbsp;</strong>&nbsp;in order to verify your account.') }}</p>
-				<p>{{ _({{ _('Click on the link provided in the e-mail address to complete your registration.') }}) }}</p>
+				<p>{{ _('{{ _(Click on the link provided in the e-mail address to complete your registration.') }}) }}</p>
 			</div><!--end step-->
 
 			<div class='step email-authentication-email-send-error clearfix' style='display:none;'>
@@ -215,7 +215,7 @@
 			</div><!--end step-->
 
 			<div class='step email-already-used clearfix' style='display:none;'>
-				<p class="west">{{ _( An account using that email already exists on %(sitename)s. To recover your password, please click <a href='/login#forgot-password'>here</a>.)|format(sitename=d.config.site.name) }}</p>
+				<p class="west">{{ _(' An account using that email already exists on %(sitename')s. To recover your password, please click <a href='/login#forgot-password'>here</a>.)|format(sitename=d.config.site.name) }}</p>
 			</div><!--end step-->
 
 			<div class='step email-authentication-error clearfix' style='display:none;'>
