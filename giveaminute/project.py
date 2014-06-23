@@ -8,14 +8,15 @@ from datetime import timedelta
 
 from framework import util
 from framework.log import log
-#from framework.config import *
+# from framework.config import *
 from framework.config import Config
 #from framework.emailer import *
 from framework.util import local_utcoffset
 import giveaminute.idea
 import giveaminute.messaging
 import helpers.censor
-import jinja2 
+import jinja2
+
 
 class Project():
     def __init__(self, db, projectId):
@@ -58,7 +59,7 @@ where p.project_id = $id and p.is_active = 1
 limit 1"""
 
         try:
-            data = list(self.db.query(sql, {'id':self.id}))
+            data = list(self.db.query(sql, {'id': self.id}))
 
             if len(data) > 0:
                 return data[0]
@@ -80,32 +81,34 @@ limit 1"""
         messages = self.getMessages()
         relatedIdeas = self.getRelatedIdeas()
 
-        data = dict(project_id = self.id,
-                    editable = True,
-                    info = dict(title = self.data.title,
-                                image_id = self.data.image_id,
-                                owner = smallUserDisplay(self.data.owner_user_id,
-                                                         userNameDisplay(self.data.owner_first_name,
-                                                                         self.data.owner_last_name,
-                                                                         self.data.owner_affiliation,
-                                                                         isFullLastName(self.data.owner_group_membership_bitmask)),
-                                                         self.data.owner_image_id),
-                                mission = self.data.description,
-                                keywords = (self.data.keywords.split() if self.data.keywords else []),
-                                endorsements = dict(items = endorsements),
-                                is_featured = self.data.is_featured,
-                                is_official = self.data.is_official,
-                                location = dict(location_id = self.data.location_id,
-                                                name = self.data.location_name,
-                                                position = dict(lat = str(self.data.location_lat), lng = str(self.data.location_lon))),
-                                members = dict(items = members),
-                                resources = dict(links = dict(items = links),
-                                                organizations = dict(items = projectResources)),
-                                messages = dict(n_returned = len(messages),
-                                                offset = 0,
-                                                total = len(messages),
-                                                items = messages),
-                                related_ideas = dict(items = relatedIdeas)))
+        data = dict(project_id=self.id,
+                    editable=True,
+                    info=dict(title=self.data.title,
+                              image_id=self.data.image_id,
+                              owner=smallUserDisplay(self.data.owner_user_id,
+                                                     userNameDisplay(self.data.owner_first_name,
+                                                                     self.data.owner_last_name,
+                                                                     self.data.owner_affiliation,
+                                                                     isFullLastName(
+                                                                         self.data.owner_group_membership_bitmask)),
+                                                     self.data.owner_image_id),
+                              mission=self.data.description,
+                              keywords=(self.data.keywords.split() if self.data.keywords else []),
+                              endorsements=dict(items=endorsements),
+                              is_featured=self.data.is_featured,
+                              is_official=self.data.is_official,
+                              location=dict(location_id=self.data.location_id,
+                                            name=self.data.location_name,
+                                            position=dict(lat=str(self.data.location_lat),
+                                                          lng=str(self.data.location_lon))),
+                              members=dict(items=members),
+                              resources=dict(links=dict(items=links),
+                                             organizations=dict(items=projectResources)),
+                              messages=dict(n_returned=len(messages),
+                                            offset=0,
+                                            total=len(messages),
+                                            items=messages),
+                              related_ideas=dict(items=relatedIdeas)))
 
         return data
 
@@ -116,15 +119,15 @@ limit 1"""
                 inner join project__user pu on pu.user_id = u.user_id and pu.project_id = $id"""
 
         try:
-            data = list(self.db.query(sql, {'id':self.id}))
+            data = list(self.db.query(sql, {'id': self.id}))
 
             if len(data) > 0:
                 for item in data:
                     members.append(smallUserDisplay(item.user_id,
                                                     userNameDisplay(item.first_name,
-                                                                         item.last_name,
-                                                                         item.affiliation,
-                                                                         isFullLastName(item.group_membership_bitmask)),
+                                                                    item.last_name,
+                                                                    item.affiliation,
+                                                                    isFullLastName(item.group_membership_bitmask)),
                                                     item.image_id))
         except Exception, e:
             log.info("*** couldn't get project members")
@@ -141,7 +144,7 @@ limit 1"""
                     where pe.project_id = $id"""
 
         try:
-            data = list(self.db.query(sql, {'id':self.id}))
+            data = list(self.db.query(sql, {'id': self.id}))
 
             if len(data) > 0:
                 for item in data:
@@ -150,7 +153,7 @@ limit 1"""
                                                                          item.last_name,
                                                                          item.affiliation,
                                                                          isFullLastName(item.group_membership_bitmask)),
-                                                        item.image_id))
+                                                         item.image_id))
         except Exception, e:
             log.info("*** couldn't get project endorsements")
             log.error(e)
@@ -167,7 +170,8 @@ limit 1"""
         ideas = []
 
         try:
-            ideas = giveaminute.idea.searchIdeas(self.db, self.data.keywords.split(), self.data.location_id, excludeProjectId = self.id)
+            ideas = giveaminute.idea.searchIdeas(self.db, self.data.keywords.split(), self.data.location_id,
+                                                 excludeProjectId=self.id)
         except Exception, e:
             log.info("*** couldn't get related")
             log.error(e)
@@ -177,19 +181,22 @@ limit 1"""
     def getMessages(self):
         return getMessages(self.db, self.id, 10, 0)
 
+
 ## FORMATTING FUNCTIONS
 # TODO: move these into their own module
 def isFullLastName(bitmask):
     # is admin or lead
     return (util.getBit(bitmask, 1) or util.getBit(bitmask, 3))
 
+
 def smallProject(id, title, description, imageId, numMembers, ownerUserId, ownerFirstName, ownerLastName, ownerImageId):
-    return dict(project_id = id,
-                title = title,
-                description = description,
-                image_id = imageId,
-                num_members = numMembers,
-                owner = smallUser(ownerUserId, ownerFirstName, ownerLastName, ownerImageId))
+    return dict(project_id=id,
+                title=title,
+                description=description,
+                image_id=imageId,
+                num_members=numMembers,
+                owner=smallUser(ownerUserId, ownerFirstName, ownerLastName, ownerImageId))
+
 
 def message(id,
             type,
@@ -198,16 +205,16 @@ def message(id,
             userId,
             name,
             imageId,
-            attachmentId = None,
-            ideaId = None,
-            idea = None,
-            ideaSubType = None,
-            ideaCreatedDatetime = None,
-            attachmentMediaType = None,
-            attachmentMediaId = None,
-            attachmentTitle = None,
-            projectId = None,
-            projectTitle = None):
+            attachmentId=None,
+            ideaId=None,
+            idea=None,
+            ideaSubType=None,
+            ideaCreatedDatetime=None,
+            attachmentMediaType=None,
+            attachmentMediaId=None,
+            attachmentTitle=None,
+            projectId=None,
+            projectTitle=None):
     """
     Construct and return a dictionary consisting of the data related to a
     message, given by the parameters.  This data is usually pulled off of
@@ -242,17 +249,17 @@ def message(id,
                                     attachmentMediaId,
                                     attachmentTitle)
 
-    return dict(message_id = id,
-                message_type = type,
-                file_id = attachmentId,
-                owner = smallUserDisplay(userId, name, imageId),
-                body = message,
-                created = str(createdDatetime - timedelta(hours=util.local_utcoffset())),
-                idea = ideaObj,
-                attachment = attachmentObj,
-                project_id = projectId,
-                project_title = projectTitle,
-                )
+    return dict(message_id=id,
+                message_type=type,
+                file_id=attachmentId,
+                owner=smallUserDisplay(userId, name, imageId),
+                body=message,
+                created=str(createdDatetime - timedelta(hours=util.local_utcoffset())),
+                idea=ideaObj,
+                attachment=attachmentObj,
+                project_id=projectId,
+                project_title=projectTitle,
+    )
 
 
 def smallAttachment(media_type, media_id, title):
@@ -308,28 +315,30 @@ def getAttachmentThumbUrl(media_type, media_id, size):
 
 def smallUser(id, first, last, image):
     if (id and first and last):
-        return dict(u_id = id,
-                    image_id = image,
-                    name = userName(first, last))
+        return dict(u_id=id,
+                    image_id=image,
+                    name=userName(first, last))
     else:
         return None
 
-def smallUserDisplay(id, fullDisplayName, image = None):
+
+def smallUserDisplay(id, fullDisplayName, image=None):
     if (id and fullDisplayName):
-        return dict(u_id = id,
-                    image_id = image,
-                    name = fullDisplayName)
+        return dict(u_id=id,
+                    image_id=image,
+                    name=fullDisplayName)
     else:
         return None
 
 
-def userName(first, last, isFullLast = False):
+def userName(first, last, isFullLast=False):
     if (isFullLast):
         return "%s %s" % (first, last)
     else:
         return "%s %s." % (first, last[0])
 
-def userNameDisplay(first, last, affiliation = None, isFullLast = False):
+
+def userNameDisplay(first, last, affiliation=None, isFullLast=False):
     name = None
 
     if (first and last):
@@ -343,36 +352,43 @@ def userNameDisplay(first, last, affiliation = None, isFullLast = False):
     return name
     #return jinja2.Markup(name).unescape()
 
+
 def smallIdea(ideaId, description, firstName, lastName, submissionType):
-    return dict(idea_id = ideaId,
-                text = description,
-                f_name = firstName,
-                l_name = lastName,
-                submitted_by = submissionType)
+    return dict(idea_id=ideaId,
+                text=description,
+                f_name=firstName,
+                l_name=lastName,
+                submitted_by=submissionType)
+
 
 def endorsementUser(id, first, last, image_id, title, org):
-    return dict(u_id = id,
-                name = "%s %s" % (first, last),
-                image_id = image_id,
-                title = title,
-                organization = org)
+    return dict(u_id=id,
+                name="%s %s" % (first, last),
+                image_id=image_id,
+                title=title,
+                organization=org)
+
 
 def link(id, title, url, imageId):
-    return dict(link_id = id, title = title, url = url, image_id = imageId)
+    return dict(link_id=id, title=title, url=url, image_id=imageId)
+
 
 def resource(id, title, url, imageId):
-    return dict(organization = id, title = title, url = url, image_id = imageId)
+    return dict(organization=id, title=title, url=url, image_id=imageId)
+
 
 def idea(id, description, userId, firstName, lastName, createdDatetime, submissionType):
-    return dict(idea_id = id,
-                message = description,
-                owner = smallUser(userId, firstName, lastName, None),
-                created = str(createdDatetime),
-                submission_type = submissionType)
+    return dict(idea_id=id,
+                message=description,
+                owner=smallUser(userId, firstName, lastName, None),
+                created=str(createdDatetime),
+                submission_type=submissionType)
+
 
 ## END FORMATTING FUNCTIONS
 
-def createProject(db, ownerUserId, title, description, keywords, locationId, imageId, isOfficial = False, organization = None):
+def createProject(db, ownerUserId, title, description, keywords, locationId, imageId, isOfficial=False,
+                  organization=None):
     projectId = None
 
     try:
@@ -381,16 +397,16 @@ def createProject(db, ownerUserId, title, description, keywords, locationId, ima
 
         isActive = 0 if numFlags == 2 else 1
 
-        projectId = db.insert('project', title = title,
-                                    description = description,
-                                    image_id = imageId,
-                                    location_id = locationId,
-                                    keywords = keywords,
-                                    created_datetime=None,
-                                    num_flags = numFlags,
-                                    is_active = isActive,
-                                    is_official = isOfficial,
-                                    organization = organization)
+        projectId = db.insert('project', title=title,
+                              description=description,
+                              image_id=imageId,
+                              location_id=locationId,
+                              keywords=keywords,
+                              created_datetime=None,
+                              num_flags=numFlags,
+                              is_active=isActive,
+                              is_official=isOfficial,
+                              organization=organization)
 
         if (projectId):
             join(db, projectId, userId=ownerUserId, isAdmin=True, isProjectCreator=True)
@@ -402,6 +418,7 @@ def createProject(db, ownerUserId, title, description, keywords, locationId, ima
 
     return projectId
 
+
 def getNumMembers(db, projectId):
     count = 0
 
@@ -409,15 +426,15 @@ def getNumMembers(db, projectId):
         sql = """select count(npu.user_id) as count from project__user npu
                     inner join user nu on nu.user_id = npu.user_id and nu.is_active = 1
                     where npu.project_id = $projectId"""
-        data = list(db.query(sql, {'projectId':projectId}))
+        data = list(db.query(sql, {'projectId': projectId}))
 
         if (len(data) > 0):
             count = data[0].count
         else:
             log.info("*** couldn't get member count for project %s" % projectId)
     except Exception, e:
-            log.info("*** couldn't get member count for project %s" % projectId)
-            log.error(e)
+        log.info("*** couldn't get member count for project %s" % projectId)
+        log.error(e)
 
     return count
 
@@ -425,51 +442,56 @@ def getNumMembers(db, projectId):
 def approveItem(db, table, id):
     try:
         whereClause = "%s_id = %s" % (table, id)
-        db.update(table, where = whereClause, num_flags = 0)
+        db.update(table, where=whereClause, num_flags=0)
         return True
-    except:
+    except Exception, e:
         log.info("*** couldn't approve item for table = %s, id = %s" % (table, id))
         log.error(e)
         return False
 
+
 def deleteItem(db, table, id):
     try:
         whereClause = "%s_id = %s" % (table, id)
-        db.update(table, where = whereClause, is_active = 0)
+        db.update(table, where=whereClause, is_active=0)
         return True
-    except:
+    except Exception, e:
         log.info("*** couldn't delete item for table = %s, id = %s" % (table, id))
         log.error(e)
         return False
 
+
 def deleteItemsByUser(db, table, userId):
     try:
-        db.update(table, where = "user_id = $userId", is_active = 0, vars = { 'userId': userId })
+        db.update(table, where="user_id = $userId", is_active=0, vars={'userId': userId})
         return True
-    except:
+    except Exception, e:
         log.info("*** couldn't delete item for table =  %s, user_id = %s" % (table, userId))
         log.error(e)
         return False
+
 
 def deleteProjectsByUser(db, userId):
     try:
         sql = """update project p, project__user pu set p.is_active = 1
                     where p.project_id = pu.project_id and pu.is_project_creator = 1 and pu.user_id = $userId"""
-        db.query(sql, { 'userId':userId })
-    except:
+        db.query(sql, {'userId': userId})
+    except Exception, e:
         log.info("*** couldn't delete projects for user_id = %s" % userId)
         log.error(e)
         return False
 
+
 def updateProjectImage(db, projectId, imageId):
     try:
         sql = "update project set image_id = $imageId where project_id = $projectId"
-        db.query(sql, {'projectId':projectId, 'imageId':imageId})
+        db.query(sql, {'projectId': projectId, 'imageId': imageId})
         return True
     except Exception, e:
         log.info("*** couldn't update project image")
         log.error(e)
         return False
+
 
 def updateProjectDescription(db, projectId, description):
     try:
@@ -481,37 +503,41 @@ def updateProjectDescription(db, projectId, description):
             return False
         else:
             sql = "update project set description = $description, num_flags = num_flags + $flags where project_id = $projectId"
-            db.query(sql, {'projectId':projectId, 'description':description, 'flags':numFlags})
+            db.query(sql, {'projectId': projectId, 'description': description, 'flags': numFlags})
             return True
     except Exception, e:
         log.info("*** couldn't update project description")
         log.error(e)
         return False
 
-def join(db, projectId, userId, isAdmin = False, isProjectCreator=False):
+
+def join(db, projectId, userId, isAdmin=False, isProjectCreator=False):
     if (not isUserInProject(db, projectId, userId)):
-        db.insert('project__user', project_id = projectId, user_id = userId, 
-                    is_project_admin = (1 if isAdmin else 0),
-                    is_project_creator = (1 if isProjectCreator else 0)
-                 )
+        db.insert('project__user', project_id=projectId, user_id=userId,
+                  is_project_admin=(1 if isAdmin else 0),
+                  is_project_creator=(1 if isProjectCreator else 0)
+        )
 
         return True
     else:
         log.info("*** user already in project")
         return False
 
+
 def endorse(db, projectId, userId):
     if (not hasUserEndorsedProject(db, projectId, userId)):
-        db.insert('project_endorsement', project_id = projectId, user_id = userId)
+        db.insert('project_endorsement', project_id=projectId, user_id=userId)
 
         return True
     else:
         log.info("*** user already endorsed project")
         return False
 
+
 def removeEndorsement(db, projectId, userId):
     try:
-        db.delete('project_endorsement', where = "project_id = $projectId and user_id = $userId", vars = { 'userId':userId, 'projectId':projectId })
+        db.delete('project_endorsement', where="project_id = $projectId and user_id = $userId",
+                  vars={'userId': userId, 'projectId': projectId})
 
         return True
     except Exception, e:
@@ -519,19 +545,22 @@ def removeEndorsement(db, projectId, userId):
         log.error(e)
         return False
 
+
 def removeEndorsementMessage(db, projectId, userId):
     try:
-        db.update('project_message', where = "project_id = $projectId and user_id = $userId", is_active = 0, vars = {'projectId':projectId, 'userId':userId})
+        db.update('project_message', where="project_id = $projectId and user_id = $userId", is_active=0,
+                  vars={'projectId': projectId, 'userId': userId})
         return True
     except Exception, e:
         log.info("*** couldn't delete endorsement message")
         log.error(e)
         return False
 
+
 def isUserInProject(db, projectId, userId):
     try:
         sql = "select user_id from project__user where project_id = $projectId and user_id = $userId"
-        data = db.query(sql, {'projectId':projectId, 'userId':userId})
+        data = db.query(sql, {'projectId': projectId, 'userId': userId})
 
         return len(data) > 0
     except Exception, e:
@@ -539,10 +568,11 @@ def isUserInProject(db, projectId, userId):
         log.error(e)
         return False
 
+
 def isResourceInProject(db, projectId, projectResourceId):
     try:
         sql = "select project_resource_id from project__project_resource where project_id = $projectId and project_resource_id = $projectResourceId"
-        data = db.query(sql, {'projectId':projectId, 'projectResourceId':projectResourceId})
+        data = db.query(sql, {'projectId': projectId, 'projectResourceId': projectResourceId})
 
         return len(data) > 0
     except Exception, e:
@@ -550,10 +580,11 @@ def isResourceInProject(db, projectId, projectResourceId):
         log.error(e)
         return False
 
+
 def hasUserEndorsedProject(db, projectId, userId):
     try:
         sql = "select user_id from project_endorsement where project_id = $projectId and user_id = $userId"
-        data = db.query(sql, {'projectId':projectId, 'userId':userId})
+        data = db.query(sql, {'projectId': projectId, 'userId': userId})
 
         return len(data) > 0
     except Exception, e:
@@ -561,11 +592,12 @@ def hasUserEndorsedProject(db, projectId, userId):
         log.error(e)
         return False
 
+
 def getProjectLocation(db, projectId):
     try:
         sql = """select l.location_id, l.name, l.lat, l.lon from location l
                 inner join project p on p.location_id = l.location_id and p.project_id = $id"""
-        data = list(db.query(sql, {'id':projectId}))
+        data = list(db.query(sql, {'id': projectId}))
 
         if (len(data) > 0):
             return data[0]
@@ -575,6 +607,7 @@ def getProjectLocation(db, projectId):
         log.info("*** couldn't get project location data")
         log.error(e)
         return None
+
 
 def removeUserFromProject(db, projectId, userId):
     from giveaminute import models
@@ -595,25 +628,27 @@ def removeUserFromProject(db, projectId, userId):
         log.error(e)
         return False
 
+
 def removeUserFromAllProjects(db, userId):
     try:
-        db.delete('project__user', where = "user_id = $userId", vars = {'userId':userId})
+        db.delete('project__user', where="user_id = $userId", vars={'userId': userId})
         return True
     except Exception, e:
         log.info("*** couldn't remove user from project")
         log.error(e)
         return False
 
+
 def addKeywords(db, projectId, newKeywords):
     try:
-       # censor behavior
+        # censor behavior
         numFlags = helpers.censor.badwords(db, ' '.join(newKeywords))
 
         if (numFlags == 2):
             return False
 
         sqlGet = "select keywords from project where project_id = $projectId"
-        data = list(db.query(sqlGet, {'projectId':projectId}))
+        data = list(db.query(sqlGet, {'projectId': projectId}))
 
         if (len(data) > 0):
             keywords = data[0].keywords.split()
@@ -626,10 +661,10 @@ def addKeywords(db, projectId, newKeywords):
 
             if (len(addKeywords) > 0):
                 keywords = ' '.join(keywords + addKeywords)
-        
+
                 sql = "update project set keywords = $keywords, num_flags = num_flags + $flags where project_id = $projectId"
-                db.query(sql, {'projectId':projectId, 'keywords':keywords, 'flags':numFlags})
-                    
+                db.query(sql, {'projectId': projectId, 'keywords': keywords, 'flags': numFlags})
+
             # return true whether keyword exists or not
             return True
         else:
@@ -640,23 +675,24 @@ def addKeywords(db, projectId, newKeywords):
         log.error(e)
         return False
 
+
 def removeKeyword(db, projectId, keyword):
     try:
         sqlGet = "select keywords from project where project_id = $projectId"
-        data = list(db.query(sqlGet, {'projectId':projectId}))
+        data = list(db.query(sqlGet, {'projectId': projectId}))
 
         if (len(data) > 0):
             keywords = data[0].keywords.split()
 
             if (keyword in keywords):
-                i = keywords.index(keyword) # save the index to return for proper client side removal
+                i = keywords.index(keyword)  # save the index to return for proper client side removal
                 keywords.remove(keyword)
-                
+
                 newKeywords = ' '.join(keywords)
 
                 sql = "update project set keywords = $keywords where project_id = $projectId"
-                db.query(sql, {'projectId':projectId, 'keywords':newKeywords})
-                
+                db.query(sql, {'projectId': projectId, 'keywords': newKeywords})
+
             # return true whether keyword exists or not
             return True
         else:
@@ -667,11 +703,12 @@ def removeKeyword(db, projectId, keyword):
         log.error(e)
         return False
 
+
 def addResourceToProject(db, projectId, resourceId):
     try:
         if (not isResourceInProject(db, projectId, resourceId)):
-            db.insert('project__project_resource', project_id = projectId,
-                                        project_resource_id = resourceId)
+            db.insert('project__project_resource', project_id=projectId,
+                      project_resource_id=resourceId)
 
             return True
         else:
@@ -682,16 +719,18 @@ def addResourceToProject(db, projectId, resourceId):
         log.error(e)
         return False
 
+
 def removeResourceFromProject(db, projectId, projectResourceId):
     try:
         sql = "delete from project__project_resource where project_id = $projectId and project_resource_id = $projectResourceId"
-        db.query(sql, {'projectId':projectId, 'projectResourceId':projectResourceId})
+        db.query(sql, {'projectId': projectId, 'projectResourceId': projectResourceId})
 
         return True
     except Exception, e:
-        log.info("*** problem deleting resource %s to is_active = %s for project %s" % (projectResourceId, b, projectId))
+        log.info("*** problem deleting resource %s for project %s" % (projectResourceId, projectId))
         log.error(e)
         return False
+
 
 def addLinkToProject(db, projectId, title, url):
     try:
@@ -699,11 +738,11 @@ def addLinkToProject(db, projectId, title, url):
         numFlags = helpers.censor.badwords(db, title)
         isActive = 0 if numFlags == 2 else 1
 
-        db.insert('project_link', project_id = projectId,
-                                    title = title,
-                                    url = url,
-                                    num_flags = numFlags,
-                                    is_active = isActive)
+        db.insert('project_link', project_id=projectId,
+                  title=title,
+                  url=url,
+                  num_flags=numFlags,
+                  is_active=isActive)
 
         return True;
     except Exception, e:
@@ -711,9 +750,10 @@ def addLinkToProject(db, projectId, title, url):
         log.error(e)
         return False
 
+
 def setLinkIsActive(db, linkId, b):
     try:
-        db.update('project_link', where = "project_link_id = $linkId", is_active = b, vars = {'linkId':linkId})
+        db.update('project_link', where="project_link_id = $linkId", is_active=b, vars={'linkId': linkId})
 
         return True
     except Exception, e:
@@ -721,7 +761,8 @@ def setLinkIsActive(db, linkId, b):
         log.error(e)
         return False
 
-def featureProject(db, projectId, ordinal = None):
+
+def featureProject(db, projectId, ordinal=None):
     try:
         homepage = Config.get('homepage')
         numFeatured = homepage['num_featured_projects']
@@ -744,8 +785,8 @@ def featureProject(db, projectId, ordinal = None):
             return False
         else:
             db.insert('featured_project',
-                      ordinal = ordinal,
-                      project_id = projectId)
+                      ordinal=ordinal,
+                      project_id=projectId)
 
             return True
     except Exception, e:
@@ -753,16 +794,17 @@ def featureProject(db, projectId, ordinal = None):
         log.error(e)
         return False
 
+
 def unfeatureProject(db, projectId):
     try:
         sql = "select ordinal from featured_project where project_id = $projectId order by ordinal desc limit 1"
-        data = list(db.query(sql, {'projectId':projectId}))
+        data = list(db.query(sql, {'projectId': projectId}))
 
         if (len(data) > 0):
             ordinal = data[0].ordinal
             db.delete('featured_project',
-                      where = "project_id = $projectId and ordinal = $ordinal",
-                      vars = {'projectId':projectId, 'ordinal':ordinal})
+                      where="project_id = $projectId and ordinal = $ordinal",
+                      vars={'projectId': projectId, 'ordinal': ordinal})
 
             return ordinal
         else:
@@ -774,7 +816,7 @@ def unfeatureProject(db, projectId):
         return -1
 
 
-def getFeaturedProjects(db, limit = 6):
+def getFeaturedProjects(db, limit=6):
     betterData = []
 
     try:
@@ -800,26 +842,28 @@ def getFeaturedProjects(db, limit = 6):
                 where p.is_active = 1
                 order by fp.ordinal
                 limit $limit"""
-        data = list(db.query(sql, {'limit':limit}))
+        data = list(db.query(sql, {'limit': limit}))
 
         for item in data:
-            betterData.append({'project_id' : item.project_id,
-                                'title' : item.title,
-                                'description' : item.description,
-                                'image_id' : item.image_id,
-                                'location_id' : item.location_id,
-                                'owner_user_id' : item.owner_user_id,
-                                'owner_full_display_name' : userNameDisplay(item.owner_first_name,
-                                                                      item.owner_last_name,
-                                                                      item.owner_affiliation,
-                                                                      isFullLastName(item.owner_group_membership_bitmask)),
-                                'owner_image_id' : item.owner_image_id,
-                                'num_members' : item.num_members})
+            betterData.append({'project_id': item.project_id,
+                               'title': item.title,
+                               'description': item.description,
+                               'image_id': item.image_id,
+                               'location_id': item.location_id,
+                               'owner_user_id': item.owner_user_id,
+                               'owner_full_display_name': userNameDisplay(item.owner_first_name,
+                                                                          item.owner_last_name,
+                                                                          item.owner_affiliation,
+                                                                          isFullLastName(
+                                                                              item.owner_group_membership_bitmask)),
+                               'owner_image_id': item.owner_image_id,
+                               'num_members': item.num_members})
     except Exception, e:
         log.info("*** couldn't get featured projects")
         log.error(e)
 
     return betterData
+
 
 def getFeaturedProjectsDictionary(db):
     betterData = []
@@ -858,31 +902,33 @@ def getFeaturedProjectsDictionary(db):
         data = list(db.query(sql))
 
         for item in data:
-            betterData.append({'project_id' : item.project_id,
-                                'title' : item.title,
-                                'description' : item.description,
-                                'image_id' : item.image_id,
-                                'location_id' : item.location_id,
-                                'owner' : smallUserDisplay(item.owner_user_id,
-                                                           userNameDisplay(item.owner_first_name,
-                                                                           item.owner_last_name,
-                                                                           item.owner_affiliation,
-                                                                           isFullLastName(item.owner_group_membership_bitmask)),
-                                                           item.owner_image_id),
-                                'featured_datetime' : str(item.featured_datetime),
-                                'owner_image_id' : item.owner_image_id,
-                                'num_members' : item.num_members,
-                                'num_ideas' : item.num_ideas,
-                                'num_project_resources' : item.num_project_resources,
-                                'num_endorsements' : item.num_endorsements})
+            betterData.append({'project_id': item.project_id,
+                               'title': item.title,
+                               'description': item.description,
+                               'image_id': item.image_id,
+                               'location_id': item.location_id,
+                               'owner': smallUserDisplay(item.owner_user_id,
+                                                         userNameDisplay(item.owner_first_name,
+                                                                         item.owner_last_name,
+                                                                         item.owner_affiliation,
+                                                                         isFullLastName(
+                                                                             item.owner_group_membership_bitmask)),
+                                                         item.owner_image_id),
+                               'featured_datetime': str(item.featured_datetime),
+                               'owner_image_id': item.owner_image_id,
+                               'num_members': item.num_members,
+                               'num_ideas': item.num_ideas,
+                               'num_project_resources': item.num_project_resources,
+                               'num_endorsements': item.num_endorsements})
     except Exception, e:
         log.info("*** couldn't get featured projects with stats")
         log.error(e)
 
     return betterData
 
+
 # find projects by location id
-def getProjectsByLocation(db, locationId, limit = 100):
+def getProjectsByLocation(db, locationId, limit=100):
     data = []
 
     try:
@@ -900,15 +946,16 @@ def getProjectsByLocation(db, locationId, limit = 100):
                     inner join project__user opu on opu.project_id = p.project_id and opu.is_project_creator = 1
                     inner join user o on o.user_id = opu.user_id where p.is_active = 1 and p.location_id = $locationId
                     limit $limit"""
-        data = list(db.query(sql, {'locationId':locationId, 'limit':limit}))
+        data = list(db.query(sql, {'locationId': locationId, 'limit': limit}))
     except Exception, e:
         log.info("*** couldn't get projects by location")
         log.error(e)
 
     return data
 
+
 # find project by user id
-def getProjectsByUser(db, userId, limit = 100):
+def getProjectsByUser(db, userId, limit=100):
     betterData = []
 
     try:
@@ -930,26 +977,28 @@ def getProjectsByUser(db, userId, limit = 100):
                 inner join project__user pu on pu.user_id = $userId and pu.project_id = p.project_id
                  where p.is_active = 1
                  limit $limit"""
-        data = list(db.query(sql, {'userId':userId, 'limit':limit}))
+        data = list(db.query(sql, {'userId': userId, 'limit': limit}))
 
         for item in data:
-            betterData.append(dict(project_id = item.project_id,
-                            title = item.title,
-                            description = item.description,
-                            image_id = item.image_id,
-                            location_id = item.location_id,
-                            owner = smallUserDisplay(item.owner_user_id,
-                                                     userNameDisplay(item.owner_first_name,
-                                                                     item.owner_last_name,
-                                                                     item.owner_affiliation,
-                                                                     isFullLastName(item.owner_group_membership_bitmask)),
-                                                     item.owner_image_id),
-                            num_members = item.num_members))
+            betterData.append(dict(project_id=item.project_id,
+                                   title=item.title,
+                                   description=item.description,
+                                   image_id=item.image_id,
+                                   location_id=item.location_id,
+                                   owner=smallUserDisplay(item.owner_user_id,
+                                                          userNameDisplay(item.owner_first_name,
+                                                                          item.owner_last_name,
+                                                                          item.owner_affiliation,
+                                                                          isFullLastName(
+                                                                              item.owner_group_membership_bitmask)),
+                                                          item.owner_image_id),
+                                   num_members=item.num_members))
     except Exception, e:
         log.info("*** couldn't get projects")
         log.error(e)
 
     return betterData
+
 
 def searchProjectsCount(db, terms, locationId):
     count = 0
@@ -964,7 +1013,7 @@ def searchProjectsCount(db, terms, locationId):
                     and ($locationId is null or p.location_id = $locationId)
                     and ($match = '' or match(p.title, p.keywords, p.description) against ($match in boolean mode))"""
 
-        data = list(db.query(sql, {'match':match, 'locationId':locationId}))
+        data = list(db.query(sql, {'match': match, 'locationId': locationId}))
 
         count = data[0].count
     except Exception, e:
@@ -1005,30 +1054,32 @@ def searchProjects(db, terms, locationId, limit=1000, offset=0):
                     order by num_members desc
                     limit $limit offset $offset"""
 
-        data = list(db.query(sql, {'match':match, 'locationId':locationId, 'limit':limit, 'offset':offset}))
+        data = list(db.query(sql, {'match': match, 'locationId': locationId, 'limit': limit, 'offset': offset}))
 
         for item in data:
-            betterData.append(dict(project_id = item.project_id,
-                            #title = jinja2.Markup(item.title).unescape(),
-                            title = item.title,
-                            #description = jinja2.Markup(item.description).unescape(),
-                            description = item.description,
-                            image_id = item.image_id,
-                            location_id = item.location_id,
-                            owner = smallUserDisplay(item.owner_user_id,
-                                                     userNameDisplay(item.owner_first_name, 
-                                                                     item.owner_last_name,
-                                                                     item.owner_affiliation, 
-                                                                     isFullLastName(item.owner_group_membership_bitmask)),
-                                                     item.owner_image_id),
-                            num_members = item.num_members))
+            betterData.append(dict(project_id=item.project_id,
+                                   #title = jinja2.Markup(item.title).unescape(),
+                                   title=item.title,
+                                   #description = jinja2.Markup(item.description).unescape(),
+                                   description=item.description,
+                                   image_id=item.image_id,
+                                   location_id=item.location_id,
+                                   owner=smallUserDisplay(item.owner_user_id,
+                                                          userNameDisplay(item.owner_first_name,
+                                                                          item.owner_last_name,
+                                                                          item.owner_affiliation,
+                                                                          isFullLastName(
+                                                                              item.owner_group_membership_bitmask)),
+                                                          item.owner_image_id),
+                                   num_members=item.num_members))
     except Exception, e:
         log.info("*** couldn't get project search data")
         log.error(e)
 
     return betterData
 
-def getLeaderboardProjects(db, limit = 10, offset = 0):
+
+def getLeaderboardProjects(db, limit=10, offset=0):
     data = []
 
     try:
@@ -1051,14 +1102,15 @@ def getLeaderboardProjects(db, limit = 10, offset = 0):
                 order by (user_count * 5) desc
                 limit $limit offset $offset"""
 
-        data = list(db.query(sql, {'limit':limit, 'offset':offset}))
+        data = list(db.query(sql, {'limit': limit, 'offset': offset}))
     except Exception, e:
         log.info("*** couldn't get project leaderboard data")
         log.error(e)
 
     return data
 
-def addMessage(db, projectId, message, message_type, userId = None, ideaId = None, attachmentId = None):
+
+def addMessage(db, projectId, message, message_type, userId=None, ideaId=None, attachmentId=None):
     """
     Insert a new record into the project_message table.  Return true if
     successful.  Otherwise, if any exceptions arise, log and return false.
@@ -1069,14 +1121,14 @@ def addMessage(db, projectId, message, message_type, userId = None, ideaId = Non
         numFlags = helpers.censor.badwords(db, message)
         isActive = 0 if numFlags == 2 else 1
 
-        db.insert('project_message', project_id = projectId,
-                                    message = message,
-                                    user_id = userId,
-                                    idea_id = ideaId,
-                                    file_id = attachmentId,
-                                    message_type  = message_type,
-                                    num_flags = numFlags,
-                                    is_active = isActive)
+        db.insert('project_message', project_id=projectId,
+                  message=message,
+                  user_id=userId,
+                  idea_id=ideaId,
+                  file_id=attachmentId,
+                  message_type=message_type,
+                  num_flags=numFlags,
+                  is_active=isActive)
 
         return True;
     except Exception, e:
@@ -1084,9 +1136,11 @@ def addMessage(db, projectId, message, message_type, userId = None, ideaId = Non
         log.error(e)
         return False
 
+
 def removeMessage(db, messageId):
     try:
-        db.update('project_message', where="project_message_id = $messageId", is_active=0, vars = {'messageId':messageId})
+        db.update('project_message', where="project_message_id = $messageId", is_active=0,
+                  vars={'messageId': messageId})
 
         return True
     except Exception, e:
@@ -1094,7 +1148,8 @@ def removeMessage(db, messageId):
         log.error(e)
         return False
 
-def getMessages(db, projectId, limit = 10, offset = 0, filterBy = None):
+
+def getMessages(db, projectId, limit=10, offset=0, filterBy=None):
     """
     Return a list of dictionaries with data representing project messages
     associated with the given projectId.  This data come from the tables
@@ -1103,7 +1158,7 @@ def getMessages(db, projectId, limit = 10, offset = 0, filterBy = None):
     """
     messages = []
 
-    if (filterBy not in ['member_comment','admin_comment','join','endorsement']):
+    if (filterBy not in ['member_comment', 'admin_comment', 'join', 'endorsement']):
         filterBy = None
 
     try:
@@ -1134,24 +1189,25 @@ def getMessages(db, projectId, limit = 10, offset = 0, filterBy = None):
                 and ($filterBy is null or m.message_type = $filterBy)
                 order by m.created_datetime desc
                 limit $limit offset $offset"""
-        data = list(db.query(sql, {'id':projectId, 'limit':limit, 'offset':offset, 'filterBy':filterBy}))
+        data = list(db.query(sql, {'id': projectId, 'limit': limit, 'offset': offset, 'filterBy': filterBy}))
 
         for item in data:
-            messages.append(message(id = item.project_message_id,
-                                    type = item.message_type,
-                                    message = item.message,
-                                    attachmentId = item.file_id,
-                                    createdDatetime = item.created_datetime,
-                                    userId = item.user_id,
-                                    name = userNameDisplay(item.first_name, item.last_name, item.affiliation, isFullLastName(item.group_membership_bitmask)),
-                                    imageId = item.image_id,
-                                    ideaId = item.idea_id,
-                                    idea = item.idea_description,
-                                    ideaSubType = item.idea_submission_type,
-                                    ideaCreatedDatetime = item.idea_created_datetime,
-                                    attachmentMediaType = item.attachment_type,
-                                    attachmentMediaId = item.attachment_id,
-                                    attachmentTitle = item.attachment_title))
+            messages.append(message(id=item.project_message_id,
+                                    type=item.message_type,
+                                    message=item.message,
+                                    attachmentId=item.file_id,
+                                    createdDatetime=item.created_datetime,
+                                    userId=item.user_id,
+                                    name=userNameDisplay(item.first_name, item.last_name, item.affiliation,
+                                                         isFullLastName(item.group_membership_bitmask)),
+                                    imageId=item.image_id,
+                                    ideaId=item.idea_id,
+                                    idea=item.idea_description,
+                                    ideaSubType=item.idea_submission_type,
+                                    ideaCreatedDatetime=item.idea_created_datetime,
+                                    attachmentMediaType=item.attachment_type,
+                                    attachmentMediaId=item.attachment_id,
+                                    attachmentTitle=item.attachment_title))
     except Exception, e:
         log.info("*** couldn't get messages")
         log.error(e)
@@ -1165,7 +1221,7 @@ def getLinks(db, projectId):
     sql = "select project_link_id, title, url, image_id from project_link where project_id = $id and is_active = 1"
 
     try:
-        data = list(db.query(sql, {'id':projectId}))
+        data = list(db.query(sql, {'id': projectId}))
 
         if len(data) > 0:
             for item in data:
@@ -1176,6 +1232,7 @@ def getLinks(db, projectId):
 
     return links
 
+
 def getResources(db, projectId):
     resources = []
 
@@ -1185,14 +1242,15 @@ def getResources(db, projectId):
             where pr.is_active = 1 and pr.is_hidden = 0"""
 
     try:
-        resources = list(db.query(sql, {'id':projectId}))
+        resources = list(db.query(sql, {'id': projectId}))
     except Exception, e:
         log.info("*** couldn't get project resources")
         log.error(e)
 
     return resources
 
-def getProjectIdeas(db, projectId, limit = 100):
+
+def getProjectIdeas(db, projectId, limit=100):
     ideas = []
 
     try:
@@ -1201,14 +1259,16 @@ def getProjectIdeas(db, projectId, limit = 100):
                     left join user u on u.user_id = i.user_id
                     where i.project_id = $projectId and i.is_active = 1
                     limit $limit"""
-        data = list(db.query(sql, { 'projectId':projectId, 'limit':limit }))
+        data = list(db.query(sql, {'projectId': projectId, 'limit': limit}))
 
         if len(data) > 0:
             for item in data:
-                ideas.append(smallIdea(item.idea_id, item.description, item.first_name, item.last_name, item.submission_type))
+                ideas.append(
+                    smallIdea(item.idea_id, item.description, item.first_name, item.last_name, item.submission_type))
     except Exception, e:
         log.info("*** couldn't get project ideas")
         log.error(e)
+
 
 def findInviteByPhone(db, phone):
     data = []
@@ -1218,13 +1278,14 @@ def findInviteByPhone(db, phone):
             sql = """select inv.project_invite_id, inv.project_id, i.idea_id, i.user_id, inv.created_datetime
                         from project_invite inv
                         inner join idea i on i.idea_id = inv.invitee_idea_id and i.phone = $phone"""
-            data = list(db.query(sql, {'phone':phone}))
+            data = list(db.query(sql, {'phone': phone}))
 
         except Exception, e:
             log.info("*** couldn't get invite data for phone %s" % phone)
             log.error(e)
 
     return data
+
 
 def inviteByIdea(db, projectId, ideaId, message, inviterUser):
     if (createInviteRecord(db, projectId, message, inviterUser.id, ideaId)):
@@ -1239,8 +1300,8 @@ def inviteByIdea(db, projectId, ideaId, message, inviterUser):
             # ELSE
             # send by email
             if (not idea.data.user_id and
-                idea.data.submission_type == 'sms' and
-                idea.data.phone):
+                        idea.data.submission_type == 'sms' and
+                    idea.data.phone):
                 if (len(findInviteByPhone(db, idea.data.phone)) == 1):
                     return giveaminute.messaging.sendSMSInvite(db, idea.data.phone, projectId)
                 else:
@@ -1248,14 +1309,15 @@ def inviteByIdea(db, projectId, ideaId, message, inviterUser):
                     return True
             else:
                 return giveaminute.messaging.emailInvite(idea.data.email,
-                                              userNameDisplay(inviterUser.firstName,
-                                                              inviterUser.lastName,
-                                                              inviterUser.affiliation,
-                                                              isFullLastName(inviterUser.groupMembershipBitmask)),
-                                              projectId,
-                                              project.data.title,
-                                              project.data.description,
-                                              message)
+                                                         userNameDisplay(inviterUser.firstName,
+                                                                         inviterUser.lastName,
+                                                                         inviterUser.affiliation,
+                                                                         isFullLastName(
+                                                                             inviterUser.groupMembershipBitmask)),
+                                                         projectId,
+                                                         project.data.title,
+                                                         project.data.description,
+                                                         message)
         except Exception, e:
             log.info("*** couldn't get send invite")
             log.error(e)
@@ -1264,21 +1326,23 @@ def inviteByIdea(db, projectId, ideaId, message, inviterUser):
         log.error("*** could not create invite record")
         return False
 
+
 def inviteByEmail(db, projectId, emails, message, inviterUser):
     try:
         project = Project(db, projectId)
 
         for email in emails:
             if (createInviteRecord(db, projectId, message, inviterUser.id, None, email)):
-               if (not giveaminute.messaging.emailInvite(email,
-                                          userNameDisplay(inviterUser.firstName,
-                                                              inviterUser.lastName,
-                                                              inviterUser.affiliation,
-                                                              isFullLastName(inviterUser.groupMembershipBitmask)),
-                                          projectId,
-                                          project.data.title,
-                                          project.data.description,
-                                          message)):
+                if (not giveaminute.messaging.emailInvite(email,
+                                                          userNameDisplay(inviterUser.firstName,
+                                                                          inviterUser.lastName,
+                                                                          inviterUser.affiliation,
+                                                                          isFullLastName(
+                                                                                  inviterUser.groupMembershipBitmask)),
+                                                          projectId,
+                                                          project.data.title,
+                                                          project.data.description,
+                                                          message)):
                     log.warning("*** failed to create invite record for %s on project %" % (email, projectId))
             else:
                 log.warning("*** failed to create invite record for %s on project %" % (email, projectId))
@@ -1290,13 +1354,13 @@ def inviteByEmail(db, projectId, emails, message, inviterUser):
         return False
 
 
-def createInviteRecord(db, projectId, message, inviterUserId, ideaId, email = None):
+def createInviteRecord(db, projectId, message, inviterUserId, ideaId, email=None):
     try:
-        db.insert('project_invite', project_id = projectId,
-                                    message = message,
-                                    inviter_user_id = inviterUserId,
-                                    invitee_idea_id = ideaId,
-                                    invitee_email = email)
+        db.insert('project_invite', project_id=projectId,
+                  message=message,
+                  inviter_user_id=inviterUserId,
+                  invitee_idea_id=ideaId,
+                  invitee_email=email)
 
         return True;
     except Exception, e:
@@ -1304,11 +1368,13 @@ def createInviteRecord(db, projectId, message, inviterUserId, ideaId, email = No
         log.error(e)
         return False
 
+
 def createInviteBody(message, projectId):
     return "%s\n\n%sproject/%s" % (message, Config.get('default_host'), str(projectId))
 
-def createAttachment (db, media_type, media_id,
-                      title, description=None):
+
+def createAttachment(db, media_type, media_id,
+                     title, description=None):
     """
     Adds a new row to the attachments table.
 
