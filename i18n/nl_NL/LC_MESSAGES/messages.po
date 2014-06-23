@@ -1,0 +1,507 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# 
+# Translators:
+# Giovanni Maggini <giovanni.maggini@gmail.com>, 2014
+# WaagSociety <suzanne@waag.org>, 2014
+msgid ""
+msgstr ""
+"Project-Id-Version: Change by Us v2\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2014-06-16 09:59+0000\n"
+"PO-Revision-Date: 2014-06-23 14:18+0000\n"
+"Last-Translator: WaagSociety <suzanne@waag.org>\n"
+"Language-Team: Dutch (http://www.transifex.com/projects/p/change-by-us-v2/language/nl/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: nl\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: templates/about.html:7
+msgid "About"
+msgstr "Over ons"
+
+#: templates/about.html:12
+#, python-format
+msgid "<span class=\"unbold\">What is</span> %(site_name)s?"
+msgstr "<span class=\"unbold\">Wat is</span> %(site_name)s?"
+
+#: templates/about.html:17
+#, python-format
+msgid ""
+"<h2><strong>%(site_name)s</strong> is an online marketplace for community "
+"projects that allows you to share ideas for making the city better, and to "
+"turn those ideas into projects that have real impact. From tools to network "
+"and manage events to helping you connect with local resources, the site "
+"supports a number of ways to get involved.</h2>"
+msgstr ""
+
+#: templates/about.html:18
+#, python-format
+msgid ""
+"<strong>Share Ideas:</strong> Have an idea for how to make %(city)s better? "
+"Add it to Change by Us and connect with like-minded people and projects in "
+"your area. No idea is too big or small."
+msgstr ""
+
+#: templates/about.html:19
+msgid ""
+"<strong>Join or Create Projects:</strong> Find great projects in your "
+"neighborhood, or start your own! Use Change by Us&#39; powerful project "
+"management tools to recruit volunteers, promote events, and find in-kind "
+"donations."
+msgstr ""
+
+#: templates/about.html:20
+msgid ""
+"<strong>Build Teams:</strong> Change by Us allows you to tap into a network "
+"of people motivated to improve their communities. The site helps you find "
+"people by interest, location, and skills. You can even find people by items "
+"they have available to lend. Change by Us helps you tap into the power of "
+"your community."
+msgstr ""
+
+#: templates/about.html:21
+msgid ""
+"<strong>Find Resources:</strong> In addition to projects, Change by Us also "
+"maintains information on public and non-profit programs that can help your "
+"project succeed. Connect with city services and local knowledge."
+msgstr ""
+
+#: templates/about.html:22
+msgid ""
+"Change by Us is a growing community &mdash; help us get the word out! If "
+"there are any features or resources you&#39;d like to see on Change by Us, "
+"please let us know at"
+msgstr ""
+
+#: templates/about.html:22
+msgid ""
+"We&#39;re always improving the site and your feedback is a critical part of "
+"our planning."
+msgstr ""
+
+#: templates/about.html:26
+#, python-format
+msgid ""
+"<strong>%(site_name)s</strong> was launched by CEOs for Cities, Local "
+"Projects and Code for America in collaboration with City of "
+"%(site_full_city)s. The new civic engagement platform was co-created by "
+"national urban advocacy non-profit CEOs for Cities and Local Projects "
+"&mdash; known for its innovative work on StoryCorps and the 9/11 Memorial "
+"Museum. After launching in New York, the platform was made open source by "
+"Code for America, a public service fellowship for technologists, who have "
+"generously donated their time to expanding Change by Us. Change by Us is "
+"funded nationally with support from the John S. and James L. Knight "
+"Foundation, The Rockefeller Foundation and the Case Foundation."
+msgstr ""
+
+#: templates/create.html:13
+msgid "Create <em>a</em> Project"
+msgstr "Bedenk <em>een</em> Project"
+
+#: templates/create.html:14
+msgid "Turn an idea into a project."
+msgstr "Maak de stap van plan naar project."
+
+#: templates/create.html:15
+msgid "Hey"
+msgstr "Hoi"
+
+#: templates/create.html:15
+msgid "let&#39;s get started with some basic details."
+msgstr "Laten we beginnen met een paar basis details."
+
+#: templates/create.html:20
+msgid "Describe"
+msgstr "Beschrijf"
+
+#: templates/create.html:21
+msgid "Location"
+msgstr "Lokatie"
+
+#: templates/create.html:22
+msgid "Check"
+msgstr "Check"
+
+#: templates/create.html:23 templates/create.html:172
+msgid "Add"
+msgstr "Toevoegen"
+
+#: templates/create.html:27
+msgid "Next step"
+msgstr "Volgende stap"
+
+#: templates/create.html:51
+msgid "<strong>Name</strong> your project:"
+msgstr "Geef je project een <strong>naam</strong>:"
+
+#: templates/create.html:54 templates/home.html:253
+msgid "Created by"
+msgstr "Door:"
+
+#: templates/create.html:54
+msgid "Edit"
+msgstr "Aanpassen"
+
+#: templates/create.html:57
+msgid "Give your affiliation"
+msgstr "Wat is je gerelateerde achtergrond?"
+
+#: templates/create.html:57
+msgid "(Optional)"
+msgstr "(Optioneel)"
+
+#: templates/create.html:61
+msgid ""
+"<strong>Describe</strong> your project. Be specific so people can find it "
+"and join."
+msgstr "<strong>Beschrijf</strong> je project. Wees specifiek zodat anderen het makkelijk kunnen vinden en zich aan kunnen sluiten."
+
+#: templates/create.html:66
+msgid "<strong>Add</strong> keywords to help people find your project:"
+msgstr "<strong>Voeg</strong> kernwoorden toe zodat anderen je project makkelijekr kunnen vinden:"
+
+#: templates/create.html:69
+msgid "Suggested Keywords"
+msgstr "Voorgestelde kernwoorden"
+
+#: templates/create.html:80
+msgid "Your project is for?"
+msgstr "Je project is voor?"
+
+#: templates/create.html:83 templates/home.html:56
+msgid "The city"
+msgstr "De stad"
+
+#: templates/create.html:87 templates/home.html:61
+msgid "A neighborhood"
+msgstr "De buurt"
+
+#: templates/create.html:92 templates/home.html:71
+msgid "Please enter a neighborhood."
+msgstr "Welke buurt?"
+
+#: templates/create.html:98
+msgid "Please wait while we check for similar projects."
+msgstr "Een moment geduld terwijl wij checken of er vergelijkbare projecten zijn."
+
+#: templates/create.html:103 templates/create.html:122
+msgid "Similar Projects"
+msgstr "Vergelijkbare projecten"
+
+#: templates/create.html:108
+msgid "Please wait while we search for relevant resources."
+msgstr "Een moment geduld terwijl wij op zoek gaan naar relevante middelen."
+
+#: templates/create.html:115
+msgid "You&#39;ve added <br /><strong>resources</strong>"
+msgstr "Je hebt <br /><strong>middelen</strong> toegevoegd"
+
+#: templates/create.html:123
+msgid "No similar projects found."
+msgstr "Geen vergelijkbare projecten gevonden."
+
+#: templates/create.html:124
+msgid "Thanks for taking the lead!"
+msgstr "Fijn dat je het voortouw neemt!"
+
+#: templates/create.html:129
+msgid "No resources found."
+msgstr "Geen middelen gevonden."
+
+#: templates/create.html:130
+msgid ""
+"Sorry! You can add resources later if you find something that looks helpful."
+msgstr "Jammer. Je kunt altijd later nog middelen toevoegen."
+
+#: templates/create.html:134
+msgid "Thank you for joining."
+msgstr "Bedankt dat je meedoet."
+
+#: templates/create.html:141
+msgid "Back"
+msgstr "Terug"
+
+#: templates/create.html:146
+msgid "<strong>Upload</strong> a photo for your project."
+msgstr "<strong>Upload</strong> een foto voor je project."
+
+#: templates/create.html:148
+msgid ""
+"Photos should be <strong>under 1MB</strong> please. (We also crop photos to "
+"<strong>90px by 90px</strong>)"
+msgstr "Foto's mogen maximaal <strong>1MB</strong> zijn. (Foto's worden afgesnijden op het formaat <strong>90px bij 90px</strong>)"
+
+#: templates/create.html:152 templates/home.html:361
+msgid "close"
+msgstr "sluiten"
+
+#: templates/create.html:174
+msgid "Added <em>to</em> your project"
+msgstr "Toegevoegd <em>aan</em> je prokect"
+
+#: templates/create.html:175
+msgid "We&#39;ve sent them a link to your project page."
+msgstr "We hebben hen een link naar je project gestuurd."
+
+#: templates/create.html:183
+msgid "<strong>Hold your horses!</strong> Please register."
+msgstr "<strong>Niet zo snel!</strong> Aub eerst registreren."
+
+#: templates/create.html:184
+#, python-format
+msgid ""
+"You must <strong><a href=\"/join\">register</a></strong> or <strong><a "
+"href=\"/login\">login</a></strong> with %(site_name)s in order to create<br "
+"/>your own project."
+msgstr "Om een eigen project aan te maken, moet je eerst <strong><a href=\"/login\">inloggen</a></strong> met %(site_name)s of <strong><a href=\"/join\">registreren</a></strong>."
+
+#: templates/error.html:16
+msgid "Things change. Cities, people, web addresses."
+msgstr "Dingen veranderen. Steden, mensen, web-adressen."
+
+#: templates/error.html:17
+msgid ""
+"If you think something is broken, please let us know <a "
+"href=\"/feedback\">here</a>."
+msgstr "Als je denkt dat er iets mis gaat op de site, <a href=\"/feedback\">meld</a> het ons dan aub."
+
+#: templates/error.html:26
+msgid "GO BACK <span class=\"lowercase\">to</span> WHERE YOU WERE"
+msgstr "GA TERUG <span class=\"lowercase\">naar</span> WAAR JE WAS"
+
+#: templates/home.html:13
+#, python-format
+msgid "Hey %(city)s!"
+msgstr "Hoi %(city)s!"
+
+#: templates/home.html:32 templates/home.html:35
+msgid "Thanks for your idea"
+msgstr "Bedankt voor je plan"
+
+#: templates/home.html:32
+msgid "We need just a few more details."
+msgstr "We nog een paar details nodig."
+
+#: templates/home.html:35
+msgid "Please wait while we process your idea!"
+msgstr "Een moment geduld terwijl wij je plan verwerken."
+
+#: templates/home.html:42
+msgid "Your email?"
+msgstr "Je mailadres"
+
+#: templates/home.html:46
+msgid "Please enter a valid email address"
+msgstr "Voeg emailadres toe"
+
+#: templates/home.html:47
+msgid "We will never send spam or sell your email address."
+msgstr "We sturen geen spam en verkopen niet je emailadres aan derden"
+
+#: templates/home.html:48
+msgid ""
+"See our <a href=\"/tou\" class=\"toc-link\">privacy policy</a> for more "
+"details."
+msgstr "Bekijk het <a href=\"/tou\" class=\"toc-link\">privacybeleid</a> voor meer details."
+
+#: templates/home.html:53
+msgid "Your idea is for..."
+msgstr "Je plan is voor..."
+
+#: templates/home.html:84
+msgid "See more ideas"
+msgstr "Bekijk andere ideeën "
+
+#: templates/home.html:85
+msgid "New Ideas"
+msgstr "Nieuwe plannen"
+
+#: templates/home.html:127
+msgid "Make that idea happen. Join a project, or start your own."
+msgstr "Laat je plan slagen. Sluit je aan bij een project of creëer er zelf een."
+
+#: templates/home.html:135
+msgid "Related Projects"
+msgstr "Gerelateerde projecten"
+
+#: templates/home.html:141
+msgid "See more projects <em>near</em> you"
+msgstr "Bekijk nog meer projecten bij jou <em>in de buurt</em>"
+
+#: templates/home.html:146
+msgid "Citywide Projects"
+msgstr "Amsterdamse projecten"
+
+#: templates/home.html:152
+msgid "See more citywide projects"
+msgstr "Bekijk meer Amsterdamse projecten"
+
+#: templates/home.html:157 templates/home.html:171
+msgid "Browse All"
+msgstr "Bekijk alles"
+
+#: templates/home.html:157 templates/home.html:175
+msgid "or"
+msgstr "of"
+
+#: templates/home.html:157 templates/home.html:180
+msgid "Start Your Own"
+msgstr "Begin je eigen project"
+
+#: templates/home.html:165
+msgid "No projects found!"
+msgstr "Geen projecten gevonden."
+
+#: templates/home.html:166
+msgid ""
+"We didn&#39;t find any projects based on your idea or location.  But "
+"don&#39;t stop there."
+msgstr ""
+
+#: templates/home.html:170
+msgid "Search for projects that interest you:"
+msgstr ""
+
+#: templates/home.html:179
+msgid "Take the lead, and begin a project today."
+msgstr "Neem het heft in handen en begin nog vandaag een project"
+
+#: templates/home.html:196
+msgid "My idea is:"
+msgstr "Mijn idee:"
+
+#: templates/home.html:206
+msgid "Post"
+msgstr "Plaats"
+
+#: templates/home.html:214
+msgid "Oops! Please limit your idea to 175 characters."
+msgstr "Oeps. Beschrijf je plan in maximaal 175 tekens."
+
+#: templates/home.html:223
+#, python-format
+msgid ""
+"<strong>%(site_name)s</strong> is a place to share ideas, create projects, "
+"discover resources, and make our city better."
+msgstr ""
+
+#: templates/home.html:227
+msgid "Browse and join projects"
+msgstr "Bekijk projecten en sluit je aan"
+
+#: templates/home.html:228
+msgid "Put your ideas into action:"
+msgstr "Maak werk van je idee:"
+
+#: templates/home.html:229
+msgid ""
+"<a href=\"/search#projects\">Join a project</a>. <a href=\"/create\">Or "
+"start your own project</a>."
+msgstr "<a href=\"/search#projects\">Meld je aan voor een project</a>. <a href=\"/create\">Of start er zelf eentje</a>."
+
+#: templates/home.html:234
+#, python-format
+msgid "Top <strong>%(length)s Projects</strong>"
+msgstr "Top <strong>%(length)s projecten</strong>"
+
+#: templates/home.html:234
+msgid "See the leaderboard"
+msgstr "Bekijk het overzichtsbord"
+
+#: templates/home.html:273
+msgid "Featured <strong>Projects</strong>"
+msgstr "Getoonde <strong>projecten</strong>"
+
+#: templates/home.html:312
+msgid "Who&#39;s listening?"
+msgstr "Wie luistert er mee?"
+
+#: templates/home.html:313
+msgid ""
+"A network of city leaders is ready to hear your <a "
+"href=\"/search#ideas\">ideas</a> and provide guidance for your <a "
+"href=\"/search#projects\">projects</a>."
+msgstr "Een netwerk van stedelijke beleidsmakers zitten klaar om naar jouw <a href=\"/search#ideas\">ideeën</a> te luisteren en je ondersteunen bij je <a href=\"/search#projects\">projecten</a>."
+
+#: templates/home.html:330
+msgid "Recent News"
+msgstr "Nieuw"
+
+#: templates/home.html:331
+#, python-format
+msgid "Find out what&#39;s happening on %(site_name)s."
+msgstr "Wat speelt er? Check het hier: %(site_name)s."
+
+#: templates/home.html:340
+msgid "Read more"
+msgstr "Meer info"
+
+#: templates/home.html:357
+msgid "Terms of Use"
+msgstr "Gebruiksvoorwaarden"
+
+#: templates/nyc_about.html:8
+msgid "Change by Us NYC - About"
+msgstr "Change by Us AMS - Over ons"
+
+#: templates/nyc_about.html:14
+msgid "<h1><span class=\"unbold\">What is</span> Change by Us NYC?</h1>"
+msgstr "<h1><span class=\"unbold\">Wat is</span> Change by Us AMS?</h1>"
+
+#: templates/nyc_about.html:45
+msgid ""
+"<strong>Change by Us NYC</strong> is run by New York City&#39;s Office of "
+"the Mayor. New York City is "
+msgstr "<strong>Change by Us AMS</strong> wordt gerund door...... "
+
+#: templates/nyc_about.html:42
+msgid ""
+"<strong>Change by Us NYC</strong> is a new platform created by Local "
+"Projects &mdash; known "
+msgstr "<strong>Change by Us AMS</strong> is een nieuw platform ontwikkeld door Code for Europe"
+
+#: templates/nyc_about.html:36
+msgid ""
+"If there are any features or resources that you think will make Change by Us"
+" NYC easier to use or more "
+msgstr "Heb je nog tips of feedback voor ons om Change by Us AMS te verbeteren? Neem dan contact met ons op."
+
+#: templates/nyc_about.html:34
+msgid ""
+"Help us spread the word about Change by Us NYC &mdash; and check back often "
+"to see the line-up of influential New "
+msgstr ""
+
+#: templates/nyc_about.html:31
+msgid ""
+"<strong>Find Resources:</strong> Use Change by Us NYC to find and connect "
+"with public and non-profit programs that can "
+msgstr ""
+
+#: templates/nyc_about.html:29
+msgid ""
+"<strong>Build Teams:</strong>  Use Change by Us NYC to connect quickly with "
+"the people who will help your project "
+msgstr ""
+
+#: templates/nyc_about.html:26
+msgid ""
+"<strong>Join or Create Projects:</strong> Look for projects in your "
+"neighborhood or around the city where you "
+msgstr ""
+
+#: templates/nyc_about.html:23
+msgid ""
+"<strong>Share Ideas:</strong> New Yorkers have always been full of great "
+"ideas about what will improve their "
+msgstr ""
+
+#: templates/nyc_about.html:20
+msgid ""
+"<h2><strong>Change by Us NYC</strong> is a new website created by Local "
+"Projects and run by the City of New York.  "
+msgstr ""
