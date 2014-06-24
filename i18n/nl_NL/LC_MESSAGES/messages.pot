@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-06-24 13:02+0200\n"
+"POT-Creation-Date: 2014-06-24 13:11+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -149,7 +149,9 @@ msgid ""
 msgstr ""
 
 #: templates/bb.html:91
-msgid "<span class=\"unbold\">Found </span><span class="
+msgid ""
+"<span class=\"unbold\">Found </span><span class=\"proj-count\"></span> <span "
+"class=\"proj-qualifier\">Projects</span>"
 msgstr ""
 
 #: templates/bb.html:98
@@ -764,7 +766,7 @@ msgstr ""
 
 #: templates/join.html:204
 msgid ""
-"{{ _(Click on the link provided in the e-mail address to complete your "
+"Click on the link provided in the e-mail address to complete your "
 "registration."
 msgstr ""
 
@@ -788,7 +790,7 @@ msgstr ""
 #, python-format
 msgid ""
 " An account using that email already exists on %(sitename)s. To recover your "
-"password, please click <a href=\"\"/login#forgot-password\">here</a>."
+"password, please click <a href=\"/login#forgot-password\">here</a>."
 msgstr ""
 
 #: templates/join.html:231
