@@ -10,7 +10,7 @@
 {% block continent %}
 <div class='continent home'>
     <div class='headlands'>
-        <span class="hey {{ d.config.site.city_id }}"><span>{{ _('Hey %(city')s!)|format(city=d.config.site.city) }}</span></span>
+        <span class="hey {{ d.config.site.city_id }}"><span>{{ _('Hey %(city)s!')|format(city=d.config.site.city) }}</span></span>
 
         <div class='splash-container merlin'>
             <div class='splash-background'></div>
@@ -220,7 +220,7 @@
     <!-- Mid content -->
     <div class='midlands clearfix'>
         <div class="box box-mission">
-            <h1>{{ _('<strong>%(site_name')s</strong> is a place to share ideas, create projects, discover resources, and make our city better.)|format(site_name=d.config.site.name) }}</h1>
+            <h1>{{ _('<strong>%(site_name)s</strong> is a place to share ideas, create projects, discover resources, and make our city better.')|format(site_name=d.config.site.name) }}</h1>
         </div>
 
         <div class="box box-project">
@@ -231,7 +231,7 @@
 
         {% if d.template_data.features_is_display_leaderboard %}
             <div class="box box-leaderboard">
-                <h3>{{ _('Top <strong>%(length')s Projects</strong>)|format(length=d.template_data.leaderboard|length) }}<a href="/leaderboard" class="leaderboard-link">{{ _('See the leaderboard') }}</a></h3>
+                <h3>{{ _('Top <strong>%(length)s Projects</strong>')|format(length=d.template_data.leaderboard|length) }}<a href="/leaderboard" class="leaderboard-link">{{ _('See the leaderboard') }}</a></h3>
                 <ol class="leaderboard">
                     {% for item in d.template_data.leaderboard %}
                     <li {% if loop.index is even %}class="every-other"{% endif %}>
@@ -328,7 +328,7 @@
         {% if d.config.homepage.news %}
           <div class="box box-news">
               <h1><strong>{{ _('Recent News') }}</strong></h1>
-              <h2>{{ _('Find out what&#39;s happening on %(site_name')s.)|format(site_name=d.config.site.name) }}</h2>
+              <h2>{{ _('Find out what&#39;s happening on %(site_name)s.')|format(site_name=d.config.site.name) }}</h2>
 
               <ul>
                   {% for item in d.template_data.news %}

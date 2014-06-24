@@ -19,7 +19,7 @@
 		<div class="external-links">
 			<div class="sub-hd">
 				<h3>{{ _('External Links') }}</h3>
-				<p class="hint">{{ _('These sites are not managed by %(sitename')s, but have been added by this project's members.)format(sitename=d.config.site.name) }}</p>
+				<p class="hint">{{ _('These sites are not managed by %(sitename)s, but have been added by this project\'s members.')format(sitename=d.config.site.name) }}</p>
 			</div>
 
 			<div class="sub-bd links-not-empty" style="{% if d.template_data.project.data.info.resources.links['items']|length == 0 %}display:none;{% endif %}">
@@ -76,7 +76,7 @@
 		<div class="organizations">
 			<div class="sub-hd">
 				<h3>Resources</h3>
-				<p class="hint">These sites are not managed by {{ d.config.site.name }}, but have been added by this project's members.</p>
+				<p class="hint">{{ _('These sites are not managed by %(sitename)s, but have been added by this project\'s members.')format(sitename=d.config.site.name) }}</p>
 			</div>
 
 			<div class="sub-bd organizations-not-empty" style="{% if d.template_data.project.data.info.resources.organizations['items']|length == 0 %}display:none;{% endif %}">
@@ -114,15 +114,16 @@
 
 			{% if d.template_data.project_user.data.is_member == True %}
 			<div class="sub-ft clearfix organizations-not-empty" style="{% if d.template_data.project.data.info.resources.organizations['items']|length == 0 %}display:none;{% endif %}">
-				<a href="#show,related_resources" class="rounded-button small add-organization">Add a Resource</a>
+				<a href="#show,related_resources" class="rounded-button small add-organization">{{ _('Add a Resource')
+                    }}</a>
 			</div>
 			{% endif %}
 
 			<div class="sub-bd  organizations-empty" style="{% if d.template_data.project.data.info.resources.organizations['items']|length > 0 %}display:none;{% endif %}">
 				<div class="empty-state-box">
 					<!--<a class="close" href="#"><span>Close</span></a>-->
-					<p>When you <a href="#show,related_resources">add a resource</a>,  we'll send them a link to your project page.</p>
-					<a href="#show,related_resources" class="rounded-button small">Add a resource</a>
+					<p>{{ _('When you <a href="#show,related_resources">add a resource</a>, we\'ll send them a link to your project page.') }}</p>
+					<a href="#show,related_resources" class="rounded-button small">{{ _('Add a resource') }}</a>
 				</div>
 			</div>
 
@@ -146,7 +147,7 @@
 </div>
 
 <div class='template-content organization-table-cell' title=''>
-	<span class="official-resource-alt" style="display:none">Official Resource</span>
+	<span class="official-resource-alt" style="display:none">'Official Resource'</span>
 	<span class="thumb">
 		<a class="close" href="#removeOrganization,"></a>
 		<img width='30' src="/static/images/thumb_genAvatar30.png" alt=""/>
@@ -172,7 +173,7 @@
 			</div>
 		</div>
 		<dl class='details'>
-			<dt>Visit Us</dt>
+			<dt>{{ _('Visit Us') }}</dt>
 			<dd><a target='_blank' href='#'></a></dd>
 		</dl>
 	</div>
@@ -180,13 +181,13 @@
 
 <div class="template-content modal-content confirm-delete remove-link">
 	<div class="step">
-		<h2><strong>Delete</strong> this Link?</h2>
+		<h2><strong>{{ _('Delete') }}</strong> {{ _('this Link?') }}</h2>
 		<div>
 			<p>This deletes the link from the project! <br/>Are you sure?</p>
 		</div>
 		<div class="actions">
-			<a class="submit rounded-button" href="#">Yes, Delete Link</a>
-			<a class="cancel" href="#">No, keep them.</a>
+			<a class="submit rounded-button" href="#">{{ _('Yes, Delete Link') }}</a>
+			<a class="cancel" href="#">{{ _('No, keep them.') }}</a>
 		</div>
 	</div>
 	<a class='close' href="#"><span>close</span></a>

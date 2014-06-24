@@ -52,28 +52,28 @@
     {% raw %}
     <script id="add_inkind_need_tmpl" type="text/html">
         <span>
-        <strong>{{ _('YES') }}</strong>, I can bring <input name="add-quantity" class="add-quantity" id="add_quantity" type="text" /> {{ request }}
+        <strong>{{ _('YES') }}</strong>, {{ _('I can bring <input name="add-quantity" class="add-quantity" id="add_quantity" type="text"/> %(requested_need)s ')|format(requested_need=request) }}
 
         {{#reason}}
-            for {{ reason }}
+            {{ _('for') }} {{ reason }}
         {{/reason}}
 
         {{#display_date}}
-            on {{ display_date }}
+            {{ _('on') }} {{ display_date }}
         {{/display_date}}
         </span>
     </script>
 
     <script id="add_vol_need_tmpl" type="text/html">
         <span>
-        <strong>{{ _('YES') }}</strong>, {{ _('I can help %(the_request')s)|format(the_request=request) }}
+        <strong>{{ _('YES') }}</strong>, {{ _('I can help %(the_request)s')|format(the_request=request) }}
 
         {{#reason}}
-            {{ _('for %(the_reason')s)|format(the_reason=reason) }}
+            {{ _('for %(the_reason)s')|format(the_reason=reason) }}
         {{/reason}}
 
         {{#display_date}}
-            {{ _('on %(the_date')s)|format(the_date=display_date) }}
+            {{ _('on %(the_date)s')|format(the_date=display_date) }}
         {{/display_date}}
         </span>
     </script>

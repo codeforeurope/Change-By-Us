@@ -76,7 +76,7 @@
             <a href="/useraccount/{{id}}" title="{{ display_name }}"><img class="vol-first" src="{{ avatar }}" alt="{{ display_name }}"></img></a>
             <div class="vol-desc"><span>{{ display_name }}</span> and
             {{/first_vol}}
-                {{ _('%(number_of_people')s others volunteered.)format(number_of_people=vol_count_minus_one) }}
+                {{ _('%(number_of_people)s others volunteered.')format(number_of_people=vol_count_minus_one) }}
             </div>
           {{/has_first}}
           <div class="vol-avatars"></div>

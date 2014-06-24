@@ -54,7 +54,7 @@
                         <div class="below-input clearfix"><span class="createdby">{{ _('Created by') }}</span><span class="user-name">{% if d.template_data and d.template_data.user %}{{ d.template_data['user'].data.f_name }} {{ d.template_data['user'].data.l_name }}{% endif %}</span><span class="edit" style="display:none;">{{ _('Edit') }}</span></div>
                     </div>
                     <div class="row clearfix">
-                        <label for="organization"><strong>{{ _('Give your affiliation') }}</strong> {{ _('(Optional')) }}</label>
+                        <label for="organization"><strong>{{ _('Give your affiliation') }}</strong> {{ _('(Optional)') }}</label>
                         <input type="text" name="organization" id="organization" class="organization"/>
                     </div>
                     <div class="row clearfix">
@@ -181,7 +181,7 @@
 
 <div class="template-content modal-content join-no-user">
     <h2>{{ _('<strong>Hold your horses!</strong> Please register.') }}</h2>
-    <p>{{ _('You must <strong><a href="/join">register</a></strong> or <strong><a href="/login">login</a></strong> with %(site_name')s in order to create<br />your own project.)|format(site_name=d.config.site.name) }}</p>
+    <p>{{ _('You must <strong><a href="/join">register</a></strong> or <strong><a href="/login">login</a></strong> with %(site_name)s in order to create<br />your own project.')|format(site_name=d.config.site.name) }}</p>
     <p><a href="/" class="rounded-button">Go Home</a></p>
 </div>
 
