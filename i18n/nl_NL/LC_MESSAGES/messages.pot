@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-06-24 13:11+0200\n"
+"POT-Creation-Date: 2014-07-02 17:16+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -217,17 +217,17 @@ msgid ""
 "build teams, and make our city better."
 msgstr ""
 
-#: templates/bb.html:172 templates/partials/base.html:323
+#: templates/bb.html:172 templates/partials/base.html:328
 #: templates/partials/mobilebase.html:51
 msgid "Contact Us"
 msgstr ""
 
-#: templates/bb.html:183 templates/partials/base.html:167
-#: templates/partials/base.html:310 templates/partials/mobilebase.html:71
+#: templates/bb.html:183 templates/partials/base.html:172
+#: templates/partials/base.html:315 templates/partials/mobilebase.html:71
 msgid "News"
 msgstr ""
 
-#: templates/bb.html:184 templates/partials/base.html:312
+#: templates/bb.html:184 templates/partials/base.html:317
 #: templates/partials/mobilebase.html:72
 msgid "Community Policy"
 msgstr ""
@@ -236,7 +236,7 @@ msgstr ""
 msgid "Terms of Service"
 msgstr ""
 
-#: templates/bb.html:186 templates/partials/base.html:314
+#: templates/bb.html:186 templates/partials/base.html:319
 #: templates/partials/mobilebase.html:74
 msgid "Privacy Policy"
 msgstr ""
@@ -273,7 +273,11 @@ msgid "Contact your project admins to see how you can help!"
 msgstr ""
 
 #: templates/calendar.html:88
-msgid "\"\"\"Here"
+msgid ""
+"Here's a listing of events organized by the Change By Us projects in\n"
+"                        your city. Click on the event for more details and "
+"to find out how\n"
+"                        you can get involved."
 msgstr ""
 
 #: templates/create.html:13
@@ -653,7 +657,7 @@ msgstr ""
 
 #: templates/home.html:357 templates/join.html:86 templates/join.html:123
 #: templates/join.html:152 templates/join.html:242
-#: templates/partials/base.html:313 templates/partials/mobilebase.html:73
+#: templates/partials/base.html:318 templates/partials/mobilebase.html:73
 msgid "Terms of Use"
 msgstr ""
 
@@ -839,7 +843,7 @@ msgid "The score for each project is based on a variety of other factors."
 msgstr ""
 
 #: templates/login.html:23 templates/login.html:44
-#: templates/partials/base.html:178 templates/partials/base.html:252
+#: templates/partials/base.html:183 templates/partials/base.html:257
 #: templates/partials/mobilebase.html:32
 msgid "Login"
 msgstr ""
@@ -860,7 +864,7 @@ msgstr ""
 msgid "Don't have an account?"
 msgstr ""
 
-#: templates/login.html:51 templates/partials/base.html:249
+#: templates/login.html:51 templates/partials/base.html:254
 #: templates/partials/mobilebase.html:35
 msgid "Sign Up"
 msgstr ""
@@ -1021,83 +1025,83 @@ msgstr ""
 msgid "Thanks for adding a resource to your project!"
 msgstr ""
 
-#: templates/partials/base.html:169 templates/partials/base.html:307
+#: templates/partials/base.html:174 templates/partials/base.html:312
 msgid "About"
 msgstr ""
 
-#: templates/partials/base.html:171
+#: templates/partials/base.html:176
 msgid "Calendar"
 msgstr ""
 
-#: templates/partials/base.html:177 templates/project/conversation.html:32
+#: templates/partials/base.html:182 templates/project/conversation.html:32
 #: templates/project.html:74
 msgid "Join"
 msgstr ""
 
-#: templates/partials/base.html:181
+#: templates/partials/base.html:186
 msgid "Hi"
 msgstr ""
 
-#: templates/partials/base.html:193
+#: templates/partials/base.html:198
 msgid "Account"
 msgstr ""
 
-#: templates/partials/base.html:194
+#: templates/partials/base.html:199
 msgid "Log out"
 msgstr ""
 
-#: templates/partials/base.html:211
+#: templates/partials/base.html:216
 msgid "<span class=\"unbold\">My </span>Projects"
 msgstr ""
 
-#: templates/partials/base.html:220
+#: templates/partials/base.html:225
 msgid "Create a project!"
 msgstr ""
 
-#: templates/partials/base.html:230
+#: templates/partials/base.html:235
 msgid "Search"
 msgstr ""
 
-#: templates/partials/base.html:239
+#: templates/partials/base.html:244
 msgid ""
 "Browse <a href=\"/search#projects\">projects</a>, <a href=\"/search#ideas"
 "\">ideas</a>, and <a href=\"/search#resources\">resources</a>"
 msgstr ""
 
-#: templates/partials/base.html:249
+#: templates/partials/base.html:254
 msgid "Have <span>an</span> invite code?"
 msgstr ""
 
-#: templates/partials/base.html:261
+#: templates/partials/base.html:266
 msgid "Content"
 msgstr ""
 
-#: templates/partials/base.html:262
+#: templates/partials/base.html:267
 msgid "Admin Settings"
 msgstr ""
 
-#: templates/partials/base.html:263
+#: templates/partials/base.html:268
 msgid "Homepage Questions"
 msgstr ""
 
-#: templates/partials/base.html:287
+#: templates/partials/base.html:292
 msgid "Created <span>by</span>"
 msgstr ""
 
-#: templates/partials/base.html:295
+#: templates/partials/base.html:300
 msgid "Supported <span>by</span>"
 msgstr ""
 
-#: templates/partials/base.html:308 templates/partials/mobilebase.html:70
+#: templates/partials/base.html:313 templates/partials/mobilebase.html:70
 msgid "Frequently Asked Questions"
 msgstr ""
 
-#: templates/partials/base.html:330
+#: templates/partials/base.html:335
 msgid "Design <span>and</span> Development"
 msgstr ""
 
-#: templates/partials/base.html:331 templates/partials/base.html:333
-#: templates/partials/base.html:334
+#: templates/partials/base.html:336 templates/partials/base.html:338
+#: templates/partials/base.html:339
 msgid "All rights reserved."
 msgstr ""
 
