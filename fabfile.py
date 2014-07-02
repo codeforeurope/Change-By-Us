@@ -67,7 +67,7 @@ COOKBOOK:
     Create a new bundle and deploy at a different time
         fab --config=rcfile.name dev bundle_code
         Save the release bundle name (see the ATTENTION line in the output)
-        fab --config=rcfile.name dev deploy
+        fab --config=rcfile.name dev deploy_app
 
     # Webserver related tasks
     Start / stop / restart the webserver
