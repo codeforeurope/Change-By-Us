@@ -13,7 +13,7 @@
 
 PyYAML
 python-memcached
-boto==2.1.0
+boto==2.29.1
 MySQL-python
 Pillow==2.3.0
 oauth2
