@@ -296,11 +296,16 @@ class Controller (object):
         the value is returned.
 
         """
-        lang = ""
+        # lang = ""
+        lang = Config.get('default_lang')
+        accept_lang = web.ctx.env.get("HTTP_ACCEPT_LANGUAGE")
         if (self.request('lang')):
             lang = self.request('lang')
         elif hasattr(self.session, 'lang') and self.session.lang is not None:
             lang = self.session.lang
+        elif accept_lang is not None:
+            lang = accept_lang[0]
+
 
         # TODO: As a last resort, we should check for the user's language in
         #       their browser settings.  This is available from the request
@@ -427,7 +432,7 @@ class Controller (object):
 
     def not_found(self, data='Not found', headers={}):
         log.error("404: Page not found")
-        return self.render('error', { 'error_code': 404, 'error_message': 'Not found.' }, status='404 Not Found')
+        return self.render('error', { 'error_code': 404, 'error_message': data }, status='404 Not Found')
 
     def redirect(self, url):
         # Set the user object in case it's been created since we initialized

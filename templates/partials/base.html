@@ -145,17 +145,22 @@
                         <li class="lang">
                         <div class='lang-selector'>
                         {% if d.language.current and d.language.list %}
-                        <a href='/?lang={{ d.language.current }}'>{{ d.language.current }}</a>
+                        <a href='/?lang={{ d.language.current }}'>{{ d.language.current[0:2].upper() }}</a>
                         {% endif %}
 
-                          <div class="dropdown no-js">
+                          <div class="dropdown no-js" style="display: none;">
                             <div class="membrane">
                               {% if d.language.current and d.language.list %}
+                              <ul>
                               {% for value, label in d.language.list %}
-                              <a href="/?lang={{ value }}">
-                                <span class="lang-value">{{ value }}</span>{{ label }}
-                              </a>
+
+                                <li>
+                                    <a href="/?lang={{ value }}">
+                                    {{ label }}
+                                    </a>
+                                </li>
                               {% endfor %}
+                              </ul>
                               {% endif %}
                             </div>
                           </div>
