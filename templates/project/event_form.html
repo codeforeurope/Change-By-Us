@@ -9,6 +9,7 @@
                 {{ _('Create a new event') }}
             </span>
         </h2>
+
         <div class="actions">
             <a href="#show,events" class="back fancy-caps">
                 <span>{{ _('Go Back') }}</span>
@@ -17,90 +18,112 @@
     </div>
 
     <div>
-      <a href="#" class="submit event-submit">{{ _('Submit') }}</a>
-      <br style="clear:both;" />
+        <a href="#" class="submit event-submit">{{ _('Submit') }}</a>
+        <br style="clear:both;"/>
     </div>
     <div class="bd clearfix merlin add-event">
         <div class='step add-event-step clearfix'></div>
 
         <div class='step submit-event-step spinner-message'>
             <p>{{ _('Thank you for submitting a link!') }}</p>
-            <p><img src='/static/images/loader32x32.gif' /></p>
+
+            <p><img src='/static/images/loader32x32.gif'/></p>
         </div>
     </div>
 </div>
 
-{% raw %}
+
 <script id="event_form_tmpl" type="text/html">
     <form action="#" class="event-form">
-      <div class="event-form fields serif">
-        <div class="wide row">
-          <div class="title">{{ _('The name of the event is:') }}</div>
-          <input name="event-name" id="event-name" type="text" value="{{name}}"  class="long-input"/>
-        </div>
-        <div class="wide row">
-          <div class="title"><span>{{ _('A few details about the event:') }}</span><span class="charlimit title">200</span></div>
-          <textarea name="event-desc" id="event-desc" class="long-input">{{details}}</textarea>
-        </div>
-        <div class="wide row optional">
-          <div class="title">{{ _('Link to the event on Facebook, Eventbrite or elsewhere:') }}</div>
-          <input name="event-url" id="event-url" type="text" value="{{rsvp_url}}"  class="long-input"/>
-        </div>
-        <div class="wide row datetime">
-          <div class="title">{{ _('The date of the event is:') }}</div>
-          <div class="event-left">
-            <select id="event-month">
-              {{{monthOpts}}}
-            </select>
-            <input name="event-day" id="event-day"value="{{start_day}}" type="text" />
-            <select id="event-year">
-              {{{yearOpts}}}
-            </select>
-          </div>
-          <div class="event-right">
-            <input name="event-hour" id="event-hour" value="{{{twelve_hour}}}" type="text" />
-            <span class="time-delim">:</span>
-            <input name="event-minute" id="event-minute" value="{{start_minute}}" type="text" />
-            <select id="event-meridiem">
-              {{{meridiemOpts}}}
-            </select>
-          </div>
-        </div>
+        <div class="event-form fields serif">
+            <div class="wide row">
+                <div class="title">{{ _('The name of the event is:') }}</div>
+                {% raw %}
+                <input name="event-name" id="event-name" type="text" value="{{name}}" class="long-input"/>
+                {% endraw %}
+            </div>
+            <div class="wide row">
+                <div class="title"><span>{{ _('A few details about the event:') }}</span><span class="charlimit title">200</span>
+                </div>
+                {% raw %}
+                <textarea name="event-desc" id="event-desc" class="long-input">{{details}}</textarea>
+                {% endraw %}
+            </div>
+            <div class="wide row optional">
+                <div class="title">{{ _('Link to the event on Facebook, Eventbrite or elsewhere:') }}</div>
+                {% raw %}
+                <input name="event-url" id="event-url" type="text" value="{{rsvp_url}}" class="long-input"/>
+                {% endraw %}
+            </div>
+            <div class="wide row datetime">
+                <div class="title">{{ _('The date of the event is:') }}</div>
+                <div class="event-left">
+                    <select id="event-month">
+                        {% raw %}
+                        {{{monthOpts}}}
+                        {% endraw %}
+                    </select>
+                    {% raw %}
+                    <input name="event-day" id="event-day" value="{{start_day}}" type="text"/>
+                    <select id="event-year">
+                        {{{yearOpts}}}
+                        {% endraw %}
+                    </select>
+                </div>
+                {% raw %}
+                <div class="event-right">
+                    <input name="event-hour" id="event-hour" value="{{{twelve_hour}}}" type="text"/>
+                    <span class="time-delim">:</span>
+                    <input name="event-minute" id="event-minute" value="{{start_minute}}" type="text"/>
+                    <select id="event-meridiem">
+                        {{{meridiemOpts}}}
+                    </select>
+                </div>
+                {% endraw %}
+            </div>
 
-        <div class="row wide inline">
-          <div class="title">{{ _('It will take place at:') }}</div>
-          <div class="event-right">
-            <input name="event-street" id="event-street" type="text" value="{{address}}" />
-          </div>
-          <div class="clearfix"></div>
-        </div>
+            <div class="row wide inline">
+                <div class="title">{{ _('It will take place at:') }}</div>
+                <div class="event-right">
+                    {% raw %}
+                    <input name="event-street" id="event-street" type="text" value="{{address}}"/>
+                    {% endraw %}
+                </div>
+                <div class="clearfix"></div>
+            </div>
 
-        <div class="row wide inline needs">
-          <div class="title">{{ _('Link a need:') }}</div>
-          <div class="event-right">
-            <select id="event-needs">
-            </select>
-          </div>
-          <div class="tip">{{ _('You can always come back and link needs later') }}</div>
-        </div>
+            <div class="row wide inline needs">
+                <div class="title">{{ _('Link a need:') }}</div>
+                <div class="event-right">
+                    <select id="event-needs">
+                    </select>
+                </div>
+                <div class="tip">{{ _('You can always come back and link needs later') }}</div>
+            </div>
 
-        <div class="row wide"><ul class="linked-needs-list"></ul></div>
-      </div>
+            <div class="row wide">
+                <ul class="linked-needs-list"></ul>
+            </div>
+        </div>
     </form>
 </script>
 
+{% raw %}
 <script id="linked_event_needs_tmpl" type="text/html">
-  {{#linked_needs}}
+    {{#linked_needs}}
     <li data-id="{{id}}">{{quantity}} {{name}}<a href="#" class="unlink-need"></a></li>
-  {{/linked_needs}}
-</script>
-
-<script id="unlinked_event_needs_tmpl" type="text/html">
-  <option value="">{{ _('Volunteer needs') }}</option>
-  {{#unlinked_needs}}
-    <option value="{{id}}">{{name}}</option>
-  {{/unlinked_needs}}
+    {{/linked_needs}}
 </script>
 {% endraw %}
+
+<script id="unlinked_event_needs_tmpl" type="text/html">
+    <option value="">{{ _('Volunteer needs') }}</option>
+    {% raw %}
+    {{#unlinked_needs}}
+    <option value="{{id}}">{{name}}</option>
+    {{/unlinked_needs}}
+    {% endraw %}
+</script>
+
 
 <script type='text/javascript' src="/static/js/pages/project.event_form.js"></script>

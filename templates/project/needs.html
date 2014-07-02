@@ -69,11 +69,11 @@
         <strong>{{ _('YES') }}</strong>, {{ _('I can help %(the_request)s')|format(the_request=request) }}
 
         {{#reason}}
-            {{ _('for %(the_reason)s')|format(the_reason=reason) }}
+            {{ _('for') }} {{ reason }}
         {{/reason}}
 
         {{#display_date}}
-            {{ _('on %(the_date)s')|format(the_date=display_date) }}
+            {{ _('on') }} {{ display_date }}
         {{/display_date}}
         </span>
     </script>

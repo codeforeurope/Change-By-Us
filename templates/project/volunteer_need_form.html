@@ -30,51 +30,66 @@
     </div>
 </div>
 
-{% raw %}
 <script id="vol_form_tmpl" type="text/html">
     <form action='#' class="form-pane">
       <div class="fields serif">
         <div class="row need-header">
           <p>{{ _('We need') }}</p>
+            {% raw %}
           <input name="vol-quantity" id="vol-quantity" class="need-quantity" type="text" value="{{quantity}}" />
+            {% endraw %}
           <p>{{ _('volunteer') }}</p>
+            {% raw %}
           <input name="vol-job" id="vol-job" class="need-request" type="text" value="{{request}}" />
+            {% endraw %}
         </div>
         <div class="row">
           <div class="desc-cont">
             <p>{{ _('We&#39;ll need them to...') }}</p>
             <span class="charlimit title">200</span>
+              {% raw %}
             <textarea name="vol-desc" id="vol-desc" class="need-desc">{{description}}</textarea>
+              {% endraw %}
           </div>
           <div class="time-cont">
             <p>{{ _('It will be a time commitment of') }}</p>
+              {% raw %}
             <input name="vol-hours" id="vol-hours" type="text" value="{{duration}}" />
+              {% endraw %}
             <label>{{ _('hours') }}</label>
           </div>
         </div>
         <div class="row vol-address">
           <div class="addr-cont">
             <p>{{ _('We will need them to come to') }}...</p>
+              {% raw %}
             <input name="vol-street" id="vol-street" value="{{address}}" type="text" />
+              {% endraw %}
             <p class="madlib">on</p>
             <select id="vol-month">
               <option value="Month">{{ _('Month') }}</option>
+                {% raw %}
               {{{monthOpts}}}
+                </select>
             <input name="vol-day" id="vol-day"value="{{day}}" type="text" />
+                {% endraw %}
             <p class="madlib">{{ _('at') }}</p>
+                {% raw %}
             <input name="vol-time" id="vol-time" value="{{time}}" type="text" />
+                {% endraw %}
           </div>
           <div class="event-link-cont">
             <div class="event-link-label">&#8212;&#8212;&nbsp;&nbsp;&nbsp; {{ _('OR') }} &nbsp;&nbsp;&nbsp;&#8212;&#8212;</div>
             <select id="vol-event-list" class="need-event-list">
               <option value="">{{ _('Link to an event') }}</option>
+                {% raw %}
               {{{eventOpts}}}
+                {% endraw %}
             </select>
           </div>
         </div>
       </div>
     </form>
 </script>
-{% endraw %}
 
 <script type='text/javascript' src="/static/js/pages/project.vol_form.js"></script>

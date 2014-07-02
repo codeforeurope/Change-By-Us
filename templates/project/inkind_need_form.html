@@ -31,7 +31,6 @@
     </div>
 </div>
 
-{% raw %}
 <script id="inkind_form_tmpl" type="text/html">
 <form action='#' class="form-pane">
   <div class="fields serif">
@@ -49,25 +48,30 @@
       </div>
     </div>
     <div class="row">
+        {% raw %}
       <input name="inkind-quantity" id="inkind-quantity" class="need-quantity" type="text" value="{{quantity}}" />
       <input name="inkind-request" id="inkind-request" class="need-request" type="text" value="{{request}}" />
+        {% endraw %}
     </div>
     <div class="row">
       <div id="inkind-desc-cont" class="desc-cont">
         <p>{{ _('We&#39;re going to use this for') }}...</p>
         <span class="charlimit title">200</span>
+          {% raw %}
         <textarea name="inkind-desc" class="need-desc" id="inkind-desc">{{description}}</textarea>
+          {% endraw %}
       </div>
       <div id="inkind-event-link-cont" class="event-link-cont">
         <select id="inkind-event-list" class="need-event-list">
           <option value="">{{ _('Link to an event') }}</option>
+            {% raw %}
           {{{eventOpts}}}
+            {% endraw %}
         </select>
       </div>
     </div>
   </div>
 </form>
 </script>
-{% endraw %}
 
 <script src="/static/js/pages/project.inkind_form.js"></script>
