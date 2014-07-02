@@ -114,15 +114,14 @@
 
 			{% if d.template_data.project_user.data.is_member == True %}
 			<div class="sub-ft clearfix organizations-not-empty" style="{% if d.template_data.project.data.info.resources.organizations['items']|length == 0 %}display:none;{% endif %}">
-				<a href="#show,related_resources" class="rounded-button small add-organization">{{ _('Add a Resource')
-                    }}</a>
+				<a href="#show,related_resources" class="rounded-button small add-organization">{{ _('Add a Resource') }}</a>
 			</div>
 			{% endif %}
 
 			<div class="sub-bd  organizations-empty" style="{% if d.template_data.project.data.info.resources.organizations['items']|length > 0 %}display:none;{% endif %}">
 				<div class="empty-state-box">
 					<!--<a class="close" href="#"><span>Close</span></a>-->
-					<p>{{ _('When you <a href="#show,related_resources">add a resource</a>, we\'ll send them a link to your project page.') }}</p>
+					<p>{{ _('When you <a href="#show,related_resources">add a resource</a>, we&rsquo;ll send them a link to your project page.') }}</p>
 					<a href="#show,related_resources" class="rounded-button small">{{ _('Add a resource') }}</a>
 				</div>
 			</div>

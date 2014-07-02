@@ -178,8 +178,7 @@
 
     <div class='template-content modal-content join-no-user'>
         <h2>{{ _('<strong>Hold your horses!</strong> Please register.') }}</h2>
-        <p>{{ _("""You must <strong><a href='/join'>register</a></strong> or <strong><a href='/login'>login</a></strong>
-            with %(sitename)s in order to Join a project.""")|format(sitename=d.config.site.name) }}</p>
+        <p>{{ _('You must <strong><a href="/join">register</a></strong> or <strong><a href="/login">login</a></strong> with %(sitename)s in order to Join a project.')|format(sitename=d.config.site.name) }}</p>
         <a class='close' href="#"><span>{{ _('close') }}</span></a>
     </div>
 
@@ -206,10 +205,7 @@
             <div class="step feature-this-project">
                 <h2>{{ _('<strong>Feature</strong> This Project') }}</h2>
                 <div class="replace-prompt">
-                    {{ _("""Do you want to replace
-                    <select class="replace-project-options"></select>
-                    with <span class="serif project-name">&nbsp;</span>
-                    in the Featured Projects section on the homepage?""") }}
+                    {{ _('Do you want to replace <select class="replace-project-options"></select> with <span class="serif project-name">&nbsp;</span> in the Featured Projects section on the homepage?') }}
                 </div>
                 <div class="actions yesno">
                     <a class="submit rounded-button" href="#">{{ _('Yes') }}</a>
