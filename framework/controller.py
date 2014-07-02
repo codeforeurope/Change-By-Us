@@ -296,8 +296,12 @@ class Controller (object):
         the value is returned.
 
         """
-        # lang = ""
-        lang = Config.get('default_lang')
+        lang = ""
+        try:
+            lang = Config.get('default_lang')
+        except:
+            pass
+
         accept_lang = web.ctx.env.get("HTTP_ACCEPT_LANGUAGE")
         if (self.request('lang')):
             lang = self.request('lang')
