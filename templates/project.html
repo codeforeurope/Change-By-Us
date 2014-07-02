@@ -10,12 +10,12 @@
     {{ super() }}
 
     {% if d.template_data.project.data.info.is_featured %}
-        <li class="feature state-disabled"><a href="#featureProject,{{ d.template_data.project.data.project_id }}" class="fancy-caps">Featured Project!</a></li>
+        <li class="feature state-disabled"><a href="#featureProject,{{ d.template_data.project.data.project_id }}" class="fancy-caps">{{ _('Featured Project!') }}</a></li>
     {% else %}
-        <li class="feature"><a href="#featureProject,{{ d.template_data.project.data.project_id }}" class="fancy-caps">Feature <span>this</span> project</a></li>
+        <li class="feature"><a href="#featureProject,{{ d.template_data.project.data.project_id }}" class="fancy-caps">{{ _('Feature <span>this</span> project') }}</a></li>
     {% endif %}
 
-    <li class="delete"><a href="#deleteProject,{{ d.template_data.project.data.project_id }}" class="fancy-caps delete-project">Delete <span>this</span> project</a></li>
+    <li class="delete"><a href="#deleteProject,{{ d.template_data.project.data.project_id }}" class="fancy-caps delete-project">{{ _('Delete <span>this</span> project') }}</a></li>
 {% endblock %}
 
 {% block og_title %}
@@ -55,15 +55,16 @@
 
                 <div class="members {% if not d.template_data.project_user.data.is_member %}not-member{% else %}is-member{% endif %}">
                     <a href="#show,members">
-                        <span class="counter members-counter">{{ d.template_data.project.data.info.members['items']|length }}</span> Members
+                        <span class="counter members-counter">{{ d.template_data.project.data.info.members['items']|length }}</span>
+                        {{ _('Members') }}
                     </a>
                 </div>
 
                 {% if d.template_data.project_user.data.is_member %}
                     {% if d.template_data.project_user.data.is_project_admin %}
-                        <div class="control"><a href="#show,members">Manage Users</a></div>
+                        <div class="control"><a href="#show,members">{{ _('Manage Users') }}</a></div>
                     {%  else %}
-                        <div class="control"><a class="leave-project" href="#">Leave This Project</a></div>
+                        <div class="control"><a class="leave-project" href="#">{{ _('Leave This Project') }}</a></div>
                     {% endif %}
                 {% endif %}
 
@@ -99,7 +100,7 @@
         <div class="project-navigation clearfix">
             <div class="similar-project">
                 <span class="control">
-                    <a class="find-similar-projects" href="/search?terms={{ d.template_data.project.keywords }}&location_id={{ d.template_data.project.location_id }}#projects">Projects Like This<span class="sm-arrow-forward light"></span></a>
+                    <a class="find-similar-projects" href="/search?terms={{ d.template_data.project.keywords }}&location_id={{ d.template_data.project.location_id }}#projects">{{ _('Projects Like This') }}<span class="sm-arrow-forward light"></span></a>
                 </span>
             </div>
 
@@ -172,7 +173,7 @@
             <p><img src='/static/images/loader32x32.gif' /></p>
         </div>
 
-        <a class='close' href="#"><span>close</span></a>
+        <a class='close' href="#"><span>{{ _('close') }}</span></a>
     </div>
 
     <div class='template-content modal-content join-no-user'>

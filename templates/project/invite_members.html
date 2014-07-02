@@ -89,7 +89,7 @@
                 <!-- Begin Members.ideas-invite -->
                 <div class="ideas-invite" style="{% if not d.template_data.project_user.data.is_member and not d.template_data.project_user.data.is_project_admin %}display:none;{% endif %}">
                     <div class="sub-hd">
-                        <h3>Invite People <span>with</span> Similar Ideas</h3>
+                        <h3>{{ _('Invite People <span>with</span> Similar Ideas') }}</h3>
                         <div class="pagination">
                             <span class="cur-index">0</span> <em>of</em>
                             <span class="total">{{ d.template_data.project.data.info.related_ideas['items']|length }}</span>
@@ -105,11 +105,9 @@
                                             <li rel="idea-{{ idea.idea_id }}">
                                                 <div class="note-card-public-controls">
                                                     {% if not(d.template_data.user and (d.template_data.user.data.u_id == idea.owner.u_id)) %}
-                                                        <a class="invite rounded-button" href="#invite,{{ idea.idea_id }},{{ idea.owner.name }}">{{
-                                                            _('Invite') }}</a>
+                                                        <a class="invite rounded-button" href="#invite,{{ idea.idea_id }},{{ idea.owner.name }}">{{ _('Invite') }}</a>
                                                     {% endif %}
-                                                    <span class="flag"><a href="#flagIdea,{{ idea.idea_id }}" class='flag-idea'>{{
-                                                        _('Flag as Inappropriate') }}</a></span>
+                                                    <span class="flag"><a href="#flagIdea,{{ idea.idea_id }}" class='flag-idea'>{{ _('Flag as Inappropriate') }}</a></span>
                                                 </div>
                                                 <div class="note-card">
                                                     <div class="membrane">
@@ -125,7 +123,7 @@
                                                         {% endif %}
                                                         <blockquote>{% if d.template_data and d.template_data.user and d.template_data.user.is_admin %}{% if not idea.owner.name %}<span class="topright-spacer"></span>{% endif %}{% endif %}<p>{{ idea.message|truncate(175) }}</p></blockquote>
                                                         <cite class="note-meta-ft">
-                                                            Posted <strong><span class="time-since">{{ idea.created }}</span></strong>
+                                                            {{ _('Posted') }} <strong><span class="time-since">{{ idea.created }}</span></strong>
                                                         </cite>
                                                     </div>
                                                 </div>
@@ -145,7 +143,7 @@
 
                     <div class="empty-state-box" style="{% if d.template_data.project.data.info.related_ideas['items']|length > 0 %}display:none;{% endif %}">
                         <!--<a class="close" href="#"><span>Close</span></a>-->
-                        <p>No similar ideas found.</p>
+                        <p{{ _('>No similar ideas found.') }}</p>
                     </div>
 
                 </div>
