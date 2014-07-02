@@ -37,7 +37,7 @@ htmlcov/
 *.py[c|o]
 
 # compiled translation files
-*.mo
+#*.mo
 
 #-----
 # Configuration files should not be checked in, only example files
