@@ -13,21 +13,21 @@
                 <pubDate>{{message.created}}</pubDate>
                  <link>{{d.base_url}}project/{{d.template_data.project.data.project_id}}</link>
                  {% if message.message_type == 'member_comment' or message.message_type == 'admin_comment' %}
-                     <title>{{ _(New Message by %(author_name)s)format(author_name=message.owner.name) }}</title>
+                     <title>{{ _('New Message by %(author_name)s')|format(author_name=message.owner.name) }}</title>
                  {% elif message.message_type == 'join' %}
                      <title>{{message.body}}</title>
                  {% elif message.message_type == 'endorsement' %}
-                     <title>{{ _(New Endorsement) }}</title>
+                     <title>{{ _('New Endorsement') }}</title>
                  {% endif %}
                  
                  <description>
 						<div>
 							{% if message.message_type == 'join' %}
-								<cite><strong><a href="/useraccount/{{ message.owner.u_id }}">{{ message.owner.name }}</a></strong> {{ _(joined the project!) }}</cite>
+								<cite><strong><a href="/useraccount/{{ message.owner.u_id }}">{{ message.owner.name }}</a></strong> {{ _('joined the project!') }}</cite>
 							{% elif message.message_type == 'endorsement' %}
 
 							{% elif message.message_type == 'member_comment' or message.message_type == 'admin_comment' %}
-								<cite><strong><a href="/useraccount/{{ message.owner.u_id }}">{{ message.owner.name }}</a></strong> {{ _(said) }}</cite>
+								<cite><strong><a href="/useraccount/{{ message.owner.u_id }}">{{ message.owner.name }}</a></strong> {{ _('said') }}</cite>
 							{% endif %}
 							
 							{% if message.message_type == 'join' %}

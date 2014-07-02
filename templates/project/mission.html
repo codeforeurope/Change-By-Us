@@ -144,7 +144,7 @@
     <div class="step">
         <h2>{{ _('<strong>Support</strong> this project?') }}</h2>
         <div>
-            <p>{{ Do you want to endorse</p><p class="serif big">%(project_title)s?)format(project_title=d.template_data.project.data.info.title) }}</p>
+            <p>{{ Do you want to endorse</p><p class="serif big">%(project_title)s?')|format(project_title=d.template_data.project.data.info.title) }}</p>
             <p>{{ _('It will receive your seal of approval!') }}</p>
         </div>
         <div class="actions yesno">

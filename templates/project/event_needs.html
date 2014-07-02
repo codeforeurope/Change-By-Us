@@ -111,7 +111,7 @@
     </div>
 
     <div class="volunteer-details serif">
-      <div class="volunteer-count">{{ _('We have <strong>%(volunteers')d</strong> volunteers)format(volunteers=volunteer_count) }}</div>
+      <div class="volunteer-count">{{ _('We have <strong>%(volunteers)s</strong> volunteers')|format(volunteers=volunteer_count) }}</div>
       <div class="progress-wrapper"><div class="progress" style="width:{{ progress_amount }}px;"><div class="progress-pin"></div></div></div>
       <a href="#" class="help-link active">{{ _('I can help') }}</a>
     </div>

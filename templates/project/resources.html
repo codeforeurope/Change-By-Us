@@ -19,7 +19,7 @@
 		<div class="external-links">
 			<div class="sub-hd">
 				<h3>{{ _('External Links') }}</h3>
-				<p class="hint">{{ _('These sites are not managed by %(sitename)s, but have been added by this project\'s members.')format(sitename=d.config.site.name) }}</p>
+				<p class="hint">{{ _('These sites are not managed by %(sitename)s, but have been added by this project\'s members.')|format(sitename=d.config.site.name) }}</p>
 			</div>
 
 			<div class="sub-bd links-not-empty" style="{% if d.template_data.project.data.info.resources.links['items']|length == 0 %}display:none;{% endif %}">
@@ -76,7 +76,7 @@
 		<div class="organizations">
 			<div class="sub-hd">
 				<h3>Resources</h3>
-				<p class="hint">{{ _('These sites are not managed by %(sitename)s, but have been added by this project\'s members.')format(sitename=d.config.site.name) }}</p>
+				<p class="hint">{{ _('These sites are not managed by %(sitename)s, but have been added by this project\'s members.')|format(sitename=d.config.site.name) }}</p>
 			</div>
 
 			<div class="sub-bd organizations-not-empty" style="{% if d.template_data.project.data.info.resources.organizations['items']|length == 0 %}display:none;{% endif %}">
