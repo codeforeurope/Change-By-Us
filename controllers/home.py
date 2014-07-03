@@ -44,6 +44,8 @@ class Home(Controller):
             return self.showMobile()
         elif (action == 'bb'):
             return self.showMobile(isBlackBerry = True)
+        elif (action == 'feedback'):
+            return self.showFeedback()
 
         # Main login page
         # TODO: This should be consolidated with the twitter & facebook actions
