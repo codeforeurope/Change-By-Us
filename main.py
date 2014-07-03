@@ -20,7 +20,7 @@ from framework.session_holder import *
 from framework.task_manager import *
 from framework.image_server import *
 
-#from giveaminute import models
+# from giveaminute import models
 
 # Due to the fact that we are utilizing some custom
 # libraries, we add the lib path for import.
@@ -61,7 +61,8 @@ def sessionDB():
     config.yaml file.
     """
     config = Config.get('database')
-    return web.database(dbn=config['dbn'], user=config['user'], pw=config['password'], db=config['db'], host=config['host'])
+    return web.database(dbn=config['dbn'], user=config['user'], pw=config['password'], db=config['db'],
+                        host=config['host'])
 
 
 def enable_smtp():
@@ -79,7 +80,8 @@ def enable_smtp():
         web.webapi.config.smtp_password = smtp_config.get('password')
     except Exception, e:
         log.info("ERROR: Exception when loading SMTP: %s" % e)
-        
+
+
 def enable_aws_ses():
     """
     Enable AWS SES support for the web.py email handling.  This
@@ -92,19 +94,21 @@ def enable_aws_ses():
         web.webapi.config.aws_secret_access_key = ses_config.get('secret_access_key')
     except Exception, e:
         log.info("ERROR: Exception when loading SES: %s" % e)
-    
+
+
 def basic_processor(handler):
     from traceback import format_exception
-    
+
     try:
         result = handler()
     except Exception, e:
         log.error("Unhandled exception: %s" % e)
         # Do we want to continue even after exception?
         raise
-        
+
     return handler()
-    
+
+
 def load_sqla(handler):
     """
     Create a load hook and use sqlalchemy's ``scoped session``. This construct
@@ -114,11 +118,11 @@ def load_sqla(handler):
     For more information see: http://webpy.org/cookbook/sqlalchemy
 
     """
-    ##
+    # #
     # TODO: This should be `engine = models.get_db_engine()`.  See the note in
     #       giveaminute.models for more information.
     #
-    class OrmContextManager (object):
+    class OrmContextManager(object):
         def __enter__(self):
             log.debug("*** Loading the ORM")
             self.orm = OrmHolder().orm
@@ -128,6 +132,7 @@ def load_sqla(handler):
         def __exit__(self, e_type=None, e_val=None, e_tb=None):
             # Since load_sqla is a processor, it catches bubbled-up exceptions
             from traceback import format_exception
+
             if e_type == web.HTTPError:
                 log.debug("*** web.HTTPError with the ORM")
                 log.warning(''.join(format_exception(e_type, e_val, e_tb)))
@@ -145,13 +150,14 @@ def load_sqla(handler):
 
     return result
 
+
 def main():
     web.config.logfile = Config.get('logfile')
     log.info("|||||||||||||||||||||||||||||||||||| SERVER START |||||||||||||||||||||||||||||||||||||||||||")
     if Config.get('dev'):
-        web.config.debug = True 
+        web.config.debug = True
     else:
-        web.config.debug = False        
+        web.config.debug = False
 
     log.info("Debug: %s" % web.config.debug)
     web.config.session_parameters['cookie_name'] = 'gam'
@@ -163,14 +169,14 @@ def main():
 
         try:
             c = boto.connect_ses(
-              aws_access_key_id     = Config.get('email').get('aws_ses').get('access_key_id'),
-              aws_secret_access_key = Config.get('email').get('aws_ses').get('secret_access_key'))
-    
+                aws_access_key_id=Config.get('email').get('aws_ses').get('access_key_id'),
+                aws_secret_access_key=Config.get('email').get('aws_ses').get('secret_access_key'))
+
             # TODO: Need to add proper exception handling or at least error reporting!
             # Use raw_email since this allows for attachments
             sendQuota = c.get_send_quota()["GetSendQuotaResponse"]["GetSendQuotaResult"]
             # Check if we're close to the smtp quota. 10 seems like a good number
-            sentLast24Hours = sendQuota.get('SentLast24Hours') 
+            sentLast24Hours = sendQuota.get('SentLast24Hours')
             if sentLast24Hours is None:
                 sentLast24Hours = 0
             sentLast24Hours = int(float(sentLast24Hours))
@@ -178,16 +184,16 @@ def main():
             if max24HourSend is None:
                 max24HourSend = 0
             max24HourSend = int(float(max24HourSend))
-            if sentLast24Hours >= max24HourSend- 10:
+            if sentLast24Hours >= max24HourSend - 10:
                 enable_smtp()
             else:
                 enable_aws_ses()
-                
+
         except Exception, e:
             log.info(e)
             log.info("ERROR: Email falling back to SMTP")
             enable_smtp()
-        
+
     # Set the email configurations:
     elif Config.get('email').get('smtp'):
         enable_smtp()
@@ -219,10 +225,10 @@ def main():
     SessionHolder.set(web.session.Session(app, web.session.DBStore(db, 'web_session')))
 
     # WARNING:
-    #    Adding new processors may cause duplicate insertions!
+    # Adding new processors may cause duplicate insertions!
     #    The basic_processor has been disabled for this reason
     # app.add_processor(basic_processor)
-    
+
     # Load SQLAlchemy
     app.add_processor(load_sqla)
 
