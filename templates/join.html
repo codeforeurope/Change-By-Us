@@ -4,7 +4,7 @@
  #}
 {% extends "./partials/base.html" %}
 
-{% block title %} Join {% endblock title %}
+{% block title %} {{ _('Join') }} {% endblock title %}
 
 {% block continent %}
 <script type="text/javascript" src='/static/js/lp.gam.facebookConnect.js'></script>
@@ -24,7 +24,7 @@
 				</div>
 				<div class='box next'>
 					<a class="ca-btn" href="#">
-						<span>{{ _('Let\'s Do it!') }}</span>
+						<span>{{ _('Let&rquot;s Do it!') }}</span>
 					</a>
 					<div class="oops" style='display:none;'>
 						<span>&npsp;</span>
@@ -82,8 +82,7 @@
 
 				<div class="east">
 					<input type='checkbox' name='tos-user-info' id='tos-user-info' class='tos-user-info' value='1' />
-					<label class="tos-user-info-label" for='tos-user-info'>{{ _('I have read and accept the<br/>the') }} <a href='/tou' target='_blank' class='toc-link'>{{
-                        _('Terms of Use') }}</a></label>
+					<label class="tos-user-info-label" for='tos-user-info'>{{ _('I have read and accept the<br/>the') }} <a href='/tou' target='_blank' class='toc-link'>{{ _('Terms of Use') }}</a></label>
 
 					<div class="row invite-row" {% if d.template_data.app_mode != 'beta' %}style='display:none;'{% endif %}>
 						<label for='invite-code'>Invite code</label>
@@ -148,8 +147,7 @@
 					</div>-->
 					<div class="row west">
 						<input type='checkbox' name='tos-email' id='tos-email' class='tos-email' />
-						<label class="tos-email-label" for='tos-email'><span class="message">{{ _('I accept and have read the') }} <a href='/tou' target='_blank'>{{
-                            _('Terms of Use') }}</a></span></label>
+						<label class="tos-email-label" for='tos-email'><span class="message">{{ _('I accept and have read the') }} <a href='/tou' target='_blank'>{{ _('Terms of Use') }}</a></span></label>
 					</div>
 				</div>
 
@@ -168,7 +166,7 @@
 				</div>
 				<div class='east'>
 					<input type='checkbox' name='no_sms' id='no_sms' class='no_sms'/>
-					<label class="no_sms_label" for='no_sms'>{{ _('I didn\'t text any ideas.') }}</label>
+					<label class="no_sms_label" for='no_sms'>{{ _('I didn&rquot;t text any ideas.') }}</label>
 				</div>
 			</div><!--end step-->
 
@@ -178,8 +176,8 @@
 			</div><!--end step-->
 
 			<div class='step sms-results clearfix ' style='display:none;'>
-				<p><strong>{{ _('We found <span class='n_ideas'>X</span> ideas from your phone number.') }}</strong></p>
-				<p>{{ _('We\'ll add these to your profile and any others you send from that number.') }}</p>
+				<p><strong>{{ _('We found <span class="n_ideas">X</span> ideas from your phone number.') }}</strong></p>
+				<p>{{ _('We&rquot;ll add these to your profile and any others you send from that number.') }}</p>
 			</div><!--end step-->
 
 			<div class='step sms-no-results clearfix ' style='display:none;'>
@@ -199,8 +197,8 @@
 			</div><!--end step-->
 
 			<div class='step email-authentication-email-send-success clearfix' style='display:none;'>
-				<p>{{ _('Thanks! You\'re almost there.') }}</p>
-				<p>{{ _('We sent an email to <strong class='email'>&nbsp;</strong>&nbsp;in order to verify your account.') }}</p>
+				<p>{{ _('Thanks! You&rquot;re almost there.') }}</p>
+				<p>{{ _('We sent an email to <strong class="email">&nbsp;</strong>&nbsp;in order to verify your account.') }}</p>
 				<p>{{ _('Click on the link provided in the e-mail address to complete your registration.') }}</p>
 			</div><!--end step-->
 
@@ -209,7 +207,7 @@
 			</div><!--end step-->
 
 			<div class='step email-authentication-success clearfix' style='display:none;'>
-				<p>{{ _('Awesome! You\'re a member!') }}</p>
+				<p>{{ _('Awesome! You&rquot;re a member!') }}</p>
 				<p>{{ _('Thank you for verifying your e-mail address.') }}</p>
 				<p>{{ _('Please wait while we redirect you home.') }}</p>
 			</div><!--end step-->
@@ -234,7 +232,7 @@
 	</div>
 
 	<div class='foothills'>
-		<a class='back' href='#' style='display:none'><span>Back</span></a>
+		<a class='back' href='#' style='display:none'><span>{{ _('Back') }}</span></a>
 	</div>
 </div>
 
@@ -243,7 +241,7 @@
 	<div class="scroll-pane">
 		{% include 'partials/toc.html' %}
 	</div>
-	<a class='close' href="#"><span>close</span></a>
+	<a class='close' href="#"><span>{{ _('close') }}</span></a>
 </div>
 {% endblock continent %}
 
