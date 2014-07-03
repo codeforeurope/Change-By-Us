@@ -31,6 +31,11 @@ app_page.features.push(function(app){
 						app.components['idea_carousel'].carousel.seekTo(0);
 					}
 					break;
+				case 'users':
+					if(app.components['user_carousel']){
+						app.components['user_carousel'].carousel.seekTo(0);
+					}
+					break;
 			}
 		};
 		
@@ -135,6 +140,7 @@ app_page.features.push(function(app){
 						single_page = false;
 						switch(name){
 							case 'project':
+                            case 'user:':
 							case 'resource':
 								if(e.data.carousel.data.current_page.find('td').length < e.data.carousel.data.n_to_fetch){
 									single_page = true;

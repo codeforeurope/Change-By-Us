@@ -21,7 +21,9 @@ class Search(Controller):
         elif (action == 'resources'):
             return self.searchProjectResourcesJSON() 
         elif (action == 'projects'):
-            return self.searchProjectsJSON() 
+            return self.searchProjectsJSON()
+        elif (action == 'users'):
+            return self.searchUsersJSON()
         else:
             return self.showSearch()   
                         
@@ -93,7 +95,16 @@ class Search(Controller):
         score = numProjects + numIdeas + numResources
         
         return score 
-        
+
+    def searchUsersJSON(self):
+        terms = self.request('terms').split(',') if self.request('terms') else []
+        limit = int(self.request('n')) if self.request('n') else 6
+        offset = int(self.request('offset')) if self.request('offset') else 0
+        locationId = self.request('location_id')
+
+        return self.json({'results':mUser.searchUser(self.db, terms, locationId, limit, offset),
+                          'total_count':100}, encoder=EscapingJSONEncoder)
+
     def searchProjectsJSON(self):
         terms = self.request('terms').split(',') if self.request('terms') else []
         limit = int(self.request('n')) if self.request('n') else 6

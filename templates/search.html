@@ -25,8 +25,8 @@
 <div class='continent search-results'>
 	<div class='headlands clearfix'>
 		<ul class="tabs">
-			<li class="tab tab-map"><a href="#map">Map</a></li>
-			<li class="tab tab-list active"><a href="#all">List</a></li>
+			<li class="tab tab-map"><a href="#map">{{ _('Map') }}</a></li>
+			<li class="tab tab-list active"><a href="#all">{{ _('List') }}</a></li>
 		</ul>
 		<form class="search-results-header" action="" method="GET">
 			<label>Search results for:</label>
@@ -51,10 +51,11 @@
 		<!-- LIST VIEW -->
 		<div id="list-view" class="step">
 			<div class="west sidebar">
-				<a class="sidebar-item all active" href="#all"><span>All</span><span class="counter">{{ d.template_data.total_count.data.projects + d.template_data.total_count.data.ideas + d.template_data.total_count.data.resources }}</span></a>
-				<a class="sidebar-item projects" href="#projects"><span>Projects</span><span class="counter">{{ d.template_data.total_count.data.projects }}</span></a>
-				<a class="sidebar-item resources" href="#resources"><span>Resources</span><span class="counter">{{ d.template_data.total_count.data.resources }}</span></a>
-				<a class="sidebar-item ideas" href="#ideas"><span>Ideas</span><span class="counter">{{ d.template_data.total_count.data.ideas }}</span></a>
+				<a class="sidebar-item all active" href="#all"><span>{{ _('All') }}</span><span class="counter">{{ d.template_data.total_count.data.projects + d.template_data.total_count.data.ideas + d.template_data.total_count.data.resources }}</span></a>
+				<a class="sidebar-item projects" href="#projects"><span>{{ _('Projects') }}</span><span class="counter">{{ d.template_data.total_count.data.projects }}</span></a>
+				<a class="sidebar-item resources" href="#resources"><span>{{ _('Resources') }}</span><span class="counter">{{ d.template_data.total_count.data.resources }}</span></a>
+				<a class="sidebar-item ideas" href="#ideas"><span>{{ _('Ideas') }}</span><span class="counter">{{ d.template_data.total_count.data.ideas }}</span></a>
+                <a class="sidebar-item users" href="#users"><span>{{ _('Users') }}</span><span class="counter">{{ d.template_data.total_count.data.users }}</span></a>
 			</div>
 			<div class="east">
 				
@@ -63,14 +64,14 @@
 					<div class="hd">
 						<h2><span class="counter">{{ d.template_data.total_count.data.projects }}</span> Project{% if d.template_data.total_count.data.projects > 1 %}s{% endif %}</h2>
 						{% if d.template_data.total_count.data.projects > 6 %}
-						<span class="control see-all-control"><a href="#projects">See all <span class="sm-arrow-forward light"></span></a></span>
+						<span class="control see-all-control"><a href="#projects">{{ _('See all') }} <span class="sm-arrow-forward light"></span></a></span>
 						{% endif %}
 						
 						<div class="pagination-controls project">
 							<span class="control">
-								<a class="prev project-carousel-prev" href="#"><span class="sm-arrow-back light"></span><span>Previous</span></a>
-								<span class="carousel-page-info">Page
-									<span class='current_page_number'>1</span> of 
+								<a class="prev project-carousel-prev" href="#"><span class="sm-arrow-back light"></span><span>{{ _('Previous') }}</span></a>
+								<span class="carousel-page-info">{{ _('Page') }}
+									<span class='current_page_number'>1</span> {{ _('of') }}
 									<span class='n_pages'>
 									{% if (d.template_data.total_count.data.projects % 6) == 0 %}
 										{{ (d.template_data.total_count.data.projects // 6) }}
@@ -79,7 +80,7 @@
 									{% endif %}
 									</span>
 								</span>
-								<a class="next project-carousel-next" href="#"><span>Next</span><span class="sm-arrow-forward light"></span></a>
+								<a class="next project-carousel-next" href="#"><span>{{ _('Next') }}</span><span class="sm-arrow-forward light"></span></a>
 							</span>
 						</div>
 						
@@ -102,7 +103,7 @@
 														{% endif %}
 															<td>
 																{% if d.template_data and d.template_data.user and d.template_data.user.is_admin %}
-																<a class="close delete-project" href="#removeProject,{{ project.project_id }}"><span>Close</span></a>
+																<a class="close delete-project" href="#removeProject,{{ project.project_id }}"><span>{{ _('Close') }}</span></a>
 																{% endif %}
 																<div class="thumb">
 																	{% if project.image_id > -1 %}
@@ -115,7 +116,7 @@
 																</div>
 																<div class="project-info">
 																	<span class="link"><a href="/project/{{ project.project_id }}">{{ project.title|truncate(50) }}</a></span>
-																	<span class="creator"><em>Created by </em> <a href="/useraccount/{{ project.owner.u_id }}">{{ project.owner.name }}</a></span>
+																	<span class="creator"><em>{{ _('Created by') }} </em> <a href="/useraccount/{{ project.owner.u_id }}">{{ project.owner.name }}</a></span>
 																	<span class="description"><a href="/project/{{ project.project_id }}">{{ project.description|truncate(70) }}</a></span>
 																</div>
 															</td>
@@ -129,9 +130,9 @@
 											{% else %}
 											
 											<div class="none-found-message clearfix">
-												<h2>There were <span class="counter">0</span> <strong>Projects</strong> found</h2>
+												<h2>{{ _('There were') }} <span class="counter">0</span> <strong>{{ _('Projects') }}</strong> {{ _('found') }}</h2>
 												{% if d.template_data and d.template_data.user %}
-												<a class="rounded-button small fancy-caps more-link" href="/create">Start <span>a</span> Project <span class="sm-arrow-forward"></span></a>
+												<a class="rounded-button small fancy-caps more-link" href="/create">{{ _('Start <span>a</span> Project') }} <span class="sm-arrow-forward"></span></a>
 												{% endif %}
 											</div>
 											
@@ -171,17 +172,17 @@
 				
 				<div class="box results-box results-resources clearfix {% if d.template_data.total_count.data.resources == 0 %}none-found{% endif %}">
 					<div class="hd">
-						<h2><span class="counter">{{ d.template_data.total_count.data.resources }}</span> Resource{% if d.template_data.total_count.data.resources > 1 %}s{% endif %}</h2>
+						<h2><span class="counter">{{ d.template_data.total_count.data.resources }}</span> {% if d.template_data.total_count.data.resources > 1 %} {{ _('Resources') }} {% else %} {{ _('Resource') }} {% endif %}</h2>
 						{% if d.template_data.total_count.data.resources > 6 %}
-						<span class="see-all-control control"><a href="#resources">See all <span class="sm-arrow-forward light"></span></a></span>
+						<span class="see-all-control control"><a href="#resources">{{ _('See all') }} <span class="sm-arrow-forward light"></span></a></span>
 						{% endif %}
 						
 						<div class="pagination-controls resource">
 							<span class="control">
-								<a class="prev resource-carousel-prev" href="#"><span class="sm-arrow-back light"></span><span>Previous</span></a>
+								<a class="prev resource-carousel-prev" href="#"><span class="sm-arrow-back light"></span><span>{{ _('Previous') }}</span></a>
 								<!-- <span class="carousel-page-info">Page <span class='current_page_number'>1</span> of <span class='n_pages'>{{ (d.template_data.total_count.data.resources // 6) + 1 }}</span></span> -->
-								<span class="carousel-page-info">Page
-									<span class='current_page_number'>1</span> of 
+								<span class="carousel-page-info">{{ _('Page') }}
+									<span class='current_page_number'>1</span> {{ _('of') }}
 									<span class='n_pages'>
 									{% if (d.template_data.total_count.data.resources % 6) == 0 %}
 										{{ (d.template_data.total_count.data.resources // 6) }}
@@ -190,7 +191,7 @@
 									{% endif %}
 									</span>
 								</span>
-								<a class="next resource-carousel-next" href="#"><span>Next</span><span class="sm-arrow-forward light"></span></a>
+								<a class="next resource-carousel-next" href="#"><span>{{ _('Next') }}</span><span class="sm-arrow-forward light"></span></a>
 							</span>
 						</div>
 					</div>
@@ -212,9 +213,9 @@
 																<a class="add-button rounded-button small add-resource" href="#addProject,{{ resource.link_id }}">Add</a>
 															{% endif %}
 															{% if resource.image_id > -1 %}
-																<span class="thumb">{% if d.template_data and d.template_data.user and d.template_data.user.is_admin %}<a class="close delete-resource" href="#removeResource,{{ resource.link_id }}"><span>Remove</span></a>{% endif %}<img width='35' height='35' src='{{d.template_data.media_root}}images/{{ resource.image_id % 10 }}/{{ resource.image_id }}.png' alt="" /></span>
+																<span class="thumb">{% if d.template_data and d.template_data.user and d.template_data.user.is_admin %}<a class="close delete-resource" href="#removeResource,{{ resource.link_id }}"><span>{{ _('Remove') }}</span></a>{% endif %}<img width='35' height='35' src='{{d.template_data.media_root}}images/{{ resource.image_id % 10 }}/{{ resource.image_id }}.png' alt="" /></span>
 															{% else %}
-																<span class="thumb">{% if d.template_data and d.template_data.user and d.template_data.user.is_admin %}<a class="close delete-resource" href="#removeResource,{{ resource.link_id }}"><span>Close</span></a>{% endif %}<img width='35' height='35' src='/static/images/thumb_genAvatar50.png' alt="" /></span>
+																<span class="thumb">{% if d.template_data and d.template_data.user and d.template_data.user.is_admin %}<a class="close delete-resource" href="#removeResource,{{ resource.link_id }}"><span>{{ _('Close') }}</span></a>{% endif %}<img width='35' height='35' src='/static/images/thumb_genAvatar50.png' alt="" /></span>
 															{% endif %}
 															<span class="resource-name">
 																{% if resource.is_official %}<span class="official-resource-alt">{{ _('Official Resource') }}</span>{% endif %}
@@ -236,8 +237,8 @@
 										</table>
 										{% else %}
 										<div class="none-found-message clearfix">
-											<h2>There were <span class="counter">0</span> <strong>Resources</strong> found</h2>
-											<a class="rounded-button small fancy-caps more-link" href="/resource">Add <span>your</span> Resource <span class="sm-arrow-forward"></span></a>
+											<h2>There were <span class="counter">0</span> <strong>{{ _('Resources') }}</strong> {{ _('found') }}</h2>
+											<a class="rounded-button small fancy-caps more-link" href="/resource">{{ _('Add <span>your</span> Resource') }} <span class="sm-arrow-forward"></span></a>
 										</div>
 										{% endif %}
 									</li>
@@ -272,21 +273,21 @@
 													</span>
 												</div> -->
 					</div>
-				</div><!-- end results-box -->
+				</div><!-- end results-box resources -->
 				
 				<div class="box results-box results-ideas clearfix {% if d.template_data.total_count.data.ideas == 0 %}none-found{% endif %}">
 					
 					<div class="hd">
-						<h2><span class="counter active">{{ d.template_data.total_count.data.ideas }}</span> Idea{% if d.template_data.total_count.data.ideas > 1 %}s{% endif %}</h2>
+						<h2><span class="counter active">{{ d.template_data.total_count.data.ideas }}</span> {% if d.template_data.total_count.data.ideas > 1 %} {{ _('Ideas') }} {% else %} {{ _('Idea') }} {% endif %}</h2>
 						{% if d.template_data.total_count.data.ideas > 6 %}
-						<span class="see-all-control control"><a href="#ideas">See all <span class="sm-arrow-forward light"></span></a></span>
+						<span class="see-all-control control"><a href="#ideas">{{ _('See all') }} <span class="sm-arrow-forward light"></span></a></span>
 						{% endif %}
 						<div class="pagination-controls idea">
 							<span class="control">
-								<a class="prev idea-carousel-prev" href="#"><span class="sm-arrow-back light"></span><span>Previous</span></a>
+								<a class="prev idea-carousel-prev" href="#"><span class="sm-arrow-back light"></span><span>{{ _('Previous') }}</span></a>
 								<!-- <span class="carousel-page-info">Page <span class='current_page_number'>1</span> of <span class='n_pages'>{{ (d.template_data.total_count.data.ideas // 6) + 1 }}</span></span> -->
-								<span class="carousel-page-info">Page
-									<span class='current_page_number'>1</span> of 
+								<span class="carousel-page-info">{{ _('Page') }}
+									<span class='current_page_number'>1</span> {{ _('of') }}
 									<span class='n_pages'>
 									{% if (d.template_data.total_count.data.ideas % 6) == 0 %}
 										{{ (d.template_data.total_count.data.ideas // 6) }}
@@ -295,7 +296,7 @@
 									{% endif %}
 									</span>
 								</span>
-								<a class="next idea-carousel-next" href="#"><span>Next</span><span class="sm-arrow-forward light"></span></a>
+								<a class="next idea-carousel-next" href="#"><span>{{ _('Next') }}</span><span class="sm-arrow-forward light"></span></a>
 							</span>
 						</div>
 					</div>
@@ -317,14 +318,14 @@
 														{% if d.template_data.user.data.projects|length > 0 and not(d.template_data.user.data.u_id == idea.owner.u_id) %}
 															<a class="invite rounded-button small" href="#invite,{{ idea.idea_id }},{{ idea.owner.name }}">Invite</a>
 														{% endif %}
-														<span class="flag"><a href="#flagIdea,{{ idea.idea_id }}" class='flag-idea'>Flag as Inappropriate</a></span>
+														<span class="flag"><a href="#flagIdea,{{ idea.idea_id }}" class='flag-idea'>{{ _('Flag as Inappropriate') }}</a></span>
 													</div>
 													{% endif %}
 													<div class="note-card">
 														<div class="membrane">
 															{% if d.template_data and d.template_data.user %}
 																{% if d.template_data.user.is_admin or d.template_data.user.data.u_id == idea.owner.u_id %}
-																<a class="close remove-idea" href="#removeIdea,{{ idea.idea_id }}"><span>Close</span></a>
+																<a class="close remove-idea" href="#removeIdea,{{ idea.idea_id }}"><span>{{ _('Close') }}</span></a>
 																{% endif %}
 															{% endif %}
 															{% if idea.owner %}
@@ -335,7 +336,7 @@
 																</cite>
 															{% endif %}
 															<blockquote>{% if d.template_data and d.template_data.user and d.template_data.user.is_admin %}{% if not idea.owner.name %}<span class="topright-spacer"></span>{% endif %}{% endif %}<p>{{ idea.message|truncate(175) }}</p></blockquote>
-															<cite class="note-meta-ft">Posted <strong class="time-since">{{ idea.created }}</strong> via <strong>{{ idea.submission_type }}</strong></cite>
+															<cite class="note-meta-ft">{{ _('Posted') }} <strong class="time-since">{{ idea.created }}</strong> {{ _('via') }} <strong>{{ idea.submission_type }}</strong></cite>
 														</div>
 													</div>
 												</li>
@@ -343,8 +344,8 @@
 										</ul>
 										{% else %}
 										<div class="none-found-message clearfix">
-											<h2>There were <span class="counter">0</span> <strong>Ideas</strong> found</h2>
-											<a class="rounded-button small fancy-caps more-link" href="/">Add <span>an</span> Idea <span class="sm-arrow-forward"></span></a>
+											<h2>{{ _('There were') }} <span class="counter">0</span> <strong>{{ _('Ideas') }}</strong> {{ _('found') }}</h2>
+											<a class="rounded-button small fancy-caps more-link" href="/">{{ _('Add <span>an</span> Idea') }} <span class="sm-arrow-forward"></span></a>
 										</div>
 										
 										{% endif %}
@@ -361,7 +362,7 @@
 					
 					<div class="ft">
 						{% if d.template_data.total_count.data.ideas > 0 %}
-						<a class="rounded-button small fancy-caps more-link" href="/">Add <span>an</span> Idea <span class="sm-arrow-forward"></span></a>
+						<a class="rounded-button small fancy-caps more-link" href="/">{{ _('Add <span>an</span> Idea') }} <span class="sm-arrow-forward"></span></a>
 						{% endif %}
 						<!-- <div class="pagination-controls idea">
 													<span class="control">
@@ -380,8 +381,91 @@
 													</span>
 												</div> -->
 					</div>
-				</div><!-- end results-box -->
-				
+				</div><!-- end results-box ideas -->
+
+
+				<div class="box results-box results-users clearfix {% if d.template_data.results.data.users|length == 0 %}none-found{% endif %}">
+					<div class="hd">
+						<h2><span class="counter">{{ d.template_data.total_count.data.users }}</span> Project{% if d.template_data.total_count.data.users > 1 %}s{% endif %}</h2>
+						{% if d.template_data.total_count.data.users > 6 %}
+						<span class="control see-all-control"><a href="#users">{{ _('See all') }} <span class="sm-arrow-forward light"></span></a></span>
+						{% endif %}
+
+						<div class="pagination-controls user">
+							<span class="control">
+								<a class="prev project-carousel-prev" href="#"><span class="sm-arrow-back light"></span><span>{{ _('Previous') }}</span></a>
+								<span class="carousel-page-info">{{ _('Page') }}
+									<span class='current_page_number'>1</span> {{ _('of') }}
+									<span class='n_pages'>
+									{% if (d.template_data.total_count.data.users % 6) == 0 %}
+										{{ (d.template_data.total_count.data.users // 6) }}
+									{% else %}
+										{{ (d.template_data.total_count.data.users // 6) + 1 }}
+									{% endif %}
+									</span>
+								</span>
+								<a class="next project-carousel-next" href="#"><span>{{ _('Next') }}</span><span class="sm-arrow-forward light"></span></a>
+							</span>
+						</div>
+
+					</div>
+					<div class="bd">
+
+						<div class="carousel project">
+							<div class="scrollable">
+								<ul class="items">
+										<li class='user-carousel-item clearfix loaded {% if d.template_data.results.data.users|length == 0 %}empty{% endif %}'>
+											{% if d.template_data.results.data.users|length > 0 %}
+
+											<table class="users-list doublewide clearfix">
+												<tbody>
+													{% for user in d.template_data.results.data.users %}
+														{% if loop.index is odd %}
+														<tr {% if loop.index == 5 %}class='last-row'{% endif %} >
+														{% endif %}
+															<td>
+																<div class="thumb">
+																	{% if user.image_id > -1 %}
+																	<a href="/user/{{ user.user_id }}"><img width='50' height='50' src='{{d.template_data.media_root}}images/{{ user.image_id % 10 }}/{{ user.image_id }}.png' alt="" class='user'/></a>
+																	{% else %}
+																	<img width='50' height='50' src="/static/images/thumb_genAvatar50.png" alt="" class="user"/>
+																	{% endif %}
+																	<span class="overlay-tag"></span>
+																	<span class="member-count">{{ user.num_ideas }}</span>
+																</div>
+																<div class="project-info">
+																	<span class="link"><a href="/user/{{ user.user_id }}">{{ user.first_name|truncate(50) }} {{ user.last_name|truncate(50) }}</a></span>
+																	<span class="description"><a href="/user/{{ user.user_id }}">{{ user.description|truncate(70) }}</a></span>
+																</div>
+															</td>
+														{% if loop.index is even %}
+														</tr>
+														{% endif %}
+													{% endfor %}
+												</tbody>
+											</table>
+
+											{% else %}
+
+											<div class="none-found-message clearfix">
+												<h2>{{ _('There were') }} <span class="counter">0</span> <strong>{{ _('Users') }}</strong> {{ _('found') }}</h2>
+											</div>
+
+											{% endif %}
+										</li>
+
+										<li class='user-carousel-item clearfix spinner-message'>
+											<div class="spinner-container"></div>
+										</li>
+								</ul>
+							</div>
+						</div>
+					</div>
+
+					<div class="ft">
+                        <!-- Footer user -->
+					</div>
+				</div><!-- end results-box users -->
 				
 			</div><!--end .east -->
 		</div><!-- end #list-view-->

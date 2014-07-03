@@ -773,4 +773,45 @@ def isModeratorBitmask(bitmask):
 def isLeaderBitmask(bitmask):
     return util.getBit(bitmask, 3)
 
+# find projects by full text search and location id
+def searchUsers(db, terms, locationId, limit=1000, offset=0):
+    betterData = []
 
+    match = ' '.join([(item + "*") for item in terms])
+
+    #obviously must optimize here
+    try:
+        sql = """select u.user_id,
+                    u.email,
+                    u.first_name,
+                    u.last_name,
+                    u.image_id,
+                    u.description,
+                    (select count(idea_id) from idea where idea.user_id = u.user_id ) as num_ideas,
+                    (select count(project_id) from project__user pu where pu.user_id = u.user_id ) as num_projects
+                    from user u
+                    where
+                    u.is_active = 1
+                    and ($locationId is null or u.location_id = $locationId)
+                    and ($match = '' or match(u.first_name, u.last_name) against ($match in boolean mode))
+                    order by num_ideas, num_projects, u.created_datetime
+                    limit $limit offset $offset"""
+
+        data = list(db.query(sql, {'match': match, 'locationId': locationId, 'limit': limit, 'offset': offset}))
+
+        for item in data:
+            betterData.append(dict(user_id=item.user_id,
+                                   #title = jinja2.Markup(item.title).unescape(),
+                                   first_name=item.first_name,
+                                   #description = jinja2.Markup(item.description).unescape(),
+                                   last_name=item.last_name,
+                                   description=item.description,
+                                   image_id=item.image_id,
+                                   location_id=item.location_id,
+                                   num_ideas=item.num_ideas,
+                                   num_projects=item.num_projects))
+    except Exception, e:
+        log.info("*** couldn't get user search data")
+        log.error(e)
+
+    return betterData
