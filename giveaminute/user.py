@@ -782,11 +782,12 @@ def searchUsers(db, terms, locationId, limit=1000, offset=0):
     #obviously must optimize here
     try:
         sql = """select u.user_id,
-                    u.email,
-                    u.first_name,
-                    u.last_name,
+                    IFNULL(u.email,"") as email,
+                    IFNULL(u.first_name, "") as first_name,
+                    IFNULL(u.last_name,"") as last_name,
                     u.image_id,
-                    u.description,
+                    IFNULL(u.description, '') as description,
+                    IFNULL(u.location_id, 0) as location_id,
                     (select count(idea_id) from idea where idea.user_id = u.user_id ) as num_ideas,
                     (select count(project_id) from project__user pu where pu.user_id = u.user_id ) as num_projects
                     from user u

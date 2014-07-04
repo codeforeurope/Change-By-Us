@@ -38,11 +38,11 @@
 				</div>
 				<span class="in">in</span>
 				<div class="search-hood-container">
-					<input type='text' name='location-hood-enter' id='location-hood-enter' class='search-location location-group location-hood-enter always-focused' {% if d.template_data.search_location_id %}location_id="{{ d.template_data.search_location_id }}"{% endif %} value="All neighborhoods"/>
+					<input type='text' name='location-hood-enter' id='location-hood-enter' class='search-location location-group location-hood-enter always-focused' {% if d.template_data.search_location_id %}location_id="{{ d.template_data.search_location_id }}"{% endif %} value="{{ _('All neighborhoods') }}"/>
 					<a class="clear-field" href=""></a>
 					<div class="location-hood-list" style="display:none"><ul></ul></div>
 				</div>
-				<input type="submit" class="rounded-button search-submit" value="Search" />
+				<input type="submit" class="rounded-button search-submit" value="{{ _('Search') }}" />
 			</div>
 		</form>
 	</div>
@@ -59,7 +59,7 @@
 			</div>
 			<div class="east">
 				
-				
+				<!-- start Projects results -->
 				<div class="box results-box results-projects clearfix {% if d.template_data.results.data.projects|length == 0 %}none-found{% endif %}">
 					<div class="hd">
 						<h2><span class="counter">{{ d.template_data.total_count.data.projects }}</span> Project{% if d.template_data.total_count.data.projects > 1 %}s{% endif %}</h2>
@@ -168,8 +168,9 @@
 													</span>
 												</div> -->
 					</div>
-				</div><!-- end results-box -->
-				
+				</div><!-- end results-box Projects -->
+
+                <!-- start Resources results -->
 				<div class="box results-box results-resources clearfix {% if d.template_data.total_count.data.resources == 0 %}none-found{% endif %}">
 					<div class="hd">
 						<h2><span class="counter">{{ d.template_data.total_count.data.resources }}</span> {% if d.template_data.total_count.data.resources > 1 %} {{ _('Resources') }} {% else %} {{ _('Resource') }} {% endif %}</h2>
@@ -237,7 +238,7 @@
 										</table>
 										{% else %}
 										<div class="none-found-message clearfix">
-											<h2>There were <span class="counter">0</span> <strong>{{ _('Resources') }}</strong> {{ _('found') }}</h2>
+											<h2>{{ _('There were') }} <span class="counter">0</span> <strong>{{ _('Resources') }}</strong> {{ _('found') }}</h2>
 											<a class="rounded-button small fancy-caps more-link" href="/resource">{{ _('Add <span>your</span> Resource') }} <span class="sm-arrow-forward"></span></a>
 										</div>
 										{% endif %}
@@ -274,7 +275,8 @@
 												</div> -->
 					</div>
 				</div><!-- end results-box resources -->
-				
+
+                <!-- start Ideas results -->
 				<div class="box results-box results-ideas clearfix {% if d.template_data.total_count.data.ideas == 0 %}none-found{% endif %}">
 					
 					<div class="hd">
@@ -332,7 +334,7 @@
 																<cite class="note-meta-hd">
 																	<strong>
 																		<a href="/useraccount/{{ idea.owner.u_id }}">{{ idea.owner.name|truncate(18) }}</a>
-																	</strong> said &mdash;
+																	</strong> {{ _('said') }} &mdash;
 																</cite>
 															{% endif %}
 															<blockquote>{% if d.template_data and d.template_data.user and d.template_data.user.is_admin %}{% if not idea.owner.name %}<span class="topright-spacer"></span>{% endif %}{% endif %}<p>{{ idea.message|truncate(175) }}</p></blockquote>
@@ -383,17 +385,17 @@
 					</div>
 				</div><!-- end results-box ideas -->
 
-
+                <!-- start Users results -->
 				<div class="box results-box results-users clearfix {% if d.template_data.results.data.users|length == 0 %}none-found{% endif %}">
 					<div class="hd">
-						<h2><span class="counter">{{ d.template_data.total_count.data.users }}</span> Project{% if d.template_data.total_count.data.users > 1 %}s{% endif %}</h2>
+						<h2><span class="counter">{{ d.template_data.total_count.data.users }}</span>{% if d.template_data.total_count.data.users > 1 %} {{ _('Users') }} {% else %} {{ _('User') }} {% endif %}</h2>
 						{% if d.template_data.total_count.data.users > 6 %}
 						<span class="control see-all-control"><a href="#users">{{ _('See all') }} <span class="sm-arrow-forward light"></span></a></span>
 						{% endif %}
 
 						<div class="pagination-controls user">
 							<span class="control">
-								<a class="prev project-carousel-prev" href="#"><span class="sm-arrow-back light"></span><span>{{ _('Previous') }}</span></a>
+								<a class="prev user-carousel-prev" href="#"><span class="sm-arrow-back light"></span><span>{{ _('Previous') }}</span></a>
 								<span class="carousel-page-info">{{ _('Page') }}
 									<span class='current_page_number'>1</span> {{ _('of') }}
 									<span class='n_pages'>
@@ -404,14 +406,14 @@
 									{% endif %}
 									</span>
 								</span>
-								<a class="next project-carousel-next" href="#"><span>{{ _('Next') }}</span><span class="sm-arrow-forward light"></span></a>
+								<a class="next user-carousel-next" href="#"><span>{{ _('Next') }}</span><span class="sm-arrow-forward light"></span></a>
 							</span>
 						</div>
 
 					</div>
 					<div class="bd">
 
-						<div class="carousel project">
+						<div class="carousel user">
 							<div class="scrollable">
 								<ul class="items">
 										<li class='user-carousel-item clearfix loaded {% if d.template_data.results.data.users|length == 0 %}empty{% endif %}'>
@@ -426,16 +428,17 @@
 															<td>
 																<div class="thumb">
 																	{% if user.image_id > -1 %}
-																	<a href="/user/{{ user.user_id }}"><img width='50' height='50' src='{{d.template_data.media_root}}images/{{ user.image_id % 10 }}/{{ user.image_id }}.png' alt="" class='user'/></a>
+																	<a href="/useraccount/{{ user.user_id }}"><img width='50' height='50' src='{{d.template_data.media_root}}images/{{ user.image_id % 10 }}/{{ user.image_id }}.png' alt="" class='user'/></a>
 																	{% else %}
 																	<img width='50' height='50' src="/static/images/thumb_genAvatar50.png" alt="" class="user"/>
 																	{% endif %}
 																	<span class="overlay-tag"></span>
-																	<span class="member-count">{{ user.num_ideas }}</span>
+																	<span class="user-activity-count">{{ user.num_ideas }} {{ _('Ideas') }} <br> {{ user.num_projects }} {{ _('Projects') }}</span>
 																</div>
-																<div class="project-info">
-																	<span class="link"><a href="/user/{{ user.user_id }}">{{ user.first_name|truncate(50) }} {{ user.last_name|truncate(50) }}</a></span>
-																	<span class="description"><a href="/user/{{ user.user_id }}">{{ user.description|truncate(70) }}</a></span>
+																<div class="user-info">
+																	<span class="link"><a href="/useraccount/{{ user.user_id }}">{{ user.first_name|truncate(50) }} {{ user.last_name|truncate(50) }}</a></span>
+                                                                    <span class="user-location">Location</span>
+																	<span class="description"><a href="/useraccount/{{ user.user_id }}">{{ user.description|truncate(70) }}</a></span>
 																</div>
 															</td>
 														{% if loop.index is even %}
@@ -470,11 +473,13 @@
 			</div><!--end .east -->
 		</div><!-- end #list-view-->
 
+        <!-- start #map-view -->
+        <!-- start projects on map -->
 		<div id="map-view" class="step" style="display:none">
 			<div class="map-results clearfix">
 				<div class="box results-box results-projects">
 					<div class="hd">
-						<h2>Projects <span class="counter">{{ d.template_data.results.data.projects|length }}</span></h2>
+						<h2>{{ _('Projects') }} <span class="counter">{{ d.template_data.results.data.projects|length }}</span></h2>
 						{% if d.template_data.results.data.projects|length > 0 %}
 						<span class="control"><a href="#projects">See all <span class="sm-arrow-forward light"></span></a></span>
 						{% endif %}
@@ -516,11 +521,12 @@
 						</table>
 						{% endif %}
 					</div>
-				</div>
-				
+				</div><!-- End Projects on map -->
+
+                <!-- Start Resources on map -->
 				<div class="box results-box results-resources">
 					<div class="hd">
-						<h2>{{ _('Resources') }} <span class="counter">{{ d.template_data.total_count.data.resources }}</span></h2>
+						<h2>Resources <span class="counter">{{ d.template_data.total_count.data.resources }}</span></h2>
 						{% if d.template_data.total_count.data.resources > 0 %}
 						<span class="control"><a href="#resources">See all <span class="sm-arrow-forward light"></span></a></span>
 						{% endif %}
@@ -561,7 +567,7 @@
 						{% endif %}
 					</div>
 				</div>
-			</div><!-- end map-results-->
+			</div><!-- end map-results resources -->
 			
 			<div class="box results-map themap">
 				<div id="map_canvas"></div>
@@ -573,20 +579,22 @@
 	<div class='foothills'>
 	</div>
 
+    <!-- Resource delete confirmation -->
 	<div class="template-content modal-content confirm-delete remove-resource">
 		<div class="step">
-			<h2><strong>Delete</strong> this Resource?</h2>
+			<h2><strong>{{ _('Delete') }}</strong> {{ _('this Resource?') }}</h2>
 			<div>
-				<p>You are about to delete this Resource from the system permanently! <br/>Are you sure?</p>
+				<p>{{ _('You are about to delete this Resource from the system permanently!') }} <br/>{{ _('Are you sure?') }}</p>
 			</div>
 			<div class="actions">
-				<a class="submit rounded-button" href="#">Yes, Delete Resource</a>
-				<a class="cancel" href="#">No, keep it.</a>
+				<a class="submit rounded-button" href="#">\{{ _('Yes, Delete Resource') }}</a>
+				<a class="cancel" href="#">{{ _('No, keep it.') }}</a>
 			</div>
 		</div>
-		<a class='close' href="#"><span>close</span></a>
+		<a class='close' href="#"><span>{{ _('close') }}</span></a>
 	</div>
-	
+
+    <!-- Resource detail -->
 	<div class='template-content' id='organization-markup-source'>
 		<div class='tooltip-hd'>
 			<h2></h2>
@@ -601,29 +609,31 @@
 				</div>
 			</div>
 			<dl class='details'>
-				<dt>Visit Us</dt>
+				<dt>{{ _('Visit Us') }}</dt>
 				<dd><a href=''></a></dd>
 			</dl>
 		</div>
 	</div>
-	
+
+    <!-- Project delete confirmation -->
 	<div class="template-content modal-content confirm-delete project-delete">
 		<div class="step">
-			<h2><strong>Delete</strong> this Project?</h2>
+			<h2><strong>{{ _('Delete') }}</strong> {{ _('this Project?') }}</h2>
 			<div>
-				<p>You are about to delete this project from the system permanently! <br/>Are you sure?</p>
+				<p>{{ _('You are about to delete this project from the system permanently!') }} <br/>{{ _('Are you sure?') }}</p>
 			</div>
 			<div class="actions">
-				<a class="submit rounded-button" href="#">Yes, Delete Project</a>
-				<a class="cancel" href="#">No, keep them.</a>
+				<a class="submit rounded-button" href="#">{{ _('Yes, Delete Project') }}</a>
+				<a class="cancel" href="#">{{ _('No, keep it.') }}</a>
 			</div>
 		</div>
-		<a class='close' href="#"><span>close</span></a>
+		<a class='close' href="#"><span>{{ _('close') }}</span></a>
 	</div>
-	
+
+    <!-- Project detail -->
 	<div class='template-content project-cell'>
 		{% if d.template_data and d.template_data.user and d.template_data.user.is_admin %}
-		<a class="close delete-project" href="#removeProject,"><span>Close</span></a>
+		<a class="close delete-project" href="#removeProject,"><span>{{ _('Close') }}</span></a>
 		{% endif %}
 		
 		<div class="thumb">
@@ -633,17 +643,18 @@
 		</div>
 		<div class="project-info">
 			<span class="link"><a href="/project/"></a></span>
-			<span class="creator"><em>Created by </em> <a href="/useraccount/"></a></span>
+			<span class="creator"><em>{{ _('Created by') }} </em> <a href="/useraccount/"></a></span>
 			<span class="description"><a href="/project/"></a></span>
 		</div>
 	</div>
-	
+
+    <!-- Resource detail -->
 	<div class='template-content resource-cell'>
 		{% if d.template_data and d.template_data.user and d.template_data.user.data.projects|length > 0 %}
-			<a class="add-button rounded-button small add-resource" href="#addProject,">Add</a>
+			<a class="add-button rounded-button small add-resource" href="#addProject,">{{ _('Add') }}</a>
 		{% endif %}
 		
-		<span class="thumb">{% if d.template_data and d.template_data.user and d.template_data.user.is_admin %}<a class="close delete-resource" href="#removeResource,"><span>Close</span></a>{% endif %}<img width='35' height='35' src='/static/images/thumb_genAvatar50.png' alt="" /></span>
+		<span class="thumb">{% if d.template_data and d.template_data.user and d.template_data.user.is_admin %}<a class="close delete-resource" href="#removeResource,"><span>{{ _('Close') }}</span></a>{% endif %}<img width='35' height='35' src='/static/images/thumb_genAvatar50.png' alt="" /></span>
 		<span class="resource-name">
 			<span class="official-resource-alt" style="display:none">{{ _('Official Resource') }}</span>
 			<span rel="#organization," class='resource-tooltip_trigger tooltip_trigger'>
@@ -657,7 +668,7 @@
 		</div>
 	</div>
 	
-	
+	<!-- Idea detail -->
 	<div class='template-content idea-cell'>
 		
 		{% if d.template_data and d.template_data.user %}
@@ -665,21 +676,21 @@
 			{% if d.template_data.user.data.projects|length > 0 %}
 				<a class="invite rounded-button small" href="#invite,,">Invite</a>
 			{% endif %}
-			<span class="flag"><a href="#flagIdea," class='flag-idea'>Flag as Inappropriate</a></span>
+			<span class="flag"><a href="#flagIdea," class='flag-idea'>{{ _('Flag as Inappropriate') }}</a></span>
 		</div>
 		{% endif %}
 		<div class="note-card">
 			<div class="membrane">
 				{% if d.template_data and d.template_data.user %}
 					{% if d.template_data.user.is_admin %}
-					<a class="close remove-idea" href="#removeIdea,"><span>Close</span></a>
+					<a class="close remove-idea" href="#removeIdea,"><span>{{ _('Close') }}</span></a>
 					{% endif %}
 				{% endif %}
 				<cite class="note-meta-hd"><strong>
 					<a class='user-link' href="/useraccount/"></a>
-				</strong> said &mdash;</cite>
+				</strong> {{ _('said') }} &mdash;</cite>
 				<blockquote>{% if d.template_data and d.template_data.user and d.template_data.user.is_admin %}{% endif %}<p class='idea-text'></p></blockquote>
-				<cite class="note-meta-ft">Posted <strong class="time-since"></strong> via <strong class='sub-type'></strong></cite>
+				<cite class="note-meta-ft">{{ _('Posted') }} <strong class="time-since"></strong> {{ _('via') }} <strong class='sub-type'></strong></cite>
 			</div>
 		</div>
 	</div>

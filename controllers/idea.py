@@ -78,8 +78,17 @@ class Idea(Controller):
         else:
             log.error("*** attempting to delete idea with no id")
             return False
-        
-        
+
+    def likeIdea(self):
+        ideaId = self.request('idea_id')
+
+        if(ideaId):
+            idea = mIdea.Idea(self.db, ideaId)
+        #TODO: add +1 to the idea
+        else:
+            log.error("*** attempting to like idea with no id")
+            return False
+
     def getRelatedProjects(self):
         ideaId = self.request('idea_id')
         limit = int(self.request('n_limit')) if self.request('n_limit') else 5
@@ -110,6 +119,3 @@ class Idea(Controller):
         obj = dict(is_location_only_match = isLocationOnlyMatch, related = relatedProjects, citywide = citywideProjects, search_terms = ','.join(kw))
             
         return self.json(obj)
-        
-
-    

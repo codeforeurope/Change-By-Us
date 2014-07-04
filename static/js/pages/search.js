@@ -12,7 +12,7 @@ app_page.features.push(function(app){
 			tc.jQ('ul.tabs .tab-list').addClass('active');
 			tc.jQ('.sidebar').children('.sidebar-item').removeClass('active');
 			tc.jQ('.sidebar').children('.'+theCat).addClass('active');
-			tc.jQ('#list-view').removeClass('all projects resources ideas').addClass(theCat);
+			tc.jQ('#list-view').removeClass('all projects resources ideas users').addClass(theCat);
 			tc.jQ('.results-'+theCat).addClass('single').find('.carousel').trigger('make-single');
 			tc.jQ('.results-box').not('.single').find('.carousel').trigger('make-multiple');
 			switch(theCat){
@@ -369,7 +369,45 @@ app_page.features.push(function(app){
 				return out;
 			}
 		});
-		
+
+        build_carousel(app, 'user', {
+			current_section:null,
+			current_page:null,
+			n_to_fetch: 6,
+			offset:6,
+			location_input:tc.jQ('#location-hood-enter'),
+			terms_input:tc.jQ('input.search-terms'),
+			page_generator:function(d){
+				var out, i, temprow, tempcell;
+
+				out = tc.jQ('<table style="' + ( isMsie8orBelow ? 'width:763px;' : '' ) + '" class="users-list doublewide clearfix">\
+					<tbody></tbody>\
+				</table>');
+
+				for(i = 0; i < d.results.length; i++){
+					if(i%2==0){
+						temprow = tc.jQ('<tr style="width:763px;"></tr>');
+					}
+					tempcell = tc.jQ('<td style="width:361px;"></td>').append(tc.jQ('.template-content.user-cell').html());
+					if(d.results[i].image_id > -1){
+						tempcell.find('img').attr('src',app.app_page.media_root + 'images/'+d.results[i].image_id%10+'/'+d.results[i].image_id+'.png');
+					} else {
+						tempcell.find('img').attr('src','/static/images/thumb_genAvatar50.png');
+					}
+					tempcell.find('.user-ideas-count').text(d.results[i].num_ideas);
+                    tempcell.find('.user-projects-count').text(d.results[i].num_projects);
+					tempcell.find('.link').children('a').attr('href','/useraccount/'+d.results[i].user_id).text( tc.truncate(d.results[i].title, 50, "...") );
+					tempcell.find('.description').children('a').attr('href','/useraccount/'+d.results[i].user_id).text( tc.truncate(d.results[i].description, 70, "...") );
+					temprow.append(tempcell);
+					if(i%2==1){
+						out.children('tbody').append(temprow);
+					}
+				}
+				tempcell.find('tr:last').addClass('last-row');
+
+				return out;
+			}
+		});
 		
 		app.components.merlin = new tc.merlin(app,{
 			dom:tc.jQ('.merlin'),
@@ -398,6 +436,12 @@ app_page.features.push(function(app){
 					selector:'#list-view',
 					init:function(merlin,dom){
 						changeListCat('ideas');
+					}
+				},
+                'users':{
+					selector:'#list-view',
+					init:function(merlin,dom){
+						changeListCat('users');
 					}
 				},
 				'map':{
