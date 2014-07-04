@@ -163,6 +163,7 @@ center_lon = 0
 
 # Language settings
 # Nothing yet
+default_language = 'nl_NL'
 
 # Features settings
 feature_is_display_leaderboard = True
