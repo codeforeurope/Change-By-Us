@@ -245,7 +245,6 @@ def addInvitedIdeaToProject(db, projectId, userId):
 def getMostRecentIdeas(db, limit=100, offset=0):
     data = []
     betterData = []
-    
     sql = """select i.idea_id, i.description as text, u.user_id, u.first_name, u.last_name, u.affiliation, i.submission_type as submitted_by 
             from idea i
             left join user u on u.user_id = i.user_id and u.is_active = 1

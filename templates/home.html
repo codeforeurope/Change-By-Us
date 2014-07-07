@@ -86,13 +86,14 @@
                                 <div class="small-note-area">
                                     {% for idea in d.template_data.all_ideas.data %}
                                         <div class="small-note">
+                                            <a href="idea/{{ idea.idea_id }}">
                                             <div class="wrap">
                                                 <div class="note-meta-hd" {% if not idea.name %}style="display:none"{% endif %}>
                                                     <strong>{% if idea.name %}{{ idea.name }}{% endif %}</strong> <em>said</em> &mdash;
                                                 </div>
-
                                                 <blockquote><p>{{ idea.text|truncate(140) }}</p></blockquote>
                                             </div>
+                                            </a>
                                         </div>
                                     {% endfor %}
                                 </div>
