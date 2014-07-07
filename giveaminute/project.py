@@ -10,7 +10,7 @@ from framework import util
 from framework.log import log
 # from framework.config import *
 from framework.config import Config
-#from framework.emailer import *
+# from framework.emailer import *
 from framework.util import local_utcoffset
 import giveaminute.idea
 import giveaminute.messaging
@@ -182,7 +182,7 @@ limit 1"""
         return getMessages(self.db, self.id, 10, 0)
 
 
-## FORMATTING FUNCTIONS
+# # FORMATTING FUNCTIONS
 # TODO: move these into their own module
 def isFullLastName(bitmask):
     # is admin or lead

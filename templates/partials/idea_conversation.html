@@ -1,0 +1,161 @@
+<div class="project-section conversation">
+<div class="box main-section">
+    <div class="hd clearfix">
+        <h2>
+            <span>
+                {{ _('Discussion') }}
+            </span>
+        </h2>
+    </div>
+
+    {% if
+        (d.template_data and d.template_data.user and d.template_data.user.is_admin)  %}
+
+        <!-- begin .conversation-controls -->
+        <div class="conversation-controls clearfix">
+
+            {% if d.template_data.idea.conversation.messages['total'] > 0 %}
+
+                <div class="filters">
+                    <select class='message_filter_select'>
+                        <option selected='true' value='all'>{{ _('All Messages') }}</option>
+                        <option value='member_comment'>{{ _('Member Comments') }}</option>
+                        <option value='admin_comment'>{{ _('Admin Comments') }}</option>
+                        <option value='join'>{{ _('Join') }}</option>
+                        <option value='endorsement'>{{ _('Endorsement') }}</option>
+                    </select>
+                </div>
+
+            {% endif %}
+
+            <div class="main merlin submit-message">
+                <div class='step message clearfix'>
+                    <div class="conversation-input-wrapper">
+                        <span class="conversation-tabs-wrapper">
+                            <ul class="conversation-tabs">
+                              <li class="conversation-comment-tab active"><a id="conversation-comment" href="#"></a></li>
+                              <!--li class="conversation-link-tab"><a id="conversation-link" href="#"></a></li-->
+                              <li class="conversation-file-tab"><a id="conversation-file" href="#"></a></li>
+                            </ul>
+                        </span>
+                        <span class="conversation-input">
+                            <div class="conversation-input-file-field">
+                                <div class="file-uploader"></div>
+                            </div>
+
+                            <div class="conversation-input-message-field">
+                                <label>{{ _('Post a message') }}</label>
+                                <textarea class='message-input'></textarea>
+                            </div>
+                        </span>
+                    </div>
+                    <div class="primary-action">
+                        <a class="ca-btn submit-button" href="#">
+                            <span>{{ _('Post') }}</span>
+                        </a>
+                    </div>
+                    <p class="hint">{{ _('Post your update as a comment or add links to photos and videos.') }}</p>
+                    <input style='display:none;' name='main_text' class='main_text' />
+                </div>
+                <div class='step submit clearfix spinner-message' style='display:none;'>
+                    <p>{{ _('Thank you for submitting a message!') }}</p>
+                    <p><img src='/static/images/loader32x32.gif' /></p>
+                </div>
+
+                <div class='step submit-error clearfix' style='display:none;'>
+                    <p>{{ _('There was an error submitting your message!') }}</p>
+                </div>
+            </div>
+        </div>
+        <!-- end .conversation-controls -->
+    {% endif %}
+
+    <ol class="comment-stack">
+        {% if d.template_data.idea.conversation.messages['n_returned'] > 0 %}
+            {% for message in d.template_data.idea.conversation.messages['items'] %}
+                {% include "partials/idea_conversation_message.html" %}
+            {% endfor %}
+        {% else %}
+            {% if not d.template_data.idea.conversation.messages['total'] > 0 %}
+                <li class="admin-default-message">
+                    <div class="membrane">
+                        <div class="thumb">
+                            <img src="/static/images/thumb_genAvatar.jpg" alt=" " class="avatar"/>
+                        </div>
+                        <div class="main">
+                            <cite class="meta-hd">{{ _('<strong>Administrator</strong> says') }}</cite>
+                            <blockquote class="serif">
+                                <p>{{ _('Hey &ndash; welcome to %(sitename)s! I&#39;m an administrator of the site. If there is anything we can help you with, please email us at')|format(sitename=d.config.site.name) }} <span class="nospam infomail"></span></p>
+                            </blockquote>
+                        </div>
+                    </div>
+                </li>
+            {% endif %}
+        {% endif %}
+    </ol>
+
+    <div class="load-more" {% if d.template_data.idea.conversation.messages['n_returned'] < 10 %} style='display:none;' {% endif %}>
+        <a href="#" class='load_more_button'><span>{{ _('Older Posts') }}</span></a>
+    </div>
+
+
+    <div class="template-content modal-content conversation-media-modal">
+        <div class="carousel">
+            <a class="carousel-controls prev" href="javascript:void(0);">
+                <div class="carousel-controls-icon"></div>
+                <span>{{ _('Previous') }}</span>
+            </a>
+            <div class="scrollable">
+                <ul class="items"></ul>
+            </div>
+            <a class="carousel-controls next" href="javascript:void(0);">
+                <div class="carousel-controls-icon"></div>
+                <span>{{ _('Next') }}</span>
+            </a>
+        </div>
+        <a class='close' href="#"><span>{{ _('close') }}</span></a>
+    </div>
+
+</div>
+
+<div class='template-content message-markup'>
+    {% if d.template_data and d.template_data.user and d.template_data.user.is_admin %}
+        <a class="close" href="#"><span>{{ _('Close') }}</span></a>
+    {% endif %}
+    <div class="membrane">
+        <span class="message-wrapper">
+            <span class="thumb">
+                <img width='50' src="/static/images/thumb_genAvatar.jpg" alt=" " class="avatar"/>
+            </span>
+
+            <span class="main">
+                <a href="javascript:void(0);" class="file-thumb"></a>
+                <blockquote class="serif">
+                    <p class="message-text"></p>
+                </blockquote>
+            </span>
+        </span>
+
+        <span class="aside">
+            <cite class="meta-hd"><strong class="username"></strong><span class="useraction"></span></cite>
+            <cite class="meta-ft">{{ _('Just Now') }}&hellip;</cite>
+        </span>
+    </div>
+</div>
+
+<div class="template-content modal-content confirm-delete remove-message">
+    <div class="step">
+        <h2>{{ _('<strong>Delete</strong> this Message?') }}</h2>
+        <div>
+            <p>{{ _('This deletes the message from the system permanently! <br/>Are you sure?') }}</p>
+        </div>
+        <div class="actions">
+            <a class="submit rounded-button" href="#">{{ _('Yes, Delete Message') }}</a>
+            <a class="cancel" href="#">{{ _('No, keep it.') }}</a>
+        </div>
+    </div>
+    <a class='close' href="#"><span>{{ _('close') }}</span></a>
+</div>
+</div>
+
+<script type='text/javascript' src="/static/js/pages/project.conversation.js"></script>
