@@ -18,6 +18,10 @@ Pillow==2.3.0
 oauth2
 python-dateutil
 flup
+jinja2
+pyyaml
+ua-parser
+user-agents
 
 # Database orm
 SQLAlchemy

@@ -20,6 +20,7 @@ import framework.util as util
 import giveaminute.user as mUser
 import giveaminute.models as models
 import jinja2
+from user_agents import parse
 
 class Controller (object):
 
@@ -357,6 +358,13 @@ class Controller (object):
         # Look in the translaton for the locale_id in locale_dir. Fallback to the
         # default text if not found.
         return gettext.translation('messages', locale_dir, [locale_id], fallback=True)
+
+    def get_user_device(self):
+        ua_string = web.ctx.env.get("User-Agent")
+        user_agent = parse(ua_string)
+        log.info("User-Agent --- Device: %s, OS: %s, Browser: %s", user_agent.device, user_agent.os, user_agent.browser)
+        return user_agent
+
 
     def json(self, data, encoder=None):
         output = json.dumps(data, cls=encoder)

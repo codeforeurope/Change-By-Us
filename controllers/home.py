@@ -24,6 +24,7 @@ import json
 import hashlib
 
 import MySQLdb  # for exceptions
+from user_agents import parse #for device detection
 
 tw_settings = Config.get('twitter')
 tw_consumer = oauth.Consumer(tw_settings['consumer_key'], tw_settings['consumer_secret'])
@@ -35,6 +36,15 @@ class Home(Controller):
                               is_project_admin = True)
         self.template_data['project_user'] = dict(data = project_user, json = json.dumps(project_user))
         self.template_data['homepage_question'] = self.getHomepageQuestion()
+
+        if (not action):
+            ua = self.get_user_device()
+            if(ua.is_mobile and ua.is_touch_capable):
+                action = 'mobile'
+            elif(ua.is_mobile and not ua.is_touch_capable):
+                action = 'bb'
+            else:
+                pass #it's a desktop or a tablet. So it will render showHome()
 
         if (not action or action == 'home'):
             return self.showHome()
