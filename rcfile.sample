@@ -188,6 +188,11 @@ twilio_token = XXXXXXXXXX
 twilio_api = 2010-04-01
 twilio_phone = XXXXXXXXXX
 
+#Nexmo Credentials
+nexmo_phone = XXXXXXX
+nexmo_api_key = XXXXXXX
+nexmo_api_secret = XXXXXXX
+
 # Facebook credentials
 facebook_app_id = XXXXXXXXXX
 
