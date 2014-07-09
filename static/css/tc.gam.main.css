@@ -4138,8 +4138,8 @@ some_nowhitespace {
 /* green nyc project-specific */
 
 .green-nyc .project .midlands .box > .hd {
-    background-color: #52b312;
-    border-bottom-color: #37780c;
+    background-color: rgba(238, 237, 235, 0.92);
+    border-bottom-color: rgba(55, 120, 12, 0.19);
 }
 
 .green-nyc .project .midlands .east .main-section.box > .hd {
@@ -4147,14 +4147,14 @@ some_nowhitespace {
 }
 
 .green-nyc .project .midlands .box > .hd h2 {
-    color: #f3f2f0
+    color: #52b312
 }
 
 .green-nyc .project .midlands .box > .hd span.counter {
     color: #ffe066
 }
 
-.green-nyc .project .midlands .box > .hd h2,
+/*.green-nyc .project .midlands .box > .hd h2,*/
 .green-nyc .project .midlands .box .hd .actions,
 .green-nyc .project .midlands .box .hd .actions a,
 .green-nyc .hd span.control a {
@@ -4339,7 +4339,7 @@ div.invite-user .submit {
 
 .continent.home .top-pane {
     background: none repeat scroll 0 0 rgb(255, 255, 255);
-    background-color: rgba(255, 255, 255, 0.5);
+    background-color: rgba(255, 255, 255, 0.8);
     color: #3d3a36;
     margin: 28px 20px 18px;
     padding: 8px 10px 9px 10px;
@@ -4815,11 +4815,11 @@ div.invite-user .submit {
 }
 
 .continent.home .note-card-pane .primary-action .ca-btn.disabled {
-    -khtml-opacity: 0.7;
-    -moz-opacity: 0.7;
+    -khtml-opacity: 0.8;
+    -moz-opacity: 0.8;
     cursor: default;
-    filter: alpha(opacity=70);
-    opacity: 0.7;
+    filter: alpha(opacity=80);
+    opacity: 0.8;
 }
 
 /*.continent.home .note-card-pane .oops { float: none; position: absolute; left: -215px; top: 82px; }_NO__DOTCOMMA__AFTER__*/
@@ -4975,7 +4975,7 @@ some_nowhitespace {
 .continent.home .projects-pane.step-three .citywide-projects,
 .continent.home .headlands .splash .projects-pane.not-found {
     background: rgb(255, 255, 255);
-    background: rgba(255, 255, 255, 0.70);
+    background: rgba(255, 255, 255, 0.80);
 }
 
 .continent.home .projects-pane.step-three .citywide-projects.single {
@@ -5058,13 +5058,13 @@ some_nowhitespace {
 }
 
 .continent.home .projects-pane.step-three .controls .rounded-button {
-    -khtml-opacity: 0.7;
-    -moz-opacity: 0.7;
+    -khtml-opacity: 0.8;
+    -moz-opacity: 0.8;
     border-color: #3d3a36;
     color: #3d3a36;
-    filter: alpha(opacity=70);
+    filter: alpha(opacity=80);
     float: left;
-    opacity: 0.7;
+    opacity: 0.8;
 }
 
 .continent.home .projects-pane.step-three .controls .rounded-button:hover {
@@ -5072,16 +5072,16 @@ some_nowhitespace {
 }
 
 .continent.home .projects-pane.step-three .controls span {
-    -khtml-opacity: 0.7;
-    -moz-opacity: 0.7;
+    -khtml-opacity: 0.8;
+    -moz-opacity: 0.8;
     border-color: #3d3a36;
     color: #F3F2F0;
-    filter: alpha(opacity=70);
+    filter: alpha(opacity=80);
     float: left;
     font-size: 14px;
     font-style: italic;
     margin: 8px 12px 0;
-    opacity: 0.7;
+    opacity: 0.8;
 }
 
 .continent.home .projects-pane.not-found {
