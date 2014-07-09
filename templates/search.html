@@ -38,7 +38,8 @@
 				</div>
 				<span class="in">in</span>
 				<div class="search-hood-container">
-					<input type='text' name='location-hood-enter' id='location-hood-enter' class='search-location location-group location-hood-enter always-focused' {% if d.template_data.search_location_id %}location_id="{{ d.template_data.search_location_id }}"{% endif %} value="{{ _('All neighborhoods') }}"/>
+                    <!--{{ _('All neighborhoods') }}-->
+					<input type='text' name='location-hood-enter' id='location-hood-enter' class='search-location location-group location-hood-enter always-focused' {% if d.template_data.search_location_id %}location_id="{{ d.template_data.search_location_id }}"{% endif %} value="{{ _('All neighborhoods') }}" placeholder="{{ _('A neighborhood') }}" />
 					<a class="clear-field" href=""></a>
 					<div class="location-hood-list" style="display:none"><ul></ul></div>
 				</div>
@@ -339,6 +340,7 @@
 															{% endif %}
 															<blockquote>{% if d.template_data and d.template_data.user and d.template_data.user.is_admin %}{% if not idea.owner.name %}<span class="topright-spacer"></span>{% endif %}{% endif %}<p>{{ idea.message|truncate(175) }}</p></blockquote>
 															<cite class="note-meta-ft">{{ _('Posted') }} <strong class="time-since">{{ idea.created }}</strong> {{ _('via') }} <strong>{{ idea.submission_type }}</strong></cite>
+                                                            <div><span class="like"><a href="#likeIdea,{{ idea.idea_id }}" class='like-idea'>Like</a></span></div>
 														</div>
 													</div>
 												</li>
@@ -699,4 +701,7 @@
 
 {% block page_js %}
 	<script type="text/javascript" src='/static/js/pages/search.js'></script>
+    <script>
+        app_page.messages = { 'like-idea':'{{ _('Like') }}', 'unlike-idea': '{{ _('Unlike') }}', 'liked-idea': '{{ _('Liked!') }}', 'unliked-idea': '{{ _('Unliked!') }}' };
+    </script>
 {% endblock page_js %}

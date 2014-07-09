@@ -46,11 +46,11 @@ app_page.features.push(function(app){
 		
 		tc.jQ('.search-hood-container a.clear-field').bind('click',{input:tc.jQ('input.location-hood-enter')},function(e){
 			e.preventDefault();
-			e.data.input.attr('location_id','-1').val('All neighborhoods').trigger('change');
+			e.data.input.attr('location_id','-1').val('').trigger('change');
 		});
 		
 		tc.jQ('input.search-terms, input.search-location').bind('change', {}, function(e){
-			if(e.target.value.length == 0 || (e.target.className.indexOf('search-location') != -1 && e.target.value == 'All neighborhoods')){
+			if(e.target.value.length == 0 || (e.target.className.indexOf('search-location') != -1 && e.target.value == '')){
 				tc.jQ(this).siblings('a.clear-field').hide();
 			} else {
 				tc.jQ(this).siblings('a.clear-field').show();
@@ -351,6 +351,7 @@ app_page.features.push(function(app){
 						tempcell.find('blockquote').prepend('<span class="topright-spacer"></span>');
 					}
 					tempcell.find('.flag-idea').attr('href','#flagIdea,'+d.results[i].idea_id);
+                    tempcell.find('.like-idea').attr('href','#likeIdea,'+d.results[i].idea_id);
 					tempcell.find('.remove-idea').attr('href','#removeIdea,'+d.results[i].idea_id);
 					
 					tempcell.find('.idea-text').text( tc.truncate(d.results[i].message, 165, "...") );
@@ -363,6 +364,8 @@ app_page.features.push(function(app){
 				}
 				
 				out.find('a.flag-idea').bind('click', {app:app}, app.components.handlers.flag_idea_handler);
+                out.find('a.like-idea').bind('click', {app:app}, app.components.handlers.like_idea_handler);
+                out.find('a.unlike-idea').bind('click', {app:app}, app.components.handlers.unlike_idea_handler);
 				out.find('a.remove-idea').bind('click', {app:app}, app.components.handlers.remove_idea_handler);
 				tc.gam.ideas_invite(app, {elements: out.find('a.invite')});
 				
@@ -576,10 +579,52 @@ app_page.features.push(function(app){
 						});
 					}
 				});
+			},
+            like_idea_handler:function(e){
+				e.preventDefault();
+				tc.jQ.ajax({
+					type:"POST",
+					url:'/idea/like',
+					data:{
+						idea_id:e.target.hash.split(',')[1]
+					},
+					context:tc.jQ(e.target),
+					dataType:"text",
+					success: function(data, ts, xhr) {
+						if (data == "False") {
+							return false;
+						}
+                        alert(e.data.app.app_page.messages['liked-idea']);
+						this.parent().text(e.data.app.app_page.messages['liked-idea']);
+                        this.parent().class('unlike-idea');
+					}
+				});
+			},
+            unlike_idea_handler:function(e){
+				e.preventDefault();
+				tc.jQ.ajax({
+					type:"POST",
+					url:'/idea/unlike',
+					data:{
+						idea_id:e.target.hash.split(',')[1]
+					},
+					context:tc.jQ(e.target),
+					dataType:"text",
+					success: function(data, ts, xhr) {
+						if (data == "False") {
+							return false;
+						}
+                        alert(e.data.app.app_page.messages['unliked-idea']);
+						this.parent().text(e.data.app.app_page.messages['unliked-idea']);
+                        this.parent().class('like-idea');
+					}
+				});
 			}
 		};
 		
 		tc.jQ('a.flag-idea').bind('click', {app:app}, app.components.handlers.flag_idea_handler);
+        tc.jQ('a.like-idea').bind('click', {app:app}, app.components.handlers.like_idea_handler);
+        tc.jQ('a.unlike-idea').bind('click', {app:app}, app.components.handlers.unlike_idea_handler);
 		tc.jQ('a.remove-idea').bind('click', {app:app}, app.components.handlers.remove_idea_handler);
 		tc.jQ('a.delete-resource').bind('click', {app:app}, app.components.handlers.delete_resource_handler);
 		tc.jQ('a.delete-project').bind('click',{app:app},app.components.handlers.delete_project_handler);

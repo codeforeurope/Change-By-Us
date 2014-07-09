@@ -169,9 +169,11 @@
 
                         <li class="news-about">
                             {% if d.config.blog_host %}
-                            <a href="{{ d.config.blog_host }}">{{ _('News') }}</a>
+                            <!--<a href="{{ d.config.blog_host }}">{{ _('News') }}</a>-->
                             {% endif %}
-                            <a href="/about">{{ _('About') }}</a>
+                            <a href="/search#resources">{{ _('Resources') }}</a>
+                            <a href="/search#users">{{ _('People') }}</a>
+                            <!--<a href="/about">{{ _('About') }}</a>-->
                             {% if d.config.features.is_calendar_enabled %}
                             <a href="/calendar/show">{{ _('Calendar') }}</a>
                             {% endif %}
@@ -241,7 +243,7 @@
                                             <input type='submit' value='' class='searchInput' />
                                         </form>
 
-                                        <div class="browse">{{ _('Browse <a href="/search#projects">projects</a>, <a href="/search#ideas">ideas</a>, and <a href="/search#resources">resources</a>') }}</div>
+                                        <div class="browse">{{ _('Browse') }} <a href="/search#projects">{{ _('projects') }}</a>, <a href="/search#ideas">{{ _('ideas') }}</a>, <a href="/search#users">{{ _('people') }}</a>, {{ _('and') }} <a href="/search#resources">{{ _('resources') }}</a></div>
                                         <div class="browse-tags serif"></div>
                                     </div>
                                 </div>

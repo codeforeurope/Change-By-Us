@@ -23,6 +23,10 @@ class Idea(Controller):
     def POST(self, action=None):
         if (action == 'flag'):
             return self.flagIdea()
+        elif (action == 'like'):
+            return self.likeIdea()
+        elif (action == 'unlike'):
+            return self.unlikeIdea()
         elif (action == 'remove'):
             return self.removeIdea()
         else:
@@ -50,14 +54,13 @@ class Idea(Controller):
                                     n_returned=2,
                                     items=[dict(type='member_comment', body="First!11!!!", owner=dict(u_id=1, image_id=7, name="John")),
                                            dict(type='member_comment', body="Damn you first!!!", owner=dict(u_id=2, image_id=8, name="Bill"))])
-                    conversation = dict(
-                                        messages=messages
-                                        )
+                    conversation = dict(messages=messages)
                     ideaDictionary['conversation'] = conversation
                     # self.template_data['idea'] = idea_proxy
                     self.template_data['idea'] = ideaDictionary
 
                     #TODO: here also load the "conversation" around the idea
+                    #TODO: for idea also load the "votes" of idea
 
                     import giveaminute.filters as gam_filters
 
@@ -128,10 +131,18 @@ class Idea(Controller):
         ideaId = self.request('idea_id')
 
         if (ideaId):
-            idea = mIdea.Idea(self.db, ideaId)
-        # TODO: add +1 to the idea
+            return mIdea.upvoteIdea(self.db, ideaId, self.user.id)
         else:
             log.error("*** attempting to like idea with no id")
+            return False
+
+    def unlikeIdea(self):
+        ideaId = self.request('idea_id')
+
+        if (ideaId):
+            return mIdea.downvoteIdea(self.db, ideaId, self.user.id)
+        else:
+            log.error("*** attempting to unlike idea with no id")
             return False
 
     def getRelatedProjects(self):

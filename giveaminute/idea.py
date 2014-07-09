@@ -307,3 +307,38 @@ def ideaName(first, last, affiliation=None):
         return affiliation
     else:
         return None
+
+def toggleVoteIdea(db, ideaId, userId):
+    try:
+        sql = "select count(*) from idea__user where where idea_id = $ideaId and user_id = $userId)"
+        data = list(db.query(sql, {'ideaId': ideaId, 'userId': userId}))
+        count = data[0].count
+        if count > 0:
+            return downvoteIdea(db, ideaId, userId)
+        else:
+            return upvoteIdea(db, ideaId, userId)
+    except Exception, e:
+        log.info("*** problem toggling vote on idea")
+        log.error(e)
+        return False
+
+def upvoteIdea(db, ideaId, userId):
+    try:
+        sql = "insert into idea__user (idea_id, user_id) VALUES( $ideaId, $userId)"
+        db.query(sql, {'ideaId': ideaId, 'userId': userId})
+        return True
+    except Exception, e:
+        log.info("*** problem upvoting idea")
+        log.error(e)
+        return False
+
+
+def downvoteIdea(db, ideaId, userId):
+    try:
+        sql = "delete from idea__user where idea_id = $ideaId and user_id = $userId)"
+        db.query(sql, {'ideaId': ideaId, 'userId': userId})
+        return True
+    except Exception, e:
+        log.info("*** problem downvoting idea")
+        log.error(e)
+        return False

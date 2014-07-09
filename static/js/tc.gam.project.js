@@ -11,7 +11,8 @@ tc.gam.project = function(app, dom) {
         project_data: app.app_page.data.project,    //project specific data
         user: app.app_page.user,                    //user data
         project_user: app.app_page.project_user,    //project user data
-        media_root: app.app_page.media_root         //root directory for images and such
+        media_root: app.app_page.media_root,        //root directory for images and such
+        messages: app.app_page.messages             //messages for localization
     };
 
     app.components.project_widgets = {
