@@ -22,7 +22,7 @@ function initialize(app) {
 	tc.util.dump(max_score);
 	
 	var mapOptions = {
-		zoom: 11,
+		zoom: 12,
 		center: map_center,
 		minZoom: 11,
 		maxZoom: 15,

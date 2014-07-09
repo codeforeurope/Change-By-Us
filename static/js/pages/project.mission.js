@@ -47,7 +47,7 @@ tc.gam.project_widgets.infopane = function(options){
                 
                 coords = [options.project_data.info.location.position.lat, 
                           options.project_data.info.location.position.lng];
-                zoom = 12;
+                zoom = 13;
                 
                 if(coords[0] == 'None' || coords[1] == 'None'){
                     coords = [40.716667, -74];
