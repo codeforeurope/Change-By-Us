@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Change by Us v2\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-07-04 15:23+0200\n"
-"PO-Revision-Date: 2014-07-04 13:26+0000\n"
+"POT-Creation-Date: 2014-07-09 19:03+0200\n"
+"PO-Revision-Date: 2014-07-09 17:06+0000\n"
 "Last-Translator: Giovanni Maggini <giovanni.maggini@gmail.com>\n"
 "Language-Team: Dutch (http://www.transifex.com/projects/p/change-by-us-v2/language/nl/)\n"
 "MIME-Version: 1.0\n"
@@ -168,9 +168,9 @@ msgstr "Er heeft zich een probleem voorgedaan tijdens het toevoegen van je naam 
 msgid "Thanks, you've joined the project:"
 msgstr "Dank je, je doet mee aan het project."
 
-#: templates/bb.html:117 templates/create.html:54 templates/home.html:253
-#: templates/project/mission.html:42 templates/search.html:119
-#: templates/search.html:647
+#: templates/bb.html:117 templates/create.html:54 templates/home.html:254
+#: templates/project/mission.html:42 templates/search.html:120
+#: templates/search.html:648
 msgid "Created by"
 msgstr "Door:"
 
@@ -220,17 +220,17 @@ msgid ""
 "build teams, and make our city better."
 msgstr "<strong>%(sitename)s</strong> is een plek om plannen te delen, projecten in gang te zetten en teams samen te stellen die onze stad verbeteren."
 
-#: templates/bb.html:172 templates/partials/base.html:328
+#: templates/bb.html:172 templates/partials/base.html:330
 #: templates/partials/mobilebase.html:51
 msgid "Contact Us"
 msgstr "Contact"
 
 #: templates/bb.html:183 templates/partials/base.html:172
-#: templates/partials/base.html:315 templates/partials/mobilebase.html:71
+#: templates/partials/base.html:317 templates/partials/mobilebase.html:71
 msgid "News"
 msgstr "Nieuws"
 
-#: templates/bb.html:184 templates/partials/base.html:317
+#: templates/bb.html:184 templates/partials/base.html:319
 #: templates/partials/mobilebase.html:72
 msgid "Community Policy"
 msgstr "Gemeenschappelijk beleid"
@@ -239,7 +239,7 @@ msgstr "Gemeenschappelijk beleid"
 msgid "Terms of Service"
 msgstr "Gebruiksvoorwaarden"
 
-#: templates/bb.html:186 templates/partials/base.html:319
+#: templates/bb.html:186 templates/partials/base.html:321
 #: templates/partials/mobilebase.html:74
 msgid "Privacy Policy"
 msgstr "Privacy Beleid"
@@ -249,19 +249,21 @@ msgstr "Privacy Beleid"
 msgid "Events"
 msgstr "Evenementen"
 
-#: templates/calendar.html:23 templates/project/conversation.html:123
-#: templates/project/member_list.html:45 templates/search.html:72
-#: templates/search.html:183 templates/search.html:289
-#: templates/search.html:398
+#: templates/calendar.html:23 templates/partials/idea_conversation.html:106
+#: templates/project/conversation.html:123
+#: templates/project/member_list.html:45 templates/search.html:73
+#: templates/search.html:184 templates/search.html:290
+#: templates/search.html:400
 msgid "Previous"
 msgstr "Vorige"
 
-#: templates/calendar.html:26 templates/project/conversation.html:130
+#: templates/calendar.html:26 templates/partials/idea_conversation.html:113
+#: templates/project/conversation.html:130
 #: templates/project/fresh_ideas.html:51
 #: templates/project/invite_members.html:136
-#: templates/project/member_list.html:56 templates/search.html:83
-#: templates/search.html:195 templates/search.html:301
-#: templates/search.html:409
+#: templates/project/member_list.html:56 templates/search.html:84
+#: templates/search.html:196 templates/search.html:302
+#: templates/search.html:411
 msgid "Next"
 msgstr "Volgende"
 
@@ -311,7 +313,7 @@ msgid "Check"
 msgstr "Check"
 
 #: templates/create.html:23 templates/create.html:172
-#: templates/project/add_link.html:32 templates/search.html:655
+#: templates/project/add_link.html:32 templates/search.html:656
 msgid "Add"
 msgstr "Toevoegen"
 
@@ -408,11 +410,13 @@ msgid ""
 "<strong>90px by 90px</strong>)"
 msgstr "Foto's mogen maximaal <strong>1MB</strong> zijn. (Foto's worden afgesnijden op het formaat <strong>90px bij 90px</strong>)"
 
-#: templates/create.html:152 templates/home.html:361 templates/join.html:244
+#: templates/create.html:152 templates/home.html:362 templates/join.html:244
 #: templates/partials/add_resource.html:29
 #: templates/partials/base_idea_delete.html:16
 #: templates/partials/base_invite.html:54
 #: templates/partials/base_message.html:31
+#: templates/partials/idea_conversation.html:116
+#: templates/partials/idea_conversation.html:157
 #: templates/project/conversation.html:133
 #: templates/project/conversation.html:174
 #: templates/project/member_list.html:146 templates/project/mission.html:96
@@ -423,13 +427,13 @@ msgstr "Foto's mogen maximaal <strong>1MB</strong> zijn. (Foto's worden afgesnij
 #: templates/project.html:199 templates/project.html:222
 #: templates/project.html:236 templates/project.html:252
 #: templates/project.html:269 templates/project.html:286
-#: templates/project.html:302 templates/search.html:595
-#: templates/search.html:631
+#: templates/project.html:302 templates/search.html:596
+#: templates/search.html:632
 msgid "close"
 msgstr "sluiten"
 
-#: templates/create.html:174 templates/search.html:228
-#: templates/search.html:558 templates/search.html:666
+#: templates/create.html:174 templates/search.html:229
+#: templates/search.html:559 templates/search.html:667
 #: templates/useraccount.html:221
 msgid "Added <em>to</em> your project"
 msgstr "Toegevoegd <em>aan</em> je prokect"
@@ -548,133 +552,181 @@ msgstr "Bekijk andere plannen "
 msgid "New Ideas"
 msgstr "Nieuwe plannen"
 
-#: templates/home.html:127
+#: templates/home.html:128
 msgid "Make that idea happen. Join a project, or start your own."
 msgstr "Laat je plan slagen. Sluit je aan bij een project of creëer er zelf een."
 
-#: templates/home.html:135
+#: templates/home.html:136
 msgid "Related Projects"
 msgstr "Gerelateerde projecten"
 
-#: templates/home.html:141
+#: templates/home.html:142
 msgid "See more projects <em>near</em> you"
 msgstr "Bekijk nog meer projecten bij jou <em>in de buurt</em>"
 
-#: templates/home.html:146
+#: templates/home.html:147
 msgid "Citywide Projects"
 msgstr "Amsterdamse projecten"
 
-#: templates/home.html:152
+#: templates/home.html:153
 msgid "See more citywide projects"
 msgstr "Bekijk meer Amsterdamse projecten"
 
-#: templates/home.html:157 templates/home.html:171
+#: templates/home.html:158 templates/home.html:172
 msgid "Browse All"
 msgstr "Bekijk alles"
 
-#: templates/home.html:157 templates/home.html:175
+#: templates/home.html:158 templates/home.html:176
 msgid "or"
 msgstr "of"
 
-#: templates/home.html:157 templates/home.html:180
+#: templates/home.html:158 templates/home.html:181
 msgid "Start Your Own"
 msgstr "Begin je eigen project"
 
-#: templates/home.html:165
+#: templates/home.html:166
 msgid "No projects found!"
 msgstr "Geen projecten gevonden."
 
-#: templates/home.html:166
+#: templates/home.html:167
 msgid ""
 "We didn&#39;t find any projects based on your idea or location.  But "
 "don&#39;t stop there."
 msgstr "We hebben geen projecten gevonden die overeenkomen met je plan of lokatie. Maar laat dit je niet tegenhouden."
 
-#: templates/home.html:170
+#: templates/home.html:171
 msgid "Search for projects that interest you:"
 msgstr "Zoek projecten die je interesseren:"
 
-#: templates/home.html:179
+#: templates/home.html:180
 msgid "Take the lead, and begin a project today."
 msgstr "Neem het heft in handen en begin vandaag nog aan een project"
 
-#: templates/home.html:196
+#: templates/home.html:197
 msgid "My idea is:"
 msgstr "Mijn idee:"
 
-#: templates/home.html:206 templates/project/conversation.html:62
+#: templates/home.html:207 templates/partials/idea_conversation.html:54
+#: templates/project/conversation.html:62
 msgid "Post"
 msgstr "Plaats"
 
-#: templates/home.html:214
+#: templates/home.html:215
 msgid "Oops! Please limit your idea to 175 characters."
 msgstr "Oeps. Beschrijf je plan in maximaal 175 tekens."
 
-#: templates/home.html:223
+#: templates/home.html:224
 #, python-format
 msgid ""
 "<strong>%(site_name)s</strong> is a place to share ideas, create projects, "
 "discover resources, and make our city better."
 msgstr "<strong>%(site_name)s</strong> is een plek om ideeën te delen, projecten te starten, middelen te ontdekken en onze stad te verbeteren."
 
-#: templates/home.html:227
+#: templates/home.html:228
 msgid "Browse and join projects"
 msgstr "Bekijk projecten en sluit je aan"
 
-#: templates/home.html:228
+#: templates/home.html:229
 msgid "Put your ideas into action:"
 msgstr "Maak werk van je plan:"
 
-#: templates/home.html:229
+#: templates/home.html:230
 msgid ""
 "<a href=\"/search#projects\">Join a project</a>. <a href=\"/create\">Or "
 "start your own project</a>."
 msgstr "<a href=\"/search#projects\">Meld je aan voor een project</a>. <a href=\"/create\">Of start er zelf eentje</a>."
 
-#: templates/home.html:234
+#: templates/home.html:235
 #, python-format
 msgid "Top <strong>%(length)s Projects</strong>"
 msgstr "Top <strong>%(length)s projecten</strong>"
 
-#: templates/home.html:234
+#: templates/home.html:235
 msgid "See the leaderboard"
 msgstr "Bekijk het overzichtsbord"
 
-#: templates/home.html:273
+#: templates/home.html:274
 msgid "Featured <strong>Projects</strong>"
 msgstr "Getoonde <strong>projecten</strong>"
 
-#: templates/home.html:312
+#: templates/home.html:313
 msgid "Who&#39;s listening?"
 msgstr "Wie luistert er mee?"
 
-#: templates/home.html:313
+#: templates/home.html:314
 msgid ""
 "A network of city leaders is ready to hear your <a "
 "href=\"/search#ideas\">ideas</a> and provide guidance for your <a "
 "href=\"/search#projects\">projects</a>."
 msgstr "Een netwerk van stedelijke beleidsmakers zitten klaar om naar jouw <a href=\"/search#ideas\">ideeën</a> te luisteren en je ondersteunen bij je <a href=\"/search#projects\">projecten</a>."
 
-#: templates/home.html:330
+#: templates/home.html:331
 msgid "Recent News"
 msgstr "Nieuw"
 
-#: templates/home.html:331
+#: templates/home.html:332
 #, python-format
 msgid "Find out what&#39;s happening on %(site_name)s."
 msgstr "Wat speelt er? Check het hier: %(site_name)s."
 
-#: templates/home.html:340
+#: templates/home.html:341
 msgid "Read more"
 msgstr "Meer info"
 
-#: templates/home.html:357 templates/join.html:85 templates/join.html:122
+#: templates/home.html:358 templates/join.html:85 templates/join.html:122
 #: templates/join.html:150 templates/join.html:240
-#: templates/partials/base.html:318 templates/partials/mobilebase.html:73
+#: templates/partials/base.html:320 templates/partials/mobilebase.html:73
 msgid "Terms of Use"
 msgstr "Gebruiksvoorwaarden"
 
-#: templates/join.html:7 templates/partials/base.html:182
+#: templates/idea.html:24 templates/search.html:284
+msgid "Idea"
+msgstr "Idee"
+
+#: templates/idea.html:25 templates/search.html:68 templates/search.html:179
+#: templates/search.html:286 templates/search.html:395
+msgid "See all"
+msgstr "Toon alles"
+
+#: templates/idea.html:34 templates/project/fresh_ideas.html:32
+#: templates/project/invite_members.html:110 templates/search.html:324
+#: templates/search.html:681
+msgid "Flag as Inappropriate"
+msgstr "Markeren als ongepast"
+
+#: templates/idea.html:41 templates/partials/base_message.html:24
+#: templates/partials/idea_conversation.html:123
+#: templates/partials/idea_conversation_message.html:12
+#: templates/project/conversation_message.html:12
+#: templates/project/fresh_ideas.html:37 templates/search.html:107
+#: templates/search.html:220 templates/search.html:331
+#: templates/search.html:638 templates/search.html:659
+#: templates/search.html:688
+msgid "Close"
+msgstr "Sluiten"
+
+#: templates/idea.html:48 templates/project/fresh_ideas.html:40
+#: templates/project/invite_members.html:121 templates/search.html:338
+#: templates/search.html:693
+msgid "said"
+msgstr "gezegd"
+
+#: templates/idea.html:52 templates/project/invite_members.html:126
+#: templates/search.html:342 templates/search.html:695
+msgid "Posted"
+msgstr "Geplaatst"
+
+#: templates/idea.html:52 templates/search.html:342 templates/search.html:695
+msgid "via"
+msgstr "via"
+
+#: templates/idea.html:72 templates/idea.html:87 templates/search.html:352
+#: templates/search.html:369
+msgid "Add <span>an</span> Idea"
+msgstr "Voeg <span>een</span> Plan toe"
+
+#: templates/join.html:7 templates/partials/base.html:184
+#: templates/partials/idea_conversation.html:24
 #: templates/project/conversation.html:32 templates/project.html:75
 msgid "Join"
 msgstr "Doe mee"
@@ -826,9 +878,9 @@ msgstr "Er is een probleem met het aanmaken van je account."
 msgid "Top"
 msgstr "Boven"
 
-#: templates/leaderboard.html:14 templates/search.html:55
-#: templates/search.html:133 templates/search.html:437
-#: templates/search.html:483 templates/useraccount.html:104
+#: templates/leaderboard.html:14 templates/search.html:56
+#: templates/search.html:134 templates/search.html:438
+#: templates/search.html:484 templates/useraccount.html:104
 msgid "Projects"
 msgstr "Projecten"
 
@@ -866,7 +918,7 @@ msgid "The score for each project is based on a variety of other factors."
 msgstr "De score van elk project is gebaseerd op een aantal ander factoren."
 
 #: templates/login.html:23 templates/login.html:44
-#: templates/partials/base.html:183 templates/partials/base.html:257
+#: templates/partials/base.html:185 templates/partials/base.html:259
 #: templates/partials/mobilebase.html:32
 msgid "Login"
 msgstr "Aanmelden"
@@ -887,7 +939,7 @@ msgstr "Password vergeten?"
 msgid "Don&#39;t have an account?"
 msgstr "Heb je geen account?"
 
-#: templates/login.html:51 templates/partials/base.html:254
+#: templates/login.html:51 templates/partials/base.html:256
 #: templates/partials/mobilebase.html:35
 msgid "Sign Up"
 msgstr "Meld je aan"
@@ -1028,79 +1080,106 @@ msgstr "Aan welk project wil je dit toevoegen?"
 msgid "Thanks for adding a resource to your project!"
 msgstr "Dank voor het toevoegen van een hulpmiddel aan je project!"
 
-#: templates/partials/base.html:174 templates/partials/base.html:312
+#: templates/partials/base.html:174 templates/project/resources.html:11
+#: templates/search.html:57 templates/search.html:177
+#: templates/search.html:242 templates/useraccount.html:195
+msgid "Resources"
+msgstr "Hulpmiddelen"
+
+#: templates/partials/base.html:175
+msgid "People"
+msgstr "Mensen"
+
+#: templates/partials/base.html:176 templates/partials/base.html:314
 msgid "About"
 msgstr "Over ons"
 
-#: templates/partials/base.html:176
+#: templates/partials/base.html:178
 msgid "Calendar"
 msgstr "Agenda"
 
-#: templates/partials/base.html:186
+#: templates/partials/base.html:188
 msgid "Hi"
 msgstr "Hoi"
 
-#: templates/partials/base.html:198
+#: templates/partials/base.html:200
 msgid "Account"
 msgstr "Account"
 
-#: templates/partials/base.html:199
+#: templates/partials/base.html:201
 msgid "Log out"
 msgstr "Uitloggen"
 
-#: templates/partials/base.html:216
+#: templates/partials/base.html:218
 msgid "<span class=\"unbold\">My </span>Projects"
 msgstr "<span class=\"unbold\">Mijn</span>Projecten"
 
-#: templates/partials/base.html:225
+#: templates/partials/base.html:227
 msgid "Create a project!"
 msgstr "Maak een project aan!"
 
-#: templates/partials/base.html:235
+#: templates/partials/base.html:237
 msgid "Search"
 msgstr "Zoek"
 
-#: templates/partials/base.html:244
-msgid ""
-"Browse <a href=\"/search#projects\">projects</a>, <a "
-"href=\"/search#ideas\">ideas</a>, and <a "
-"href=\"/search#resources\">resources</a>"
-msgstr "Blader door <a href=\"/search#projects\">projecten, <a href=\"/search#ideas\">plannen en <a href=\"/search#resources\">hulpmiddelen</a>"
+#: templates/partials/base.html:246
+msgid "Browse"
+msgstr "Bekijk"
 
-#: templates/partials/base.html:254
+#: templates/partials/base.html:246
+msgid "projects"
+msgstr "projecten"
+
+#: templates/partials/base.html:246
+msgid "ideas"
+msgstr "ideeën"
+
+#: templates/partials/base.html:246
+msgid "people"
+msgstr "mensen"
+
+#: templates/partials/base.html:246
+msgid "and"
+msgstr "en"
+
+#: templates/partials/base.html:246
+msgid "resources"
+msgstr "hulpmiddelen"
+
+#: templates/partials/base.html:256
 msgid "Have <span>an</span> invite code?"
 msgstr "Heb je een uitnodigingscode?"
 
-#: templates/partials/base.html:266
+#: templates/partials/base.html:268
 msgid "Content"
 msgstr "Inhoud"
 
-#: templates/partials/base.html:267
+#: templates/partials/base.html:269
 msgid "Admin Settings"
 msgstr "Admin Instellingen"
 
-#: templates/partials/base.html:268
+#: templates/partials/base.html:270
 msgid "Homepage Questions"
 msgstr "Homepage Vragen"
 
-#: templates/partials/base.html:292
+#: templates/partials/base.html:294
 msgid "Created <span>by</span>"
 msgstr "Gemaakt  <span>door</span>"
 
-#: templates/partials/base.html:300
+#: templates/partials/base.html:302
 msgid "Supported <span>by</span>"
 msgstr "Ondersteund <span>door</span> "
 
-#: templates/partials/base.html:313 templates/partials/mobilebase.html:70
+#: templates/partials/base.html:315 templates/partials/mobilebase.html:70
 msgid "Frequently Asked Questions"
 msgstr "Veel Gestelde Vragen"
 
-#: templates/partials/base.html:335
+#: templates/partials/base.html:337
 msgid "Design <span>and</span> Development"
 msgstr "Ontwerp <span>en</span> Ontwikkeling"
 
-#: templates/partials/base.html:336 templates/partials/base.html:338
-#: templates/partials/base.html:339
+#: templates/partials/base.html:338 templates/partials/base.html:340
+#: templates/partials/base.html:341
 msgid "All rights reserved."
 msgstr "Alle rechten voorbehouden."
 
@@ -1117,9 +1196,10 @@ msgid "Yes, Delete Idea"
 msgstr "Ja, Verwijder Plan"
 
 #: templates/partials/base_idea_delete.html:13
+#: templates/partials/idea_conversation.html:154
 #: templates/project/conversation.html:171 templates/project.html:249
 #: templates/project.html:283 templates/project.html:299
-#: templates/search.html:592 templates/search.html:628
+#: templates/search.html:593 templates/search.html:629
 msgid "No, keep it."
 msgstr "Nee, laat het staan."
 
@@ -1184,18 +1264,103 @@ msgstr "Bezig <strong class=\"to_u_name\">&nbsp;</strong> een bericht te sturen!
 msgid "You sent <strong class=\"to_u_name\">&nbsp;</strong> a message!"
 msgstr "Je hebt <strong class=\"to_u_name\">&nbsp;</strong> een bericht gestuurd!"
 
-#: templates/partials/base_message.html:24
-#: templates/project/conversation_message.html:12
-#: templates/project/fresh_ideas.html:37 templates/search.html:106
-#: templates/search.html:219 templates/search.html:330
-#: templates/search.html:637 templates/search.html:658
-#: templates/search.html:687
-msgid "Close"
-msgstr "Sluiten"
-
 #: templates/partials/base_message.html:28
 msgid "There was an error sending your message."
 msgstr "Er ging iets mis tijdens het versturen van je bericht."
+
+#: templates/partials/idea_conversation.html:6
+#: templates/project/conversation.html:10 templates/project/home.html:61
+msgid "Discussion"
+msgstr "Discussie"
+
+#: templates/partials/idea_conversation.html:21
+#: templates/project/conversation.html:29
+msgid "All Messages"
+msgstr "Alle Berichten"
+
+#: templates/partials/idea_conversation.html:22
+#: templates/project/conversation.html:30
+msgid "Member Comments"
+msgstr "Opmerkingen van Leden"
+
+#: templates/partials/idea_conversation.html:23
+#: templates/project/conversation.html:31
+msgid "Admin Comments"
+msgstr "Opmerkingen van Beheerder"
+
+#: templates/partials/idea_conversation.html:25
+#: templates/project/conversation.html:33
+msgid "Endorsement"
+msgstr "Ondersteuning"
+
+#: templates/partials/idea_conversation.html:47
+#: templates/project/conversation.html:55
+msgid "Post a message"
+msgstr "Plaats een bericht"
+
+#: templates/partials/idea_conversation.html:57
+#: templates/project/conversation.html:65
+msgid "Post your update as a comment or add links to photos and videos."
+msgstr "Plaats je update bij de opmerkingen of voeg links toe bij foto's of video's."
+
+#: templates/partials/idea_conversation.html:61
+#: templates/project/conversation.html:69
+msgid "Thank you for submitting a message!"
+msgstr "Dank je voor het plaatsen van een bericht!"
+
+#: templates/partials/idea_conversation.html:66
+#: templates/project/conversation.html:74
+msgid "There was an error submitting your message!"
+msgstr "Er ging iets mis bij het plaatsen van je bericht!"
+
+#: templates/partials/idea_conversation.html:86
+#: templates/project/conversation.html:94 templates/project/home.html:91
+msgid "<strong>Administrator</strong> says"
+msgstr "<strong>Beheerder</strong> zegt"
+
+#: templates/partials/idea_conversation.html:88
+#: templates/project/conversation.html:96
+#, python-format
+msgid ""
+"Hey &ndash; welcome to %(sitename)s! I&#39;m an administrator of the site. "
+"If there is anything we can help you with, please email us at"
+msgstr "Hoi &ndash; welkom bij %(sitename)s! Ik ben een beheerder van de site. Als er iets is waar we je mee kunnen helpen, stuur dan een mail naar"
+
+#: templates/partials/idea_conversation.html:98
+#: templates/project/conversation.html:106
+msgid "Older Posts"
+msgstr "Oudere berichten"
+
+#: templates/partials/idea_conversation.html:141
+#: templates/project/conversation.html:158
+msgid "Just Now"
+msgstr "Net Nieuw"
+
+#: templates/partials/idea_conversation.html:148
+#: templates/project/conversation.html:165
+msgid "<strong>Delete</strong> this Message?"
+msgstr "Dit Bericht <strong>Verwijderen</strong>?"
+
+#: templates/partials/idea_conversation.html:150
+#: templates/project/conversation.html:167
+msgid ""
+"This deletes the message from the system permanently! <br/>Are you sure?"
+msgstr "Dit verwijdert het bericht definitief uit het systeem! <br/>Weet je het zeker?"
+
+#: templates/partials/idea_conversation.html:153
+#: templates/project/conversation.html:170
+msgid "Yes, Delete Message"
+msgstr "Ja, Verwijder Bericht"
+
+#: templates/partials/idea_conversation_message.html:41
+#: templates/project/conversation_message.html:41
+msgid "New Member!"
+msgstr "Nieuw Lid!"
+
+#: templates/partials/idea_conversation_message.html:62
+#: templates/project/conversation_message.html:62
+msgid "joined the project!"
+msgstr "doet mee aan het project!"
 
 #: templates/partials/mobilebase.html:29
 msgid "Logout"
@@ -1311,82 +1476,6 @@ msgid ""
 "to ask for physical goods."
 msgstr "Heb je een projector nodig, tuingereedschap of een fiets? Maak een lijst met donaties in natura en vraag zo om tastbare spullen."
 
-#: templates/project/conversation.html:10 templates/project/home.html:61
-msgid "Discussion"
-msgstr "Discussie"
-
-#: templates/project/conversation.html:29
-msgid "All Messages"
-msgstr "Alle Berichten"
-
-#: templates/project/conversation.html:30
-msgid "Member Comments"
-msgstr "Opmerkingen van Leden"
-
-#: templates/project/conversation.html:31
-msgid "Admin Comments"
-msgstr "Opmerkingen van Beheerder"
-
-#: templates/project/conversation.html:33
-msgid "Endorsement"
-msgstr "Ondersteuning"
-
-#: templates/project/conversation.html:55
-msgid "Post a message"
-msgstr "Plaats een bericht"
-
-#: templates/project/conversation.html:65
-msgid "Post your update as a comment or add links to photos and videos."
-msgstr "Plaats je update bij de opmerkingen of voeg links toe bij foto's of video's."
-
-#: templates/project/conversation.html:69
-msgid "Thank you for submitting a message!"
-msgstr "Dank je voor het plaatsen van een bericht!"
-
-#: templates/project/conversation.html:74
-msgid "There was an error submitting your message!"
-msgstr "Er ging iets mis bij het plaatsen van je bericht!"
-
-#: templates/project/conversation.html:94 templates/project/home.html:91
-msgid "<strong>Administrator</strong> says"
-msgstr "<strong>Beheerder</strong> zegt"
-
-#: templates/project/conversation.html:96
-#, python-format
-msgid ""
-"Hey &ndash; welcome to %(sitename)s! I&#39;m an administrator of the site. "
-"If there is anything we can help you with, please email us at"
-msgstr "Hoi &ndash; welkom bij %(sitename)s! Ik ben een beheerder van de site. Als er iets is waar we je mee kunnen helpen, stuur dan een mail naar"
-
-#: templates/project/conversation.html:106
-msgid "Older Posts"
-msgstr "Oudere berichten"
-
-#: templates/project/conversation.html:158
-msgid "Just Now"
-msgstr "Net Nieuw"
-
-#: templates/project/conversation.html:165
-msgid "<strong>Delete</strong> this Message?"
-msgstr "Dit Bericht <strong>Verwijderen</strong>?"
-
-#: templates/project/conversation.html:167
-msgid ""
-"This deletes the message from the system permanently! <br/>Are you sure?"
-msgstr "Dit verwijdert het bericht definitief uit het systeem! <br/>Weet je het zeker?"
-
-#: templates/project/conversation.html:170
-msgid "Yes, Delete Message"
-msgstr "Ja, Verwijder Bericht"
-
-#: templates/project/conversation_message.html:41
-msgid "New Member!"
-msgstr "Nieuw Lid!"
-
-#: templates/project/conversation_message.html:62
-msgid "joined the project!"
-msgstr "doet mee aan het project!"
-
 #: templates/project/empty_events_list.html:11
 msgid "Events are a great way to bring motivated people together!"
 msgstr "Evenementen zijn een goede manier om gemotiveerde mensen bijeen te brengen!"
@@ -1430,7 +1519,7 @@ msgstr "Verander dit"
 #: templates/project/member_list.html:137 templates/project/mission.html:174
 #: templates/project/need_teaser.html:40 templates/project/resources.html:183
 #: templates/project.html:227 templates/project.html:277
-#: templates/search.html:586 templates/search.html:622
+#: templates/search.html:587 templates/search.html:623
 msgid "Delete"
 msgstr "Verwijder"
 
@@ -1552,18 +1641,6 @@ msgstr "Bekijk een aantal plannen die lijken op je project!"
 msgid "Invite People"
 msgstr "Nodig mensen uit"
 
-#: templates/project/fresh_ideas.html:32
-#: templates/project/invite_members.html:110 templates/search.html:323
-#: templates/search.html:680
-msgid "Flag as Inappropriate"
-msgstr "Markeren als ongepast"
-
-#: templates/project/fresh_ideas.html:40
-#: templates/project/invite_members.html:121 templates/search.html:337
-#: templates/search.html:692
-msgid "said"
-msgstr "gezegd"
-
 #: templates/project/fresh_ideas.html:63
 #: templates/project/invite_members.html:146
 msgid "No similar ideas found."
@@ -1635,11 +1712,6 @@ msgstr "Er ging iets mis bij het versturen van de uitnodigingen per mail!"
 msgid "Invite People <span>with</span> Similar Ideas"
 msgstr ""
 
-#: templates/project/invite_members.html:126 templates/search.html:341
-#: templates/search.html:694
-msgid "Posted"
-msgstr "Geplaatst"
-
 #: templates/project/member_list.html:121
 msgid "Invite people to join! Project members will appear here."
 msgstr "Nodig mensen uit om mee te doen! Projectleden zie je hier."
@@ -1664,8 +1736,8 @@ msgstr "deze deelnemer"
 msgid "from the project permanently!"
 msgstr "uit het project voor altijd!"
 
-#: templates/project/member_list.html:139 templates/search.html:588
-#: templates/search.html:624
+#: templates/project/member_list.html:139 templates/search.html:589
+#: templates/search.html:625
 msgid "Are you sure?"
 msgstr "Weet je het zeker?"
 
@@ -1854,12 +1926,6 @@ msgstr "Verwante Hulpmiddelen"
 msgid "Find more resources"
 msgstr "Vind meer hulpmiddelen"
 
-#: templates/project/resources.html:11 templates/search.html:56
-#: templates/search.html:176 templates/search.html:241
-#: templates/useraccount.html:195
-msgid "Resources"
-msgstr "Hulpmiddelen"
-
 #: templates/project/resources.html:21
 msgid "External Links"
 msgstr "Externe Links"
@@ -1893,12 +1959,12 @@ msgstr "Als je een <a href=\"#show,related_resources\"> hulpmiddel toevoegt, zul
 msgid "Add a resource"
 msgstr "Voeg een hulpmiddel toe"
 
-#: templates/project/resources.html:149 templates/search.html:222
-#: templates/search.html:660
+#: templates/project/resources.html:149 templates/search.html:223
+#: templates/search.html:661
 msgid "Official Resource"
 msgstr "Officiële middelen"
 
-#: templates/project/resources.html:175 templates/search.html:613
+#: templates/project/resources.html:175 templates/search.html:614
 msgid "Visit Us"
 msgstr "Bezoek ons"
 
@@ -2062,7 +2128,7 @@ msgstr "Annuleren"
 msgid "Featuring project&hellip;"
 msgstr "Getoond project"
 
-#: templates/project.html:227 templates/search.html:622
+#: templates/project.html:227 templates/search.html:623
 msgid "this Project?"
 msgstr "dit project?"
 
@@ -2072,7 +2138,7 @@ msgid ""
 "you sure?"
 msgstr "Weet je zeker dat je dit wilt verwijderen? <br/>Het is dan definitief uit het systeem verwijderd."
 
-#: templates/project.html:232 templates/search.html:627
+#: templates/project.html:232 templates/search.html:628
 msgid "Yes, Delete Project"
 msgstr "Ja, verwijder project"
 
@@ -2086,7 +2152,7 @@ msgid ""
 "you sure?"
 msgstr "Weet je zeker dat je dit middel wilt verwijderen? <br/>Het is dan definitief uit het systeem verwijderd."
 
-#: templates/project.html:248 templates/search.html:591
+#: templates/project.html:248 templates/search.html:592
 msgid "Yes, Delete Resource"
 msgstr "Ja, verwijder middel"
 
@@ -2140,92 +2206,79 @@ msgstr "Kaart"
 msgid "List"
 msgstr "Lijst"
 
-#: templates/search.html:54
+#: templates/search.html:41
+msgid "All neighborhoods"
+msgstr "Alle wijken"
+
+#: templates/search.html:55
 msgid "All"
 msgstr "Alles"
 
-#: templates/search.html:57 templates/search.html:283
-#: templates/search.html:349 templates/search.html:436
+#: templates/search.html:58 templates/search.html:284
+#: templates/search.html:351 templates/search.html:438
 #: templates/useraccount.html:151
 msgid "Ideas"
 msgstr "ideeën"
 
-#: templates/search.html:58 templates/search.html:391
-#: templates/search.html:455
+#: templates/search.html:59 templates/search.html:393
+#: templates/search.html:456
 msgid "Users"
 msgstr "Gebruikers"
 
-#: templates/search.html:67 templates/search.html:178
-#: templates/search.html:285 templates/search.html:393
-msgid "See all"
-msgstr "Toon alles"
-
-#: templates/search.html:73 templates/search.html:185
-#: templates/search.html:291 templates/search.html:399
+#: templates/search.html:74 templates/search.html:186
+#: templates/search.html:292 templates/search.html:401
 msgid "Page"
 msgstr "Pagina"
 
-#: templates/search.html:74 templates/search.html:186
-#: templates/search.html:292 templates/search.html:400
+#: templates/search.html:75 templates/search.html:187
+#: templates/search.html:293 templates/search.html:402
 msgid "of"
 msgstr "van"
 
-#: templates/search.html:133 templates/search.html:241
-#: templates/search.html:349 templates/search.html:455
+#: templates/search.html:134 templates/search.html:242
+#: templates/search.html:351 templates/search.html:456
 msgid "There were"
 msgstr "Er zijn"
 
-#: templates/search.html:133 templates/search.html:241
-#: templates/search.html:349 templates/search.html:455
+#: templates/search.html:134 templates/search.html:242
+#: templates/search.html:351 templates/search.html:456
 msgid "found"
 msgstr "gevonden"
 
-#: templates/search.html:135
+#: templates/search.html:136
 msgid "Start <span>a</span> Project"
 msgstr "Start <span>een</span> Project"
 
-#: templates/search.html:176
+#: templates/search.html:177
 msgid "Resource"
 msgstr "Hulpmiddel"
 
-#: templates/search.html:217
+#: templates/search.html:218
 msgid "Remove"
 msgstr "Verwijder"
 
-#: templates/search.html:229 templates/search.html:559
-#: templates/search.html:667
+#: templates/search.html:230 templates/search.html:560
+#: templates/search.html:668
 msgid "We've sent them a link to your project page."
 msgstr "We hebben deze partij een link naar je project gestuurd."
 
-#: templates/search.html:242
+#: templates/search.html:243
 msgid "Add <span>your</span> Resource"
 msgstr "Voeg <span>jouw</span> Hulpmiddel toe"
 
-#: templates/search.html:283
-msgid "Idea"
-msgstr "Idee"
-
-#: templates/search.html:341 templates/search.html:694
-msgid "via"
-msgstr "via"
-
-#: templates/search.html:350 templates/search.html:367
-msgid "Add <span>an</span> Idea"
-msgstr "Voeg <span>een</span> Plan toe"
-
-#: templates/search.html:391
+#: templates/search.html:393
 msgid "User"
 msgstr "Gebruiker"
 
-#: templates/search.html:586
+#: templates/search.html:587
 msgid "this Resource?"
 msgstr "deze Hulpmiddel?"
 
-#: templates/search.html:588
+#: templates/search.html:589
 msgid "You are about to delete this Resource from the system permanently!"
 msgstr "Weet je zeker dat je dit middel wilt verwijderen? <br/>Het is dan definitief uit het systeem verwijderd."
 
-#: templates/search.html:624
+#: templates/search.html:625
 msgid "You are about to delete this project from the system permanently!"
 msgstr "Weet je zeker dat je dit wilt verwijderen? "
 
