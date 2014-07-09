@@ -773,6 +773,29 @@ def isModeratorBitmask(bitmask):
 def isLeaderBitmask(bitmask):
     return util.getBit(bitmask, 3)
 
+
+def searchUsersCount(db, terms, locationId):
+    count = 0
+    match = ' '.join([(item + "*") for item in terms])
+
+    try:
+        sql = """select count(*) as count
+                    from user u
+                    where
+                    u.is_active = 1
+                    and ($locationId is null or u.location_id = $locationId)
+                    and ($match = '' or match(u.first_name, u.last_name) against ($match in boolean mode))"""
+
+        data = list(db.query(sql, {'match': match, 'locationId': locationId}))
+
+        count = data[0].count
+    except Exception, e:
+        log.info("*** couldn't get users search count")
+        log.error(e)
+
+    return count
+
+
 # find projects by full text search and location id
 def searchUsers(db, terms, locationId, limit=1000, offset=0):
     betterData = []

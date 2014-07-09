@@ -56,10 +56,10 @@ class Search(Controller):
 
         self.template_data['results'] = dict(json=json.dumps(results), data=results)
 
-        total_count = dict(projects=len(projects),
-                           resources=len(resources),
-                           ideas=len(ideas),
-                           users=len(users))
+        total_count = dict(projects=mProject.searchProjectsCount(self.db, terms, locationId),
+                           resources=mProjectResource.searchProjectResourcesCount(self.db, terms, locationId),
+                           ideas=mIdea.searchIdeasCount(self.db, terms, locationId),
+                           users=mUser.searchUsersCount(self.db, terms, locationId))
 
         self.template_data['total_count'] = dict(json=json.dumps(total_count), data=total_count)
 
