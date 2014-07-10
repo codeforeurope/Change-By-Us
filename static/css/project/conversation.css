@@ -127,7 +127,6 @@ div.continent textarea.message-input:focus {
 .comment-stack .main {
     display: inline-block;
     vertical-align: top;
-    width: 360px;
     overflow: hidden;
 }
 
@@ -147,6 +146,7 @@ div.continent textarea.message-input:focus {
     border-right: 1px solid #e8e6e3;
     padding-right: 10px;
     margin-right: 10px;
+    width: 70%;
 }
 
 .comment-stack .main > blockquote {
