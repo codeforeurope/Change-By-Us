@@ -338,7 +338,7 @@
 																	</strong> {{ _('said') }} &mdash;
 																</cite>
 															{% endif %}
-															<blockquote>{% if d.template_data and d.template_data.user and d.template_data.user.is_admin %}{% if not idea.owner.name %}<span class="topright-spacer"></span>{% endif %}{% endif %}<p>{{ idea.message|truncate(175) }}</p></blockquote>
+															<blockquote>{% if d.template_data and d.template_data.user and d.template_data.user.is_admin %}{% if not idea.owner.name %}<span class="topright-spacer"></span>{% endif %}{% endif %}<p><a href="/idea/{{ idea.idea_id }}">{{ idea.message|truncate(175) }}</a></p></blockquote>
 															<cite class="note-meta-ft">{{ _('Posted') }} <strong class="time-since">{{ idea.created }}</strong> {{ _('via') }} <strong>{{ idea.submission_type }}</strong></cite>
                                                             <div><span class="likers">{{ idea.likes }}</span><span class="like">{%if idea.liked == False %}<a href="#likeIdea,{{ idea.idea_id }}" class='like-idea'>Like</a>{% else %}<a href="#unlikeIdea,{{ idea.idea_id }}" class='unlike-idea'>You like this</a>{% endif %}</span></div>
 														</div>

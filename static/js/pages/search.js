@@ -352,9 +352,10 @@ app_page.features.push(function(app){
 					}
 					tempcell.find('.flag-idea').attr('href','#flagIdea,'+d.results[i].idea_id);
                     tempcell.find('.like-idea').attr('href','#likeIdea,'+d.results[i].idea_id);
+                    tempcell.find('.unlike-idea').attr('href','#unlikeIdea,'+d.results[i].idea_id);
 					tempcell.find('.remove-idea').attr('href','#removeIdea,'+d.results[i].idea_id);
 					
-					tempcell.find('.idea-text').text( tc.truncate(d.results[i].message, 165, "...") );
+					tempcell.find('.idea-text').text(tc.truncate(d.results[i].message, 165, "...")).wrap('<a href="/idea/' + d.results[i].idea_id + '"></a>');
 					tempcell.find('.time-since').text(d.results[i].created);
 					tempcell.find('.sub-type').text(d.results[i].submission_type);
 					
