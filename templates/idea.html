@@ -50,6 +50,7 @@
                                     {% endif %}
                                     <blockquote>{% if d.template_data and d.template_data.user and d.template_data.user.is_admin %}{% if not d.template_data.idea.idea_id %}<span class="topright-spacer"></span>{% endif %}{% endif %}<p>{{ d.template_data.idea.idea_description|truncate(175) }}</p></blockquote>
                                     <cite class="note-meta-ft">{{ _('Posted') }} <strong class="time-since">{{ d.template_data.idea.idea_created_datetime }}</strong> {{ _('via') }} <strong>{{ d.template_data.idea.idea_submission_type }}</strong></cite>
+                                    <div><span class="likers">{{ d.template_data.idea.likes }}</span><span class="like">{%if d.template_data.idea.liked == False %}<a href="#likeIdea,{{ d.template_data.idea.idea_id }}" class='like-idea'>Like</a>{% else %}<a href="#unlikeIdea,{{ d.template_data.idea.idea_id }}" class='unlike-idea'>You like this</a>{% endif %}</span></div>
                                 </div>
                             </div>
 
@@ -102,4 +103,7 @@
         {% endif %}
     </script>
     <script type="text/javascript" src='/static/js/pages/idea.js'></script>
+    <script>
+        app_page.messages = { 'like-idea':'{{ _('Like') }}', 'unlike-idea': '{{ _('Unlike') }}', 'liked-idea': '{{ _('Liked!') }}', 'unliked-idea': '{{ _('Unliked!') }}' };
+    </script>
 {% endblock %}

@@ -61,11 +61,69 @@ app_page.features.push(function(app) {
 						});
 					}
 				});
+			},
+            like_idea_handler:function(e){
+				e.preventDefault();
+                ideaId = e.target.hash.split(',')[1];
+				tc.jQ.ajax({
+					type:"POST",
+					url:'/idea/like',
+					data:{
+						idea_id:ideaId
+					},
+					context:tc.jQ(e.target),
+					dataType:"text",
+					success: function(data, ts, xhr) {
+						if (data == "False") {
+							return false;
+						}
+                        alert(e.data.app.app_page.messages['liked-idea']);
+                        //increase likes
+                        elem = this.parent().parent().children(".likers");
+                        likes = parseInt(elem.text());
+                        elem.text(likes + 1);
+						this.text(app_page.messages['unlike-idea']);
+                        this.addClass('unlike-idea').removeClass('like-idea');
+                        this.unbind();
+                        this.bind('click', {app:app}, app.components.handlers.unlike_idea_handler);
+                        this.attr('href','#unlikeIdea,'+ideaId);
+					}
+				});
+			},
+            unlike_idea_handler:function(e){
+				e.preventDefault();
+                ideaId = e.target.hash.split(',')[1];
+				tc.jQ.ajax({
+					type:"POST",
+					url:'/idea/unlike',
+					data:{
+						idea_id:ideaId
+					},
+					context:tc.jQ(e.target),
+					dataType:"text",
+					success: function(data, ts, xhr) {
+						if (data == "False") {
+							return false;
+						}
+                        alert(app_page.messages['unliked-idea']);
+                        //Decrease likes
+                        elem = this.parent().parent().children(".likers");
+                        likes = parseInt(elem.text());
+                        elem.text(likes - 1);
+						this.text(app_page.messages['like-idea']);
+                        this.unbind();
+                        this.bind('click', {app:app}, app.components.handlers.like_idea_handler);
+                        this.attr('href','#likeIdea,'+ideaId);
+					}
+				});
 			}
 		};
 
 		tc.jQ('a.flag-idea').bind('click', {app:app}, app.components.handlers.flag_idea_handler);
 		tc.jQ('a.remove-idea').bind('click', {app:app}, app.components.handlers.remove_idea_handler);
+        tc.jQ('a.like-idea').bind('click', {app:app}, app.components.handlers.like_idea_handler);
+        tc.jQ('a.unlike-idea').bind('click', {app:app}, app.components.handlers.unlike_idea_handler);
+
 
 		// random note-card backgrounds
 		tc.randomNoteCardBg(tc.jQ('.ideas-list'));

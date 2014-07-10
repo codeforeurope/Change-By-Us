@@ -46,6 +46,9 @@ class Idea(Controller):
 
                 if (idea.data):
                     ideaDictionary = idea.getFullDictionary()
+                    likers = mIdea.searchLikers(self.db, ideaId)
+                    ideaDictionary['likes'] = len(likers)
+                    ideaDictionary['liked'] = any(self.user.id == y.user_id for y in likers)
 
                     # idea_proxy = self.getIdea(ideaId)
                     # idea_proxy.json = json.dumps(ideaDictionary)
