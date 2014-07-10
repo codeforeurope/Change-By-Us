@@ -13,12 +13,15 @@ def upgrade(migrate_engine):
         Column('idea_id', Integer, ForeignKey('idea.idea_id')),
         Column('user_id', Integer, ForeignKey('user.user_id')),
         Column('vote', SmallInteger, default=0),
+        UniqueConstraint('idea_id', 'user_id', name='uix_1'),
         mysql_engine='MyISAM',
     )
-    idea_user.create()
-    unique_idea_user = UniqueConstraint('idea_id', 'user_id')
-    idea_user.constraints.add(unique_idea_user)
-    pass
+    try:
+        idea_user.create()
+    except Exception, e:
+        print "Error when creating table idea__user: %s. Ignoring" % e
+    # unique_idea_user = UniqueConstraint('idea_id', 'user_id')
+    # idea_user.constraints.add(unique_idea_user)
 
 
 def downgrade(migrate_engine):
@@ -26,7 +29,8 @@ def downgrade(migrate_engine):
     meta = MetaData(migrate_engine)
 
     # Drop the idea__user table
-    idea_user = Table('idea__user', meta, autoload=True)
-    idea_user.drop()
-
-    pass
+    try:
+        idea_user = Table('idea__user', meta, autoload=True)
+        idea_user.drop()
+    except Exception, e:
+        print "Error when dropping idea__user: %s. Ignoring" % e
