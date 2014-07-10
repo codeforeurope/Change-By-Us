@@ -105,7 +105,7 @@ class Search(Controller):
         offset = int(self.request('offset')) if self.request('offset') else 0
         locationId = self.request('location_id')
 
-        return self.json({'results': mUser.searchUser(self.db, terms, locationId, limit, offset),
+        return self.json({'results': mUser.searchUsers(self.db, terms, locationId, limit, offset),
                           'total_count': 100}, encoder=EscapingJSONEncoder)
 
     def searchProjectsJSON(self):
