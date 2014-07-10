@@ -153,7 +153,19 @@ def searchIdeasCount(db, terms, locationId, excludeProjectId=None):
     return count
 
 
-def searchIdeas(db, terms, locationId, limit=1000, offset=0, excludeProjectId=None):
+def searchLikers(db, ideaId):
+    try:
+        sql = 'select user_id from idea__user where idea_id = $idea_id'
+        data = list(db.query(sql, {'idea_id': ideaId}))
+        return data
+
+    except Exception, e:
+        log.info("*** couldn't get users who like idea")
+        log.error(e)
+        return list()
+
+
+def searchIdeas(db, terms, locationId, limit=1000, offset=0, excludeProjectId=None, user_id=None):
     betterData = []
     match = ' '.join([(item + "*") for item in terms])
 
@@ -167,6 +179,7 @@ def searchIdeas(db, terms, locationId, limit=1000, offset=0, excludeProjectId=No
                       ,u.last_name
                       ,u.affiliation
                       ,u.image_id
+                      ,(select count(*) from idea__user iu where iu.idea_id = i.idea_id) as likes
                 from idea i
                 left join user u on u.user_id = i.user_id
                 where
@@ -182,6 +195,10 @@ def searchIdeas(db, terms, locationId, limit=1000, offset=0, excludeProjectId=No
 
         for item in data:
             owner = None
+            if user_id is not None:
+                likers = searchLikers(db, item.idea_id)
+            else:
+                likers = None
 
             if (item.user_id):
                 # repeating smallUser method from giveaminute.project to avoid circular reference
@@ -193,7 +210,9 @@ def searchIdeas(db, terms, locationId, limit=1000, offset=0, excludeProjectId=No
                                    message=item.description,
                                    created=str(item.created_datetime),
                                    submission_type=item.submission_type,
-                                   owner=owner))
+                                   owner=owner,
+                                   likes=item.likes,
+                                   liked=any(user_id == y.user_id for y in likers)))
     except Exception, e:
         log.info("*** couldn't get idea search data")
         log.error(e)
@@ -308,6 +327,7 @@ def ideaName(first, last, affiliation=None):
     else:
         return None
 
+
 def toggleVoteIdea(db, ideaId, userId):
     try:
         sql = "select count(*) from idea__user where where idea_id = $ideaId and user_id = $userId)"
@@ -322,6 +342,7 @@ def toggleVoteIdea(db, ideaId, userId):
         log.error(e)
         return False
 
+
 def upvoteIdea(db, ideaId, userId):
     try:
         sql = "insert into idea__user (idea_id, user_id) VALUES( $ideaId, $userId)"
@@ -335,7 +356,7 @@ def upvoteIdea(db, ideaId, userId):
 
 def downvoteIdea(db, ideaId, userId):
     try:
-        sql = "delete from idea__user where idea_id = $ideaId and user_id = $userId)"
+        sql = "delete from idea__user where idea_id = $ideaId and user_id = $userId"
         db.query(sql, {'ideaId': ideaId, 'userId': userId})
         return True
     except Exception, e:

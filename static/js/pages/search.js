@@ -582,11 +582,12 @@ app_page.features.push(function(app){
 			},
             like_idea_handler:function(e){
 				e.preventDefault();
+                ideaId = e.target.hash.split(',')[1];
 				tc.jQ.ajax({
 					type:"POST",
 					url:'/idea/like',
 					data:{
-						idea_id:e.target.hash.split(',')[1]
+						idea_id:ideaId
 					},
 					context:tc.jQ(e.target),
 					dataType:"text",
@@ -595,18 +596,26 @@ app_page.features.push(function(app){
 							return false;
 						}
                         alert(e.data.app.app_page.messages['liked-idea']);
-						this.parent().text(e.data.app.app_page.messages['liked-idea']);
-                        this.parent().class('unlike-idea');
+                        //increase likes
+                        elem = this.parent().parent().children(".likers");
+                        likes = parseInt(elem.text());
+                        elem.text(likes + 1);
+						this.text(app_page.messages['unlike-idea']);
+                        this.addClass('unlike-idea').removeClass('like-idea');
+                        this.unbind();
+                        this.bind('click', {app:app}, app.components.handlers.unlike_idea_handler);
+                        this.attr('href','#unlikeIdea,'+ideaId);
 					}
 				});
 			},
             unlike_idea_handler:function(e){
 				e.preventDefault();
+                ideaId = e.target.hash.split(',')[1];
 				tc.jQ.ajax({
 					type:"POST",
 					url:'/idea/unlike',
 					data:{
-						idea_id:e.target.hash.split(',')[1]
+						idea_id:ideaId
 					},
 					context:tc.jQ(e.target),
 					dataType:"text",
@@ -614,9 +623,15 @@ app_page.features.push(function(app){
 						if (data == "False") {
 							return false;
 						}
-                        alert(e.data.app.app_page.messages['unliked-idea']);
-						this.parent().text(e.data.app.app_page.messages['unliked-idea']);
-                        this.parent().class('like-idea');
+                        alert(app_page.messages['unliked-idea']);
+                        //Decrease likes
+                        elem = this.parent().parent().children(".likers");
+                        likes = parseInt(elem.text());
+                        elem.text(likes - 1);
+						this.text(app_page.messages['like-idea']);
+                        this.unbind();
+                        this.bind('click', {app:app}, app.components.handlers.like_idea_handler);
+                        this.attr('href','#likeIdea,'+ideaId);
 					}
 				});
 			}
