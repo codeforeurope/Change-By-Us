@@ -46,11 +46,11 @@ app_page.features.push(function(app){
 		
 		tc.jQ('.search-hood-container a.clear-field').bind('click',{input:tc.jQ('input.location-hood-enter')},function(e){
 			e.preventDefault();
-			e.data.input.attr('location_id','-1').val('All neighborhoods').trigger('change');
+			e.data.input.attr('location_id','-1').val(app_page.messages['all-neighborhoods']).trigger('change');
 		});
 		
 		tc.jQ('input.search-terms, input.search-location').bind('change', {}, function(e){
-			if(e.target.value.length == 0 || (e.target.className.indexOf('search-location') != -1 && e.target.value == 'All neighborhoods')){
+			if(e.target.value.length == 0 || (e.target.className.indexOf('search-location') != -1 && e.target.value == app_page.messages['all-neighborhoods'])){
 				tc.jQ(this).siblings('a.clear-field').hide();
 			} else {
 				tc.jQ(this).siblings('a.clear-field').show();
@@ -187,7 +187,7 @@ app_page.features.push(function(app){
 									this.data.current_page.remove();
 								} else if(!d.results.length && this.data.offset == 0){
 									//no items, and we are on page 0
-									this.data.current_page.children('ul').append('<li><p>No Results.</p></li>');
+									this.data.current_page.children('ul').append('<li><p>'+ app_page.messages['no-results'] +'</p></li>');
 								} else if(d.results.length == (this.data.n_to_fetch + 1)) {
 									//full of items, and more. we DO have another page.
 							

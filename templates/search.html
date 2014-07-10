@@ -699,4 +699,7 @@
 
 {% block page_js %}
 	<script type="text/javascript" src='/static/js/pages/search.js'></script>
+    <script>
+        app_page.messages = { 'no-results': "{{ _('No Results') }}", 'all-neighborhoods': "{{ _('All neighborhoods') }}"  };
+    </script>
 {% endblock page_js %}
