@@ -20,8 +20,6 @@ def upgrade(migrate_engine):
         idea_user.create()
     except Exception, e:
         print "Error when creating table idea__user: %s. Ignoring" % e
-    # unique_idea_user = UniqueConstraint('idea_id', 'user_id')
-    # idea_user.constraints.add(unique_idea_user)
 
 
 def downgrade(migrate_engine):
@@ -33,4 +31,4 @@ def downgrade(migrate_engine):
         idea_user = Table('idea__user', meta, autoload=True)
         idea_user.drop()
     except Exception, e:
-        print "Error when dropping idea__user: %s. Ignoring" % e
+        print "Error when dropping table idea__user: %s. Ignoring" % e
