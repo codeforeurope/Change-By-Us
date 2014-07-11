@@ -79,10 +79,10 @@ app_page.features.push(function(app) {
 						}
                         alert(e.data.app.app_page.messages['liked-idea']);
                         //increase likes
-                        elem = this.parent().parent().children(".likers");
+                        elem = this.parent().find("span.like-count");
                         likes = parseInt(elem.text());
                         elem.text(likes + 1);
-						this.text(app_page.messages['unlike-idea']);
+						this.text(app_page.messages['liked-idea']);
                         this.addClass('unlike-idea').removeClass('like-idea');
                         this.unbind();
                         this.bind('click', {app:app}, app.components.handlers.unlike_idea_handler);
@@ -107,10 +107,11 @@ app_page.features.push(function(app) {
 						}
                         alert(app_page.messages['unliked-idea']);
                         //Decrease likes
-                        elem = this.parent().parent().children(".likers");
+                        elem = this.parent().find("span.like-count");
                         likes = parseInt(elem.text());
                         elem.text(likes - 1);
 						this.text(app_page.messages['like-idea']);
+                        this.addClass('like-idea').removeClass('unlike-idea');
                         this.unbind();
                         this.bind('click', {app:app}, app.components.handlers.like_idea_handler);
                         this.attr('href','#likeIdea,'+ideaId);

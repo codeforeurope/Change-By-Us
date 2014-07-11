@@ -352,6 +352,24 @@ class Location (Base):
     city =  Column(String(50))
     state =  Column(String(2))
 
+class Idea (Base):
+    """
+    Idea ORM class.
+    """
+    __tablename__ = 'idea'
+
+    id = Column('idea_id', Integer, primary_key=True)
+    description = Column(String(255), default=None)
+    location_id = Column(ForeignKey('location.location_id'), default=None)
+    submission_type = Column(Enum('web', 'sms', 'email'))
+    user_id = Column(ForeignKey('user.user_id'))
+    email = Column(String(100))
+    phone = Column(String(10))
+    first_name = Column(String(50))
+    last_name = Column(String(50))
+    num_flags = Column(SmallInteger, nullable=False, default=0)
+    is_active = Column(SmallInteger, nullable=False, default=1)
+    created_datetime = Column(DateTime, nullable=False, default=datetime(1, 1, 1, 0, 0, 0))
 
 if __name__ == '__main__':
     import sys
@@ -364,22 +382,3 @@ if __name__ == '__main__':
     config = oh.get_db_config()
     engine = oh.get_db_engine(config)
     Base.metadata.create_all(engine)
-
-class Idea (Base):
-    """
-    Idea ORM class.
-    """
-    __tablename__ = 'idea'
-
-    idea_id = Column(Integer, primary_key=True)
-    description = Column(String(255), default=None)
-    location_id = Column(ForeignKey('location.location_id'), default=None)
-    submission_type = Column(Enum('web', 'sms', 'email'))
-    user_id = Column(ForeignKey('user.user_id'))
-    email = Column(String(100))
-    phone = Column(String(10))
-    first_name = Column(String(50))
-    last_name = Column(String(50))
-    num_flags = Column(SmallInteger, nullable=False, default=0)
-    is_active = Column(SmallInteger, nullable=False, default=1)
-    created_datetime = Column(DateTime, nullable=False, default=datetime(1, 1, 1, 0, 0, 0))

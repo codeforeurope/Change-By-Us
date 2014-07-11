@@ -3,7 +3,7 @@
     <div class="hd clearfix">
         <h2>
             <span>
-                {{ _('Discussion') }}
+                {{ _('Comments') }}
             </span>
         </h2>
     </div>
@@ -14,11 +14,11 @@
         <!-- begin .conversation-controls -->
         <div class="conversation-controls clearfix">
 
-            {% if d.template_data.idea.conversation.messages['total'] > 0 %}
+            {% if d.template_data.idea.data.conversation.messages['total'] > 0 %}
 
                 <div class="filters">
                     <select class='message_filter_select'>
-                        <option selected='true' value='all'>{{ _('All Messages') }}</option>
+                        <option selected='true' value='all'>{{ _('All Comments') }}</option>
                         <option value='member_comment'>{{ _('Member Comments') }}</option>
                         <option value='admin_comment'>{{ _('Admin Comments') }}</option>
                         <option value='join'>{{ _('Join') }}</option>
@@ -44,7 +44,7 @@
                             </div>
 
                             <div class="conversation-input-message-field">
-                                <label>{{ _('Post a message') }}</label>
+                                <label>{{ _('Post a comment') }}</label>
                                 <textarea class='message-input'></textarea>
                             </div>
                         </span>
@@ -58,12 +58,12 @@
                     <input style='display:none;' name='main_text' class='main_text' />
                 </div>
                 <div class='step submit clearfix spinner-message' style='display:none;'>
-                    <p>{{ _('Thank you for submitting a message!') }}</p>
+                    <p>{{ _('Thank you for submitting a comment!') }}</p>
                     <p><img src='/static/images/loader32x32.gif' /></p>
                 </div>
 
                 <div class='step submit-error clearfix' style='display:none;'>
-                    <p>{{ _('There was an error submitting your message!') }}</p>
+                    <p>{{ _('There was an error submitting your comment!') }}</p>
                 </div>
             </div>
         </div>
@@ -71,12 +71,12 @@
     {% endif %}
 
     <ol class="comment-stack">
-        {% if d.template_data.idea.conversation.messages['n_returned'] > 0 %}
-            {% for message in d.template_data.idea.conversation.messages['items'] %}
+        {% if d.template_data.idea.data.conversation.messages['n_returned'] > 0 %}
+            {% for message in d.template_data.idea.data.conversation.messages['items'] %}
                 {% include "partials/idea_conversation_message.html" %}
             {% endfor %}
         {% else %}
-            {% if not d.template_data.idea.conversation.messages['total'] > 0 %}
+            {% if not d.template_data.idea.data.conversation.messages['total'] > 0 %}
                 <li class="admin-default-message">
                     <div class="membrane">
                         <div class="thumb">
@@ -94,7 +94,7 @@
         {% endif %}
     </ol>
 
-    <div class="load-more" {% if d.template_data.idea.conversation.messages['n_returned'] < 10 %} style='display:none;' {% endif %}>
+    <div class="load-more" {% if d.template_data.idea.data.conversation.messages['n_returned'] < 10 %} style='display:none;' {% endif %}>
         <a href="#" class='load_more_button'><span>{{ _('Older Posts') }}</span></a>
     </div>
 
@@ -145,12 +145,12 @@
 
 <div class="template-content modal-content confirm-delete remove-message">
     <div class="step">
-        <h2>{{ _('<strong>Delete</strong> this Message?') }}</h2>
+        <h2>{{ _('<strong>Delete</strong> this Comment?') }}</h2>
         <div>
             <p>{{ _('This deletes the message from the system permanently! <br/>Are you sure?') }}</p>
         </div>
         <div class="actions">
-            <a class="submit rounded-button" href="#">{{ _('Yes, Delete Message') }}</a>
+            <a class="submit rounded-button" href="#">{{ _('Yes, Delete Comment') }}</a>
             <a class="cancel" href="#">{{ _('No, keep it.') }}</a>
         </div>
     </div>
@@ -158,4 +158,4 @@
 </div>
 </div>
 
-<script type='text/javascript' src="/static/js/pages/project.conversation.js"></script>
+<script type='text/javascript' src="/static/js/pages/idea.conversation.js"></script>

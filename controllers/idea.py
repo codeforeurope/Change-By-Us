@@ -16,11 +16,13 @@ class Idea(Controller):
     def GET(self, action=None, id=None):
         if (action == 'related'):
             return self.getRelatedProjects()
+        elif (action == 'messages'):
+            return self.getMessages()
         else:
             return self.showIdea(action)
 
 
-    def POST(self, action=None):
+    def POST(self, action=None, param0=None):
         if (action == 'flag'):
             return self.flagIdea()
         elif (action == 'like'):
@@ -29,6 +31,13 @@ class Idea(Controller):
             return self.unlikeIdea()
         elif (action == 'remove'):
             return self.removeIdea()
+        elif (action == 'message'):
+            if (param0 == 'add'):
+                return self.addMessage()
+            elif (param0 == 'remove'):
+                return self.removeMessage()
+            else:
+                return self.not_found()
         else:
             return self.newIdea()
 
@@ -55,15 +64,21 @@ class Idea(Controller):
                     # idea_proxy.data = ideaDictionary
                     messages = dict(total=2,
                                     n_returned=2,
-                                    items=[dict(type='member_comment', body="First!11!!!", owner=dict(u_id=1, image_id=7, name="John")),
-                                           dict(type='member_comment', body="Damn you first!!!", owner=dict(u_id=2, image_id=8, name="Bill"))])
+                                    items=[dict(type='member_comment', body="First!11!!!",
+                                                owner=dict(u_id=1, image_id=7, name="John")),
+                                           dict(type='member_comment', body="Damn you first!!!",
+                                                owner=dict(u_id=2, image_id=8, name="Bill"))])
                     conversation = dict(messages=messages)
                     ideaDictionary['conversation'] = conversation
                     # self.template_data['idea'] = idea_proxy
-                    self.template_data['idea'] = ideaDictionary
 
-                    #TODO: here also load the "conversation" around the idea
-                    #TODO: for idea also load the "votes" of idea
+                    idea_proxy = self.getIdea(ideaId)
+                    idea_proxy.json = json.dumps(ideaDictionary)
+                    idea_proxy.data = ideaDictionary
+
+                    self.template_data['idea'] = idea_proxy
+
+                    # TODO: here also load the "conversation" around the idea
 
                     import giveaminute.filters as gam_filters
 
@@ -72,7 +87,7 @@ class Idea(Controller):
                 else:
                     return self.not_found()
             except Exception, e:
-                log.error("Couldn't load idea with ideaId %s", ideaId)
+                log.error("Couldn't load idea with ideaId %d", ideaId)
                 log.error(e)
                 return self.not_found()
         else:
@@ -180,35 +195,53 @@ class Idea(Controller):
 
         return self.json(obj)
 
-    def getIdeaUser(self, ideaId):
-        projectUser = dict()
 
-        if (self.user):
-            sqlInvited = """select pi.project_id from project_invite pi
-                              inner join idea i on i.idea_id = pi.invitee_idea_id
-                              where pi.project_id = $projectId and i.user_id = $userId
-                              limit 1"""
-            dataInvited = list(
-                self.db.query(sqlInvited, {'userId': self.user.id, 'email': self.user.email, 'projectId': projectId}))
+    def addMessage(self):
+        """
+        Add a message to the idea discussion stream.
 
-            projectUser['is_invited_by_idea'] = (len(dataInvited) == 1)
+        POST Parameters:
+        ---------------
+        idea_id -- The id of the idea
+        main_text -- The message contents
+        attachment_id -- (optional) The file attachment on the message. If no
+            file attachment is available, it should be an empty string or left
+            off of the request entirely.
 
-            sqlMember = "select is_project_admin from project__user where user_id = $userId and project_id = $projectId limit 1"
-            dataMember = list(self.db.query(sqlMember, {'userId': self.user.id, 'projectId': projectId}))
+        """
+        if (self.request('main_text')): return False
 
-            if (len(dataMember) == 1):
-                projectUser['is_member'] = True
+        idea_id = self.request('idea_id')
+        message = self.request('message')
 
-                if (dataMember[0].is_project_admin == 1):
-                    projectUser['is_project_admin'] = True
+        # If the file_id is None or empty string, record it as None.
+        attachmentId = self.request('attachment_id') or None
 
-            # # #
-            if (self.user.isLeader):
-                sqlEndorse = "select user_id from project_endorsement where project_id = $projectId and user_id = $userId limit 1"
-                dataEndorse = list(self.db.query(sqlEndorse, {'userId': self.user.id, 'projectId': projectId}))
+        if (not idea_id):
+            log.error("*** message add attempted w/o idea id")
+            return False
+        elif (util.strNullOrEmpty(message)):
+            log.error("*** message add attempted w/ no message")
+            return False
+        else:
+            return mIdea.addMessage(self.db, idea_id, message,
+                                    'member_comment', self.user.id,
+                                    attachmentId=attachmentId)
 
-                projectUser['can_endorse'] = (len(dataEndorse) == 0)
-            else:
-                projectUser['can_endorse'] = False
 
-        return projectUser
+    def removeMessage(self):
+        messageId = self.request('message_id')
+
+        if not messageId:
+            log.error("*** message remove attempted w/o ids")
+            return False
+        else:
+            return mIdea.removeMessage(self.db, messageId)
+
+    def getMessages(self):
+        ideaId = self.request('idea_id')
+        limit = util.try_f(int, self.request('n_messages'), 10)
+        offset = util.try_f(int, self.request('offset'), 0)
+        filterBy = self.request('filter')
+
+        return self.json(mIdea.getMessages(self.db, ideaId, limit, offset, filterBy))

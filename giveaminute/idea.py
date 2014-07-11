@@ -5,6 +5,8 @@
 
 import framework.util as util
 import helpers.censor as censor
+import formattingUtils
+import helpers.censor
 from framework.log import log
 
 
@@ -363,3 +365,161 @@ def downvoteIdea(db, ideaId, userId):
         log.info("*** problem downvoting idea")
         log.error(e)
         return False
+
+def ideamessage(id,
+            type,
+            message,
+            createdDatetime,
+            userId,
+            name,
+            imageId,
+            attachmentId=None,
+            ideaId=None,
+            idea=None,
+            ideaSubType=None,
+            ideaCreatedDatetime=None,
+            attachmentMediaType=None,
+            attachmentMediaId=None,
+            attachmentTitle=None):
+    """
+    Construct and return a dictionary consisting of the data related to a
+    message, given by the parameters.  This data is usually pulled off of
+    several database tables with keys linking back to a message_id.
+
+    NOTE: It is recommended to specify all of these as keyword arguments, not
+          positional. If the model changes, the positions of the arguments may
+          as well.
+
+    **Return:**
+
+    A ``dict`` with keys:
+
+    - ``message_id`` -- Primary key
+    - ``message_type`` -- ``'join'``,  ``'endorsement'``,
+      ``'member_comment'``, or ``'admin_comment'``
+    - ``file_id`` -- The primary key of the attachment, if any
+    - ``owner`` -- The user that owns the message
+    - ``body`` -- The content of the message
+    - ``created`` -- The creation date
+    - ``idea`` -- The idea instance attached to the message, if any
+
+    """
+    if (ideaId):
+        ideaObj = formattingUtils.smallIdea(ideaId, idea, None, None, ideaSubType)
+    else:
+        ideaObj = None
+
+    attachmentObj = formattingUtils.smallAttachment(attachmentMediaType,
+                                    attachmentMediaId,
+                                    attachmentTitle)
+
+    return dict(message_id=id,
+                message_type=type,
+                file_id=attachmentId,
+                owner=formattingUtils.smallUserDisplay(userId, name, imageId),
+                body=message,
+                created=str(createdDatetime - formattingUtils.timedelta(hours=util.local_utcoffset())),
+                idea=ideaObj,
+                attachment=attachmentObj,
+    )
+
+def addMessage(db, ideaId, message, message_type, userId=None, attachmentId=None):
+    """
+    Insert a new record into the idea_message table.  Return true if
+    successful.  Otherwise, if any exceptions arise, log and return false.
+
+    """
+    try:
+        # censor behavior
+        numFlags = helpers.censor.badwords(db, message)
+        isActive = 0 if numFlags == 2 else 1
+
+        db.insert('idea_message', idea_id=ideaId,
+                  message=message,
+                  user_id=userId,
+                  file_id=attachmentId,
+                  num_flags=numFlags,
+                  is_active=isActive)
+
+        return True;
+    except Exception, e:
+        log.info("*** problem adding message to idea")
+        log.error(e)
+        return False
+
+
+def removeMessage(db, messageId):
+    try:
+        db.update('idea_message', where="idea_message_id = $messageId", is_active=0,
+                  vars={'messageId': messageId})
+
+        return True
+    except Exception, e:
+        log.info("*** problem removing message  ")
+        log.error(e)
+        return False
+
+
+def getMessages(db, ideaId, limit=10, offset=0, filterBy=None):
+    """
+    Return a list of dictionaries with data representing project messages
+    associated with the given projectId.  This data come from the tables
+    project_message, user, and idea.
+
+    """
+    messages = []
+
+    if (filterBy not in ['member_comment', 'admin_comment', 'join', 'endorsement']):
+        filterBy = None
+
+    try:
+        sql = """select
+                    m.idea_message_id,
+                    m.message,
+                    m.file_id,
+                    m.created_datetime,
+                    a.type as attachment_type,
+                    a.media_id as attachment_id,
+                    a.title as attachment_title,
+                    u.user_id,
+                    u.first_name,
+                    u.last_name,
+                    u.affiliation,
+                    u.group_membership_bitmask,
+                    u.image_id,
+                    i.idea_id,
+                    i.description as idea_description,
+                    i.submission_type as idea_submission_type,
+                    i.created_datetime as idea_created_datetime
+                from idea_message m
+                inner join user u on u.user_id = m.user_id
+                left join idea i on i.idea_id = m.idea_id
+                left join attachments a on a.id = m.file_id
+                where m.project_id = $id and m.is_active = 1
+                and ($filterBy is null or m.message_type = $filterBy)
+                order by m.created_datetime desc
+                limit $limit offset $offset"""
+        data = list(db.query(sql, {'id': ideaId, 'limit': limit, 'offset': offset, 'filterBy': filterBy}))
+
+        for item in data:
+            messages.append(ideamessage(id=item.idea_message_id,
+                                    type=item.message_type,
+                                    message=item.message,
+                                    attachmentId=item.file_id,
+                                    createdDatetime=item.created_datetime,
+                                    userId=item.user_id,
+                                    name=formattingUtils.userNameDisplay(item.first_name, item.last_name, item.affiliation,
+                                                         formattingUtils.isFullLastName(item.group_membership_bitmask)),
+                                    imageId=item.image_id,
+                                    ideaId=item.idea_id,
+                                    idea=item.idea_description,
+                                    ideaSubType=item.idea_submission_type,
+                                    ideaCreatedDatetime=item.idea_created_datetime,
+                                    attachmentMediaType=item.attachment_type,
+                                    attachmentMediaId=item.attachment_id,
+                                    attachmentTitle=item.attachment_title))
+    except Exception, e:
+        log.info("*** couldn't get messages for idea %d", ideaId)
+        log.error(e)
+
+    return messages

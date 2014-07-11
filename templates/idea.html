@@ -4,102 +4,82 @@
  #}
 {% extends "./partials/base.html" %}
 
-{% block title %} Search Results {% endblock title %}
+{% block title %} {{ _('Idea') }} {% endblock title %}
 
 {% block javascript_header %}
 {{ super() }}
-<script type="text/javascript">
-	app_page.features.push(initialize);
-</script>
+
 {% endblock %}<!--end javascript_header-->
 {% block continent %}
 
-        <div class='continent search-results'>
-
-            <!--<div class="east">-->
+        <div class='continent idea-page'>
+            <div class="west idea-page">
                 <!-- start Ideas results -->
 				<div class="box results-box results-ideas clearfix">
 
 					<div class="hd">
-						<h2>{{ _('Idea') }}</h2>
-						<span class="see-all-control control"><a href="/search/#ideas">{{ _('See all') }} <span class="sm-arrow-forward light"></span></a></span>
+						<span class="see-all-control control"><a href="/search/#ideas">{{ _('See all') }} {{ _('Ideas') }} <span class="sm-arrow-forward light"></span></a></span>
 					</div>
 
 
                             {% if d.template_data and d.template_data.user %}
                             <div class="note-card-public-controls">
-                                {% if d.template_data.user.data.projects|length > 0 and not(d.template_data.user.data.u_id == d.template_data.idea.idea_user_id ) %}
-                                    <a class="invite rounded-button small" href="#invite,{{ d.template_data.idea.idea_id }},{{ d.template_data.idea.idea_user_name }}">Invite</a>
+                                {% if d.template_data.user.data.projects|length > 0 and not(d.template_data.user.data.u_id == d.template_data.idea.data.idea_user_id ) %}
+                                    <a class="invite rounded-button small" href="#invite,{{ d.template_data.idea.data.idea_id }},{{ d.template_data.idea.data.idea_user_name }}">Invite</a>
                                 {% endif %}
-                                <span class="flag"><a href="#flagIdea,{{ d.template_data.idea.idea_id }}" class='flag-idea'>{{ _('Flag as Inappropriate') }}</a></span>
+                                <span class="flag"><a href="#flagIdea,{{ d.template_data.idea.data.idea_id }}" class='flag-idea'>{{ _('Flag as Inappropriate') }}</a></span>
                             </div>
                             {% endif %}
                             <div class="note-card">
                                 <div class="membrane">
                                     {% if d.template_data and d.template_data.user %}
-                                        {% if d.template_data.user.is_admin or d.template_data.user.data.u_id == d.template_data.idea.idea_user_id %}
-                                        <a class="close remove-idea" href="#removeIdea,{{ d.template_data.idea.idea_id }}"><span>{{ _('Close') }}</span></a>
+                                        {% if d.template_data.user.is_admin or d.template_data.user.data.u_id == d.template_data.idea.data.idea_user_id %}
+                                        <a class="close remove-idea" href="#removeIdea,{{ d.template_data.idea.data.idea_id }}"><span>{{ _('Close') }}</span></a>
                                         {% endif %}
                                     {% endif %}
-                                    {% if d.template_data.idea.idea_user_id %}
+                                    {% if d.template_data.idea.data.idea_user_id %}
                                         <cite class="note-meta-hd">
                                             <strong>
-                                                <a href="/useraccount/{{ d.template_data.idea.idea_user_id }}">{{ d.template_data.idea.idea_user_name|truncate(18) }}</a>
+                                                <a href="/useraccount/{{ d.template_data.idea.data.idea_user_id }}">{{ d.template_data.idea.data.idea_user_name|truncate(18) }}</a>
                                             </strong> {{ _('said') }} &mdash;
                                         </cite>
                                     {% endif %}
-                                    <blockquote>{% if d.template_data and d.template_data.user and d.template_data.user.is_admin %}{% if not d.template_data.idea.idea_id %}<span class="topright-spacer"></span>{% endif %}{% endif %}<p>{{ d.template_data.idea.idea_description|truncate(175) }}</p></blockquote>
-                                    <cite class="note-meta-ft">{{ _('Posted') }} <strong class="time-since">{{ d.template_data.idea.idea_created_datetime }}</strong> {{ _('via') }} <strong>{{ d.template_data.idea.idea_submission_type }}</strong></cite>
-                                    <div><span class="likers">{{ d.template_data.idea.likes }}</span><span class="like">{%if d.template_data.idea.liked == False %}<a href="#likeIdea,{{ d.template_data.idea.idea_id }}" class='like-idea'>Like</a>{% else %}<a href="#unlikeIdea,{{ d.template_data.idea.idea_id }}" class='unlike-idea'>You like this</a>{% endif %}</span></div>
+                                    <blockquote>{% if d.template_data and d.template_data.user and d.template_data.user.is_admin %}{% if not d.template_data.idea.data.idea_id %}<span class="topright-spacer"></span>{% endif %}{% endif %}<p>{{ d.template_data.idea.data.idea_description|truncate(175) }}</p></blockquote>
+                                    <cite class="note-meta-ft">{{ _('Posted') }} <strong class="time-since">{{ d.template_data.idea.data.idea_created_datetime }}</strong> {{ _('via') }} <strong>{{ d.template_data.idea.data.idea_submission_type }}</strong></cite>
+                                    <div class="like-container">
+                                        <p class="like-count-sentence"><span class="like-count">{{ d.template_data.idea.data.likes }}</span> {{ _('like this idea') }}</p>
+                                        {%if d.template_data.idea.data.liked == False %}<a href="#likeIdea,{{ d.template_data.idea.data.idea_id }}" class='rounded-button small fancy-caps like-idea'>{{ _('Like') }}</a>{% else %}<a href="#unlikeIdea,{{ d.template_data.idea.data.idea_id }}" class='rounded-button inverted small fancy-caps unlike-idea'>{{ _('Liked') }}</a>{% endif %}
+                                    </div>
                                 </div>
                             </div>
 
-					<div class="bd">
-
-						<div class="carousel idea">
-							<div class="scrollable">
-								<ul class="items">
-
-									<li class='idea-carousel-item clearfix loaded'>
-										<ul class="ideas-list clearfix">
-                                            <!-- the idea -->
-                                            <li>
-
-                                            </li>
-
-										</ul>
-
-										<div class="none-found-message clearfix">
-											<a class="rounded-button small fancy-caps more-link" href="/">{{ _('Add <span>an</span> Idea') }} <span class="sm-arrow-forward"></span></a>
-										</div>
-
-									</li>
-
-									<li class='idea-carousel-item clearfix spinner-message'>
-										<div class="spinner-container"></div>
-									</li>
-
-								</ul>
-							</div>
-						</div>
-					</div>
 
 					<div class="ft">
 						<a class="rounded-button small fancy-caps more-link" href="/">{{ _('Add <span>an</span> Idea') }} <span class="sm-arrow-forward"></span></a>
 
 					</div>
 				</div><!-- end results-box ideas -->
-            <!--</div>--> <!-- end East -->
+            </div>  <!-- end West -->
+            <div class="east idea-page">
+                Related project info
+            </div> <!-- end East -->
 
-            <div>
-                {% include "partials/idea_conversation.html" %}
+            <!-- Conversation -->
+            <div class="bottom">
+            {% include "partials/idea_conversation.html" %}
             </div>
+
         </div>
 {% endblock continent %}
 {% block page_js %}
     <script type="text/javascript">
         {% if d.template_data.user %}
             app_page.data.user = {{ d.template_data.user.json }};
+        {% endif %}
+    </script>
+    <script>
+        {% if d.template_data.idea.data %}
+            app_page.data.idea = {{ d.template_data.idea.json }};
         {% endif %}
     </script>
     <script type="text/javascript" src='/static/js/pages/idea.js'></script>
