@@ -354,6 +354,7 @@ app_page.features.push(function(app){
                     tempcell.find('.like-idea').attr('href','#likeIdea,'+d.results[i].idea_id);
                     tempcell.find('.unlike-idea').attr('href','#unlikeIdea,'+d.results[i].idea_id);
 					tempcell.find('.remove-idea').attr('href','#removeIdea,'+d.results[i].idea_id);
+                    tempcell.find('.like-count').text(d.results[i].likes)
 					
 					tempcell.find('.idea-text').text(tc.truncate(d.results[i].message, 165, "...")).wrap('<a href="/idea/' + d.results[i].idea_id + '"></a>');
 					tempcell.find('.time-since').text(d.results[i].created);
@@ -598,10 +599,10 @@ app_page.features.push(function(app){
 						}
                         alert(e.data.app.app_page.messages['liked-idea']);
                         //increase likes
-                        elem = this.parent().parent().children(".likers");
+                        elem = this.parent().find("span.like-count");
                         likes = parseInt(elem.text());
                         elem.text(likes + 1);
-						this.text(app_page.messages['unlike-idea']);
+						this.text(app_page.messages['liked-idea']);
                         this.addClass('unlike-idea').removeClass('like-idea');
                         this.unbind();
                         this.bind('click', {app:app}, app.components.handlers.unlike_idea_handler);
@@ -626,10 +627,11 @@ app_page.features.push(function(app){
 						}
                         alert(app_page.messages['unliked-idea']);
                         //Decrease likes
-                        elem = this.parent().parent().children(".likers");
+                        elem = this.parent().find("span.like-count");
                         likes = parseInt(elem.text());
                         elem.text(likes - 1);
 						this.text(app_page.messages['like-idea']);
+                        this.addClass('like-idea').removeClass('unlike-idea');
                         this.unbind();
                         this.bind('click', {app:app}, app.components.handlers.like_idea_handler);
                         this.attr('href','#likeIdea,'+ideaId);

@@ -8195,6 +8195,25 @@ div.continent.search-results #list-view table.triplewide tr.last-row td {
     border-bottom: none
 }
 
+/* SINGLE IDEA PAGE */
+
+div.continent.idea-page {
+    width: 800px;
+    align-self: center;
+}
+
+div.west.idea-page {
+    float :left;
+}
+
+div.east.idea-page {
+    float: right;
+}
+
+div.bottom {
+    clear: left;
+}
+
 /* Search styles for results - list view */
 
 div.continent.search-results #list-view table.projects-list td {
@@ -8762,4 +8781,48 @@ div.dev-util li {
 
 div.dev-util li a:hover {
     text-decoration: underline
+}
+
+/* LIKE and UNLIKE IDEAS into idea note */
+
+div.like-container {
+    position: absolute;
+    bottom: 25px;
+    width: 90%;
+    margin-left: -10px;
+    overflow: auto;
+}
+
+a.like-idea{
+    /*Taken from rounded-button */
+    background-color: #e5e4e1;
+    border: 1px solid #cccbc8;
+    color: #878786;
+}
+
+a.like-idea:hover {
+    /* taken from rounded-button:hover */
+    background-color: #878786;
+    color: #F3F2F0;
+}
+
+a.unlike-idea {
+    /*This stile is from rounded-button */
+    background-color: #878786;
+    border: 1px solid #6b6b6a;
+    color: #e5e4e1;
+}
+
+a.unlike-idea:hover {
+    background-color: #e5e4e1;
+    color: #F3F2F0;
+}
+
+p.like-count-sentence {
+    /* Necessary for alignment within the div! */
+    float: left;
+    /* Character styling */
+    font-family: "ff-meta-serif-web-pro-1","ff-meta-serif-web-pro-2", Georgia, Times, Times New Roman, serif;
+    font-style: normal;
+    font-size: 16px;
 }
