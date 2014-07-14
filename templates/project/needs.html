@@ -49,25 +49,34 @@
     {% endfor %}
 
 
-    {% raw %}
+
     <script id="add_inkind_need_tmpl" type="text/html">
         <span>
-        <strong>{{ _('YES') }}</strong>, {{ _('I can bring <input name="add-quantity" class="add-quantity" id="add_quantity" type="text"/> %(requested_need)s ')|format(requested_need=request) }}
+        <strong>{{ _('YES') }}</strong>, {{ _('I can bring') }} {% raw %} <input name="add-quantity" class="add-quantity" id="add_quantity" type="text"/> {{ request }} {% endraw %}
 
+        {% raw %}
         {{#reason}}
-            {{ _('for') }} {{ reason }}
+            {% endraw %}
+            {{ _('for') }}
+            {% raw %}
+            {{ reason }}
         {{/reason}}
 
         {{#display_date}}
-            {{ _('on') }} {{ display_date }}
+            {% endraw %}
+            {{ _('on') }}
+            {% raw %}
+            {{ display_date }}
         {{/display_date}}
+        {% endraw %}
         </span>
     </script>
 
     <script id="add_vol_need_tmpl" type="text/html">
         <span>
-        <strong>{{ _('YES') }}</strong>, {{ _('I can help %(the_request)s')|format(the_request=request) }}
+        <strong>{{ _('YES') }}</strong>, {{ _('I can help') }} {% raw %} {{ request }}
 
+        {% raw %}
         {{#reason}}
             {{ _('for') }} {{ reason }}
         {{/reason}}
@@ -75,9 +84,11 @@
         {{#display_date}}
             {{ _('on') }} {{ display_date }}
         {{/display_date}}
+        {% endraw %}
         </span>
     </script>
 
+    {% raw %}
     <script id="need_vol_avatars" type="text/html">
         {{#volunteers}}
         <a href="/useraccount/{{id}}" title="{{display_name}}">
@@ -85,7 +96,9 @@
         </a>
         {{/volunteers}}
         {{^volunteers}}
+        {% endraw %}
         <span>{{ _('Be the first to volunteer!') }}</span>
+        {% raw %}
         {{/volunteers}}
     </script>
     {% endraw %}

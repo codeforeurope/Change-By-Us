@@ -85,11 +85,12 @@
       <p class="serif">
           {{ truncated_description }}
           {{# more_to_read }}
-              <a href="#show,need-detail,{{ id }}" class="read-more">{{ _('Read More') }}</a>
+              <a href="#show,need-detail,{{ id }}" class="read-more">{% endraw %}{{ _('Read More') }}{% raw %}</a>
           {{/ more_to_read }}
       </p>
-
+        {% endraw %}
       <span>{{ _('Who&#39;s helping') }}</span>
+        {% raw %}
       <div class="volunteers teaser">
           <div class="vol-avatars teaser">
               {{# volunteers }}
@@ -103,7 +104,9 @@
                   </a>
               {{/ volunteers }}
               {{^ volunteers }}
+              {% endraw %}
               {{ _('Be the first to volunteer!') }}
+              {% raw %}
               {{/ volunteers }}
           </div>
       </div>
@@ -111,11 +114,12 @@
     </div>
 
     <div class="volunteer-details serif">
-      <div class="volunteer-count">{{ _('We have <strong>%(volunteers)s</strong> volunteers')|format(volunteers=volunteer_count) }}</div>
+      <div class="volunteer-count">{% endraw %}{{ _('We have') }} {% raw %} <strong>{{ volunteers }}</strong> {% endraw %} </div>
+        {% raw %}
       <div class="progress-wrapper"><div class="progress" style="width:{{ progress_amount }}px;"><div class="progress-pin"></div></div></div>
+        {% endraw %}
       <a href="#" class="help-link active">{{ _('I can help') }}</a>
     </div>
   </div>
 </li>
 </script>
-{% endraw %}
