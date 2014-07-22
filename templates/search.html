@@ -38,7 +38,8 @@
 				</div>
 				<span class="in">in</span>
 				<div class="search-hood-container">
-					<input type='text' name='location-hood-enter' id='location-hood-enter' class='search-location location-group location-hood-enter always-focused' {% if d.template_data.search_location_id %}location_id="{{ d.template_data.search_location_id }}"{% endif %} value="{{ _('All neighborhoods') }}"/>
+                    <!--{{ _('All neighborhoods') }}-->
+					<input type='text' name='location-hood-enter' id='location-hood-enter' class='search-location location-group location-hood-enter always-focused' {% if d.template_data.search_location_id %}location_id="{{ d.template_data.search_location_id }}"{% endif %} value="{{ _('All neighborhoods') }}" placeholder="{{ _('A neighborhood') }}" />
 					<a class="clear-field" href=""></a>
 					<div class="location-hood-list" style="display:none"><ul></ul></div>
 				</div>
@@ -149,7 +150,7 @@
 					
 					<div class="ft">
 						{% if d.template_data and d.template_data.user and d.template_data.results.data.projects|length > 0 %}
-						<a class="rounded-button small fancy-caps more-link" href="/create">Start <span>a</span> Project <span class="sm-arrow-forward"></span></a>
+						<a class="rounded-button small fancy-caps more-link" href="/create">{{ _('Start <span>a</span> Project') }} <span class="sm-arrow-forward"></span></a>
 						{% endif %}
 						<!-- <div class="pagination-controls project">
 													<span class="control">
@@ -255,7 +256,7 @@
 					
 					<div class="ft">
 						{% if d.template_data.total_count.data.resources > 0 %}
-						<a class="rounded-button small fancy-caps more-link" href="/resource">Add <span>your</span> Resource <span class="sm-arrow-forward"></span></a>
+						<a class="rounded-button small fancy-caps more-link" href="/resource">{{ _('Add <span>your</span> Resource') }} <span class="sm-arrow-forward"></span></a>
 						{% endif %}
 						<!-- <div class="pagination-controls resource">
 													<span class="control">
@@ -339,6 +340,9 @@
 															{% endif %}
 															<blockquote>{% if d.template_data and d.template_data.user and d.template_data.user.is_admin %}{% if not idea.owner.name %}<span class="topright-spacer"></span>{% endif %}{% endif %}<p>{{ idea.message|truncate(175) }}</p></blockquote>
 															<cite class="note-meta-ft">{{ _('Posted') }} <strong class="time-since">{{ idea.created }}</strong> {{ _('via') }} <strong>{{ idea.submission_type }}</strong></cite>
+                                                            <div class="like-container">
+                                                                {%if idea.liked == False %}<a href="#likeIdea,{{ idea.idea_id }}" class='fancy-caps like-idea'>{% else %}<a href="#unlikeIdea,{{ idea.idea_id }}" class='fancy-caps unlike-idea'>{% endif %}<span class="like-count">{{ idea.likes }}</span></a>
+                                                            </div>
 														</div>
 													</div>
 												</li>
@@ -540,15 +544,15 @@
 										{% if loop.index < 2 %}
 										<td {% if resource.is_official %}class="official-resource"{% endif %}>
 											{% if d.template_data and d.template_data.user and d.template_data.user.data.projects|length > 0 %}
-												<a href="#addResource,{{ resource.link_id }}" class="add-resource add-button rounded-button small">Add</a>
+												<a href="#addResource,{{ resource.link_id }}" class="add-resource add-button rounded-button small">{{ _('Add') }}</a>
 											{% endif %}
 											{% if resource.image_id > -1 %}
-											<span class="thumb">{% if d.template_data and d.template_data.user and d.template_data.user.is_admin %}<a class="close delete-resource" href="#removeResource,{{ resource.link_id }}"><span>Close</span></a>{% endif %}<img width='35' height='35' src='{{d.template_data.media_root}}images/{{ resource.image_id % 10 }}/{{ resource.image_id }}.png' alt="" /></span>
+											<span class="thumb">{% if d.template_data and d.template_data.user and d.template_data.user.is_admin %}<a class="close delete-resource" href="#removeResource,{{ resource.link_id }}"><span>{{ _('Close') }}</span></a>{% endif %}<img width='35' height='35' src='{{d.template_data.media_root}}images/{{ resource.image_id % 10 }}/{{ resource.image_id }}.png' alt="" /></span>
 											{% else %}
-											<span class="thumb">{% if d.template_data and d.template_data.user and d.template_data.user.is_admin %}<a class="close delete-resource" href="#removeResource,{{ resource.link_id }}"><span>Close</span></a>{% endif %}<img width='35' height='35' src='/static/images/thumb_genAvatar50.png' alt="" /></span>
+											<span class="thumb">{% if d.template_data and d.template_data.user and d.template_data.user.is_admin %}<a class="close delete-resource" href="#removeResource,{{ resource.link_id }}"><span>{{ _('Close') }}</span></a>{% endif %}<img width='35' height='35' src='/static/images/thumb_genAvatar50.png' alt="" /></span>
 											{% endif %}
 											<span class="resource-name">
-												{% if resource.is_official %}<span class="official-resource-alt">Official Resource</span>{% endif %}
+												{% if resource.is_official %}<span class="official-resource-alt">{{ _('Official Resource') }}</span>{% endif %}
 												<span rel="#organization,{{ resource.link_id }}" class='resource-tooltip_trigger tooltip_trigger'>
 													<span><a target='_blank' href="{{ resource.url }}"><span>{{ resource.title|truncate(25, true) }}</span></a></span>
 												</span>
@@ -691,15 +695,26 @@
 				</strong> {{ _('said') }} &mdash;</cite>
 				<blockquote>{% if d.template_data and d.template_data.user and d.template_data.user.is_admin %}{% endif %}<p class='idea-text'></p></blockquote>
 				<cite class="note-meta-ft">{{ _('Posted') }} <strong class="time-since"></strong> {{ _('via') }} <strong class='sub-type'></strong></cite>
+                <div class="like-container">
+                    <a href="#likeIdea," class='fancy-caps like-idea'><span class="like-count">0</span></a>
+                </div>
 			</div>
 		</div>
 	</div>
 </div>
+
+<!-- Templates for modal views -->
+        <div class='template-content modal-content join-no-user'>
+        <h2>{{ _('<strong>Hold your horses!</strong> Please register.') }}</h2>
+        <p>{{ _('You must <strong><a href="/join">register</a></strong> or <strong><a href="/login">login</a></strong> with %(sitename)s in order to vote for an idea.')|format(sitename=d.config.site.name) }}</p>
+        <a class='close' href="#"><span>{{ _('close') }}</span></a>
+    </div>
+
 {% endblock continent %}
 
 {% block page_js %}
 	<script type="text/javascript" src='/static/js/pages/search.js'></script>
     <script>
-        app_page.messages = { 'no-results': "{{ _('No Results') }}", 'all-neighborhoods': "{{ _('All neighborhoods') }}"  };
+        app_page.messages = { 'no-results': "{{ _('No Results') }}", 'all-neighborhoods': "{{ _('All neighborhoods') }}", 'like-idea':'{{ _('Like') }}', 'unlike-idea': '{{ _('Unlike') }}', 'liked-idea': '{{ _('Liked!') }}', 'unliked-idea': '{{ _('Unliked!') }}' };
     </script>
 {% endblock page_js %}

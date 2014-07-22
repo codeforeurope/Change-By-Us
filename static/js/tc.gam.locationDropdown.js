@@ -172,7 +172,7 @@ tc.locationDropdown.prototype.inputFocusHandler = function(e){
 		tc.jQ('label[for="location-hood"]').trigger('fake-click',{preventChange:true});
 	}
 	dropdown.open();
-	if(e.target.value.toLowerCase() == 'all neighborhoods'){
+	if(e.target.value.toLowerCase() == ''){
 		e.target.value = '';
 	}
 };

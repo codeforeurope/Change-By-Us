@@ -10,11 +10,12 @@ from framework import util
 from framework.log import log
 # from framework.config import *
 from framework.config import Config
-#from framework.emailer import *
+# from framework.emailer import *
 from framework.util import local_utcoffset
 import giveaminute.idea
 import giveaminute.messaging
 import helpers.censor
+import formattingUtils
 import jinja2
 
 
@@ -85,11 +86,11 @@ limit 1"""
                     editable=True,
                     info=dict(title=self.data.title,
                               image_id=self.data.image_id,
-                              owner=smallUserDisplay(self.data.owner_user_id,
-                                                     userNameDisplay(self.data.owner_first_name,
+                              owner=formattingUtils.smallUserDisplay(self.data.owner_user_id,
+                                                     formattingUtils.userNameDisplay(self.data.owner_first_name,
                                                                      self.data.owner_last_name,
                                                                      self.data.owner_affiliation,
-                                                                     isFullLastName(
+                                                                     formattingUtils.isFullLastName(
                                                                          self.data.owner_group_membership_bitmask)),
                                                      self.data.owner_image_id),
                               mission=self.data.description,
@@ -123,11 +124,11 @@ limit 1"""
 
             if len(data) > 0:
                 for item in data:
-                    members.append(smallUserDisplay(item.user_id,
-                                                    userNameDisplay(item.first_name,
+                    members.append(formattingUtils.smallUserDisplay(item.user_id,
+                                                    formattingUtils.userNameDisplay(item.first_name,
                                                                     item.last_name,
                                                                     item.affiliation,
-                                                                    isFullLastName(item.group_membership_bitmask)),
+                                                                    formattingUtils.isFullLastName(item.group_membership_bitmask)),
                                                     item.image_id))
         except Exception, e:
             log.info("*** couldn't get project members")
@@ -148,11 +149,11 @@ limit 1"""
 
             if len(data) > 0:
                 for item in data:
-                    endorsements.append(smallUserDisplay(item.user_id,
-                                                         userNameDisplay(item.first_name,
+                    endorsements.append(formattingUtils.smallUserDisplay(item.user_id,
+                                                         formattingUtils.userNameDisplay(item.first_name,
                                                                          item.last_name,
                                                                          item.affiliation,
-                                                                         isFullLastName(item.group_membership_bitmask)),
+                                                                         formattingUtils.isFullLastName(item.group_membership_bitmask)),
                                                          item.image_id))
         except Exception, e:
             log.info("*** couldn't get project endorsements")
@@ -181,211 +182,6 @@ limit 1"""
     def getMessages(self):
         return getMessages(self.db, self.id, 10, 0)
 
-
-## FORMATTING FUNCTIONS
-# TODO: move these into their own module
-def isFullLastName(bitmask):
-    # is admin or lead
-    return (util.getBit(bitmask, 1) or util.getBit(bitmask, 3))
-
-
-def smallProject(id, title, description, imageId, numMembers, ownerUserId, ownerFirstName, ownerLastName, ownerImageId):
-    return dict(project_id=id,
-                title=title,
-                description=description,
-                image_id=imageId,
-                num_members=numMembers,
-                owner=smallUser(ownerUserId, ownerFirstName, ownerLastName, ownerImageId))
-
-
-def message(id,
-            type,
-            message,
-            createdDatetime,
-            userId,
-            name,
-            imageId,
-            attachmentId=None,
-            ideaId=None,
-            idea=None,
-            ideaSubType=None,
-            ideaCreatedDatetime=None,
-            attachmentMediaType=None,
-            attachmentMediaId=None,
-            attachmentTitle=None,
-            projectId=None,
-            projectTitle=None):
-    """
-    Construct and return a dictionary consisting of the data related to a
-    message, given by the parameters.  This data is usually pulled off of
-    several database tables with keys linking back to a message_id.
-
-    NOTE: It is recommended to specify all of these as keyword arguments, not
-          positional. If the model changes, the positions of the arguments may
-          as well.
-
-    **Return:**
-
-    A ``dict`` with keys:
-
-    - ``message_id`` -- Primary key
-    - ``message_type`` -- ``'join'``,  ``'endorsement'``,
-      ``'member_comment'``, or ``'admin_comment'``
-    - ``file_id`` -- The primary key of the attachment, if any
-    - ``owner`` -- The user that owns the message
-    - ``body`` -- The content of the message
-    - ``created`` -- The creation date
-    - ``idea`` -- The idea instance attached to the message, if any
-    - ``project_id`` -- The primary key of the project that the message is for
-    - ``project_title`` -- The title of the project
-
-    """
-    if (ideaId):
-        ideaObj = smallIdea(ideaId, idea, None, None, ideaSubType)
-    else:
-        ideaObj = None
-
-    attachmentObj = smallAttachment(attachmentMediaType,
-                                    attachmentMediaId,
-                                    attachmentTitle)
-
-    return dict(message_id=id,
-                message_type=type,
-                file_id=attachmentId,
-                owner=smallUserDisplay(userId, name, imageId),
-                body=message,
-                created=str(createdDatetime - timedelta(hours=util.local_utcoffset())),
-                idea=ideaObj,
-                attachment=attachmentObj,
-                project_id=projectId,
-                project_title=projectTitle,
-    )
-
-
-def smallAttachment(media_type, media_id, title):
-    """Returns a dictionary representing basic attachment information"""
-    if media_type and media_id:
-        return dict(type=media_type,
-                    id=media_id,
-                    title=title,
-                    url=getAttachmentUrl(media_type, media_id),
-                    small_thumb_url=getAttachmentThumbUrl(media_type, media_id, 'small'),
-                    medium_thumb_url=getAttachmentThumbUrl(media_type, media_id, 'medium'),
-                    large_thumb_url=getAttachmentThumbUrl(media_type, media_id, 'large'))
-    else:
-        return None
-
-
-def getAttachmentUrl(media_type, media_id):
-    """Get the URL to wherever the media is stored."""
-    if media_type in ('file', 'image'):
-        media_root = Config.get('media').get('root')
-
-        return os.path.join(media_root, media_id)
-
-
-def getAttachmentThumbFileName(media_type, media_id, size):
-    """Get a file name for an image representation of the media."""
-    if media_type == 'file':
-        return 'generic_file_thumbnail.png'
-
-    elif media_type == 'image':
-        return '%s_thumb_%s' % (media_id, size)
-
-
-def getAttachmentThumbUrl(media_type, media_id, size):
-    """
-    Get the URL to an image representation of the media. For images, this may be
-    used for getting a thumbnail. Specify max width and height in that case.
-    Otherwise you'll probably just get a generic file image.
-
-    """
-    if media_type == 'file':
-        static_root = Config.get('staticfiles').get('root')
-        stub_thumb_name = 'generic_file_thumbnail.png'
-
-        return os.path.join(static_root, 'images', stub_thumb_name)
-
-    elif media_type == 'image':
-        media_root = Config.get('media').get('root')
-        image_thumb_name = getAttachmentThumbFileName(media_type, media_id, size)
-
-        return os.path.join(media_root, image_thumb_name)
-
-
-def smallUser(id, first, last, image):
-    if (id and first and last):
-        return dict(u_id=id,
-                    image_id=image,
-                    name=userName(first, last))
-    else:
-        return None
-
-
-def smallUserDisplay(id, fullDisplayName, image=None):
-    if (id and fullDisplayName):
-        return dict(u_id=id,
-                    image_id=image,
-                    name=fullDisplayName)
-    else:
-        return None
-
-
-def userName(first, last, isFullLast=False):
-    if (isFullLast):
-        return "%s %s" % (first, last)
-    else:
-        return "%s %s." % (first, last[0])
-
-
-def userNameDisplay(first, last, affiliation=None, isFullLast=False):
-    name = None
-
-    if (first and last):
-        name = userName(first, last, isFullLast)
-
-    if (affiliation):
-        if (name):
-            name = "%s, %s" % (name, affiliation)
-        else:
-            name = affiliation
-    return name
-    #return jinja2.Markup(name).unescape()
-
-
-def smallIdea(ideaId, description, firstName, lastName, submissionType):
-    return dict(idea_id=ideaId,
-                text=description,
-                f_name=firstName,
-                l_name=lastName,
-                submitted_by=submissionType)
-
-
-def endorsementUser(id, first, last, image_id, title, org):
-    return dict(u_id=id,
-                name="%s %s" % (first, last),
-                image_id=image_id,
-                title=title,
-                organization=org)
-
-
-def link(id, title, url, imageId):
-    return dict(link_id=id, title=title, url=url, image_id=imageId)
-
-
-def resource(id, title, url, imageId):
-    return dict(organization=id, title=title, url=url, image_id=imageId)
-
-
-def idea(id, description, userId, firstName, lastName, createdDatetime, submissionType):
-    return dict(idea_id=id,
-                message=description,
-                owner=smallUser(userId, firstName, lastName, None),
-                created=str(createdDatetime),
-                submission_type=submissionType)
-
-
-## END FORMATTING FUNCTIONS
 
 def createProject(db, ownerUserId, title, description, keywords, locationId, imageId, isOfficial=False,
                   organization=None):
@@ -851,10 +647,10 @@ def getFeaturedProjects(db, limit=6):
                                'image_id': item.image_id,
                                'location_id': item.location_id,
                                'owner_user_id': item.owner_user_id,
-                               'owner_full_display_name': userNameDisplay(item.owner_first_name,
+                               'owner_full_display_name': formattingUtils.userNameDisplay(item.owner_first_name,
                                                                           item.owner_last_name,
                                                                           item.owner_affiliation,
-                                                                          isFullLastName(
+                                                                          formattingUtils.isFullLastName(
                                                                               item.owner_group_membership_bitmask)),
                                'owner_image_id': item.owner_image_id,
                                'num_members': item.num_members})
@@ -907,11 +703,11 @@ def getFeaturedProjectsDictionary(db):
                                'description': item.description,
                                'image_id': item.image_id,
                                'location_id': item.location_id,
-                               'owner': smallUserDisplay(item.owner_user_id,
-                                                         userNameDisplay(item.owner_first_name,
+                               'owner': formattingUtils.smallUserDisplay(item.owner_user_id,
+                                                         formattingUtils.userNameDisplay(item.owner_first_name,
                                                                          item.owner_last_name,
                                                                          item.owner_affiliation,
-                                                                         isFullLastName(
+                                                                         formattingUtils.isFullLastName(
                                                                              item.owner_group_membership_bitmask)),
                                                          item.owner_image_id),
                                'featured_datetime': str(item.featured_datetime),
@@ -985,11 +781,11 @@ def getProjectsByUser(db, userId, limit=100):
                                    description=item.description,
                                    image_id=item.image_id,
                                    location_id=item.location_id,
-                                   owner=smallUserDisplay(item.owner_user_id,
-                                                          userNameDisplay(item.owner_first_name,
+                                   owner=formattingUtils.smallUserDisplay(item.owner_user_id,
+                                                          formattingUtils.userNameDisplay(item.owner_first_name,
                                                                           item.owner_last_name,
                                                                           item.owner_affiliation,
-                                                                          isFullLastName(
+                                                                          formattingUtils.isFullLastName(
                                                                               item.owner_group_membership_bitmask)),
                                                           item.owner_image_id),
                                    num_members=item.num_members))
@@ -1064,11 +860,11 @@ def searchProjects(db, terms, locationId, limit=1000, offset=0):
                                    description=item.description,
                                    image_id=item.image_id,
                                    location_id=item.location_id,
-                                   owner=smallUserDisplay(item.owner_user_id,
-                                                          userNameDisplay(item.owner_first_name,
+                                   owner=formattingUtils.smallUserDisplay(item.owner_user_id,
+                                                          formattingUtils.userNameDisplay(item.owner_first_name,
                                                                           item.owner_last_name,
                                                                           item.owner_affiliation,
-                                                                          isFullLastName(
+                                                                          formattingUtils.isFullLastName(
                                                                               item.owner_group_membership_bitmask)),
                                                           item.owner_image_id),
                                    num_members=item.num_members))
@@ -1192,14 +988,14 @@ def getMessages(db, projectId, limit=10, offset=0, filterBy=None):
         data = list(db.query(sql, {'id': projectId, 'limit': limit, 'offset': offset, 'filterBy': filterBy}))
 
         for item in data:
-            messages.append(message(id=item.project_message_id,
+            messages.append(formattingUtils.message(id=item.project_message_id,
                                     type=item.message_type,
                                     message=item.message,
                                     attachmentId=item.file_id,
                                     createdDatetime=item.created_datetime,
                                     userId=item.user_id,
-                                    name=userNameDisplay(item.first_name, item.last_name, item.affiliation,
-                                                         isFullLastName(item.group_membership_bitmask)),
+                                    name=formattingUtils.userNameDisplay(item.first_name, item.last_name, item.affiliation,
+                                                         formattingUtils.isFullLastName(item.group_membership_bitmask)),
                                     imageId=item.image_id,
                                     ideaId=item.idea_id,
                                     idea=item.idea_description,
@@ -1225,7 +1021,7 @@ def getLinks(db, projectId):
 
         if len(data) > 0:
             for item in data:
-                links.append(link(item.project_link_id, item.title, item.url, item.image_id))
+                links.append(formattingUtils.link(item.project_link_id, item.title, item.url, item.image_id))
     except Exception, e:
         log.info("*** couldn't get links")
         log.error(e)
@@ -1264,7 +1060,7 @@ def getProjectIdeas(db, projectId, limit=100):
         if len(data) > 0:
             for item in data:
                 ideas.append(
-                    smallIdea(item.idea_id, item.description, item.first_name, item.last_name, item.submission_type))
+                    formattingUtils.smallIdea(item.idea_id, item.description, item.first_name, item.last_name, item.submission_type))
     except Exception, e:
         log.info("*** couldn't get project ideas")
         log.error(e)
@@ -1309,10 +1105,10 @@ def inviteByIdea(db, projectId, ideaId, message, inviterUser):
                     return True
             else:
                 return giveaminute.messaging.emailInvite(idea.data.email,
-                                                         userNameDisplay(inviterUser.firstName,
+                                                         formattingUtils.userNameDisplay(inviterUser.firstName,
                                                                          inviterUser.lastName,
                                                                          inviterUser.affiliation,
-                                                                         isFullLastName(
+                                                                         formattingUtils.isFullLastName(
                                                                              inviterUser.groupMembershipBitmask)),
                                                          projectId,
                                                          project.data.title,
@@ -1334,10 +1130,10 @@ def inviteByEmail(db, projectId, emails, message, inviterUser):
         for email in emails:
             if (createInviteRecord(db, projectId, message, inviterUser.id, None, email)):
                 if (not giveaminute.messaging.emailInvite(email,
-                                                          userNameDisplay(inviterUser.firstName,
+                                                          formattingUtils.userNameDisplay(inviterUser.firstName,
                                                                           inviterUser.lastName,
                                                                           inviterUser.affiliation,
-                                                                          isFullLastName(
+                                                                          formattingUtils.isFullLastName(
                                                                                   inviterUser.groupMembershipBitmask)),
                                                           projectId,
                                                           project.data.title,
