@@ -812,9 +812,11 @@ def searchUsers(db, terms, locationId, limit=1000, offset=0):
                     u.image_id,
                     IFNULL(u.description, '') as description,
                     IFNULL(u.location_id, 0) as location_id,
+                    l.name as location_name,
                     (select count(idea_id) from idea where idea.user_id = u.user_id ) as num_ideas,
                     (select count(project_id) from project__user pu where pu.user_id = u.user_id ) as num_projects
                     from user u
+                    left join location l on l.location_id = u.location_id
                     where
                     u.is_active = 1
                     and ($locationId is null or u.location_id = $locationId)
@@ -833,6 +835,7 @@ def searchUsers(db, terms, locationId, limit=1000, offset=0):
                                    description=item.description,
                                    image_id=item.image_id,
                                    location_id=item.location_id,
+                                   location_name=item.location_name,
                                    num_ideas=item.num_ideas,
                                    num_projects=item.num_projects))
     except Exception, e:

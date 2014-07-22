@@ -63,7 +63,7 @@
 				<!-- start Projects results -->
 				<div class="box results-box results-projects clearfix {% if d.template_data.results.data.projects|length == 0 %}none-found{% endif %}">
 					<div class="hd">
-						<h2><span class="counter">{{ d.template_data.total_count.data.projects }}</span> Project{% if d.template_data.total_count.data.projects > 1 %}s{% endif %}</h2>
+						<h2><span class="counter">{{ d.template_data.total_count.data.projects }}</span> {% if d.template_data.total_count.data.projects == 1 %}Projects{% else %}Projects{% endif %}</h2>
 						{% if d.template_data.total_count.data.projects > 6 %}
 						<span class="control see-all-control"><a href="#projects">{{ _('See all') }} <span class="sm-arrow-forward light"></span></a></span>
 						{% endif %}
@@ -390,7 +390,7 @@
 				</div><!-- end results-box ideas -->
 
                 <!-- start Users results -->
-				<div class="box results-box results-users clearfix {% if d.template_data.results.data.users|length == 0 %}none-found{% endif %}">
+				<div class="box results-box results-users clearfix {% if d.template_data.total_count.data.users == 0 %}none-found{% endif %}">
 					<div class="hd">
 						<h2><span class="counter">{{ d.template_data.total_count.data.users }}</span>{% if d.template_data.total_count.data.users > 1 %} {{ _('Users') }} {% else %} {{ _('User') }} {% endif %}</h2>
 						{% if d.template_data.total_count.data.users > 6 %}
@@ -441,7 +441,7 @@
 																</div>
 																<div class="user-info">
 																	<span class="link"><a href="/useraccount/{{ user.user_id }}">{{ user.first_name|truncate(50) }} {{ user.last_name|truncate(50) }}</a></span>
-                                                                    <span class="user-location">Location</span>
+                                                                    <span class="user-location">{{ user.location_name }}</span>
 																	<span class="description"><a href="/useraccount/{{ user.user_id }}">{{ user.description|truncate(70) }}</a></span>
 																</div>
 															</td>
@@ -634,6 +634,13 @@
 		<a class='close' href="#"><span>{{ _('close') }}</span></a>
 	</div>
 
+    <!-- Templates for modal view when user is not logged in yet -->
+        <div class='template-content modal-content join-no-user'>
+        <h2>{{ _('<strong>Hold your horses!</strong> Please register.') }}</h2>
+        <p>{{ _('You must <strong><a href="/join">register</a></strong> or <strong><a href="/login">login</a></strong> with %(sitename)s in order to vote for an idea.')|format(sitename=d.config.site.name) }}</p>
+        <a class='close' href="#"><span>{{ _('close') }}</span></a>
+    </div>
+
     <!-- Project detail -->
 	<div class='template-content project-cell'>
 		{% if d.template_data and d.template_data.user and d.template_data.user.is_admin %}
@@ -701,14 +708,21 @@
 			</div>
 		</div>
 	</div>
-</div>
 
-<!-- Templates for modal views -->
-        <div class='template-content modal-content join-no-user'>
-        <h2>{{ _('<strong>Hold your horses!</strong> Please register.') }}</h2>
-        <p>{{ _('You must <strong><a href="/join">register</a></strong> or <strong><a href="/login">login</a></strong> with %(sitename)s in order to vote for an idea.')|format(sitename=d.config.site.name) }}</p>
-        <a class='close' href="#"><span>{{ _('close') }}</span></a>
+    <!-- User detail -->
+     <div class='template-content user-cell'>
+        <div class="thumb">
+            <a href="/useraccount/"><img width='50' height='50' src='' alt="" class='user'/></a>
+            <span class="overlay-tag"></span>
+            <span class="user-activity-count">0 {{ _('Ideas') }} <br> 0 {{ _('Projects') }}</span>
+        </div>
+        <div class="user-info">
+            <span class="link"><a href="/useraccount/"></a></span>
+            <span class="user-location"></span>
+            <span class="description"><a href="/useraccount/"></a></span>
+        </div>
     </div>
+</div>
 
 {% endblock continent %}
 
