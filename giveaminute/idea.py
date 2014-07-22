@@ -200,9 +200,9 @@ def searchIdeas(db, terms, locationId, limit=1000, offset=0, excludeProjectId=No
             if user_id is not None:
                 likers = searchLikers(db, item.idea_id)
             else:
-                likers = None
+                likers = []
 
-            if (item.user_id):
+            if (item.user_id is not None):
                 # repeating smallUser method from giveaminute.project to avoid circular reference
                 owner = dict(u_id=item.user_id,
                              image_id=item.image_id,

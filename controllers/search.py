@@ -47,9 +47,10 @@ class Search(Controller):
         self.template_data['search_terms'] = self.request('terms')
         self.template_data['search_location_id'] = locationId
 
+        userid = self.user.id if self.user is not None else None
         projects = mProject.searchProjects(self.db, terms, locationId, limit, offset)
         resources = mProjectResource.searchProjectResources(self.db, terms, locationId, limit, offset)
-        ideas = mIdea.searchIdeas(self.db, terms, locationId, limit, offset, None, self.user.id)
+        ideas = mIdea.searchIdeas(self.db, terms, locationId, limit, offset, None, userid)
         users = mUser.searchUsers(self.db, terms, locationId, limit, offset)
 
         results = dict(projects=projects, resources=resources, ideas=ideas, users=users)
@@ -132,5 +133,6 @@ class Search(Controller):
         offset = int(self.request('offset')) if self.request('offset') else 0
         locationId = self.request('location_id')
 
-        return self.json({'results': mIdea.searchIdeas(self.db, terms, locationId, limit, offset, None, self.user.id),
+        userid = self.user.id if self.user is not None else None
+        return self.json({'results': mIdea.searchIdeas(self.db, terms, locationId, limit, offset, None, userid),
                           'total_count': 100}, encoder=EscapingJSONEncoder)

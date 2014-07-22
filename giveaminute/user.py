@@ -8,6 +8,7 @@ import giveaminute.project as mProject
 import giveaminute.idea as mIdea
 import giveaminute.messaging as mMessaging
 import framework.util as util
+import formattingUtils
 from framework.log import log
 
 
@@ -348,11 +349,11 @@ where u.user_id = $id and u.is_active = 1"""
                                        description=item.description,
                                        image_id=item.image_id,
                                        location_id=item.location_id,
-                                       owner=mProject.smallUserDisplay(item.owner_user_id,
-                                                                       mProject.userNameDisplay(item.owner_first_name,
+                                       owner=formattingUtils.smallUserDisplay(item.owner_user_id,
+                                                                       formattingUtils.userNameDisplay(item.owner_first_name,
                                                                                                 item.owner_last_name,
                                                                                                 item.owner_affiliation,
-                                                                                                mProject.isFullLastName(
+                                                                                                formattingUtils.isFullLastName(
                                                                                                     item.owner_group_membership_bitmask)),
                                                                        item.owner_image_id),
                                        num_members=item.num_members))
@@ -363,11 +364,11 @@ where u.user_id = $id and u.is_active = 1"""
         return betterData
 
     def getActivityDictionary(self):
-        user = mProject.smallUserDisplay(self.id,
-                                         mProject.userNameDisplay(self.firstName,
+        user = formattingUtils.smallUserDisplay(self.id,
+                                         formattingUtils.userNameDisplay(self.firstName,
                                                                   self.lastName,
                                                                   self.affiliation,
-                                                                  mProject.isFullLastName(self.groupMembershipBitmask)),
+                                                                  formattingUtils.isFullLastName(self.groupMembershipBitmask)),
                                          self.imageId)
         user['location_id'] = self.locationId
         user['location'] = self.location
@@ -385,11 +386,11 @@ where u.user_id = $id and u.is_active = 1"""
 
     # data for other users accessing a user's profile/account page
     def getProfileActivityDictionary(self):
-        user = mProject.smallUserDisplay(self.id,
-                                         mProject.userNameDisplay(self.firstName,
+        user = formattingUtils.smallUserDisplay(self.id,
+                                         formattingUtils.userNameDisplay(self.firstName,
                                                                   self.lastName,
                                                                   self.affiliation,
-                                                                  mProject.isFullLastName(self.groupMembershipBitmask)),
+                                                                  formattingUtils.isFullLastName(self.groupMembershipBitmask)),
                                          self.imageId)
         user['location_id'] = self.locationId
         user['location'] = self.location
@@ -490,10 +491,10 @@ where u.user_id = $id and u.is_active = 1"""
                                                  message=item.message,
                                                  createdDatetime=item.created_datetime,
                                                  userId=item.user_id,
-                                                 name=mProject.userNameDisplay(item.first_name,
+                                                 name=formattingUtils.userNameDisplay(item.first_name,
                                                                                item.last_name,
                                                                                item.affiliation,
-                                                                               mProject.isFullLastName(
+                                                                               formattingUtils.isFullLastName(
                                                                                    item.group_membership_bitmask)),
                                                  imageId=item.image_id,
                                                  ideaId=item.idea_id,
@@ -654,11 +655,11 @@ def authGetUser(db, email, password):
 
         if (hashed_password[0] == user.password):
             log.info("*** User authenticated")
-            return mProject.smallUserDisplay(user.user_id,
-                                             mProject.userNameDisplay(user.first_name,
+            return formattingUtils.smallUserDisplay(user.user_id,
+                                             formattingUtils.userNameDisplay(user.first_name,
                                                                       user.last_name,
                                                                       user.affiliation,
-                                                                      mProject.isFullLastName(
+                                                                      formattingUtils.isFullLastName(
                                                                           user.group_membership_bitmask)),
                                              user.image_id)
         else:
@@ -746,10 +747,10 @@ def getAdminUsers(db, limit=10, offset=0):
                                'last_name': item.last_name,
                                'affiliation': item.affiliation,
                                'group_membership_bitmask': item.group_membership_bitmask,
-                               'full_display_name': mProject.userNameDisplay(item.first_name,
+                               'full_display_name': formattingUtils.userNameDisplay(item.first_name,
                                                                              item.last_name,
                                                                              item.affiliation,
-                                                                             mProject.isFullLastName(
+                                                                             formattingUtils.isFullLastName(
                                                                                  item.group_membership_bitmask)),
                                'is_admin': isAdminBitmask(item.group_membership_bitmask),
                                'is_moderator': isModeratorBitmask(item.group_membership_bitmask),

@@ -8795,27 +8795,41 @@ div.like-container {
 
 a.like-idea{
     /*Taken from rounded-button */
-    background-color: #e5e4e1;
-    border: 1px solid #cccbc8;
+    /*background-color: #e5e4e1;*/
+    /*border: 1px solid #cccbc8;*/
     color: #878786;
+    width: 60px;
+	height: 25px;
+    background-image: url(../images/control_manage_questions_star.png);
+	background-position: 0 -60px;
+    display: block;
+    float: right;
 }
 
 a.like-idea:hover {
     /* taken from rounded-button:hover */
-    background-color: #878786;
+    /*background-color: #878786;*/
     color: #F3F2F0;
+    background-position: 0 0;
 }
 
 a.unlike-idea {
     /*This stile is from rounded-button */
-    background-color: #878786;
-    border: 1px solid #6b6b6a;
+    /*background-color: #878786;*/
+    /*border: 0px solid #6b6b6a;*/
     color: #e5e4e1;
+    width: 60px;
+	height: 25px;
+    background-image: url(../images/control_manage_questions_star.png);
+	background-position: 0 0;
+    display: block;
+    float: right;
 }
 
 a.unlike-idea:hover {
-    background-color: #e5e4e1;
+    /*background-color: #e5e4e1;*/
     color: #F3F2F0;
+    background-position: 0 -60px;
 }
 
 p.like-count-sentence {

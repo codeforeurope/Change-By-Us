@@ -147,6 +147,8 @@ class Idea(Controller):
 
     def likeIdea(self):
         ideaId = self.request('idea_id')
+        if (self.user is None):
+            return False
 
         if (ideaId):
             return mIdea.upvoteIdea(self.db, ideaId, self.user.id)

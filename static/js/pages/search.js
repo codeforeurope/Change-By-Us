@@ -351,12 +351,18 @@ app_page.features.push(function(app){
 						tempcell.find('blockquote').prepend('<span class="topright-spacer"></span>');
 					}
 					tempcell.find('.flag-idea').attr('href','#flagIdea,'+d.results[i].idea_id);
-                    tempcell.find('.like-idea').attr('href','#likeIdea,'+d.results[i].idea_id);
-                    tempcell.find('.unlike-idea').attr('href','#unlikeIdea,'+d.results[i].idea_id);
+                    if(d.results[i].liked == true){
+                        //user has liked the idea
+                        tempcell.find('.like-idea').removeClass('.like-idea').addClass('.unlike-idea');
+                        tempcell.find('.unlike-idea').attr('href','#unlikeIdea,'+d.results[i].idea_id);
+                    }
+                    else{
+                        tempcell.find('.like-idea').attr('href','#likeIdea,'+d.results[i].idea_id);
+                    }
 					tempcell.find('.remove-idea').attr('href','#removeIdea,'+d.results[i].idea_id);
                     tempcell.find('.like-count').text(d.results[i].likes)
 					
-					tempcell.find('.idea-text').text(tc.truncate(d.results[i].message, 165, "...")).wrap('<a href="/idea/' + d.results[i].idea_id + '"></a>');
+					tempcell.find('.idea-text').text(tc.truncate(d.results[i].message, 165, "...")); //.wrap('<a href="/idea/' + d.results[i].idea_id + '"></a>');
 					tempcell.find('.time-since').text(d.results[i].created);
 					tempcell.find('.sub-type').text(d.results[i].submission_type);
 					
@@ -366,7 +372,14 @@ app_page.features.push(function(app){
 				}
 				
 				out.find('a.flag-idea').bind('click', {app:app}, app.components.handlers.flag_idea_handler);
-                out.find('a.like-idea').bind('click', {app:app}, app.components.handlers.like_idea_handler);
+                out.find('a.like-idea').bind('click', {app:app,no_user: {
+                        source_element: tc.jQ('.modal-content.join-no-user'),
+                        init: function(modal, event_target, callback) {
+                            if (tc.jQ.isFunction(callback)) {
+                                callback(modal);
+                            }
+                        }
+                    }}, app.components.handlers.like_idea_handler);
                 out.find('a.unlike-idea').bind('click', {app:app}, app.components.handlers.unlike_idea_handler);
 				out.find('a.remove-idea').bind('click', {app:app}, app.components.handlers.remove_idea_handler);
 				tc.gam.ideas_invite(app, {elements: out.find('a.invite')});
@@ -595,14 +608,16 @@ app_page.features.push(function(app){
 					dataType:"text",
 					success: function(data, ts, xhr) {
 						if (data == "False") {
+                            //Could be that we have no user
+                            e.data.app.components.modal.show(e.data.no_user, e.target);
 							return false;
 						}
-                        alert(e.data.app.app_page.messages['liked-idea']);
+//                        alert(e.data.app.app_page.messages['liked-idea']);
                         //increase likes
                         elem = this.parent().find("span.like-count");
                         likes = parseInt(elem.text());
                         elem.text(likes + 1);
-						this.text(app_page.messages['liked-idea']);
+//						this.text(app_page.messages['liked-idea']);
                         this.addClass('unlike-idea').removeClass('like-idea');
                         this.unbind();
                         this.bind('click', {app:app}, app.components.handlers.unlike_idea_handler);
@@ -625,12 +640,12 @@ app_page.features.push(function(app){
 						if (data == "False") {
 							return false;
 						}
-                        alert(app_page.messages['unliked-idea']);
+//                        alert(app_page.messages['unliked-idea']);
                         //Decrease likes
                         elem = this.parent().find("span.like-count");
                         likes = parseInt(elem.text());
                         elem.text(likes - 1);
-						this.text(app_page.messages['like-idea']);
+//						this.text(app_page.messages['like-idea']);
                         this.addClass('like-idea').removeClass('unlike-idea');
                         this.unbind();
                         this.bind('click', {app:app}, app.components.handlers.like_idea_handler);
@@ -641,7 +656,14 @@ app_page.features.push(function(app){
 		};
 		
 		tc.jQ('a.flag-idea').bind('click', {app:app}, app.components.handlers.flag_idea_handler);
-        tc.jQ('a.like-idea').bind('click', {app:app}, app.components.handlers.like_idea_handler);
+        tc.jQ('a.like-idea').bind('click', {app:app, no_user: {
+                        source_element: tc.jQ('.modal-content.join-no-user'),
+                        init: function(modal, event_target, callback) {
+                            if (tc.jQ.isFunction(callback)) {
+                                callback(modal);
+                            }
+                        }
+                    }}, app.components.handlers.like_idea_handler);
         tc.jQ('a.unlike-idea').bind('click', {app:app}, app.components.handlers.unlike_idea_handler);
 		tc.jQ('a.remove-idea').bind('click', {app:app}, app.components.handlers.remove_idea_handler);
 		tc.jQ('a.delete-resource').bind('click', {app:app}, app.components.handlers.delete_resource_handler);
