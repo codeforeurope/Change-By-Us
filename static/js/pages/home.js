@@ -77,13 +77,13 @@ app_page.features.push(function(app){
 						email:{
 							selector:'input.email',
 							validators:['min-6','max-254','required','email'],
-							hint: (app_page.data.user && app_page.data.user.email ? false : 'Please enter your email address'),
+							hint: (app_page.data.user && app_page.data.user.email ? false : app_page.messages['please-enter-email-address']),
 							focus_first:true
 						},
 						location:{
 							selector:'.location-group',
 							validators:tc.locationDropdown.validator,
-							hint:'Start typing a neighborhood'
+							hint:app_page.messages['start-typing-a-neighborhood']
 						}
 					},
 					step_data:{},
@@ -263,7 +263,7 @@ app_page.features.push(function(app){
 								temphtml.find('.link a').html( tc.truncate(data[i].title, 45) )
 									.attr('href','/project/'+ data[i].project_id)
 									.attr("target", "_blank");
-								temphtml.find('.creator').html('<span class="creator"><em>Created by </em> <a href="/useraccount/'+ data[i].owner.u_id +'">'+ data[i].owner.name +'</a></span>');
+								temphtml.find('.creator').html('<span class="creator"><em>'+ app_page.messages['created-by'] +' </em> <a href="/useraccount/'+ data[i].owner.u_id +'">'+ data[i].owner.name +'</a></span>');
 								temphtml.find('.description').html( tc.truncate(data[i].description, 110) );
 								temphtml.find('.member-count').text(data[i].num_members);
 								if (data[i].endorsement) {
@@ -298,7 +298,7 @@ app_page.features.push(function(app){
 							if (merlin.options.steps['idea-details'].step_data.locationDropdown.getLocation() > 0) {
 								dom.find("a.more-projects-related").attr("href", "search?terms=&location_id="+merlin.options.steps['idea-details'].step_data.locationDropdown.getLocation()+"#projects");
 							} else {
-								dom.find("a.more-projects-related").attr("href", "/search?terms="+ merlin.current_step.step_data.search_terms.split(",").join("+") +"#projects").text('See more related projects &rarr;');
+								dom.find("a.more-projects-related").attr("href", "/search?terms="+ merlin.current_step.step_data.search_terms.split(",").join("+") +"#projects").text(app_page.messages['see-more-related-projects'] +' &rarr;');
 							}
 						}
 					}

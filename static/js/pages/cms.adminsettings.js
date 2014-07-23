@@ -5,7 +5,7 @@
 
 
 app_page.features.push(function(app){
-	tc.util.log('Give A Minute: Admin Settings');
+	tc.util.log('CBU: Admin Settings');
 	
 	app.components.cms_admin_merlin = new tc.merlin(app,{
 		name:'cms-admin',
@@ -103,24 +103,24 @@ app_page.features.push(function(app){
 							<form>\
 								<div>\
 									<input class="radio-leader" type="radio" id="user-role-XX-radio-leader" name="user-role-xx-radio" />\
-									<label for="user-role-xx-radio-leader" class="small">City Leader</label>\
+									<label for="user-role-xx-radio-leader" class="small">'+ app_page.messages['city-leader'] +'</label>\
 								</div>\
 								<div>\
 									<input class="radio-moderator" type="radio" id="user-role--radio-moderator" name="user-role--radio" />\
-									<label for="user-role-xx-radio-moderator" class="small">Moderator</label>\
+									<label for="user-role-xx-radio-moderator" class="small">'+ app_page.messages['moderator'] +'</label>\
 								</div>\
 								<div>\
 									<input class="radio-admin" type="radio" id="user-role-xx-radio-admin" name="user-role-xx-radio" />\
-									<label for="user-role-xx-radio-admin" class="small">Super Admin</label>\
+									<label for="user-role-xx-radio-admin" class="small">'+ app_page.messages['super-admin'] +'</label>\
 								</div>\
 							</form>\
 						</td>\
 						<td class="control-call-status">\
 							<input class="checkbox-oncall" type="checkbox" id="user-oncall-x-check" name="user-oncall-xx-check" />\
-							<label for="user-oncall-xx-check" class="white">On Call</label>\
+							<label for="user-oncall-xx-check" class="white">'+ app_page.messages['on-call'] +'</label>\
 						</td>\
 						<td class="control-delete">\
-							<a href="#" class="delete">Delete</a>\
+							<a href="#" class="delete">'+ app_page.messages['delete'] +'</a>\
 						</td>\
 					</tr>')
 				},
@@ -178,7 +178,7 @@ app_page.features.push(function(app){
 													<tbody>\
 														<tr>\
 															<td class="spinner-message clearfix">\
-																<p class="west">Loading...</p>\
+																<p class="west">'+ app_page.messages['loading'] +'...</p>\
 															</td>\
 														</tr>\
 													</tbody>\

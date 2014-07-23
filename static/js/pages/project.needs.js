@@ -76,12 +76,12 @@ tc.gam.project_widgets.needs = function(options) {
 
     self._getVolunteerButtonConfig = function(vols_needed, volunteers, user_id) {
         if (self._isVolunteer(user_id, volunteers)) {
-            return { cssClass: 'in-process', text: 'I am helping'};
+            return { cssClass: 'in-process', text: app_page.messages['i-am-helping']};
         } else {
             if (vols_needed !== volunteers.length) {
-                return { cssClass: 'active', text: 'I can help'};
+                return { cssClass: 'active', text: app_page.messages['i-can-help']};
             } else {
-                return { cssClass: 'complete', text: 'Complete!'};
+                return { cssClass: 'complete', text: app_page.messages['complete']};
             }
         }
     };

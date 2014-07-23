@@ -85,7 +85,7 @@ app_page.features.push(function(app){
 					location:{
 						selector:'.location-group',
 						validators:tc.locationDropdown.validator,
-						hint:'Start typing a neighborhood'
+						hint:app_page.messages['start-typing-neighborhood']
 					},
 					web:{
 						selector:'input.web',

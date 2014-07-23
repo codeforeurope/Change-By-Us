@@ -223,7 +223,7 @@ app_page.features.push(function(app){
 								merlin.options.steps['user-info'].inputs['email'].validators.push('not-'+merlin.options.data.email);
 								merlin.options.steps['twitter-login'].inputs['email'].validators.push('not-'+merlin.options.data.email);
 								if(merlin.options.error_indicator){
-									merlin.options.error_indicator.html('<span>Oops! We found someone with that name and email address in our system. <a href="/login#forgot-password" class="oops-forgot">Forgot your password?</a></span>').show();
+									merlin.options.error_indicator.html('<span>'+ app_page.messages['user-exists'] +' <a href="/login#forgot-password" class="oops-forgot">'+app_page.messages['forgot-your-password']+'</a></span>').show();
 								}
 								if(this.current_step.data.last_step){
 									this.show_step(this.current_step.data.last_step);

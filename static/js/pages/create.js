@@ -72,8 +72,8 @@
 					selector:'.step.start',
 					prev_step:null,
 					next_step:'location',
-					title:'Turn an idea into a project.',
-					sub_title:'<strong>' + (app.app_page.data.user ? app.app_page.data.user.f_name : 'Hey') + ', </strong> let\'s get started with some basic details.',
+					title:app_page.messages['steps-start-title'],
+					sub_title:'<strong>' + (app.app_page.data.user ? app.app_page.data.user.f_name : app_page.messages['hey']) + ', </strong> ' + app_page.messages['lets-get-started'],
 					use_for_history:true,
 					step_data:{
 						timer:null
@@ -82,7 +82,7 @@
 						title:{
 							selector:'input.name',
 							validators:['max-50','min-3','required'],
-							hint:'e.g. More Greenways Downtown',
+							hint:app_page.messages['steps-start-title-hint'],
 							counter:{
 								selector:'.charlimit.title',
 								limit:50
@@ -106,12 +106,12 @@
 						},
 						organization:{
 							selector:'input.organization',
-							hint:'Field Organization, Program, Community Group, etc.'
+							hint:app_page.messages['steps-start-organization-hint']
 						},
 						description:{
 							selector:'textarea.describe',
 							validators:['max-200','min-3','required'],
-							hint:'Add a description',
+							hint:app_page.messages['steps-start-description-hint'],
 							counter:{
 								selector:'.charlimit.description',
 								limit:200
@@ -137,7 +137,7 @@
 						},
 						keywords:{
 							selector:'input.keywords',
-							hint:'Separate keywords by commas'
+							hint:app_page.messages['steps-start-keywords-hint']
 						},
 						suggested_keywords:{
 							selector:'span.suggested-keywords',
@@ -235,15 +235,15 @@
 					selector:'.step.location',
 					prev_step:'start',
 					next_step:'check-projects-process',
-					title:'Turn ideas into solutions',
-					sub_title:'Get found by other people, resources,<br />and other projects in your area.',
+					title:app_page.messages['steps-location-title'],
+					sub_title:app_page.messages['steps-location-subtitle'],
 					use_for_history:true,
 					step_data:{},
 					inputs:{
 						location:{
 							selector:'.location-group',
 							validators:tc.locationDropdown.validator,
-							hint:'Start typing a neighborhood'
+							hint:app_page.messages['steps-location-hint']
 						}
 					},
 					init:function(merlin,dom){
@@ -265,8 +265,8 @@
 				},
 				'check-projects-process':{
 					supress_hash:true,
-					title:'Let\'s have a look for similar projects.',
-					sub_title:'Starting something new is great, but there<br />may also be a great project to join up with.',
+					title:app_page.messages['steps-check-title'],
+					sub_title:app_page.messages['steps-check-subtitle'],
 					progress_selector:'.3',
 					selector:'.step.check-projects-process',
 					prev_step:'location',
@@ -299,8 +299,8 @@
 					}
 				},
 				'check-projects':{
-					title:'Let\'s have a look for similar projects.',
-					sub_title:'Starting something new is great, but there<br />may also be a great project to join up with.',
+					title:app_page.messages['steps-check-projects-title'],
+					sub_title:app_page.messages['steps-check-projects-subtitle'],
 					progress_selector:'.3',
 					selector:'.step.check',
 					prev_step:'location',
@@ -331,7 +331,7 @@
 									'</div>'+
 									'<div class="project-info">'+
 										'<span class="link"><a href="/project/'+project.project_id+'" target="_blank">'+tc.truncate(project.title,50)+'</a></span>'+
-										'<span class="creator"><em>Created by </em> <a href="/useraccount/'+project.owner.u_id+'" target="_blank">'+project.owner.name+'</a></span>'+
+										'<span class="creator"><em>' + app_page.messages['created-by'] + ' </em> <a href="/useraccount/'+project.owner.u_id+'" target="_blank">'+project.owner.name+'</a></span>'+
 										'<span class="description"><a href="/project/'+project.project_id+'" target="_blank">'+tc.truncate(project.description,65)+'</a></span>'+
 									'</div>';
 							temp += "</td>";
@@ -348,17 +348,17 @@
 					}
 				},
 				'check-nosimilar':{
-					title:'Let\'s have a look for similar projects.',
-					sub_title:'Starting something new is great, but there<br />may also be a great project to join up with.',
+					title:app_page.messages['steps-check-projects-title'],
+					sub_title:app_page.messages['steps-check-projects-subtitle'],
 					progress_selector:'.3',
 					selector:'.step.check-nosimilar',
 					prev_step:'location',
 					next_step:'add-resource-process'
 				},
 				'add-resource-process':{
-					title:'Add a resource.',
+					title:app_page.messages['steps-addresource-process-title'],
 					supress_hash:true,
-					sub_title:'When you add a resource, we will email them an<br />introduction and link to your project!',
+					sub_title:app_page.messages['steps-addresource-process-subtitle'],
 					progress_selector:'.4',
 					selector:'.step.add-resource-process',
 					prev_step:'check',
@@ -391,8 +391,8 @@
 					}
 				},
 				'add':{
-					title:'Add a resource.',
-					sub_title:'When you add a resource, we will email them an<br />introduction and link to your project!',
+					title:app_page.messages['steps-addresource-title'],
+					sub_title:app_page.messages['steps-addresource-subtitle'],
 					progress_selector:'.4',
 					selector:'.step.add',
 					prev_step:'check',
@@ -428,7 +428,7 @@
 							temp += "<td class='" + (resource.is_official ? "official-resource" : "") + "'>";
 							temp += '<a href="#add,'+ resource.link_id +'" class="add-button rounded-button small">Add</a>'+
 								'<span class="thumb">'+
-								(app.app_page.data.user.is_admin ? '<a class="close" href="#removeOrganization,'+resource.link_id+'"><span>Close</span></a>' : '')+
+								(app.app_page.data.user.is_admin ? '<a class="close" href="#removeOrganization,'+resource.link_id+'"><span>' + app_page.messages['close'] + '</span></a>' : '')+
 								'<img width="35" src="'+tempImgPath+'" alt="" /></span>'+
 								'<span class="resource-name" ><span>'+
 								'<span class="organization-name tooltip_trigger" rel="#organization,'+ resource.link_id +'">'+ 
@@ -436,8 +436,8 @@
 								'</span></span></span>';
 							// hidden added dialog
 							temp += '<div class="added-dialog">'+
-								'<span class="added-header">Added <em>to</em> your project</span><br />'+
-								'<span class="added-text">We\'ve sent them a link to your project page.'+
+								'<span class="added-header">' + app_page.messages['steps-addresource-added']+ '</span><br />'+
+								'<span class="added-text">'+ app_page.messages['steps-addresource-emailed'] +''+
 								' </span></div>';
 							temp += "</td>";
 							if (position == 2) { temp += "</tr>"; }
@@ -515,16 +515,16 @@
 					}
 				},
 				'add-noresources':{
-					title:'Add a resource.',
-					sub_title:'When you add a resource, we will email them an<br />introduction and link to your project!',
+					title:app_page.messages['steps-add-noresource-title'],
+					sub_title:app_page.messages['steps-add-noresource-subtitle'],
 					progress_selector:'.4',
 					selector:'.step.add-noresources',
 					prev_step:'check',
 					next_step:'finish'
 				},
 				'finish':{
-					title:'Thank you!',
-					sub_title:'Thank you for adding a project.',
+					title:app_page.messages['steps-finish-title'],
+					sub_title:app_page.messages['steps-finish-subtitle'],
 					progress_selector:'.4',
 					selector:'step.finish',
 					prev_step:null,

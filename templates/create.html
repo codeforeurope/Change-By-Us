@@ -213,5 +213,35 @@
             app_page.data.user = {{ d.template_data.user.json }};
         {% endif %}
     </script>
+    <script>
+        app_page.messages = {
+            'steps-start-title': "{{ _('Turn an idea into a project.') }}",
+            'hey': "{{ _('Hey') }}",
+            'lets-get-started': "{{ _('let\'s get started with some basic details.') }}",
+            'steps-start-title-hint':"{{ _('e.g. More Greenways Downtown') }}",
+            'steps-start-organization-hint':  "{{ _('Field Organization, Program, Community Group, etc.') }}",
+            'steps-start-description-hint': "{{ _('Add a description') }}",
+            'steps-start-keywords-hint': "{{ _('Separate keywords by commas') }}",
+            'steps-location-title': "{{ _('Turn ideas into solutions') }}",
+            'steps-location-subtitle': "{{ _('Get found by other people, resources,<br />and other projects in your area.') }}",
+            'steps-location-hint': "{{ _('Start typing a neighborhood') }}",
+            'steps-check-title': "{{ _('Let\'s have a look for similar projects.') }}",
+            'steps-check-subtitle': "{{ _('Starting something new is great, but there<br />may also be a great project to join up with.') }}",
+            'steps-check-projects-title': "{{ _('Let\'s have a look for similar projects.') }}",
+            'steps-check-projects-subtitle': "{{ _('Starting something new is great, but there<br />may also be a great project to join up with.') }}",
+            'created-by': "{{ _('Created by') }}",
+            'steps-addresource-process-title': "{{ _('Add a resource.') }}",
+            'steps-addresource-process-subtitle': "{{ _('When you add a resource, we will email them an<br />introduction and link to your project!') }}",
+            'steps-addresource-title': "{{ _('Add a resource.') }}",
+            'steps-addresource-subtitle': "{{ _('When you add a resource, we will email them an<br />introduction and link to your project!') }}",
+            'close': "{{ _('Close') }}",
+            'steps-addresource-added': "{{ _('Added <em>to</em> your project') }}",
+            'steps-addresource-emailed': "{{ _('We\'ve sent them a link to your project page.') }}",
+            'steps-add-noresource-title': "{{ _('Add a resource.') }}",
+            'steps-add-noresource-subtitle': "{{ _('When you add a resource, we will email them an<br />introduction and link to your project!') }}",
+            'steps-finish-title': "{{ _('Thank you!') }}",
+            'steps-finish-subtitle': "{{ _('Thank you for adding a project.') }}"
+        };
+    </script>
     <script type="text/javascript" src="/static/js/pages/create.js"></script>
 {% endblock page_js %}

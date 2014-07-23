@@ -69,7 +69,7 @@ function initialize(app) {
 	// InfoBox //
 	var boxText = document.createElement("div");
 	boxText.id = "infobox";
-	boxText.innerHTML = "<div id='ib-content'><div id='ib-title'><div class='outer'><div class='inner'>Neighborhood</div></div></div><img src='/static/images/map-infobox-projects.png' /><span id='ib-projects-num' class='ib-num'>10</span><br /><img src='/static/images/map-infobox-ideas.png' /><span id='ib-ideas-num' class='ib-num'>55</span><br /><img src='/static/images/map-infobox-resources.png' /><span id='ib-resources-num' class='ib-num'>3</span></div>";
+	boxText.innerHTML = "<div id='ib-content'><div id='ib-title'><div class='outer'><div class='inner'>"+ app_page.messages['neighborhood'] +"</div></div></div><img src='/static/images/map-infobox-projects.png' /><span id='ib-projects-num' class='ib-num'>10</span><br /><img src='/static/images/map-infobox-ideas.png' /><span id='ib-ideas-num' class='ib-num'>55</span><br /><img src='/static/images/map-infobox-resources.png' /><span id='ib-resources-num' class='ib-num'>3</span></div>";
 
 	var myOptions = {
 		content: boxText,

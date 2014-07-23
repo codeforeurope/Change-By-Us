@@ -273,5 +273,11 @@
 	{% endif %}
 </script>
 
+<script>
+    app_page.messages = {
+        'user-exists': "{{ _(''Oops! We found someone with that name and email address in our system.) }}",
+        'forgot-your-password': "{{ _('Forgot your password?') }}"
+    };
+</script>
 <script type="text/javascript" src='/static/js/pages/join.js'></script>
 {% endblock page_js %}

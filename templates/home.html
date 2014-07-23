@@ -402,4 +402,12 @@
     {% if d.template_data.features['is_show_beta_splash'] %}
         <script type="text/javascript" src='/static/js/pages/beta_splash.js'></script>
     {% endif %}
+    <script>
+        app_page.messages = {
+            'start-typing-a-neighborhood' : "{{ _('Start typing a neighborhood') }}",
+            'please-enter-email-address': "{{ _('Please enter your email address') }}",
+            'created-by': "{{ _('Created by') }}",
+            'see-more-related-projects': "{{ _('See more related projects') }}"
+        };
+    </script>
 {% endblock page_js %}
