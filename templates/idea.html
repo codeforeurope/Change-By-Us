@@ -13,13 +13,17 @@
 {% block continent %}
 
         <div class='continent idea-page'>
+
             <div class="west idea-page">
+
+                <div class="hd">
+						<span class="see-all-control control"><a href="/search/#ideas">{{ _('See all') }} {{ _('Ideas') }} <span class="sm-arrow-forward light"></span></a></span>
+					</div>
+
                 <!-- start Ideas results -->
 				<div class="box results-box results-ideas clearfix">
 
-					<div class="hd">
-						<span class="see-all-control control"><a href="/search/#ideas">{{ _('See all') }} {{ _('Ideas') }} <span class="sm-arrow-forward light"></span></a></span>
-					</div>
+
 
 
                             {% if d.template_data and d.template_data.user %}
@@ -45,10 +49,9 @@
                                         </cite>
                                     {% endif %}
                                     <blockquote>{% if d.template_data and d.template_data.user and d.template_data.user.is_admin %}{% if not d.template_data.idea.data.idea_id %}<span class="topright-spacer"></span>{% endif %}{% endif %}<p>{{ d.template_data.idea.data.idea_description|truncate(175) }}</p></blockquote>
-                                    <cite class="note-meta-ft">{{ _('Posted') }} <strong class="time-since">{{ d.template_data.idea.data.idea_created_datetime }}</strong> {{ _('via') }} <strong>{{ d.template_data.idea.data.idea_submission_type }}</strong></cite>
+                                    <cite class="note-meta-ft">{{ _('Posted') }} <strong class="time-since">{{ d.template_data.idea.data.created }}</strong> {{ _('via') }} <strong>{{ d.template_data.idea.data.submission_type }}</strong></cite>
                                     <div class="like-container">
-                                        <p class="like-count-sentence"><span class="like-count">{{ d.template_data.idea.data.likes }}</span> {{ _('like this idea') }}</p>
-                                        {%if d.template_data.idea.data.liked == False %}<a href="#likeIdea,{{ d.template_data.idea.data.idea_id }}" class='rounded-button small fancy-caps like-idea'>{{ _('Like') }}</a>{% else %}<a href="#unlikeIdea,{{ d.template_data.idea.data.idea_id }}" class='rounded-button inverted small fancy-caps unlike-idea'>{{ _('Liked') }}</a>{% endif %}
+                                        {%if d.template_data.idea.data.liked == False %}<a href="#likeIdea,{{ d.template_data.idea.data.idea_id }}" class='fancy-caps like-idea'>{% else %}<a href="#unlikeIdea,{{ d.template_data.idea.data.idea_id }}" class='fancy-caps unlike-idea'>{% endif %}<span class="like-count">{{ d.template_data.idea.data.likes }}</span></a>
                                     </div>
                                 </div>
                             </div>
@@ -61,13 +64,61 @@
 				</div><!-- end results-box ideas -->
             </div>  <!-- end West -->
             <div class="east idea-page">
-                Related project info
+
+
+                <div class="box box-leaderboard">
+                <h3>{{ _('Related <strong>Projects</strong>') }}</h3>
+                <ol class="leaderboard">
+                    {% for item in d.template_data.related_projects %}
+                    <li {% if loop.index is even %}class="every-other"{% endif %}>
+                        <table>
+                            <tbody>
+                                <tr>
+                                    <td class="num">{{ loop.index }}</td>
+                                    <td class="project-header">
+                                        <div class='thumb'>
+                                            {% if item.image_id > 0 %}
+                                            <a href="/project/{{ item.project_id }}"><img width="60" height="60" src="{{d.template_data.media_root}}images/{{ item.image_id % 10 }}/{{ item.image_id }}.png" alt="" class='proj'/></a>
+                                            {% else %}
+                                            <img src="/static/images/thumb_genAvatar100.png" width="60" height="60" alt="" class="proj"/>
+                                            {% endif %}
+                                            <span class="overlay-tag"></span>
+                                        </div>
+                                        <div class='main'>
+                                            <h1><a href="/project/{{ item.project_id }}">{{ item.title|truncate(45) }}</a></h1>
+                                            <cite class="meta"><em>{{ _('Created by') }}</em> <a href="/useraccount/{{ item.owner_user_id }}">{{ item.owner_full_display_name }}</a></cite>
+                                            <cite class="meta"><em>{{ item.num_members }}</em> {{ _('People') }}</cite>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </li>
+                    {% if loop.index is even %}
+                    <li class="clearrow">
+                    </li>
+                    {% endif %}
+                    {% endfor %}
+                </ol>
+                <div style="clear:both"></div>
+            </div>
+
+
+
             </div> <!-- end East -->
 
             <!-- Conversation -->
             <div class="bottom">
             {% include "partials/idea_conversation.html" %}
             </div>
+
+<!-- Templates for modal view when user is not logged in yet -->
+        <div class='template-content modal-content join-no-user'>
+        <h2>{{ _('<strong>Hold your horses!</strong> Please register.') }}</h2>
+        <p>{{ _('You must <strong><a href="/join">register</a></strong> or <strong><a href="/login">login</a></strong> with %(sitename)s in order to vote for an idea.')|format(sitename=d.config.site.name) }}</p>
+        <a class='close' href="#"><span>{{ _('close') }}</span></a>
+    </div>
+
 
         </div>
 {% endblock continent %}

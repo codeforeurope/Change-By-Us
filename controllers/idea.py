@@ -56,8 +56,11 @@ class Idea(Controller):
                 if (idea.data):
                     ideaDictionary = idea.getFullDictionary()
                     likers = mIdea.searchLikers(self.db, ideaId)
+                    related_projects = mIdea.findProjectsRelatedToIdea(self.db, ideaId)
+                    self.template_data['related_projects'] = related_projects
+
                     ideaDictionary['likes'] = len(likers)
-                    ideaDictionary['liked'] = any(self.user.id == y.user_id for y in likers)
+                    ideaDictionary['liked'] = any(self.user.id == y.user_id for y in likers) if self.user is not None else False
 
                     # idea_proxy = self.getIdea(ideaId)
                     # idea_proxy.json = json.dumps(ideaDictionary)
@@ -87,7 +90,7 @@ class Idea(Controller):
                 else:
                     return self.not_found()
             except Exception, e:
-                log.error("Couldn't load idea with ideaId %d", ideaId)
+                log.error("Couldn't load idea with ideaId %s", ideaId)
                 log.error(e)
                 return self.not_found()
         else:

@@ -366,6 +366,59 @@ def downvoteIdea(db, ideaId, userId):
         log.error(e)
         return False
 
+def findProjectsRelatedToIdea(db, ideaId):
+    betterData = []
+    try:
+        sql = """select distinct
+                    p.project_id,
+                    p.title,
+                    p.description,
+                    p.image_id,
+                    p.location_id,
+                    pi.idea_id,
+                    o.user_id as owner_user_id,
+                    o.first_name as owner_first_name,
+                    o.last_name as owner_last_name,
+                    o.affiliation as owner_affiliation,
+                    o.group_membership_bitmask as owner_group_membership_bitmask,
+                    o.image_id as owner_image_id,
+                    (select count(npu.user_id) from project__user npu
+                        inner join user nu on nu.user_id = npu.user_id and nu.is_active = 1
+                        where npu.project_id = p.project_id)  as num_members
+                from project p
+                right join project__idea pi on pi.project_id = p.project_id
+                inner join project__user opu on opu.project_id = p.project_id and opu.is_project_creator = 1
+                inner join user o on o.user_id = opu.user_id
+                where p.is_active = 1
+                and pi.idea_id = $ideaId
+                limit $limit"""
+
+        data = list(db.query(sql, {'ideaId': ideaId, 'limit': 4}))
+
+        for item in data:
+            betterData.append({'project_id': item.project_id,
+                               'idea_id': item.idea_id,
+                               'title': item.title,
+                               'description': item.description,
+                               'image_id': item.image_id,
+                               'location_id': item.location_id,
+                               'owner_user_id': item.owner_user_id,
+                               'owner_full_display_name': formattingUtils.userNameDisplay(item.owner_first_name,
+                                                                          item.owner_last_name,
+                                                                          item.owner_affiliation,
+                                                                          formattingUtils.isFullLastName(
+                                                                              item.owner_group_membership_bitmask)),
+                               'owner_image_id': item.owner_image_id,
+                               'num_members': item.num_members})
+
+
+    except Exception, e:
+        log.info("*** couldn't get projects related to idea")
+        log.error(e)
+
+    return betterData
+
+
 def ideamessage(id,
             type,
             message,

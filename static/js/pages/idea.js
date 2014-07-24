@@ -75,14 +75,14 @@ app_page.features.push(function(app) {
 					dataType:"text",
 					success: function(data, ts, xhr) {
 						if (data == "False") {
+                            //Could be that we have no user
+                            e.data.app.components.modal.show(e.data.no_user, e.target);
 							return false;
 						}
-                        alert(e.data.app.app_page.messages['liked-idea']);
                         //increase likes
                         elem = this.parent().find("span.like-count");
                         likes = parseInt(elem.text());
                         elem.text(likes + 1);
-						this.text(app_page.messages['liked-idea']);
                         this.addClass('unlike-idea').removeClass('like-idea');
                         this.unbind();
                         this.bind('click', {app:app}, app.components.handlers.unlike_idea_handler);
@@ -105,12 +105,10 @@ app_page.features.push(function(app) {
 						if (data == "False") {
 							return false;
 						}
-                        alert(app_page.messages['unliked-idea']);
                         //Decrease likes
                         elem = this.parent().find("span.like-count");
                         likes = parseInt(elem.text());
                         elem.text(likes - 1);
-						this.text(app_page.messages['like-idea']);
                         this.addClass('like-idea').removeClass('unlike-idea');
                         this.unbind();
                         this.bind('click', {app:app}, app.components.handlers.like_idea_handler);
@@ -122,7 +120,14 @@ app_page.features.push(function(app) {
 
 		tc.jQ('a.flag-idea').bind('click', {app:app}, app.components.handlers.flag_idea_handler);
 		tc.jQ('a.remove-idea').bind('click', {app:app}, app.components.handlers.remove_idea_handler);
-        tc.jQ('a.like-idea').bind('click', {app:app}, app.components.handlers.like_idea_handler);
+        tc.jQ('a.like-idea').bind('click', {app:app, no_user: {
+                        source_element: tc.jQ('.modal-content.join-no-user'),
+                        init: function(modal, event_target, callback) {
+                            if (tc.jQ.isFunction(callback)) {
+                                callback(modal);
+                            }
+                        }
+                    }}, app.components.handlers.like_idea_handler);
         tc.jQ('a.unlike-idea').bind('click', {app:app}, app.components.handlers.unlike_idea_handler);
 
 

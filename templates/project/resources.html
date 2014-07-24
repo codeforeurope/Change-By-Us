@@ -75,7 +75,7 @@
 		{% if d.template_data.project_user.data.is_member == True or d.template_data.project.data.info.resources.organizations['items']|length > 0 %}
 		<div class="organizations">
 			<div class="sub-hd">
-				<h3>Resources</h3>
+				<h3>{{ _('Resources') }}</h3>
 				<p class="hint">{{ _('These sites are not managed by %(sitename)s, but have been added by this project\'s members.')|format(sitename=d.config.site.name) }}</p>
 			</div>
 
