@@ -95,7 +95,7 @@ tc.gam.project_widgets.conversation = function(options){
                 
         //handle message type for message author heading
         if (d.message_type === 'join') {
-            $out.find('.useraction').html(' joined the project!');
+            $out.find('.useraction').html(app_page.messages['joined-the-project']);
         }
         
         //add the idea card if idea is present

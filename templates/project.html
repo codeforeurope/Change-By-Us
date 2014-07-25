@@ -331,6 +331,14 @@
     {% if d.template_data and d.template_data.user and d.template_data.user.is_admin %}
         <script type='text/javascript' src="/static/js/pages/project.admin.js"></script>
     {% endif %}
+    <script>
+        app_page.messages = {
+            'joined-the-project': "{{ _(' joined the project!') }}" ,
+            'i-am-helping': "{{ _('I am helping') }}",
+            'i-can-help': "{{ _('I can help') }}",
+            'complete': "{{ _('Complete!') }}"
+        };
+    </script>
 
     <!--[if lte IE 8]>
         <script type="text/javascript">

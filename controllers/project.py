@@ -532,4 +532,3 @@ class Project(Controller):
             return True
         else:
             return False
-        
