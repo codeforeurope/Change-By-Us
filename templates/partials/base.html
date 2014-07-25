@@ -292,19 +292,30 @@
           <!-- List of supporters -->
             <div class='box logos clearfix'>
                 <span class="supported fancy-caps">{{ _('Created <span>by</span>') }}</span>
+                <a href="http://www.codeforeurope.net" target="_blank"><img src='/static/images/footer-cfe.png' alt='Code for Europe' /></a>
+                <a href="http://www.vierenvijftig.nl" target="_blank"><img src='/static/images/footer-vierenvijftig.png' alt='Vierenvijftig' /></a>
+                <a href="http://www.amsterdam.nl" target="_blank"><img src='/static/images/footer-geemente-amsterdam.png' alt='Geemente Amsterdam' /></a>
+                <a href="http://www.waag.org" target="_blank"><img src='/static/images/footer-waag.png' alt='Waag Society' /></a>
+                <a href="http://www.eigenwijks.nl" target="_blank"><img src='/static/images/footer-eigenwijks.png' alt='EigenWijks' /></a>
+                <a href="http://www.voorjebuurt.nl" target="_blank"><img src='/static/images/footer-vjb.png' alt='Voor je Buurt' /></a>
+                <a href="http://www.amsterdamsmartcity.com" target="_blank"><img src='/static/images/footer-asc.png' alt='Amsterdam Smart City' /></a>
+            </div>
+            <div class='box logos clearfix'>
+                <span class="supported fancy-caps">{{ _('Powered <span>by</span>') }}</span>
+                <a href="http://changeby.us" target="_blank"><img src='/static/images/footer-cbu.png' alt='Change by Us' /></a>
                 <a href='http://www.localprojects.net' target='_blank'><img src='/static/images/footer-localprojects.png' alt='Local Projects' /></a>
-                <a href='http://www.ceosforcities.org/' target='_blank'><img src='/static/images/footer-ceosforcities.png' alt='CEOs For Cities' /></a>
-                <a href='http://codeforamerica.org' target='_blank'><img src='/static/images/footer-cfa.png' alt='Code for America' /></a>
+
+
                 {% if d.config.site.city_logo %}
                     <a href='{{d.config.site.city_url}}' target='_blank'><img src='{{d.config.site.city_logo}}' alt='{{d.config.site.full_city}}' /></a>
                 {% endif %}
 
-                <span class="supported fancy-caps">{{ _('Supported <span>by</span>') }}</span>
-                <a href='http://www.rockefellerfoundation.org' target='_blank'><img src='/static/images/footer-rockefeller.png' alt='The Rockefeller Foundation' /></a>
-                <a href='http://www.knightfoundation.org/' target='_blank'><img src='/static/images/footer-knight.png' alt='The Knight Foundation' /></a>
-                {% if d.config.site.city_id == 'nyc' %}
-                <a href='http://www.casefoundation.org/' target='_blank'><img src='/static/images/footer-case.png' alt='The Case Foundation' /></a>
-                {% endif %}
+                <!--<span class="supported fancy-caps">{{ _('Supported <span>by</span>') }}</span>-->
+                <!--<a href='http://www.rockefellerfoundation.org' target='_blank'><img src='/static/images/footer-rockefeller.png' alt='The Rockefeller Foundation' /></a>-->
+                <!--<a href='http://www.knightfoundation.org/' target='_blank'><img src='/static/images/footer-knight.png' alt='The Knight Foundation' /></a>-->
+                <!--{% if d.config.site.city_id == 'nyc' %}-->
+                <!--<a href='http://www.casefoundation.org/' target='_blank'><img src='/static/images/footer-case.png' alt='The Case Foundation' /></a>-->
+                <!--{% endif %}-->
             </div>
 
             <!-- Basic links and search -->
