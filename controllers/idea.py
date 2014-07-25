@@ -65,23 +65,22 @@ class Idea(Controller):
                     # idea_proxy = self.getIdea(ideaId)
                     # idea_proxy.json = json.dumps(ideaDictionary)
                     # idea_proxy.data = ideaDictionary
-                    messages = dict(total=2,
-                                    n_returned=2,
-                                    items=[dict(type='member_comment', body="First!11!!!",
-                                                owner=dict(u_id=1, image_id=7, name="John")),
-                                           dict(type='member_comment', body="Damn you first!!!",
-                                                owner=dict(u_id=2, image_id=8, name="Bill"))])
-                    conversation = dict(messages=messages)
-                    ideaDictionary['conversation'] = conversation
                     # self.template_data['idea'] = idea_proxy
+
+                    messages_limit = util.try_f(int, self.request('n_messages'), 10)
+                    messages_offset = util.try_f(int, self.request('offset'), 0)
+                    messages_filterBy = self.request('filter')
+                    messages = mIdea.getMessages(self.db, ideaId, messages_limit, messages_offset, messages_filterBy)
+                    messages_dict = dict(total=len(messages), n_returned=len(messages), items=messages)
+
+                    conversation = dict(messages=messages_dict)
+                    ideaDictionary['conversation'] = conversation
 
                     idea_proxy = self.getIdea(ideaId)
                     idea_proxy.json = json.dumps(ideaDictionary)
                     idea_proxy.data = ideaDictionary
 
                     self.template_data['idea'] = idea_proxy
-
-                    # TODO: here also load the "conversation" around the idea
 
                     import giveaminute.filters as gam_filters
 

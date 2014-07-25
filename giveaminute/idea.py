@@ -7,6 +7,7 @@ import framework.util as util
 import helpers.censor as censor
 import formattingUtils
 import helpers.censor
+from datetime import timedelta
 from framework.log import log
 
 
@@ -471,7 +472,7 @@ def ideamessage(id,
                 file_id=attachmentId,
                 owner=formattingUtils.smallUserDisplay(userId, name, imageId),
                 body=message,
-                created=str(createdDatetime - formattingUtils.timedelta(hours=util.local_utcoffset())),
+                created=str(createdDatetime - timedelta(hours=util.local_utcoffset())),
                 idea=ideaObj,
                 attachment=attachmentObj,
     )
@@ -484,17 +485,18 @@ def addMessage(db, ideaId, message, message_type, userId=None, attachmentId=None
     """
     try:
         # censor behavior
-        numFlags = helpers.censor.badwords(db, message)
+        numFlags = helpers.censor.badwords(db, message) #TODO: add the numFlags to DB
         isActive = 0 if numFlags == 2 else 1
 
         db.insert('idea_message', idea_id=ideaId,
                   message=message,
+                  message_type=message_type,
                   user_id=userId,
                   file_id=attachmentId,
-                  num_flags=numFlags,
+                  # num_flags=numFlags,
                   is_active=isActive)
 
-        return True;
+        return True
     except Exception, e:
         log.info("*** problem adding message to idea")
         log.error(e)
@@ -529,6 +531,7 @@ def getMessages(db, ideaId, limit=10, offset=0, filterBy=None):
         sql = """select
                     m.idea_message_id,
                     m.message,
+                    m.message_type,
                     m.file_id,
                     m.created_datetime,
                     a.type as attachment_type,
@@ -548,8 +551,8 @@ def getMessages(db, ideaId, limit=10, offset=0, filterBy=None):
                 inner join user u on u.user_id = m.user_id
                 left join idea i on i.idea_id = m.idea_id
                 left join attachments a on a.id = m.file_id
-                where m.project_id = $id and m.is_active = 1
-                and ($filterBy is null or m.message_type = $filterBy)
+                where m.is_active = 1
+                and ($filterBy is null)
                 order by m.created_datetime desc
                 limit $limit offset $offset"""
         data = list(db.query(sql, {'id': ideaId, 'limit': limit, 'offset': offset, 'filterBy': filterBy}))
@@ -572,7 +575,7 @@ def getMessages(db, ideaId, limit=10, offset=0, filterBy=None):
                                     attachmentMediaId=item.attachment_id,
                                     attachmentTitle=item.attachment_title))
     except Exception, e:
-        log.info("*** couldn't get messages for idea %d", ideaId)
+        log.info("*** couldn't get messages for idea %s", ideaId)
         log.error(e)
 
     return messages

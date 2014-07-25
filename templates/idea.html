@@ -74,7 +74,6 @@
                         <table>
                             <tbody>
                                 <tr>
-                                    <td class="num">{{ loop.index }}</td>
                                     <td class="project-header">
                                         <div class='thumb'>
                                             {% if item.image_id > 0 %}
@@ -123,6 +122,13 @@
         </div>
 {% endblock continent %}
 {% block page_js %}
+        <!-- Javascript libraries -->
+    {% if d.config.app_env == 'dev' %}
+        <script type="text/javascript" src="/static/js/libs/jquery-1.5.1.min.js"></script>
+        <script type="text/javascript" src="/static/js/libs/jquery.easing.1.3.js"></script>
+    {% else %}
+        <script type="text/javascript" src="/static/build/js/libs.js"></script>
+    {% endif %}
     <script type="text/javascript">
         {% if d.template_data.user %}
             app_page.data.user = {{ d.template_data.user.json }};
@@ -135,6 +141,6 @@
     </script>
     <script type="text/javascript" src='/static/js/pages/idea.js'></script>
     <script>
-        app_page.messages = { 'like-idea':'{{ _('Like') }}', 'unlike-idea': '{{ _('Unlike') }}', 'liked-idea': '{{ _('Liked!') }}', 'unliked-idea': '{{ _('Unliked!') }}' };
+        app_page.messages = { 'like-idea':'{{ _('Like') }}', 'unlike-idea': '{{ _('Unlike') }}', 'liked-idea': '{{ _('Liked!') }}', 'unliked-idea': '{{ _('Unliked!') }}', 'joined-the-project': "{{ _(' joined the project!') }}" };
     </script>
 {% endblock %}

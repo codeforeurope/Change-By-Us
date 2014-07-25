@@ -3,21 +3,12 @@
   Licensed under the Affero GNU GPL v3, see LICENSE for more details.
  --------------------------------------------------------------------*/
 
-//var tc = tc || {};
-//tc.gam = tc.gam || {};
-//tc.gam.idea_widgets = tc.gam.idea_widgets || {};
-app_page.features.push(function(app) {
-//tc.gam.idea_widgets.conversation = function(options){
-    tc.util.log('idea.conversation');
+var tc = tc || {};
+tc.gam = tc.gam || {};
+tc.gam.idea_widgets = tc.gam.idea_widgets || {};
 
-    var options = {
-        app: app,                                   //for merlin
-        idea_data: app.app_page.data.idea,       //idea specific data
-        user: app.app_page.user,                    //user data
-//        project_user: app.app_page.project_user,    //project user data
-        media_root: app.app_page.media_root,        //root directory for images and such
-        messages: app.app_page.messages             //messages for localization
-    };
+tc.gam.idea_widgets.conversation = function(options){
+    tc.util.log('idea.conversation');
 
     var dom = options.dom,
         MEDIA_MSGS_TO_LOAD = 100, //TODO See https://github.com/codeforamerica/cbu/wiki/Compromises for details
@@ -105,7 +96,7 @@ app_page.features.push(function(app) {
 
         //handle message type for message author heading
         if (d.message_type === 'join') {
-            $out.find('.useraction').html(' joined the project!');
+            $out.find('.useraction').html(app_page.messages['joined-the-project']);
         }
 
         //add the idea card if idea is present
@@ -400,6 +391,7 @@ app_page.features.push(function(app) {
         }
     };
 
+
     function generate_message_markup(data) {
         tc.util.dump(data);
         var $thumb,
@@ -506,6 +498,7 @@ app_page.features.push(function(app) {
                             context: merlin,
                             dataType: 'text',
                             success: function (data, ts, xhr) {
+                                alert(data);
                                 if (data == 'False') {
                                     //window.location.hash = 'project_conversation,message-submit-error';
                                     this.show_step('message-submit-error');
@@ -670,6 +663,27 @@ app_page.features.push(function(app) {
         }
     });
 
-//    return self;
-//};
-});
+    return self;
+};
+
+
+    // Push a feature.  This feature contains an app.component that is a
+    // new merlin object.  This merlin object is defined above.
+    app_page.features.push(function(app) {
+
+        var widget_options = {
+        app: app,                                   //for merlin
+        idea_data: app.app_page.data.idea,       //idea specific data
+        user: app.app_page.user,                    //user data
+//        project_user: app.app_page.project_user,    //project user data
+        media_root: app.app_page.media_root,        //root directory for images and such
+        messages: app.app_page.messages             //messages for localization
+    };
+
+
+        // Add the example component (merlin example widget) here.
+        app.components.idea_conversation_component = tc.gam.idea_widgets.conversation(
+            tc.jQ.extend({ name: 'conversation', dom: tc.jQ('.project-section.conversation') }, widget_options));
+    });
+
+

@@ -1,3 +1,4 @@
+import datetime
 from sqlalchemy import *
 from migrate import *
 
@@ -11,18 +12,17 @@ def upgrade(migrate_engine):
     # Create the events table
     idea_message = Table('idea_message', meta,
         Column('idea_message_id', Integer, primary_key=True),
+        Column('message_type', String(20)),
         Column('message', Text),
         Column('idea_id', Integer, ForeignKey('idea.idea_id')),
         Column('user_id', Integer, ForeignKey('user.user_id')),
         Column('is_active', SmallInteger, default=1),
-        Column('created_datetime', DateTime),
+        Column('created_datetime', TIMESTAMP, nullable=False, server_default=text('CURRENT_TIMESTAMP')),
         Column('file_id', Integer),
         mysql_engine='MyISAM',
     )
-    try:
-        idea_message.create()
-    except Exception, e:
-        print "Error when creating table idea_message: %s. Ignoring" % e
+
+    idea_message.create()
 
 
 def downgrade(migrate_engine):
