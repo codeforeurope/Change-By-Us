@@ -498,7 +498,6 @@ tc.gam.idea_widgets.conversation = function(options){
                             context: merlin,
                             dataType: 'text',
                             success: function (data, ts, xhr) {
-                                alert(data);
                                 if (data == 'False') {
                                     //window.location.hash = 'project_conversation,message-submit-error';
                                     this.show_step('message-submit-error');

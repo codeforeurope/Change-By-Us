@@ -11,7 +11,7 @@ from framework.log import log
 # from framework.config import *
 from framework.config import Config
 # from framework.emailer import *
-from framework.util import local_utcoffset
+# from framework.util import local_utcoffset
 import giveaminute.idea
 import giveaminute.messaging
 import helpers.censor

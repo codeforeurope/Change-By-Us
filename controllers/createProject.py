@@ -7,6 +7,7 @@ import giveaminute.keywords as keywords
 import giveaminute.project as mProject
 import giveaminute.projectResource as mProjectResource
 import giveaminute.location as mLocation
+import giveaminute.formattingUtils as formattingUtils
 import framework.util as util
 from framework.controller import *
 from framework.image_server import *
@@ -108,9 +109,9 @@ class CreateProject(Controller):
             'media_id' : file_info['id'],
             'media_type' : file_info['type'],
             'title' : file_info['name'],
-            'small_thumb_url' : mProject.getAttachmentThumbUrl(file_info['type'], file_info['id'], 'small'),
-            'medium_thumb_url' : mProject.getAttachmentThumbUrl(file_info['type'], file_info['id'], 'medium'),
-            'large_thumb_url' : mProject.getAttachmentThumbUrl(file_info['type'], file_info['id'], 'large'),
+            'small_thumb_url' : formattingUtils.getAttachmentThumbUrl(file_info['type'], file_info['id'], 'small'),
+            'medium_thumb_url' : formattingUtils.getAttachmentThumbUrl(file_info['type'], file_info['id'], 'medium'),
+            'large_thumb_url' : formattingUtils.getAttachmentThumbUrl(file_info['type'], file_info['id'], 'large'),
             'success' : (file_info['id'] != None)
             #TODO add url
         })
@@ -199,7 +200,7 @@ class CreateProject(Controller):
 
     def saveThumbnailImage(self, fs, media_type, media_id, data, name, size):
         thumb = self.getThumbnailImageData(data, size)
-        thumb_filename = mProject.getAttachmentThumbFileName(media_type, media_id, name)
+        thumb_filename = formattingUtils.getAttachmentThumbFileName(media_type, media_id, name)
 
         if thumb and fs.add(thumb, thumb_filename):
             log.info("Wrote %s thumbnail image to %s" % (name, thumb_filename))
@@ -262,5 +263,5 @@ class CreateProject(Controller):
         that case. Otherwise you'll probably just get a generic file image.
 
         """
-        return mProject.getAttachmentThumbUrl(media_type, media_id, 'small')
+        return formattingUtils.getAttachmentThumbUrl(media_type, media_id, 'small')
 

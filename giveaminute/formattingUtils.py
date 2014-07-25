@@ -1,4 +1,6 @@
+import os
 import framework.util as util
+from framework.config import Config
 
 # # FORMATTING FUNCTIONS
 
@@ -152,7 +154,7 @@ def smallUser(id, first, last, image):
     if (id and first and last):
         return dict(u_id=id,
                     image_id=image,
-                    name=formattingUtils.userName(first, last))
+                    name=userName(first, last))
     else:
         return None
 
