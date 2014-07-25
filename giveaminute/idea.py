@@ -543,7 +543,7 @@ def getMessages(db, ideaId, limit=10, offset=0, filterBy=None):
                     u.affiliation,
                     u.group_membership_bitmask,
                     u.image_id,
-                    i.idea_id,
+                    CASE WHEN u.user_id = i.user_id THEN i.idea_id ELSE NULL END as idea_id,
                     i.description as idea_description,
                     i.submission_type as idea_submission_type,
                     i.created_datetime as idea_created_datetime
@@ -551,11 +551,11 @@ def getMessages(db, ideaId, limit=10, offset=0, filterBy=None):
                 inner join user u on u.user_id = m.user_id
                 left join idea i on i.idea_id = m.idea_id
                 left join attachments a on a.id = m.file_id
-                where m.is_active = 1
+                where m.is_active = 1 and m.idea_id = $ideaId
                 and ($filterBy is null)
                 order by m.created_datetime desc
                 limit $limit offset $offset"""
-        data = list(db.query(sql, {'id': ideaId, 'limit': limit, 'offset': offset, 'filterBy': filterBy}))
+        data = list(db.query(sql, {'ideaId': ideaId, 'limit': limit, 'offset': offset, 'filterBy': filterBy}))
 
         for item in data:
             messages.append(ideamessage(id=item.idea_message_id,
