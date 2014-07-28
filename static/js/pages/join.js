@@ -206,7 +206,8 @@ app_page.features.push(function(app){
 				progress_selector:null,
 				selector:'.email-lookup',
 				prev_step:'user-info',
-				next_step:'sms-lookup',
+				next_step:'finish',
+//				next_step:'sms-lookup', //We removed the SMS functionality
 				data:{
 					last_step:null
 				},
@@ -231,7 +232,7 @@ app_page.features.push(function(app){
 								}
 								this.show_step('user-info');
 							} else {
-								this.show_step('sms-lookup');
+								this.show_step(this.current_step.next_step);
 							}
 						}
 					});
