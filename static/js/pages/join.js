@@ -145,12 +145,12 @@ app_page.features.push(function(app){
 					f_name:{
 						selector:'input.f_name',
 						validators:['max-128','min-3','required'],
-						hint:'First name'
+						hint:app_page.messages['first-name']
 					},
 					l_name:{
 						selector:'input.l_name',
 						validators:['max-128','min-3','required'],
-						hint:'Last name'
+						hint:app_page.messages['last-name']
 					},
 					email:{
 						selector:'input.email',

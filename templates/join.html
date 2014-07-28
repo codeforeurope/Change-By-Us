@@ -118,8 +118,7 @@
 
 				<div class="east">
 					<input type='checkbox' name='tos-user-info-twitter' id='tos-user-info-twitter' class='tos-user-info' value='1' />
-					<label class="tos-user-info-label" for='tos-user-info-twitter'>{{ _('I have read and accept the<br/>the') }} <a href='/tou' target='_blank' class='toc-link'>{{
-                        _('Terms of Use') }}</a></label>
+					<label class="tos-user-info-label" for='tos-user-info-twitter'>{{ _('I have read and accept the<br/>the') }} <a href='/tou' target='_blank' class='toc-link'>{{ _('Terms of Use') }}</a></label>
 
 				</div>
 
@@ -275,8 +274,12 @@
 
 <script>
     app_page.messages = {
-        'user-exists': "{{ _(''Oops! We found someone with that name and email address in our system.) }}",
-        'forgot-your-password': "{{ _('Forgot your password?') }}"
+        'user-exists': "{{ _('Oops! We found someone with that name and email address in our system.') }}",
+        'forgot-your-password': "{{ _('Forgot your password?') }}",
+        'first-name' : "{{ _('First Name') }}",
+        'last-name' : "{{ _('Last name') }}"
+//        '' : "{{ _('') }}"
+
     };
 </script>
 <script type="text/javascript" src='/static/js/pages/join.js'></script>
