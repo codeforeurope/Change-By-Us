@@ -2,23 +2,23 @@
  # Copyright (c) 2011 Local Projects. All rights reserved.
  # Licensed under the Affero GNU GPL v3, see LICENSE for more details.
  #}
-Thanks for submitting an idea to {{ config.site.name }}!
+{{ _('Thanks for submitting an idea to %(sitename)s!')|format(sitename=config.site.name) }}
 
-{{ config.site.name }} is built to help you make your idea into a reality by creating a project, or joining an existing project with people who share your goals. Based on your idea, you may also get invitations to projects in your area, or that match your idea.
+{{ _('%(sitename)s is built to help you make your idea into a reality by creating a project, or joining an existing project with people who share your goals. Based on your idea, you may also get invitations to projects in your area, or that match your idea.')|format(sitename=config.site.name) }}
 
-Wondering what to do next?
+{{ _('Wondering what to do next?') }}
 
-Go here to find great projects in your area:
+{{ _('Go here to find great projects in your area:') }}
 
 {{ search_link }}
 
-Or go here to start your own project:
+{{ _('Or go here to start your own project:') }}
 
 {{ create_link }}
 
-We hope you find {{ config.site.name }} useful. If you have any questions or comments, please get in touch at {{ respond_email }}.
+{{ _('We hope you find %(sitename)s useful. If you have any questions or comments, please get in touch at %(respondemail)s.')|format(sitename=config.site.name,respondemail=respond_email)  }}
 
 
 
-Thank you,
+{{ _('Thank you,') }}
 {{ config.site.name }}

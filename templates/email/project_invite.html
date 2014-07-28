@@ -1,0 +1,28 @@
+﻿{#
+# Copyright (c) 2011 Local Projects. All rights reserved.
+# Licensed under the Affero GNU GPL v3, see LICENSE for more details.
+#}
+{% extends "./email/emailbase.html" %}
+{#
+# Since emailer.py loads the templates based on the ./templates/ folder, the "extends" statement must be executed from the same path
+# This is why, even if the current template and emailbase.html are in the same folder, the full path ./email/emailbase.html must be used
+#}
+
+{% block content %}
+
+<p align="left" class="article-title">
+    <singleline label="Title">{{ _('You have been invited by %(siteinviter)s to join a project on %(sitename)s:')|format(siteinviter=inviter,sitename=config.site.name) }}</singleline>
+</p>
+
+<div align="left" class="article-content">{{title}}</div>
+<div align="left" class="article-content">{{description}}</div>
+
+<div align="left" class="article-content">{{ _('See the project and become a member here:') }}
+    <a href="{{ link }}">{{ _('Click here') }}</a></div>
+
+{% if message %}<div align="left" class="article-content">"{{ message }}"</div>{% endif %}
+
+<div align="left" class="article-content">{{ _('Thank you,') }}</div>
+<div align="left" class="article-content">{{ config.site.name }}</div>
+
+{% endblock content %}

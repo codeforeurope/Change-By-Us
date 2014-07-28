@@ -1,0 +1,34 @@
+﻿{#
+# Copyright (c) 2011 Local Projects. All rights reserved.
+# Licensed under the Affero GNU GPL v3, see LICENSE for more details.
+#}
+{% extends "./email/emailbase.html" %}
+{#
+# Since emailer.py loads the templates based on the ./templates/ folder, the "extends" statement must be executed from the same path
+# This is why, even if the current template and emailbase.html are in the same folder, the full path ./email/emailbase.html must be used
+#}
+
+{% block content %}
+
+<p align="left" class="article-title">
+    <singleline label="Title">Thanks for submitting an idea to Change by Us AMS!</singleline>
+</p>
+<div align="left" class="article-content">
+    <multiline label="Description">Change by Us AMS is built to help you make your idea into a reality by creating a
+        project, or joining an existing project with people who share your goals. Based on your idea, you may also get
+        invitations to projects in your area, or that match your idea.</multiline>
+
+<div align="left" class="article-content">{{ _('Go here to find great projects in your area:') }}</div>
+    <a href="{{ search_link }}">{{ _('Click here') }}</a></div>
+
+<div align="left" class="article-content">{{ _('Or go here to start your own project:') }}
+    <a href="{{ create_link }}">{{ _('Click here') }}</a></div>
+
+<div align="left" class="article-content">{{ _('We hope you find %(sitename)s useful. If you have any questions or comments, please get in touch at <a href="%(respond_email)s">%(respond_email)s</a>.')|format(sitename=config.site.name)|format(respond_email=respond_email)  }}
+
+<div align="left" class="article-content">{{ _('Thank you,') }}</div>
+<div align="left" class="article-content">{{ config.site.name }}</div>
+</div>
+
+
+{% endblock content %}

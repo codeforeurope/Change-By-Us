@@ -1,0 +1,25 @@
+﻿{#
+# Copyright (c) 2011 Local Projects. All rights reserved.
+# Licensed under the Affero GNU GPL v3, see LICENSE for more details.
+#}
+{% extends "./email/emailbase.html" %}
+{#
+# Since emailer.py loads the templates based on the ./templates/ folder, the "extends" statement must be executed from the same path
+# This is why, even if the current template and emailbase.html are in the same folder, the full path ./email/emailbase.html must be used
+#}
+
+{% block content %}
+
+<p align="left" class="article-title">
+    <singleline label="Title">{{ _('Congratulations!') }}</singleline>
+</p>
+<div align="left" class="article-content">
+    <multiline label="Description">{{ _('Congratulations! %(siteleader)s has endorsed %(sitetitle)s! The badge from the endorsement will appear on your project page.')|format(siteleader=leader_name,sitetitle=title) }}</multiline>
+
+
+<div align="left" class="article-content">{{ _('Thank you,') }}</div>
+<div align="left" class="article-content">{{ config.site.name }}</div>
+</div>
+
+
+{% endblock content %}

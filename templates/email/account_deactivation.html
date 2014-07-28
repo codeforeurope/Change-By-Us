@@ -1,0 +1,25 @@
+﻿{#
+# Copyright (c) 2011 Local Projects. All rights reserved.
+# Licensed under the Affero GNU GPL v3, see LICENSE for more details.
+#}
+{% extends "./email/emailbase.html" %}
+{#
+# Since emailer.py loads the templates based on the ./templates/ folder, the "extends" statement must be executed from the same path
+# This is why, even if the current template and emailbase.html are in the same folder, the full path ./email/emailbase.html must be used
+#}
+}
+{#
+# Since emailer.py loads the templates based on the ./templates/ folder, the "extends" statement must be executed from the same path
+# This is why, even if the current template and emailbase.html are in the same folder, the full path ./email/emailbase.html must be used
+#}
+{% block content %}
+
+<div align="left" class="article-content">{{ _('We are writing to let you know that your account activity has violated our Community Policy, which you can read here %(sitelink)s. As a result of this violation we have de-activated your account.')|format(sitelink=link) }}</div>
+<div align="left" class="article-content">{{ _('%(sitename)s is a site that aims to help people dream up solutions to tough problems, to build communities of people who share ideas, and to connect those communities with resources that will help them succeed.')|format(sitename=config.site.name) }} {{ _('We are sad to see you go.') }}
+</div>
+
+<div align="left" class="article-content">{{ _('Thank you,') }}</div>
+<div align="left" class="article-content">{{ config.site.name }}</div>
+
+{% endblock content %}
+                                

@@ -2,17 +2,18 @@
  # Copyright (c) 2011 Local Projects. All rights reserved.
  # Licensed under the Affero GNU GPL v3, see LICENSE for more details.
  #}
-You've been invited by {{ inviter }} to join a project on {{ config.site.name }}: 
+
+{{ _('You have been invited by %(siteinviter)s to join a project on %(sitename)s:')|format(siteinviter=inviter,sitename=config.site.name) }}
 
 {{title}}
 {{description}}
 
-See the project and become a member here:
+{{ _('See the project and become a member here:') }}
 {{ link }}
 
 {% if message %}"{{ message }}"{% endif %}
 
 
 
-Thank you,
+{{ _('Thank you,') }}
 {{ config.site.name }}

@@ -2,15 +2,15 @@
  # Copyright (c) 2011 Local Projects. All rights reserved.
  # Licensed under the Affero GNU GPL v3, see LICENSE for more details.
  #}
-{{ user_name }} has joined your project: {{ title }}. You can see {{ user_name }}'s ideas and other projects here: 
+{{ _('%(username)s has joined your project: %(projecttitle)s. You can see ideas and other projects from %(username)s here:')|format(username=user_name,projecttitle=title) }}
 
 {{ user_link }}
 
-You can invite more people and manage project members here:
+{{ _('You can invite more people and manage project members here:') }}
 
 {{ member_link }}
 
 
 
-Thank you,
+{{ _('Thank you,') }}
 {{ config.site.name }}

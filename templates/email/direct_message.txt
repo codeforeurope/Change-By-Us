@@ -6,9 +6,9 @@
 
 ------------
 
-You can reply to {{ name }} by sending a message on their user account page at {{ link }}
+{{ _('You can reply to %(username)s by sending a message on their user account page at %(sitelink)s')|format(username=name,sitelink=link) }}
 
 
 
-Thank you,
+{{ _('Thank you,') }}
 {{ config.site.name }}
