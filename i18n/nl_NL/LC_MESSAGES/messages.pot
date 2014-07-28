@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-07-28 17:31+0200\n"
+"POT-Creation-Date: 2014-07-28 18:26+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -500,6 +500,55 @@ msgstr ""
 msgid ""
 "You can reply to %(username)s by sending a message on their user account "
 "page at %(sitelink)s"
+msgstr ""
+
+#: templates/email/email_subjects.html:6
+#, python-format
+msgid "You have been invited by %(username)s to join a project on %(sitename)s"
+msgstr ""
+
+#: templates/email/email_subjects.html:8
+#, python-format
+msgid ""
+"A new member %(membername)s has joined your project %(projectname)s on "
+"%(sitename)s"
+msgstr ""
+
+#: templates/email/email_subjects.html:10
+#, python-format
+msgid "%(leader)s endorsed your project!"
+msgstr ""
+
+#: templates/email/email_subjects.html:12
+#, python-format
+msgid "A project on %(sitename)s has added %(resourcename)s as a resource"
+msgstr ""
+
+#: templates/email/email_subjects.html:14
+msgid "Your resource has been approved"
+msgstr ""
+
+#: templates/email/email_subjects.html:16
+msgid "Your account has been deactivated"
+msgstr ""
+
+#: templates/email/email_subjects.html:18
+msgid "Your password has been reset"
+msgstr ""
+
+#: templates/email/email_subjects.html:20
+#, python-format
+msgid "%(sitename)s message from %(username)s"
+msgstr ""
+
+#: templates/email/email_subjects.html:22
+#, python-format
+msgid "Please authenticate your account on %(sitename)s"
+msgstr ""
+
+#: templates/email/email_subjects.html:24
+#, python-format
+msgid "Thanks for submitting an idea to %(sitename)s"
 msgstr ""
 
 #: templates/email/forgot_password.html:14
