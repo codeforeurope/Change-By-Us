@@ -9,6 +9,7 @@ Emailing templates can be found in templates/email.
 
 """
 import helpers.sms
+import os, gettext
 from framework.emailer import Emailer
 from framework.log import log
 from framework.config import Config
@@ -28,10 +29,12 @@ def emailInvite(email, inviterName, projectId, title, description, message=None)
     @returns: Whether emailer was successful or not.
     
     """
+    #Get translations
+    translations = get_gettext_translation(get_default_language())
 
     # Create values for template.
     emailAccount = Config.get('email')
-    subject = "You've been invited by %s to join a project" % inviterName
+    subject = translations.gettext("You have been invited by %(username)s to join a project on %(sitename)s") % {'username': inviterName, 'sitename': Config.get('site')['name']}
     link = "%sproject/%s" % (Config.get('default_host'), str(projectId))
     template_values = {
         'inviter': inviterName,
@@ -68,11 +71,13 @@ def emailProjectJoin(email, projectId, title, userId, userName):
     @returns: Whether emailer was successful or not.
     
     """
+    #Get translations
+    translations = get_gettext_translation(get_default_language())
 
     # Create values for template.
     emailAccount = Config.get('email')
     defaultUrl = Config.get('default_host')
-    subject = "A new member %s has joined your project %s" % (userName, title)
+    subject = translations.gettext("A new member %(membername)s has joined your project %(projectname)s on %(sitename)s") % {'membername': userName, 'projectname': title, 'sitename': Config.get('site')['name'] }
     userLink = "%suseraccount/%s" % (defaultUrl, str(userId))
     memberLink = "%sproject/%s#show,members" % (defaultUrl, str(projectId))
     template_values = {
@@ -109,10 +114,12 @@ def emailProjectEndorsement(email, title, leaderName):
     @returns: Whether emailer was successful or not.
     
     """
+    #Get translations
+    translations = get_gettext_translation(get_default_language())
 
     # Create values for template.
     emailAccount = Config.get('email')
-    subject = "%s liked your project!" % leaderName
+    subject = translations.gettext("%(leader)s endorsed your project!") % {'leader': leaderName}
     template_values = {
         'title': title,
         'leader_name': leaderName,
@@ -145,10 +152,12 @@ def emailResourceNotification(email, projectId, title, description, resourceName
     @returns: Whether emailer was successful or not.
     
     """
+    #Get translations
+    translations = get_gettext_translation(get_default_language())
 
     # Create values for template.
     emailAccount = Config.get('email')
-    subject = "A project on Changeby.us has added %s as a resource" % resourceName
+    subject = translations.gettext("A project on %(sitename)s has added %(resourcename)s as a resource") % {'sitename': Config.get('site')['name'], 'resourcename': resourceName}
     link = "%sproject/%s" % (Config.get('default_host'), str(projectId))
     template_values = {
         'title': title,
@@ -189,10 +198,12 @@ def emailResourceApproval(email, title):
     @returns: Whether emailer was successful or not.
     
     """
+    #Get translations
+    translations = get_gettext_translation(get_default_language())
 
     # Create values for template.
     emailAccount = Config.get('email')
-    subject = "Your resource has been approved"
+    subject = translations.gettext("Your resource has been approved")
     template_values = {
         'link': Config.get('default_host'),
         'title': title,
@@ -226,9 +237,12 @@ def emailAccountDeactivation(email):
     
     """
 
+    #Get translations
+    translations = get_gettext_translation(get_default_language())
+
     # Create values for template.
     emailAccount = Config.get('email')
-    subject = "Your account has been deactivated"
+    subject = translations.gettext("Your account has been deactivated")
     link = "%stou" % Config.get('default_host')
     template_values = {
         'link': link,
@@ -261,10 +275,12 @@ def emailTempPassword(email, password):
     @returns: Whether emailer was successful or not.
     
     """
+    #Get translations
+    translations = get_gettext_translation(get_default_language())
 
     # Create values for template.
     emailAccount = Config.get('email')
-    subject = "Your password has been reset"
+    subject = translations.gettext("Your password has been reset")
     link = "%slogin" % Config.get('default_host')
     link = "%stou" % Config.get('default_host')
     template_values = {
@@ -299,12 +315,14 @@ def directMessageUser(db, toUserId, toName, toEmail, fromUserId, fromName, messa
     @returns: Whether emailer was successful or not.
     
     """
+    #Get translations
+    translations = get_gettext_translation(get_default_language())
 
     # Create values for template.
     emailAccount = Config.get('email')
     #email = "%s <%s>" % (toName, toEmail)
     email = toEmail
-    subject = "Change By Us message from %s" % fromName
+    subject = translations.gettext("%(sitename)s message from %(username)s") % {'sitename': Config.get('site')['name'], 'username': fromName}
     link = "%suseraccount/%s" % (Config.get('default_host'), fromUserId)
     template_values = {
         'name': fromName,
@@ -348,10 +366,12 @@ def emailUnauthenticatedUser(email, authGuid):
     @returns: Emailer send response.
     
     """
+    #Get translations
+    translations = get_gettext_translation(get_default_language())
 
     # Create values for template.
     emailAccount = Config.get('email')
-    subject = "Please authenticate your account"
+    subject = translations.gettext('Please authenticate your account on %(sitename)s') % {'sitename': Config.get('site')['name']}
     link = "%sjoin/auth/%s" % (Config.get('default_host'), authGuid)
     template_values = {
         'link': link,
@@ -385,10 +405,13 @@ def emailIdeaConfirmation(email, responseEmail, locationId):
     
     """
 
+    #Get translations
+    translations = get_gettext_translation(get_default_language())
+
     # Create values for template.
     emailAccount = Config.get('email')
     host = Config.get('default_host')
-    subject = "Thanks for submitting an idea to Change by Us!"
+    subject = translations.gettext('Thanks for submitting an idea to %(sitename)s!') % {'sitename': Config.get('site')['name']}
     searchLink = "%ssearch?location_id=%s" % (host, locationId)
     createLink = "%screate" % host
     template_values = {
@@ -443,8 +466,7 @@ def sendSMSConfirmation(db, phone):
     log.info("*** sending confirmation to %s" % phone)
 
     if (not isPhoneStopped(db, phone)):
-        message = "Thanks for adding your idea to changeby.us Visit %smobile to browse and join projects related to your idea." % Config.get(
-            'default_host')
+        message = "Thanks for adding your idea to changeby.us Visit %smobile to browse and join projects related to your idea." % Config.get('default_host')
 
         return helpers.sms.send(phone, message)
     else:
@@ -465,3 +487,37 @@ def sendSMSInvite(db, phone, projectId):
         log.info("*** something failed in sending sms invite")
         log.error(e)
         return False    
+
+
+# Localization functions
+def get_gettext_translation(locale_id):
+    """
+    Returns the translation object for the specified locale.
+    """
+    # i18n directory.
+    locale_dir = get_i18n_dir()
+
+    # Look in the translaton for the locale_id in locale_dir. Fallback to the
+    # default text if not found.
+    return gettext.translation('messages', locale_dir, [locale_id], fallback=True)
+
+
+def get_default_language():
+    """
+    Gets the language that has been set by in the configuration file.
+
+    """
+    lang = ""
+    try:
+        lang = Config.get('default_lang')
+    except:
+        pass
+    return lang
+
+def get_i18n_dir():
+    """Return the path to the directory with the locale files"""
+    cur_dir = os.path.abspath(os.path.dirname(__file__))
+
+    # i18n directory.
+    locale_dir = os.path.join(cur_dir, '..', 'i18n')
+    return locale_dir
