@@ -11,8 +11,8 @@ msgstr ""
 "Project-Id-Version: Change by Us v2\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-07-28 18:26+0200\n"
-"PO-Revision-Date: 2014-07-28 16:27+0000\n"
-"Last-Translator: Giovanni Maggini <giovanni.maggini@gmail.com>\n"
+"PO-Revision-Date: 2014-07-29 14:54+0000\n"
+"Last-Translator: jcgoilo <j.goilo@amsterdam.nl>\n"
 "Language-Team: Dutch (http://www.transifex.com/projects/p/change-by-us-v2/language/nl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -414,7 +414,7 @@ msgid ""
 "We are writing to let you know that your account activity has violated our "
 "Community Policy, which you can read here %(sitelink)s. As a result of this "
 "violation we have de-activated your account."
-msgstr ""
+msgstr "Wij benaderen je om te laten weten dat één of meer van je activiteiten de regels van de community overtreden,  deze kunt u hier lezen %(sitelink)s. Door deze overtredingen hebben wij je account uitgeschakeld."
 
 #: templates/email/account_deactivation.html:18
 #: templates/email/account_deactivation.txt:7
@@ -423,12 +423,12 @@ msgid ""
 "%(sitename)s is a site that aims to help people dream up solutions to tough "
 "problems, to build communities of people who share ideas, and to connect "
 "those communities with resources that will help them succeed."
-msgstr ""
+msgstr "%(sitename)s is een website die mensen motiveert oplossingen te bedenken voor lokale maatschappelijke vraagstukken. Zo ontstaan er communities die ideeën bedenken en zich verbinden aan de hulpbronnen die hen zal helpen slagen."
 
 #: templates/email/account_deactivation.html:18
 #: templates/email/account_deactivation.txt:7
 msgid "We are sad to see you go."
-msgstr ""
+msgstr "Wij vinden het jammer dat je weggaat :-("
 
 #: templates/email/account_deactivation.html:21
 #: templates/email/account_deactivation.txt:11
@@ -450,16 +450,16 @@ msgstr ""
 #: templates/email/resource_notification.html:27
 #: templates/email/resource_notification.txt:15
 msgid "Thank you,"
-msgstr ""
+msgstr "Bedankt,"
 
 #: templates/email/auth_user.html:16 templates/email/auth_user.txt:5
 #, python-format
 msgid "Welcome and thank you for registering for an account at %(sitename)s"
-msgstr ""
+msgstr "Welkom en bedankt voor het registreren van je account %(sitename)s"
 
 #: templates/email/auth_user.html:20 templates/email/auth_user.txt:7
 msgid "Please authenticate your user account by clicking the link below."
-msgstr ""
+msgstr "Bevestig je account door te klikken op de link hieronder."
 
 #: templates/email/auth_user.html:21
 #: templates/email/content_block_sample.html:22
@@ -471,19 +471,19 @@ msgstr ""
 #: templates/email/project_join.html:24
 #: templates/email/resource_notification.html:21
 msgid "Click here"
-msgstr ""
+msgstr "Klik hier"
 
 #: templates/email/content_block_sample.html:21
 #: templates/email/idea_confirmation.html:20
 #: templates/email/idea_confirmation.txt:11
 msgid "Go here to find great projects in your area:"
-msgstr ""
+msgstr "Ga hierheen om leuke projecten te vinden in je gebied:"
 
 #: templates/email/content_block_sample.html:24
 #: templates/email/idea_confirmation.html:23
 #: templates/email/idea_confirmation.txt:15
 msgid "Or go here to start your own project:"
-msgstr ""
+msgstr "Of ga hierheen om je eigen project te starten"
 
 #: templates/email/content_block_sample.html:27
 #: templates/email/project_join.html:26
@@ -491,63 +491,63 @@ msgstr ""
 msgid ""
 "We hope you find %(sitename)s useful. If you have any questions or comments,"
 " please get in touch at <a href=\"%(respond_email)s\">%(respond_email)s</a>."
-msgstr ""
+msgstr "Wij hopen dat je %(sitename)s handig vindt. Als je vragen hebt, neem contact op met ons op <a href=\"%(respond_email)s\">%(respond_email)s</a>."
 
 #: templates/email/direct_message.html:14
 msgid "You have a message!"
-msgstr ""
+msgstr "Je hebt een bericht ontvangen"
 
 #: templates/email/direct_message.html:21 templates/email/direct_message.txt:9
 #, python-format
 msgid ""
 "You can reply to %(username)s by sending a message on their user account "
 "page at %(sitelink)s"
-msgstr ""
+msgstr "Je kan reageren op het bericht van %(username)s door een bericht te plaatsen op %(sitelink)s"
 
 #: templates/email/email_subjects.html:6
 #, python-format
 msgid ""
 "You have been invited by %(username)s to join a project on %(sitename)s"
-msgstr ""
+msgstr "Je bent uitgenodigd door %(username)s voor een project in %(sitename)s"
 
 #: templates/email/email_subjects.html:8
 #, python-format
 msgid ""
 "A new member %(membername)s has joined your project %(projectname)s on "
 "%(sitename)s"
-msgstr ""
+msgstr "%(membername)s heeft zich aangesloten bij je project genaamd %(projectname)s in %(sitename)s"
 
 #: templates/email/email_subjects.html:10
 #, python-format
 msgid "%(leader)s endorsed your project!"
-msgstr ""
+msgstr "%(leader)s steunt jouw project"
 
 #: templates/email/email_subjects.html:12
 #, python-format
 msgid "A project on %(sitename)s has added %(resourcename)s as a resource"
-msgstr ""
+msgstr "Een project op %(sitename)s heeft %(resourcename)s toegevoegd als hulpbron"
 
 #: templates/email/email_subjects.html:14
 msgid "Your resource has been approved"
-msgstr ""
+msgstr "Je hulpbron is goedgekeurd"
 
 #: templates/email/email_subjects.html:16
 msgid "Your account has been deactivated"
-msgstr ""
+msgstr "Je account is uitgeschakeld"
 
 #: templates/email/email_subjects.html:18
 msgid "Your password has been reset"
-msgstr ""
+msgstr "Je wachtwoord is gereset"
 
 #: templates/email/email_subjects.html:20
 #, python-format
 msgid "%(sitename)s message from %(username)s"
-msgstr ""
+msgstr "%(sitename)s bericht van %(username)s"
 
 #: templates/email/email_subjects.html:22
 #, python-format
 msgid "Please authenticate your account on %(sitename)s"
-msgstr ""
+msgstr "Verifieer je account op %(sitename)s"
 
 #: templates/email/email_subjects.html:24
 #, python-format
@@ -560,7 +560,7 @@ msgstr "Bedankt voor het indienen van uw idee naar %(sitename)s"
 msgid ""
 "Your password for %(sitename)s has been reset.  Go to %(sitelink)s and login"
 " with your new password:"
-msgstr ""
+msgstr "Je wachtwoord van %(sitename)s is gereset. Ga naar %(sitelink)s en login met het nieuwe wachtwoord"
 
 #: templates/email/forgot_password.html:19
 #: templates/email/forgot_password.txt:10
@@ -568,7 +568,7 @@ msgid ""
 "Once you have logged in successfully, we highly recommend that you go to "
 "your account page and change your password to something secure yet "
 "memorable."
-msgstr ""
+msgstr "Als je succesvol bent ingelogd raden wij je aan naar je accountpagina te gaan om je wachtwoord te veranderen naar iets wat je makkelijker kan onthouden."
 
 #: templates/email/idea_confirmation.html:14
 #: templates/email/idea_confirmation.txt:5
@@ -584,30 +584,30 @@ msgid ""
 "a project, or joining an existing project with people who share your goals. "
 "Based on your idea, you may also get invitations to projects in your area, "
 "or that match your idea."
-msgstr ""
+msgstr "%(sitename)s is ontwikkeld om je te helpen je idee tot een realiseerbaar project te om te vormen. Je kan je ook aansluiten bij projecten die dezelfde doelen als de joune nastreven. Afhankelijk van je idee wordt je uitgenodigd tot andere projecten die erop lijken of in de omgeving zijn."
 
 #: templates/email/idea_confirmation.html:26
 #, python-format
 msgid ""
 "We hope you find %(sitename)s useful. If you have any questions or comments,"
 " please get in touch at <a href=\"%(email)s\">%(email)s</a>."
-msgstr ""
+msgstr "We hopen dat je %(sitename)s zinvol vindt. Als je vragen of suggesties hebt, graag met ons contact opnemen op<a href=\"%(email)s\">%(email)s</a>."
 
 #: templates/email/idea_confirmation.txt:9
 msgid "Wondering what to do next?"
-msgstr ""
+msgstr "Vraag je jezelf af wat je nu moet doen?"
 
 #: templates/email/idea_confirmation.txt:19
 #, python-format
 msgid ""
 "We hope you find %(sitename)s useful. If you have any questions or comments,"
 " please get in touch at %(respondemail)s."
-msgstr ""
+msgstr "We hopen dat je %(sitename)s handig vindt. Als je vragen of suggesties hebt, graag met ons contact opnemen op %(respondemail)s."
 
 #: templates/email/project_endorsement.html:14
 #: templates/email/resource_approval.html:19
 msgid "Congratulations!"
-msgstr ""
+msgstr "Gefeliciteerd!"
 
 #: templates/email/project_endorsement.html:17
 #: templates/email/project_endorsement.txt:5
@@ -615,39 +615,39 @@ msgstr ""
 msgid ""
 "Congratulations! %(siteleader)s has endorsed %(sitetitle)s! The badge from "
 "the endorsement will appear on your project page."
-msgstr ""
+msgstr "Gefeliciteerd! %(siteleader)s steunt %(sitetitle)s! De steun zal ook zichtbaar zijn op je projectpagina."
 
 #: templates/email/project_invite.html:14 templates/email/project_invite.txt:6
 #, python-format
 msgid ""
 "You have been invited by %(siteinviter)s to join a project on %(sitename)s:"
-msgstr ""
+msgstr "Je bent uitgenodigd door %(siteinviter)s om mee te doen met een project op %(sitename)s"
 
 #: templates/email/project_invite.html:20
 #: templates/email/project_invite.txt:11
 msgid "See the project and become a member here:"
-msgstr ""
+msgstr "Zie project en word lid hier:"
 
 #: templates/email/project_join.html:15
 #, python-format
 msgid "%(username)s has joined your project: %(projecttitle)s."
-msgstr ""
+msgstr "%(username)s heeft zicht aangesloten bij jouw project: %(projecttitle)s."
 
 #: templates/email/project_join.html:18
 #, python-format
 msgid "You can see ideas and other projects from %(username)s here:"
-msgstr ""
+msgstr "Je kan ideeën en andere projecten van %(username)s hier zien:"
 
 #: templates/email/project_join.html:23 templates/email/project_join.txt:9
 msgid "You can invite more people and manage project members here:"
-msgstr ""
+msgstr "Je kan meer mensen uitnodigen en je projectleden hier beheren:"
 
 #: templates/email/project_join.txt:5
 #, python-format
 msgid ""
 "%(username)s has joined your project: %(projecttitle)s. You can see ideas "
 "and other projects from %(username)s here:"
-msgstr ""
+msgstr "%(username)s heeft zich aangesloten tot jouw project: %(projecttitle)s. Je kan ideeën en andere projecten van %(username)s hier zien:"
 
 #: templates/email/resource_approval.html:22
 #: templates/email/resource_approval.txt:5
@@ -655,7 +655,7 @@ msgstr ""
 msgid ""
 "We are writing to let you know that the resource you submitted, "
 "%(resourcetitle)s, has been approved for use on %(sitename)s (%(sitelink)s)."
-msgstr ""
+msgstr "Wij benaderen je om te laten weten dat de hulpbron die je hebt aangemeld, %(resourcetitle)s, is goedgekeurd voor gebruik op %(sitename)s (%(sitelink)s)."
 
 #: templates/email/resource_approval.html:24
 #: templates/email/resource_approval.txt:7
@@ -663,20 +663,20 @@ msgid ""
 "Users will now be able to find your resource on the site and add it to their"
 " project pages. When they do, you will get an email inviting you to visit "
 "their page to see if you can help."
-msgstr ""
+msgstr "Leden zullen nu in staat zijn om je als hulpbron te vinden op de website en deze toe te voegen aan hun projectpagina's. Als ze dat doen, zal je een e-mail uitnodiging krijgen om hun pagina te bezoeken om te zien of je kunt helpen."
 
 #: templates/email/resource_notification.html:16
 #: templates/email/resource_notification.txt:5
 #, python-format
 msgid "A project on %(sitename)s has added %(resource)s as a resource."
-msgstr ""
+msgstr "Een project op %(sitename)s heeft %(resource)s toegevoegd als hulpbron"
 
 #: templates/email/resource_notification.html:20
 #: templates/email/resource_notification.txt:7
 msgid ""
 "Please take a moment to visit their page and see if you can help by sending "
 "links, providing advice, or answering questions:"
-msgstr ""
+msgstr "Neem de tijd en bezoek de pagina om te kijken of je kan helpen door tips te geven, vragen te beantwoorden of links op te sturen met handige info:"
 
 #: templates/feedback.html:7
 msgid "Feedback"
@@ -957,7 +957,7 @@ msgstr "Voeg <span>een</span> Plan toe"
 
 #: templates/idea.html:70
 msgid "Related <strong>Projects</strong>"
-msgstr ""
+msgstr "Relevante <strong>Projecten</strong>"
 
 #: templates/idea.html:89 templates/partials/base.html:175
 msgid "People"
@@ -1412,7 +1412,7 @@ msgstr "Gemaakt  <span>door</span>"
 
 #: templates/partials/base.html:304
 msgid "Powered <span>by</span>"
-msgstr ""
+msgstr "Mogelijk gemaakt <span>door</span>"
 
 #: templates/partials/base.html:313
 msgid "Supported <span>by</span>"
@@ -1828,7 +1828,7 @@ msgstr "Indienen"
 #: templates/project/inkind_need_form.html:28
 #: templates/project/volunteer_need_form.html:27
 msgid "Done! Thank you!"
-msgstr ""
+msgstr "Klaar! Bedankt!"
 
 #: templates/project/event_form.html:40
 msgid "The name of the event is:"
@@ -2089,11 +2089,11 @@ msgstr "Wil je </p><p class=\"serif big\">%(project_title)s niet meer steunen?"
 msgid ""
 "Are you sure you want to remove this endorsement? To restore the "
 "endorsement, the city leader will need to endorse this project again."
-msgstr "Weet je zeker dat je je steunbetuiging wil verwijderen? Om je steun opnieuw te betuigen moet de verantwoordelijke voor deze stad het project weer steunen. ????????????"
+msgstr "Weet je zeker dat je je steun wil verwijderen? Om je steun opnieuw aan te bieden moet de verantwoordelijke van dit project eerst opnieuw steunen."
 
 #: templates/project/mission.html:165
 msgid "Yes, Remove Endorsement"
-msgstr "Ja, Haal mijn Steunbetuiging weg"
+msgstr "Ja, Haal mijn steun weg"
 
 #: templates/project/mission.html:174
 msgid "this Keyword?"
