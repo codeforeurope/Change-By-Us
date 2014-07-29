@@ -196,7 +196,7 @@
                     <div class="note-card-submit-idea">
                         <span class="hd serif">{{ _('My idea is:') }}</span>
                         <textarea class="idea"></textarea>
-                        <span class="charlimit idea">0/175</span>
+                        <span class="charlimit idea">0/255</span>
                         <input type='text' name='main_text' class='main_text' style='display:none;' />
                         <div class="disabler" style="display:none"></div>
                     </div>
@@ -212,7 +212,7 @@
             <!-- Hand -->
             <div class="hand">
                 <div class="oops" style="display:none;">
-                    <span>{{ _('Oops! Please limit your idea to 175 characters.') }}</span>
+                    <span>{{ _('Oops! Please limit your idea to %(number)s characters.')|format(number=255) }}</span>
                 </div>
             </div>
         </div>

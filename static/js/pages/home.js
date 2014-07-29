@@ -40,12 +40,12 @@ app_page.features.push(function(app){
 					inputs:{
 						idea:{
 							selector:'textarea.idea',
-							validators:['min-3','max-175','required'],
+							validators:['min-3','max-255','required'],
 							hint:'',
 							focus_first:true,
 							counter:{
 								selector:'.charlimit.idea',
-								limit:175
+								limit:255
 							},
 							handlers:{
 								focus:function(e){
