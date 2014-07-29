@@ -179,6 +179,7 @@
     <div class='template-content modal-content join-no-user'>
         <h2>{{ _('<strong>Hold your horses!</strong> Please register.') }}</h2>
         <p>{{ _('You must <strong><a href="/join">register</a></strong> or <strong><a href="/login">login</a></strong> with %(sitename)s in order to Join a project.')|format(sitename=d.config.site.name) }}</p>
+        <p><a href="/join" class="rounded-button">Join</a>&nbsp;<a href="/login" class="rounded-button">Login</a></p>
         <a class='close' href="#"><span>{{ _('close') }}</span></a>
     </div>
 

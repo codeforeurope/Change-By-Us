@@ -2123,7 +2123,8 @@ OTHER GLOBAL ELEMENTS
 }
 
 .modal-content a.rounded-button {
-    float: left
+    float: left;
+    margin-left: 10px;
 }
 
 .modal-content .note-card {
