@@ -242,6 +242,26 @@ def findIdeasByUser(db, userId, limit=100):
     return ideas
 
 
+def findIdeasLikedByUser(db, userId, limit=50):
+    likedIdeas = []
+
+    try:
+        sql = """select i.idea_id, i.description, i.location_id, i.submission_type, i.user_id, u.first_name, u.last_name, i.created_datetime
+					from idea__user iu
+                    right join idea i on i.idea_id = iu.idea_id
+                    left  join user u on u.user_id = i.user_id
+                    where i.is_active = 1 and u.is_active = 1 and iu.user_id = $userId
+                order by i.created_datetime desc
+                limit $limit"""
+
+        likedIdeas = list(db.query(sql, {'userId': userId, 'limit': limit}))
+    except Exception, e:
+        log.info("*** problem getting liked ideas for user %s" % userId)
+        log.error(e)
+
+    return likedIdeas
+
+
 def flagIdea(db, ideaId):
     try:
         sql = "update idea set num_flags = num_flags + 1 where idea_id = $ideaId"

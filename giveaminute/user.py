@@ -416,13 +416,31 @@ where u.user_id = $id and u.is_active = 1"""
             if len(data) > 0:
                 for item in data:
                     ideas.append(
-                        mProject.idea(item.idea_id, item.description, item.user_id, item.first_name, item.last_name,
+                        formattingUtils.idea(item.idea_id, item.description, item.user_id, item.first_name, item.last_name,
                                       item.created_datetime, item.submission_type))
         except Exception, e:
             log.info("*** couldn't get user ideas")
             log.error(e)
 
         return ideas
+
+    def getLikedIdeas(self):
+        liked_ideas = []
+
+        try:
+            data = mIdea.findIdeasLikedByUser(self.db, self.id)
+
+            if len(data) > 0:
+                for item in data:
+                    liked_ideas.append(
+                        formattingUtils.idea(item.idea_id, item.description, item.user_id, item.first_name, item.last_name,
+                                      item.created_datetime, item.submission_type))
+        except Exception, e:
+            log.info("*** couldn't get user liked ideas")
+            log.error(e)
+
+        return liked_ideas
+
 
     def getMessages(self, limit, offset):
         """

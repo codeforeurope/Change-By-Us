@@ -39,6 +39,8 @@ class UserAccount(Controller):
             self.user.updateAccountPageVisit()
 
             userActivity = self.user.getActivityDictionary()
+            likedIdeas = self.user.getLikedIdeas()
+            userActivity['liked_ideas'] = likedIdeas
             locations = mLocation.getSimpleLocationDictionary(self.db)
             self.template_data['user_activity'] = dict(data=userActivity, json=json.dumps(userActivity))
             self.template_data['locations'] = dict(json=json.dumps(locations), data=locations)

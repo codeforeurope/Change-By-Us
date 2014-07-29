@@ -71,19 +71,19 @@
 
                 <div class="bd">
                     <ul class="tabs">
-                        <li class="activity unread"><a href="#user-account,activity">Activity <span class="counter">{{ d.template_data.user_activity.data.projects|length + d.template_data.user_activity.data.ideas|length + d.template_data.user_activity.data.resources|length + d.template_data.user_activity.data.endorsed_projects|length }}</span></a></li>
+                        <li class="activity unread"><a href="#user-account,activity">{{ _('Activity') }} <span class="counter">{{ d.template_data.user_activity.data.projects|length + d.template_data.user_activity.data.ideas|length + d.template_data.user_activity.data.resources|length + d.template_data.user_activity.data.endorsed_projects|length }}</span></a></li>
 
                         {% if d.template_data.user and (d.template_data.user.data.u_id == d.template_data.user_activity.data.user.u_id) %}
-                            <li class="messages"><a href="#user-account,messages">Messages <span class="counter">{{ d.template_data.user.data.num_new_messages }}</span></a></li>
-                            <li class="account"><a href="#user-account,account">Account</a></li>
+                            <li class="messages"><a href="#user-account,messages">{{ _('Messages') }} <span class="counter">{{ d.template_data.user.data.num_new_messages }}</span></a></li>
+                            <li class="account"><a href="#user-account,account">{{ _('Account') }}</a></li>
                             {% if d.template_data.user_activity.data.resources and d.template_data.user_activity.data.resources > 0 %}
-                            <li class="resources"><a href="#user-account,resources">Resources</a></li>
+                            <li class="resources"><a href="#user-account,resources">{{ _('Resources') }}</a></li>
                             {% endif %}
                         {% endif %}
                     </ul>
 
                     {% if d.template_data.user and (d.template_data.user.data.u_id != d.template_data.user_activity.data.user.u_id) %}
-                        <a class="contact rounded-button small fancy-caps">Send <span>a</span> message <span>to</span> {{ d.template_data.user_activity.data.user.name|truncate(16) }}</a>
+                        <a class="contact rounded-button small fancy-caps">{{ _('Send <span>a</span> message <span>to</span>') }} {{ d.template_data.user_activity.data.user.name|truncate(16) }}</a>
                     {% endif %}
                 </div>
             </div>
@@ -122,7 +122,7 @@
                                             <span class="vertical-align-middle-hack">
                                                 <div class="members is-member">
                                                     <a href="/project/{{ project.project_id }}#show,members">
-                                                        <span class="counter members-counter">{{ project.num_members }}</span> Members
+                                                        <span class="counter members-counter">{{ project.num_members }}</span> {{ _('Members') }}
                                                     </a>
                                                 </div>
                                             </span>
@@ -155,6 +155,50 @@
                         <div class="bd clearfix">
                             <ul class="idea-cards">
                                 {% for idea in d.template_data.user_activity.data.ideas %}
+                                    <li class="{% if loop.index % 3 == 0  %}every-third{% endif %}">
+                                        {% if d.template_data and d.template_data.user and d.template_data.user.data.u_id != d.template_data.user_activity.data.user.u_id %}
+                                            <div class="note-card-public-controls">
+                                                {% if d.template_data.user.data.projects|length > 0 %}
+                                                    <a class="invite rounded-button small" href="#invite,{{ idea.idea_id }},{{ idea.owner.name }}">Invite</a>
+                                                {% endif %}
+                                                <span class="flag"><a href="#flagIdea,{{ idea.idea_id }}" class='flag-idea'>Flag as Inappropriate</a></span>
+                                            </div>
+                                        {% endif %}
+                                        <div class="note-card">
+                                            <div class="membrane">
+                                                {% if d.template_data and d.template_data.user %}
+                                                    {% if d.template_data.user.is_admin or d.template_data.user.data.u_id == idea.owner.u_id %}
+                                                        <a class="close remove-idea" href="#removeIdea,{{ idea.idea_id }}"><span>Close</span></a>
+                                                    {% endif %}
+                                                {% endif %}
+                                                <cite class="note-meta-hd">{% if idea.owner %}<strong><a href="/useraccount/{{ idea.owner.u_id }}">{{ idea.owner.name|truncate(18) }}</a></strong> said &mdash;{% endif %}</cite>
+                                                <blockquote><p>{{ idea.message|truncate(180) }}</p></blockquote>
+                                                <cite class="note-meta-ft">Posted <strong><span class="time-since">{{ idea.created }}</span></strong> via <strong>{{ idea.submission_type }}</strong></cite>
+                                            </div>
+                                        </div>
+                                    </li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    </div><!--end my-ideas-->
+                    {% endif %}
+
+                    {% if d.template_data and d.template_data.user_activity.data.liked_ideas|length > 0%}
+                    <div class="box my-ideas">
+                        <div class="hd">
+                            <h2>
+                                {% if d.template_data.user and d.template_data.user.data.u_id == d.template_data.user_activity.data.user.u_id %}
+                                    <span class="light">{{ _('Ideas I liked') }}</span>
+                                {% else %}
+                                    <span class="light">{{ _('Ideas liked by %(username)s')|format(username=d.template_data.user_activity.data.user.name) }}</span>
+                                {% endif %}
+                                {{ _('Ideas') }} <span class="counter">{{ d.template_data.user_activity.data.liked_ideas|length }}</span>
+                            </h2>
+                        </div>
+
+                        <div class="bd clearfix">
+                            <ul class="idea-cards">
+                                {% for idea in d.template_data.user_activity.data.liked_ideas %}
                                     <li class="{% if loop.index % 3 == 0  %}every-third{% endif %}">
                                         {% if d.template_data and d.template_data.user and d.template_data.user.data.u_id != d.template_data.user_activity.data.user.u_id %}
                                             <div class="note-card-public-controls">
