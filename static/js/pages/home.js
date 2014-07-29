@@ -175,10 +175,11 @@ app_page.features.push(function(app){
 									return false;
 								}
 								this.options.data.idea_id = data;
-								this.dom.siblings('.note-card-pane').find('strong').text('You');
-								this.dom.siblings('.note-card-pane').find('em').text('say');
+								this.dom.siblings('.note-card-pane').find('strong').text(app_page.messages['you']);
+								this.dom.siblings('.note-card-pane').find('em').text(app_page.messages['say']);
 								this.dom.siblings('.note-card-pane').find('cite').show();
 								this.dom.siblings('.note-card-pane').find('blockquote').html('<p>'+merlin.options.data.text+'</p>');
+                                this.dom.find('#start-your-project').attr('href','/create#idea,'+this.options.data.idea_id);
 								window.location.hash = 'related-processing';
 							}
 						});

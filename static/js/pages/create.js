@@ -12,6 +12,8 @@
 			});
 		}
 	}));
+
+alert (window.location.hash.split(',')[0]=="#idea" ? window.location.hash.split(',')[1] : null) ;
 	
 	app_page.features.push(function(app){
 		tc.util.log('Give A Minute: Create a Project');
@@ -64,6 +66,7 @@
 				links:null,
 				resources:null,
 				image:'-1',
+                ideaid: window.location.hash.split(',')[0]=="#idea" ? window.location.hash.split(',')[1] : null,
 				main_text:""
 			},
 			steps:{

@@ -182,9 +182,19 @@ limit 1"""
     def getMessages(self):
         return getMessages(self.db, self.id, 10, 0)
 
+def addIdeaToProject(db, ideaId, projectId):
+    try:
+        db.insert('project__idea', idea_id=ideaId, project_id=projectId)
+
+        return True
+    except Exception, e:
+        log.info("*** problem adding idea to project")
+        log.error(e)
+        return False
+
 
 def createProject(db, ownerUserId, title, description, keywords, locationId, imageId, isOfficial=False,
-                  organization=None):
+                  organization=None, ideaId = None):
     projectId = None
 
     try:
@@ -206,6 +216,8 @@ def createProject(db, ownerUserId, title, description, keywords, locationId, ima
 
         if (projectId):
             join(db, projectId, userId=ownerUserId, isAdmin=True, isProjectCreator=True)
+            if(ideaId is not None):
+                addIdeaToProject(db, ideaId, projectId)
         else:
             log.error("*** no project id returned, probably no project created")
     except Exception, e:

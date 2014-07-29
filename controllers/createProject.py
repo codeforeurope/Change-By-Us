@@ -18,6 +18,7 @@ from StringIO import StringIO
 import lib.web
 import json
 
+
 class CreateProject(Controller):
     def GET(self, action=None):
         if (action == 'keywords'):
@@ -28,15 +29,15 @@ class CreateProject(Controller):
             return self.getSimilarResourcesJSON()
         else:
             locations_data = mLocation.getSimpleLocationDictionary(self.db)
-            locations = dict(json = json.dumps(locations_data), data = locations_data)
+            locations = dict(json=json.dumps(locations_data), data=locations_data)
 
-            return self.render('create', {'locations':locations})
+            return self.render('create', {'locations': locations})
 
     def POST(self, action=None):
         if (action == 'photo'):
             imageId = self.uploadImage()
 
-            return self.json(dict(thumbnail_id = imageId, success = (imageId != None) ))
+            return self.json(dict(thumbnail_id=imageId, success=(imageId != None)))
         elif (action == 'attachment'):
             return self.newFile()
         else:
@@ -54,11 +55,14 @@ class CreateProject(Controller):
             organization = self.request('organization')
             locationId = util.try_f(int, self.request('location_id'), -1)
             imageId = self.request('image')
-            keywords = [word.strip() for word in self.request('keywords').split(',')] if not util.strNullOrEmpty(self.request('keywords')) else []
+            ideaId = self.request('ideaid') if not util.strNullOrEmpty(self.request('ideaid')) else None
+            keywords = [word.strip() for word in self.request('keywords').split(',')] if not util.strNullOrEmpty(
+                self.request('keywords')) else []
             resourceIds = self.request('resources').split(',')
             isOfficial = self.user.isAdmin and supported_features.get('is_official_supported')
 
-            projectId = mProject.createProject(self.db, owner_user_id, title, description, ' '.join(keywords), locationId, imageId, isOfficial, organization)
+            projectId = mProject.createProject(self.db, owner_user_id, title, description, ' '.join(keywords),
+                                               locationId, imageId, isOfficial, organization, ideaId)
 
             for resourceId in resourceIds:
                 log.info("*** insert resource id %s" % resourceId)
@@ -91,7 +95,7 @@ class CreateProject(Controller):
 
         if not file_info['id']:
             log.error("*** createProject.newFile: Failed to create file.")
-            return self.json({ 'success' : False })
+            return self.json({'success': False})
 
         # Save an attachment record to the database
         attachment_id = mProject.createAttachment(self.db,
@@ -102,18 +106,18 @@ class CreateProject(Controller):
         if attachment_id is None:
             log.error(("*** createProject.newFile: Failed insert row for file "
                        "with info %s into the attachments table." % file_info))
-            return self.json({ 'success' : False })
+            return self.json({'success': False})
 
         return self.json({
-            'id' : attachment_id,
-            'media_id' : file_info['id'],
-            'media_type' : file_info['type'],
-            'title' : file_info['name'],
-            'small_thumb_url' : formattingUtils.getAttachmentThumbUrl(file_info['type'], file_info['id'], 'small'),
-            'medium_thumb_url' : formattingUtils.getAttachmentThumbUrl(file_info['type'], file_info['id'], 'medium'),
-            'large_thumb_url' : formattingUtils.getAttachmentThumbUrl(file_info['type'], file_info['id'], 'large'),
-            'success' : (file_info['id'] != None)
-            #TODO add url
+            'id': attachment_id,
+            'media_id': file_info['id'],
+            'media_type': file_info['type'],
+            'title': file_info['name'],
+            'small_thumb_url': formattingUtils.getAttachmentThumbUrl(file_info['type'], file_info['id'], 'small'),
+            'medium_thumb_url': formattingUtils.getAttachmentThumbUrl(file_info['type'], file_info['id'], 'medium'),
+            'large_thumb_url': formattingUtils.getAttachmentThumbUrl(file_info['type'], file_info['id'], 'large'),
+            'success': (file_info['id'] != None)
+            # TODO add url
         })
 
     def getKeywordsJSON(self):
@@ -132,7 +136,7 @@ class CreateProject(Controller):
 
         projects = mProject.searchProjects(self.db, keywords, locationId)
 
-        obj = dict(projects = projects)
+        obj = dict(projects=projects)
 
         return self.json(obj)
 
@@ -142,7 +146,7 @@ class CreateProject(Controller):
 
         resources = mProjectResource.searchProjectResources(self.db, keywords, locationId)
 
-        obj = dict(resources = resources)
+        obj = dict(resources=resources)
 
         return self.json(obj)
 
@@ -208,9 +212,9 @@ class CreateProject(Controller):
             log.error("Failed to write %s thumbnail image to %s" % (name, thumb_filename))
 
 
-    SMALL_THUMB_SIZE = (100,100)
-    MEDIUM_THUMB_SIZE = (240,240)
-    LARGE_THUMB_SIZE = (360,360)
+    SMALL_THUMB_SIZE = (100, 100)
+    MEDIUM_THUMB_SIZE = (240, 240)
+    LARGE_THUMB_SIZE = (360, 360)
 
     def getThumbnailImageData(self, data, size):
         """
@@ -235,7 +239,7 @@ class CreateProject(Controller):
             img.thumbnail(size, Image.ANTIALIAS)
             img.save(write_buffer, img_format)
         except IOError, e:
-            log.error('*** Error while saving thumbnail data: %s' %e)
+            log.error('*** Error while saving thumbnail data: %s' % e)
             return
 
         return write_buffer.getvalue()
