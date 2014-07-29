@@ -586,12 +586,12 @@ tc.gam.idea_widgets.conversation = function(options){
     };
 
     /**
-     * Function: isProjectMember
-     * Is the user a member of this project?
+     * Function: isUserLoggedIn
+     * Is the user logged in?
      */
-    var isProjectMember = function () {
+    var isUserLoggedIn = function () {
         //TODO: check if user is logged in
-        return true;
+        return (options.user);
 //        return (
 //            (options.project_user.is_member) ||
 //            (options.project_user.is_project_admin) ||
@@ -638,7 +638,7 @@ tc.gam.idea_widgets.conversation = function(options){
         dom.find('.message-text').each(handlers.handle_message_body);
 
         //If this user is a member of the project
-        if (isProjectMember()) {
+        if (isUserLoggedIn()) {
             //Enable the merlin widget for participating in the conversation
             components.merlin = getMerlin();
             components.file_uploader = getFileUploader();
