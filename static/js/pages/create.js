@@ -13,8 +13,6 @@
 		}
 	}));
 
-alert (window.location.hash.split(',')[0]=="#idea" ? window.location.hash.split(',')[1] : null) ;
-	
 	app_page.features.push(function(app){
 		tc.util.log('Give A Minute: Create a Project');
 		tc.jQ('.addphoto a').bind('click',{
