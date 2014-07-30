@@ -251,9 +251,9 @@
                                                     <a class="add-button rounded-button small add-resource" href="#addResource,{{ resource.project_resource_id }}">Add</a>
                                                 {% endif %}
                                                 {% if resource.image_id > 0 %}
-                                                <span class="thumb">{% if d.template_data and d.template_data.user and d.template_data.user.is_admin %}<a class="close delete-resource" href="#removeResource,{{ resource.project_resource_id }}"><span>Remove</span></a>{% endif %}<img width='35' height='35' src='{{d.template_data.media_root}}images/{{ resource.image_id % 10 }}/{{ resource.image_id }}.png' alt="" /></span>
+                                                <span class="thumb">{% if d.template_data and d.template_data.user and d.template_data.user.is_admin %}<a class="close delete-resource" href="#removeResource,{{ resource.project_resource_id }}"><span>{{ _('Remove') }}</span></a>{% endif %}<img width='35' height='35' src='{{d.template_data.media_root}}images/{{ resource.image_id % 10 }}/{{ resource.image_id }}.png' alt="" /></span>
                                                 {% else %}
-                                                <span class="thumb">{% if d.template_data and d.template_data.user and d.template_data.user.is_admin %}<a class="close delete-resource" href="#removeResource,{{ resource.project_resource_id }}"><span>Remove</span></a>{% endif %}<img width='35' height='35' src='/static/images/thumb_genAvatar50.png' alt="" /></span>
+                                                <span class="thumb">{% if d.template_data and d.template_data.user and d.template_data.user.is_admin %}<a class="close delete-resource" href="#removeResource,{{ resource.project_resource_id }}"><span>{{ _('Remove') }}</span></a>{% endif %}<img width='35' height='35' src='/static/images/thumb_genAvatar50.png' alt="" /></span>
                                                 {% endif %}
                                                 <span class="resource-name">
                                                     {% if resource.is_official %}<span class="official-resource-alt">Official Resource</span>{% endif %}

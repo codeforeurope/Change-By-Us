@@ -55,6 +55,9 @@
                                   <img width='35' src="/static/images/thumb_genAvatar50.png" alt="{{ admin.display_name }}">
                                   {% endif %}
                                 </a>
+                            <span class="vertical-align-middle-hack thumb-description">
+                                <span class="serif"><a href='/useraccount/{{ admin.id }}'>{{ admin.display_name }}</a></span>
+                            </span>
                             </li>
                     {% if ((loop.index0 %  6) == 0) or loop.last %}
                         </ul>
