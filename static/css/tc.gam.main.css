@@ -3092,7 +3092,7 @@ table.resources-list .resource-name > span span {
 }
 
 table.resources-list .resource-name > span.official-resource-alt {
-    background-image: url("../images/nyc_small_green.png");
+    background-image: url("../images/ams_small_red.png");
     background-position: left top;
     border-bottom: 1px solid #d9f5c7;
     color: #52b312;
@@ -6384,7 +6384,7 @@ div.continent.user-account .midlands div.user-account-nav .box.box-thumb {
     width: 92px;
 }
 
-/*div.continent.user-account .midlands div.user-account-nav .box.box-thumb .leader-tag { display:none; padding:0 0 1px 48px; background-color:#52b312; background-image:url("../images/nyc_small_white.png"); background-position:17px center; position: absolute; top: 0; left: 0; right: 0;}_NO__DOTCOMMA__AFTER__*/
+/*div.continent.user-account .midlands div.user-account-nav .box.box-thumb .leader-tag { display:none; padding:0 0 1px 48px; background-color:#52b312; background-image:url("../images/ams_small_white.png"); background-position:17px center; position: absolute; top: 0; left: 0; right: 0;}_NO__DOTCOMMA__AFTER__*/
 
 div.continent.user-account .midlands div.user-account-nav .box.box-thumb .leader-tag {
     background-color: #fe872b;
