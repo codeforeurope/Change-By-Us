@@ -824,9 +824,9 @@ def searchUsers(db, terms, locationId, limit=1000, offset=0):
     #obviously must optimize here
     try:
         sql = """select u.user_id,
-                    IFNULL(u.email,"") as email,
-                    IFNULL(u.first_name, "") as first_name,
-                    IFNULL(u.last_name,"") as last_name,
+                    IFNULL(u.email,'') as email,
+                    IFNULL(u.first_name, '') as first_name,
+                    IFNULL(u.last_name,'') as last_name,
                     u.image_id,
                     IFNULL(u.description, '') as description,
                     IFNULL(u.location_id, 0) as location_id,
@@ -858,6 +858,50 @@ def searchUsers(db, terms, locationId, limit=1000, offset=0):
                                    num_projects=item.num_projects))
     except Exception, e:
         log.info("*** couldn't get user search data")
+        log.error(e)
+
+    return betterData
+
+
+def getMostActiveUsers(db, locationId=None, limit=8):
+    betterData = []
+
+    try:
+        sql = """select u.user_id,
+                    IFNULL(u.first_name, '') as first_name,
+                    IFNULL(u.last_name,'') as last_name,
+                    u.image_id,
+                    IFNULL(u.description, '') as description,
+                    IFNULL(u.location_id, 0) as location_id,
+                    u.affiliation,
+                    u.group_membership_bitmask,
+                    l.name as location_name,
+                    (select count(idea_id) from idea where idea.user_id = u.user_id ) as num_ideas,
+                    (select count(project_id) from project__user pu where pu.user_id = u.user_id ) as num_projects
+                    from user u
+                    left join location l on l.location_id = u.location_id
+                    where
+                    u.is_active = 1
+                    and ($locationId is null or u.location_id = $locationId)
+                    order by (num_ideas + (num_projects * $project_weight_compared_to_idea)) desc, u.created_datetime asc
+                    limit $limit"""
+
+        data = list(db.query(sql, {'locationId': locationId, 'limit': limit, 'project_weight_compared_to_idea': 5}))
+
+        for item in data:
+            betterData.append(dict(user_id=item.user_id,
+                                   user_image_id=item.image_id,
+                                   user_full_display_name=formattingUtils.userName(item.first_name,
+                                                                             item.last_name,
+                                                                             formattingUtils.isFullLastName(
+                                                                                 item.group_membership_bitmask)),
+                                   description=item.description,
+                                   location_id=item.location_id,
+                                   location_name=item.location_name,
+                                   num_ideas=item.num_ideas,
+                                   num_projects=item.num_projects))
+    except Exception, e:
+        log.info("*** couldn't get most active users data")
         log.error(e)
 
     return betterData
