@@ -13,9 +13,20 @@ tc.gam.project_widgets.events = function(options) {
         self = {};
 
     self._getDetailTemplateData = function(event_details) {
-        var month_names = [ "January", "February", "March", "April", "May",
-            "June", "July", "August", "September", "October", "November",
-            "December" ];
+        var month_names = [
+            app_page.messages['months']['jan'],
+            app_page.messages['months']['feb'],
+            app_page.messages['months']['mar'],
+            app_page.messages['months']['apr'],
+            app_page.messages['months']['may'],
+            app_page.messages['months']['jun'],
+            app_page.messages['months']['jul'],
+            app_page.messages['months']['aug'],
+            app_page.messages['months']['sep'],
+            app_page.messages['months']['oct'],
+            app_page.messages['months']['nov'],
+            app_page.messages['months']['dec']
+        ];
 
         var new_details = tc.jQ.extend(true, {
                 day: function() { return this.start_day; },
@@ -29,7 +40,7 @@ tc.gam.project_widgets.events = function(options) {
                     // range to the 1-12 range
                     hour = (this.start_hour - 1) % 12 + 1;
                     minute = this.start_minute;
-                    meridiem = this.start_hour < 12 ? 'AM' : 'PM';
+                    meridiem = this.start_hour < 12 ? app_page.messages['AM'] : app_page.messages['PM'];
 
                     // Start with the hour
                     time = '' + hour
