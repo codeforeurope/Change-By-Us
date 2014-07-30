@@ -733,8 +733,8 @@ class NeedModelRestController (RestController):
         """Convert a user instance in the context of being a need volunteer to
            a dictionary"""
 
-        from giveaminute.project import userNameDisplay
-        from giveaminute.project import isFullLastName
+        from giveaminute.formattingUtils import userNameDisplay
+        from giveaminute.formattingUtils import isFullLastName
 
         user_dict = super(NeedModelRestController, self).instance_to_dict(user)
 
@@ -892,8 +892,8 @@ class EventModelRestController (RestController):
         """Convert a user instance in the context of being a need volunteer to
            a dictionary"""
 
-        from giveaminute.project import userNameDisplay
-        from giveaminute.project import isFullLastName
+        from giveaminute.formattingUtils import userNameDisplay
+        from giveaminute.formattingUtils import isFullLastName
 
         user_dict = super(EventModelRestController, self).instance_to_dict(user)
 

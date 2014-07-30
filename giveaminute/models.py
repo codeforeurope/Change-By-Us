@@ -29,6 +29,7 @@ from sqlalchemy.ext.associationproxy import association_proxy
 from sqlalchemy.ext.declarative import declarative_base
 
 from framework import util
+from giveaminute import formattingUtils as formattingUtils
 
 
 class Base (object):
@@ -91,9 +92,9 @@ class User (Base):
         import framework.controller
         from giveaminute import project
 
-        return project.userNameDisplay(
+        return formattingUtils.userNameDisplay(
             self.first_name, self.last_name, self.affiliation,
-            project.isFullLastName(self.group_membership_bitmask))
+            formattingUtils.isFullLastName(self.group_membership_bitmask))
 
     def join(self, project, is_admin=False):
         if project not in self.projects:

@@ -10,6 +10,7 @@ import giveaminute.user as mUser
 import giveaminute.project as mProject
 import giveaminute.idea as mIdea
 import giveaminute.messaging as mMessaging
+import giveaminute.formattingUtils as formattingUtils
 import framework.util as util
 import lib.web
 #temp
@@ -577,7 +578,7 @@ class Home(Controller):
         message = self.request('message')
 
         if (toUserId and message):
-            fromName = mProject.userName(self.user.firstName, self.user.lastName)
+            fromName = formattingUtils.userName(self.user.firstName, self.user.lastName)
 
             toUser = mUser.User(self.db, toUserId)
             toName = "%s %s" % (toUser.firstName, toUser.lastName)

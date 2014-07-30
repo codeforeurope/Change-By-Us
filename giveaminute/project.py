@@ -87,12 +87,13 @@ limit 1"""
                     info=dict(title=self.data.title,
                               image_id=self.data.image_id,
                               owner=formattingUtils.smallUserDisplay(self.data.owner_user_id,
-                                                     formattingUtils.userNameDisplay(self.data.owner_first_name,
-                                                                     self.data.owner_last_name,
-                                                                     self.data.owner_affiliation,
-                                                                     formattingUtils.isFullLastName(
-                                                                         self.data.owner_group_membership_bitmask)),
-                                                     self.data.owner_image_id),
+                                                                     formattingUtils.userNameDisplay(
+                                                                         self.data.owner_first_name,
+                                                                         self.data.owner_last_name,
+                                                                         self.data.owner_affiliation,
+                                                                         formattingUtils.isFullLastName(
+                                                                             self.data.owner_group_membership_bitmask)),
+                                                                     self.data.owner_image_id),
                               mission=self.data.description,
                               keywords=(self.data.keywords.split() if self.data.keywords else []),
                               endorsements=dict(items=endorsements),
@@ -125,11 +126,12 @@ limit 1"""
             if len(data) > 0:
                 for item in data:
                     members.append(formattingUtils.smallUserDisplay(item.user_id,
-                                                    formattingUtils.userNameDisplay(item.first_name,
-                                                                    item.last_name,
-                                                                    item.affiliation,
-                                                                    formattingUtils.isFullLastName(item.group_membership_bitmask)),
-                                                    item.image_id))
+                                                                    formattingUtils.userNameDisplay(item.first_name,
+                                                                                                    item.last_name,
+                                                                                                    item.affiliation,
+                                                                                                    formattingUtils.isFullLastName(
+                                                                                                        item.group_membership_bitmask)),
+                                                                    item.image_id))
         except Exception, e:
             log.info("*** couldn't get project members")
             log.error(e)
@@ -150,11 +152,13 @@ limit 1"""
             if len(data) > 0:
                 for item in data:
                     endorsements.append(formattingUtils.smallUserDisplay(item.user_id,
-                                                         formattingUtils.userNameDisplay(item.first_name,
-                                                                         item.last_name,
-                                                                         item.affiliation,
-                                                                         formattingUtils.isFullLastName(item.group_membership_bitmask)),
-                                                         item.image_id))
+                                                                         formattingUtils.userNameDisplay(
+                                                                             item.first_name,
+                                                                             item.last_name,
+                                                                             item.affiliation,
+                                                                             formattingUtils.isFullLastName(
+                                                                                 item.group_membership_bitmask)),
+                                                                         item.image_id))
         except Exception, e:
             log.info("*** couldn't get project endorsements")
             log.error(e)
@@ -182,6 +186,7 @@ limit 1"""
     def getMessages(self):
         return getMessages(self.db, self.id, 10, 0)
 
+
 def addIdeaToProject(db, ideaId, projectId):
     try:
         db.insert('project__idea', idea_id=ideaId, project_id=projectId)
@@ -194,7 +199,7 @@ def addIdeaToProject(db, ideaId, projectId):
 
 
 def createProject(db, ownerUserId, title, description, keywords, locationId, imageId, isOfficial=False,
-                  organization=None, ideaId = None):
+                  organization=None, ideaId=None):
     projectId = None
 
     try:
@@ -216,7 +221,7 @@ def createProject(db, ownerUserId, title, description, keywords, locationId, ima
 
         if (projectId):
             join(db, projectId, userId=ownerUserId, isAdmin=True, isProjectCreator=True)
-            if(ideaId is not None):
+            if (ideaId is not None):
                 addIdeaToProject(db, ideaId, projectId)
         else:
             log.error("*** no project id returned, probably no project created")
@@ -660,10 +665,10 @@ def getFeaturedProjects(db, limit=6):
                                'location_id': item.location_id,
                                'owner_user_id': item.owner_user_id,
                                'owner_full_display_name': formattingUtils.userNameDisplay(item.owner_first_name,
-                                                                          item.owner_last_name,
-                                                                          item.owner_affiliation,
-                                                                          formattingUtils.isFullLastName(
-                                                                              item.owner_group_membership_bitmask)),
+                                                                                          item.owner_last_name,
+                                                                                          item.owner_affiliation,
+                                                                                          formattingUtils.isFullLastName(
+                                                                                              item.owner_group_membership_bitmask)),
                                'owner_image_id': item.owner_image_id,
                                'num_members': item.num_members})
     except Exception, e:
@@ -716,12 +721,13 @@ def getFeaturedProjectsDictionary(db):
                                'image_id': item.image_id,
                                'location_id': item.location_id,
                                'owner': formattingUtils.smallUserDisplay(item.owner_user_id,
-                                                         formattingUtils.userNameDisplay(item.owner_first_name,
-                                                                         item.owner_last_name,
-                                                                         item.owner_affiliation,
-                                                                         formattingUtils.isFullLastName(
-                                                                             item.owner_group_membership_bitmask)),
-                                                         item.owner_image_id),
+                                                                         formattingUtils.userNameDisplay(
+                                                                             item.owner_first_name,
+                                                                             item.owner_last_name,
+                                                                             item.owner_affiliation,
+                                                                             formattingUtils.isFullLastName(
+                                                                                 item.owner_group_membership_bitmask)),
+                                                                         item.owner_image_id),
                                'featured_datetime': str(item.featured_datetime),
                                'owner_image_id': item.owner_image_id,
                                'num_members': item.num_members,
@@ -794,12 +800,13 @@ def getProjectsByUser(db, userId, limit=100):
                                    image_id=item.image_id,
                                    location_id=item.location_id,
                                    owner=formattingUtils.smallUserDisplay(item.owner_user_id,
-                                                          formattingUtils.userNameDisplay(item.owner_first_name,
-                                                                          item.owner_last_name,
-                                                                          item.owner_affiliation,
-                                                                          formattingUtils.isFullLastName(
-                                                                              item.owner_group_membership_bitmask)),
-                                                          item.owner_image_id),
+                                                                          formattingUtils.userNameDisplay(
+                                                                              item.owner_first_name,
+                                                                              item.owner_last_name,
+                                                                              item.owner_affiliation,
+                                                                              formattingUtils.isFullLastName(
+                                                                                  item.owner_group_membership_bitmask)),
+                                                                          item.owner_image_id),
                                    num_members=item.num_members))
     except Exception, e:
         log.info("*** couldn't get projects")
@@ -837,7 +844,7 @@ def searchProjects(db, terms, locationId, limit=1000, offset=0):
 
     match = ' '.join([(item + "*") for item in terms])
 
-    #obviously must optimize here
+    # obviously must optimize here
     try:
         sql = """select p.project_id,
                         p.title,
@@ -873,12 +880,13 @@ def searchProjects(db, terms, locationId, limit=1000, offset=0):
                                    image_id=item.image_id,
                                    location_id=item.location_id,
                                    owner=formattingUtils.smallUserDisplay(item.owner_user_id,
-                                                          formattingUtils.userNameDisplay(item.owner_first_name,
-                                                                          item.owner_last_name,
-                                                                          item.owner_affiliation,
-                                                                          formattingUtils.isFullLastName(
-                                                                              item.owner_group_membership_bitmask)),
-                                                          item.owner_image_id),
+                                                                          formattingUtils.userNameDisplay(
+                                                                              item.owner_first_name,
+                                                                              item.owner_last_name,
+                                                                              item.owner_affiliation,
+                                                                              formattingUtils.isFullLastName(
+                                                                                  item.owner_group_membership_bitmask)),
+                                                                          item.owner_image_id),
                                    num_members=item.num_members))
     except Exception, e:
         log.info("*** couldn't get project search data")
@@ -1001,21 +1009,24 @@ def getMessages(db, projectId, limit=10, offset=0, filterBy=None):
 
         for item in data:
             messages.append(formattingUtils.message(id=item.project_message_id,
-                                    type=item.message_type,
-                                    message=item.message,
-                                    attachmentId=item.file_id,
-                                    createdDatetime=item.created_datetime,
-                                    userId=item.user_id,
-                                    name=formattingUtils.userNameDisplay(item.first_name, item.last_name, item.affiliation,
-                                                         formattingUtils.isFullLastName(item.group_membership_bitmask)),
-                                    imageId=item.image_id,
-                                    ideaId=item.idea_id,
-                                    idea=item.idea_description,
-                                    ideaSubType=item.idea_submission_type,
-                                    ideaCreatedDatetime=item.idea_created_datetime,
-                                    attachmentMediaType=item.attachment_type,
-                                    attachmentMediaId=item.attachment_id,
-                                    attachmentTitle=item.attachment_title))
+                                                    type=item.message_type,
+                                                    message=item.message,
+                                                    attachmentId=item.file_id,
+                                                    createdDatetime=item.created_datetime,
+                                                    userId=item.user_id,
+                                                    name=formattingUtils.userNameDisplay(item.first_name,
+                                                                                         item.last_name,
+                                                                                         item.affiliation,
+                                                                                         formattingUtils.isFullLastName(
+                                                                                             item.group_membership_bitmask)),
+                                                    imageId=item.image_id,
+                                                    ideaId=item.idea_id,
+                                                    idea=item.idea_description,
+                                                    ideaSubType=item.idea_submission_type,
+                                                    ideaCreatedDatetime=item.idea_created_datetime,
+                                                    attachmentMediaType=item.attachment_type,
+                                                    attachmentMediaId=item.attachment_id,
+                                                    attachmentTitle=item.attachment_title))
     except Exception, e:
         log.info("*** couldn't get messages")
         log.error(e)
@@ -1072,7 +1083,8 @@ def getProjectIdeas(db, projectId, limit=100):
         if len(data) > 0:
             for item in data:
                 ideas.append(
-                    formattingUtils.smallIdea(item.idea_id, item.description, item.first_name, item.last_name, item.submission_type))
+                    formattingUtils.smallIdea(item.idea_id, item.description, item.first_name, item.last_name,
+                                              item.submission_type))
     except Exception, e:
         log.info("*** couldn't get project ideas")
         log.error(e)
@@ -1118,10 +1130,10 @@ def inviteByIdea(db, projectId, ideaId, message, inviterUser):
             else:
                 return giveaminute.messaging.emailInvite(idea.data.email,
                                                          formattingUtils.userNameDisplay(inviterUser.firstName,
-                                                                         inviterUser.lastName,
-                                                                         inviterUser.affiliation,
-                                                                         formattingUtils.isFullLastName(
-                                                                             inviterUser.groupMembershipBitmask)),
+                                                                                         inviterUser.lastName,
+                                                                                         inviterUser.affiliation,
+                                                                                         formattingUtils.isFullLastName(
+                                                                                             inviterUser.groupMembershipBitmask)),
                                                          projectId,
                                                          project.data.title,
                                                          project.data.description,
@@ -1143,10 +1155,10 @@ def inviteByEmail(db, projectId, emails, message, inviterUser):
             if (createInviteRecord(db, projectId, message, inviterUser.id, None, email)):
                 if (not giveaminute.messaging.emailInvite(email,
                                                           formattingUtils.userNameDisplay(inviterUser.firstName,
-                                                                          inviterUser.lastName,
-                                                                          inviterUser.affiliation,
-                                                                          formattingUtils.isFullLastName(
-                                                                                  inviterUser.groupMembershipBitmask)),
+                                                                                          inviterUser.lastName,
+                                                                                          inviterUser.affiliation,
+                                                                                          formattingUtils.isFullLastName(
+                                                                                                  inviterUser.groupMembershipBitmask)),
                                                           projectId,
                                                           project.data.title,
                                                           project.data.description,

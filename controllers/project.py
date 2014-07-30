@@ -450,7 +450,7 @@ class Project(Controller):
 
         project = mProject.Project(self.db, projectId)
 
-        return self.json(mProject.smallProject(project.id,
+        return self.json(formattingUtils.smallProject(project.id,
                                                 project.data.title,
                                                 project.data.description,
                                                 project.data.image_id,
