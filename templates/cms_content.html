@@ -165,8 +165,8 @@
 			<div class="west">
 				<div class="box">
 					<div class="bd">
-						<p>These resources have been submitted to the site and await approval.</p><br />
-						<p>Review and approve them to include them on the site.</p>
+						<p>{{ _('These resources have been submitted to the site and await approval.') }}</p><br />
+						<p>{{ _('Review and approve them to include them on the site.') }}</p>
 					</div>
 				</div>
 			</div>
@@ -174,7 +174,7 @@
 				<div class="hd clearfix">
 					<div class="pagination-controls">
 						<span class="control">
-							<a class="resources-carousel-prev prev" href="#"><span class="sm-arrow-back light"></span><span>Previous</span></a>
+							<a class="resources-carousel-prev prev" href="#"><span class="sm-arrow-back light"></span><span>{{ _('Previous') }}</span></a>
 							<a class="resources-carousel-next next" href="#"><span>Next</span><span class="sm-arrow-forward light"></span></a>
 						</span>
 					</div>
@@ -185,7 +185,7 @@
 								<ul class="items">
 									<li class="flagged-content-carousel-item clearfix spinner-message">
 										<ul class="items pending-resources-stack">
-											<li><p>Loading&hellip;</p></li>
+											<li><p>{{ _('Loading') }}&hellip;</p></li>
 										</ul>
 									</li>
 								</ul>
@@ -335,6 +335,8 @@
 			<div class="mission">
 				<h4>Mission</h4>
 				<span class="serif"><p class='description'></p></span>
+                <h4>Message from Resource Owner</h4>
+                <span class="serif"><p class='resource-message'></p></span>
 			</div>
 		</div>
 		<!--[if lte IE 7]>

@@ -91,6 +91,10 @@
 							<label>{{ _('Contact email') }}<span class="note"><strong>{{ _('Important') }}</strong> {{ _('This email is for %(site_name)s to get in touch with you whenever a project adds your organization as a resource.')|format(site_name=d.config.site.name ) }}</span></label>
 							<input type="text" class='contact'/>
 						</div>
+                        <div class="row">
+                            <label>{{ _('Private message to Administrators to review your Resource for approval') }}</label>
+							<textarea class='message'></textarea>
+						</div>
 						<div class="row">
 							<input type="checkbox" id="agree-tos" class='contact' />
 							<label for="agree-tos">{{ _('I have read and accept the <a href="/tou"><strong>Terms of Use</strong>') }}</a></label>

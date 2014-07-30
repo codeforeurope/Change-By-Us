@@ -33,6 +33,8 @@ class Resource(Controller):
                     return self.updateResourceAddress()
                 elif (param0 == 'keywords'):
                     return self.updateResourceKeywords()
+                elif (param0 == 'message'):
+                    return self.updateResourceMessage()
                 else:
                     #return self.not_found()
                     return 'param0 not found'
@@ -63,7 +65,8 @@ class Resource(Controller):
         contact_email = self.request('contact_email')
         facebook_url = util.makeUrlAbsolute(self.request('facebook_url')) if self.request('facebook_url') else None
         twitter_url = util.makeUrlAbsolute(self.request('twitter_url')) if self.request('twitter_url') else None
-        image_id = util.try_f(int, self.request('image')) 
+        image_id = util.try_f(int, self.request('image'))
+        message = self.request('message')
         
         # TODO this is a temp fix for a form issue
         if (contact_name == 'null'):
@@ -84,7 +87,8 @@ class Resource(Controller):
                                         created_datetime = None,
                                         image_id = image_id,
                                         is_hidden = 1,
-                                        contact_user_id = self.user.id)
+                                        contact_user_id = self.user.id,
+                                        message = message)
             
             return True
         except Exception,e:
@@ -193,3 +197,14 @@ class Resource(Controller):
         keywords = ' '.join([word.strip() for word in self.request('keywords').split(',')]) if not util.strNullOrEmpty(self.request('keywords')) else None
         
         return mProjectResource.updateProjectResourceTextData(self.db, resourceId, 'keywords', keywords)
+
+    def updateResourceMessage(self):
+        resourceId = util.try_f(int, self.request('resource_id'))
+
+        if (not self.user or not self.user.isResourceOwner(resourceId)):
+            log.error("*** resource edit attempt without ownership, resource id %s" % resourceId)
+            return False
+
+        message = self.request('message')
+
+        return mProjectResource.updateProjectResourceTextData(self.db, resourceId, 'message', message)

@@ -449,6 +449,9 @@ app_page.features.push(function(app){
 							if(d[i].keywords){
 								tempitem.find('div.mission').append("<div class='box half'><h4>Keywords</h4><span class='serif'><p>"+d[i].keywords.replace(/,/g,', ')+"</p></span></div>");
 							}
+                            if(d[i].message && d[i].message.length) {
+                                tempitem.find('p.resource-message').text(d[i].message);
+                            }
 							
 							this.components.resources_pagination.data.offset++;
 							this.components.resources_pagination.data.current_page.children('ul').append(tempitem);

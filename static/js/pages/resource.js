@@ -52,7 +52,8 @@ app_page.features.push(function(app){
 			contact_name: null,
 			contact_email: null,
 			image: null,
-			main_text:""
+			main_text:"",
+            message: ""
 		},
 		steps:{
 			'resource-form':{
@@ -112,6 +113,11 @@ app_page.features.push(function(app){
 						validators:['min-6','max-254','required','email'],
 						hint:''
 					},
+                    message:{
+						selector:'textarea.message',
+						validators:null,
+						hint:''
+					},
 					tos_agree:{
 						selector:'input#agree-tos',
 						validators:['required']
@@ -153,7 +159,8 @@ app_page.features.push(function(app){
 						twitter_url:merlin.current_step.inputs.twitter.dom.val(),
 						keywords:merlin.current_step.inputs.keywords.dom.val(),
 						contact_email:merlin.current_step.inputs.contact.dom.val(),
-						main_text:merlin.current_step.inputs.main_text.dom.val()
+						main_text:merlin.current_step.inputs.main_text.dom.val(),
+                        message:merlin.current_step.inputs.message.dom.val()
 					});
 				}
 			},
