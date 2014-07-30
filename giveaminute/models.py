@@ -269,7 +269,7 @@ class Event (Base):
     details = Column(Text)
     rsvp_url = Column(String(2048))
     start_datetime = Column(DateTime)
-    end_datetime = Column(DateTime)
+    # end_datetime = Column(DateTime) #GM 2014-07-30 this column is not in the database
     address = Column(String(256))
 
     project = relationship('Project')

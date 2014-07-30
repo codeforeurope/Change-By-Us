@@ -947,10 +947,12 @@ class EventModelRestController (RestController):
     def dict_to_instance(self, data, event=None):
         need_ids = []
         if 'need_ids' in data:
-            need_ids = data.pop('need_ids').split(',')
-            data['needs'] = []
+            if len(data['need_ids']) > 0:
+                need_ids = data.pop('need_ids').split(',')
+                data['needs'] = []
 
         event = super(EventModelRestController, self).dict_to_instance(data, event)
+        event.needs = []
 
         for need_id in need_ids:
             need = self.orm.query(models.Need).get(need_id)
