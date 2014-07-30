@@ -30,7 +30,8 @@ app_page.features.push(function(app){
 				text:null,
 				email:null,
 				location_id:null,
-				main_text:""
+				main_text:"",
+                homepage_question_id:null
 			},
 			steps:{
 				'start':{
@@ -64,7 +65,8 @@ app_page.features.push(function(app){
 					finish:function(merlin,dom){
 						merlin.options.data = tc.jQ.extend(merlin.options.data,{
 							text:merlin.current_step.inputs.idea.dom.val(),
-							main_text:merlin.current_step.inputs.main_text.dom.val()
+							main_text:merlin.current_step.inputs.main_text.dom.val(),
+                            homepage_question_id:$('#question-container').data('question-id') //Get the homepage_question_id from the data-attribute
 						});
 					}
 				},

@@ -101,6 +101,7 @@ class Idea(Controller):
 
         description = self.request('text')
         locationId = util.try_f(int, self.request('location_id'), -1)
+        homepage_question_id = self.request('homepage_question_id')
 
         if (self.user):
             userId = self.user.id
@@ -109,7 +110,7 @@ class Idea(Controller):
             userId = None
             email = self.request('email')
 
-        ideaId = mIdea.createIdea(self.db, description, locationId, 'web', userId, email)
+        ideaId = mIdea.createIdea(self.db, description, locationId, 'web', userId, email, None, homepage_question_id)
 
         if (ideaId):
             mMessaging.emailIdeaConfirmation(email, Config.get('email').get('from_address'), locationId)

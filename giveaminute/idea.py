@@ -56,7 +56,7 @@ class Idea:
         return data
 
 
-def createIdea(db, description, locationId, submissionType, userId=None, email=None, phone=None):
+def createIdea(db, description, locationId, submissionType, userId=None, email=None, phone=None, homepage_question_id=None):
     try:
         # censor behavior
         numFlags = censor.badwords(db, description)
@@ -69,7 +69,8 @@ def createIdea(db, description, locationId, submissionType, userId=None, email=N
                            email=email,
                            phone=phone,
                            is_active=isActive,
-                           num_flags=numFlags)
+                           num_flags=numFlags,
+                           homepage_question_id=homepage_question_id)
     except Exception, e:
         log.info("*** problem creating idea")
         log.error(e)

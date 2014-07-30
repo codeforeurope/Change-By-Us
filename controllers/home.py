@@ -35,7 +35,9 @@ class Home(Controller):
         project_user = dict(is_member = True,
                               is_project_admin = True)
         self.template_data['project_user'] = dict(data = project_user, json = json.dumps(project_user))
-        self.template_data['homepage_question'] = self.getHomepageQuestion()
+        homepagequestion = self.getHomepageQuestion()
+        self.template_data['homepage_question'] = homepagequestion['question_text']
+        self.template_data['homepage_question_id'] = homepagequestion['question_id']
 
         if (not action or action == 'home'):
             return self.showHome()
@@ -524,14 +526,14 @@ class Home(Controller):
         q = None
     
         if (Config.get('homepage').get('is_question_from_cms')):
-            sql = "select question from homepage_question where is_active = 1 and is_featured = 1"
+            sql = "select question, homepage_question_id from homepage_question where is_active = 1 and is_featured = 1"
             data = list(self.db.query(sql))
             
             if (len(data) == 1):
-                q = data[0].question
+                q = dict(question_text=data[0].question, question_id=data[0].homepage_question_id)
                 
         if (not q):
-            q = Config.get('homepage').get('question')
+            q = dict(question_text=Config.get('homepage').get('question'), question_id=None)
             
         return q
 

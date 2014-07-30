@@ -4,7 +4,7 @@
  #}
 {% extends "./partials/base.html" %}
 
-{% block title %} Home {% endblock title %}
+{% block title %} {{ _('Home') }} {% endblock title %}
 
 {# Main content for page. #}
 {% block continent %}
@@ -23,7 +23,7 @@
                         <div class="console">
                             <div class='question-wrap'>
                                 <span class="start console-message" style="margin-bottom: -4px; margin-top: 12px">
-                                  <span class="spacer"></span>
+                                  <span class="spacer" id="question-container" data-question-id="{{ d.template_data.homepage_question_id }}"></span>
                                   {{ d.template_data.homepage_question }}
                                 </span>
                             </div>
