@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-07-29 18:01+0200\n"
+"POT-Creation-Date: 2014-07-30 18:07+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -180,7 +180,8 @@ msgstr ""
 msgid "Events"
 msgstr ""
 
-#: templates/calendar.html:23 templates/partials/idea_conversation.html:106
+#: templates/calendar.html:23 templates/cms_content.html:177
+#: templates/partials/idea_conversation.html:106
 #: templates/project/conversation.html:123
 #: templates/project/member_list.html:45 templates/search.html:73
 #: templates/search.html:184 templates/search.html:290
@@ -236,6 +237,18 @@ msgstr ""
 msgid "Metrics"
 msgstr ""
 
+#: templates/cms_content.html:168
+msgid "These resources have been submitted to the site and await approval."
+msgstr ""
+
+#: templates/cms_content.html:169
+msgid "Review and approve them to include them on the site."
+msgstr ""
+
+#: templates/cms_content.html:188
+msgid "Loading"
+msgstr ""
+
 #: templates/create.html:13
 msgid "Create <em>a</em> Project"
 msgstr ""
@@ -252,7 +265,7 @@ msgstr ""
 msgid "Describe"
 msgstr ""
 
-#: templates/create.html:21 templates/project/mission.html:109
+#: templates/create.html:21 templates/project/mission.html:112
 msgid "Location"
 msgstr ""
 
@@ -359,7 +372,7 @@ msgid ""
 "<strong>90px by 90px</strong>)"
 msgstr ""
 
-#: templates/create.html:152 templates/home.html:362 templates/idea.html:119
+#: templates/create.html:152 templates/home.html:384 templates/idea.html:148
 #: templates/join.html:243 templates/partials/add_resource.html:29
 #: templates/partials/base_idea_delete.html:16
 #: templates/partials/base_invite.html:54
@@ -368,15 +381,15 @@ msgstr ""
 #: templates/partials/idea_conversation.html:157
 #: templates/project/conversation.html:133
 #: templates/project/conversation.html:174
-#: templates/project/member_list.html:146 templates/project/mission.html:96
-#: templates/project/mission.html:155 templates/project/mission.html:169
-#: templates/project/mission.html:183 templates/project/needs.html:126
+#: templates/project/member_list.html:146 templates/project/mission.html:99
+#: templates/project/mission.html:158 templates/project/mission.html:172
+#: templates/project/mission.html:186 templates/project/needs.html:126
 #: templates/project/needs.html:136 templates/project.html:176
 #: templates/project.html:183 templates/project.html:189
 #: templates/project.html:200 templates/project.html:223
 #: templates/project.html:237 templates/project.html:253
 #: templates/project.html:270 templates/project.html:287
-#: templates/project.html:303 templates/resource.html:145
+#: templates/project.html:303 templates/resource.html:149
 #: templates/search.html:598 templates/search.html:634
 #: templates/search.html:641
 msgid "close"
@@ -392,7 +405,7 @@ msgstr ""
 msgid "We&#39;ve sent them a link to your project page."
 msgstr ""
 
-#: templates/create.html:183 templates/idea.html:116
+#: templates/create.html:183 templates/idea.html:145
 #: templates/project.html:180 templates/search.html:639
 msgid "<strong>Hold your horses!</strong> Please register."
 msgstr ""
@@ -725,6 +738,10 @@ msgstr ""
 msgid "There was an issue saving your feedback, please try again later."
 msgstr ""
 
+#: templates/home.html:7
+msgid "Home"
+msgstr ""
+
 #: templates/home.html:13
 #, python-format
 msgid "Hey %(city)s!"
@@ -871,30 +888,40 @@ msgid "Featured <strong>Projects</strong>"
 msgstr ""
 
 #: templates/home.html:313
-msgid "Who&#39;s listening?"
+msgid "Who&#39;s giving the most?"
 msgstr ""
 
 #: templates/home.html:314
+msgid ""
+"These people are making a difference in <a href=\"/search#ideas\">ideas</a> "
+"and <a href=\"/search#projects\">projects</a>."
+msgstr ""
+
+#: templates/home.html:335
+msgid "Who&#39;s listening?"
+msgstr ""
+
+#: templates/home.html:336
 msgid ""
 "A network of city leaders is ready to hear your <a href=\"/search#ideas"
 "\">ideas</a> and provide guidance for your <a href=\"/search#projects"
 "\">projects</a>."
 msgstr ""
 
-#: templates/home.html:331
+#: templates/home.html:353
 msgid "Recent News"
 msgstr ""
 
-#: templates/home.html:332
+#: templates/home.html:354
 #, python-format
 msgid "Find out what&#39;s happening on %(site_name)s."
 msgstr ""
 
-#: templates/home.html:341
+#: templates/home.html:363
 msgid "Read more"
 msgstr ""
 
-#: templates/home.html:358 templates/join.html:85 templates/join.html:121
+#: templates/home.html:380 templates/join.html:85 templates/join.html:121
 #: templates/join.html:149 templates/join.html:239
 #: templates/partials/base.html:331 templates/partials/mobilebase.html:73
 msgid "Terms of Use"
@@ -961,7 +988,11 @@ msgstr ""
 msgid "People"
 msgstr ""
 
-#: templates/idea.html:117 templates/search.html:640
+#: templates/idea.html:115
+msgid "We like this idea"
+msgstr ""
+
+#: templates/idea.html:146 templates/search.html:640
 #, python-format
 msgid ""
 "You must <strong><a href=\"/join\">register</a></strong> or <strong><a href="
@@ -1801,7 +1832,7 @@ msgstr ""
 
 #: templates/project/event.html:38 templates/project/event_needs.html:80
 #: templates/project/event_teaser.html:18
-#: templates/project/member_list.html:137 templates/project/mission.html:174
+#: templates/project/member_list.html:137 templates/project/mission.html:177
 #: templates/project/need_teaser.html:40 templates/project/resources.html:183
 #: templates/project.html:228 templates/project.html:278
 #: templates/search.html:589 templates/search.html:625
@@ -2062,70 +2093,70 @@ msgstr ""
 msgid "Project Leaders"
 msgstr ""
 
-#: templates/project/mission.html:69
+#: templates/project/mission.html:72
 msgid "Our Mission"
 msgstr ""
 
-#: templates/project/mission.html:78
+#: templates/project/mission.html:81
 msgid "Supporters"
 msgstr ""
 
-#: templates/project/mission.html:102
+#: templates/project/mission.html:105
 msgid "Support <span>this</span> project"
 msgstr ""
 
-#: templates/project/mission.html:118
+#: templates/project/mission.html:121
 msgid "Keywords"
 msgstr ""
 
-#: templates/project/mission.html:145
+#: templates/project/mission.html:148
 msgid "<strong>Support</strong> this project?"
 msgstr ""
 
-#: templates/project/mission.html:147
+#: templates/project/mission.html:150
 #, python-format
 msgid "Do you want to endorse</p><p class=\"serif big\">%(project_title)s?"
 msgstr ""
 
-#: templates/project/mission.html:148
+#: templates/project/mission.html:151
 msgid "It will receive your seal of approval!"
 msgstr ""
 
-#: templates/project/mission.html:151 templates/project.html:212
+#: templates/project/mission.html:154 templates/project.html:212
 msgid "Yes"
 msgstr ""
 
-#: templates/project/mission.html:152 templates/project/mission.html:166
+#: templates/project/mission.html:155 templates/project/mission.html:169
 msgid "No"
 msgstr ""
 
-#: templates/project/mission.html:160
+#: templates/project/mission.html:163
 msgid "Are you sure you want to <strong>remove</strong> this endorsement?"
 msgstr ""
 
-#: templates/project/mission.html:162
+#: templates/project/mission.html:165
 msgid ""
 "Are you sure you want to remove this endorsement? To restore the "
 "endorsement, the city leader will need to endorse this project again."
 msgstr ""
 
-#: templates/project/mission.html:165
+#: templates/project/mission.html:168
 msgid "Yes, Remove Endorsement"
 msgstr ""
 
-#: templates/project/mission.html:174
+#: templates/project/mission.html:177
 msgid "this Keyword?"
 msgstr ""
 
-#: templates/project/mission.html:176
+#: templates/project/mission.html:179
 msgid "This deletes the keyword from this project! <br/>Are you sure?"
 msgstr ""
 
-#: templates/project/mission.html:179
+#: templates/project/mission.html:182
 msgid "Yes, Delete Keyword"
 msgstr ""
 
-#: templates/project/mission.html:180
+#: templates/project/mission.html:183
 msgid "No, keep it"
 msgstr ""
 
@@ -2481,7 +2512,7 @@ msgstr ""
 msgid "Add Resource"
 msgstr ""
 
-#: templates/resource.html:19 templates/resource.html:112
+#: templates/resource.html:19 templates/resource.html:116
 msgid "<strong>Add</strong> your resource"
 msgstr ""
 
@@ -2545,12 +2576,16 @@ msgid ""
 "adds your organization as a resource."
 msgstr ""
 
-#: templates/resource.html:96
+#: templates/resource.html:95
+msgid "Private message to Administrators to review your Resource for approval"
+msgstr ""
+
+#: templates/resource.html:100
 msgid ""
 "I have read and accept the <a href=\"/tou\"><strong>Terms of Use</strong>"
 msgstr ""
 
-#: templates/resource.html:115
+#: templates/resource.html:119
 #, python-format
 msgid ""
 "Welcome! We&#39;re always looking to list more valuable organizations, "
@@ -2558,53 +2593,53 @@ msgid ""
 "resources to add to their projects."
 msgstr ""
 
-#: templates/resource.html:116
+#: templates/resource.html:120
 msgid "To be considered, just fill out this form."
 msgstr ""
 
-#: templates/resource.html:116
+#: templates/resource.html:120
 #, python-format
 msgid ""
 "We&#39;ll notify you by email when you have been approved as a resource to "
 "be listed on %(site_name)s"
 msgstr ""
 
-#: templates/resource.html:117
+#: templates/resource.html:121
 msgid ""
 "When you have been approved, users will be able to find your resource on the "
 "site and add it to their project pages. When they do, you&#39;ll get an "
 "email inviting you to visit their page to see if you can help."
 msgstr ""
 
-#: templates/resource.html:119
+#: templates/resource.html:123
 msgid ""
 "Please use this form only if you are an employee or direct affiliate of the "
 "organization, service, or program."
 msgstr ""
 
-#: templates/resource.html:120
+#: templates/resource.html:124
 msgid ""
 "We&#39;ll post only resources relevant to the questions being asked on the "
 "site."
 msgstr ""
 
-#: templates/resource.html:128
+#: templates/resource.html:132
 msgid "Your resource has been added for approval"
 msgstr ""
 
-#: templates/resource.html:129
+#: templates/resource.html:133
 msgid "Add another resource"
 msgstr ""
 
-#: templates/resource.html:130
+#: templates/resource.html:134
 msgid "Go back to the homepage"
 msgstr ""
 
-#: templates/resource.html:141
+#: templates/resource.html:145
 msgid "<strong>Upload</strong> a photo for your resource."
 msgstr ""
 
-#: templates/resource.html:142
+#: templates/resource.html:146
 msgid ""
 "Photos should be <strong>under 1MB</strong> please. (We also crop photos to "
 "<strong>100px by 100px</strong>)"
@@ -2659,7 +2694,8 @@ msgstr ""
 msgid "Resource"
 msgstr ""
 
-#: templates/search.html:218
+#: templates/search.html:218 templates/useraccount.html:254
+#: templates/useraccount.html:256
 msgid "Remove"
 msgstr ""
 
