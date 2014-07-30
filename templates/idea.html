@@ -37,7 +37,7 @@
                             <div class="note-card">
                                 <div class="membrane">
                                     {% if d.template_data and d.template_data.user %}
-                                        {% if d.template_data.user.is_admin or d.template_data.user.data.u_id == d.template_data.idea.data.idea_user_id %}
+                                        {% if d.template_data.user.is_liker or d.template_data.user.data.u_id == d.template_data.idea.data.idea_user_id %}
                                         <a class="close remove-idea" href="#removeIdea,{{ d.template_data.idea.data.idea_id }}"><span>{{ _('Close') }}</span></a>
                                         {% endif %}
                                     {% endif %}
@@ -48,7 +48,7 @@
                                             </strong> {{ _('said') }} &mdash;
                                         </cite>
                                     {% endif %}
-                                    <blockquote>{% if d.template_data and d.template_data.user and d.template_data.user.is_admin %}{% if not d.template_data.idea.data.idea_id %}<span class="topright-spacer"></span>{% endif %}{% endif %}<p>{{ d.template_data.idea.data.idea_description|truncate(175) }}</p></blockquote>
+                                    <blockquote>{% if d.template_data and d.template_data.user and d.template_data.user.is_liker %}{% if not d.template_data.idea.data.idea_id %}<span class="topright-spacer"></span>{% endif %}{% endif %}<p>{{ d.template_data.idea.data.idea_description|truncate(175) }}</p></blockquote>
                                     <cite class="note-meta-ft">{{ _('Posted') }} <strong class="time-since">{{ d.template_data.idea.data.created }}</strong> {{ _('via') }} <strong>{{ d.template_data.idea.data.submission_type }}</strong></cite>
                                     <div class="like-container">
                                         {%if d.template_data.idea.data.liked == False %}<a href="#likeIdea,{{ d.template_data.idea.data.idea_id }}" class='fancy-caps like-idea'>{% else %}<a href="#unlikeIdea,{{ d.template_data.idea.data.idea_id }}" class='fancy-caps unlike-idea'>{% endif %}<span class="like-count">{{ d.template_data.idea.data.likes }}</span></a>
@@ -106,12 +106,41 @@
 
             </div> <!-- end East -->
 
-            <!-- Conversation -->
+            <!-- conversation and likers -->
             <div class="bottom">
+
+            <!-- People who Like the idea -->
+            <div class="leadership">
+                <div class="sub-hd">
+                    <h3>{{ _('We like this idea') }}:</h3>
+                </div>
+
+                {% for liker in d.template_data.idea.data.likers%}
+                    <div class="clearfix">
+                        <ul>
+                            <li style="display:block;float:left;padding-right:8px;">
+                                <a href='/useraccount/{{ liker.user_id }}'>
+                                  {% if liker.user.image_id %}
+                                  <img width="35" src="{{d.template_data.media_root}}images/{{ liker.user.image_id % 10 }}/{{ liker.user.image_id }}.png" alt="{{ liker.user.name }}">
+                                  {% else %}
+                                  <img width='35' src="/static/images/thumb_genAvatar50.png" alt="{{ liker.user.name }}">
+                                  {% endif %}
+                                </a>
+                                <span class="vertical-align-middle-hack thumb-description">
+                                    <span class="serif"><a href='/useraccount/{{ liker.id }}'>{{ liker.user.name }}</a></span>
+                                </span>
+                            </li>
+                        </ul>
+                    </div>
+                {% endfor %}
+            </div>
+
+
+            <!-- Conversation -->
             {% include "partials/idea_conversation.html" %}
             </div>
 
-<!-- Templates for modal view when user is not logged in yet -->
+    <!-- Templates for modal view when user is not logged in yet -->
         <div class='template-content modal-content join-no-user'>
         <h2>{{ _('<strong>Hold your horses!</strong> Please register.') }}</h2>
         <p>{{ _('You must <strong><a href="/join">register</a></strong> or <strong><a href="/login">login</a></strong> with %(sitename)s in order to vote for an idea.')|format(sitename=d.config.site.name) }}</p>

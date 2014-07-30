@@ -60,7 +60,8 @@ class Idea(Controller):
                     self.template_data['related_projects'] = related_projects
 
                     ideaDictionary['likes'] = len(likers)
-                    ideaDictionary['liked'] = any(self.user.id == y.user_id for y in likers) if self.user is not None else False
+                    ideaDictionary['likers'] = likers
+                    ideaDictionary['liked'] = mIdea.isLikedByUser(self.user.id, likers) if self.user is not None else False
 
                     # idea_proxy = self.getIdea(ideaId)
                     # idea_proxy.json = json.dumps(ideaDictionary)

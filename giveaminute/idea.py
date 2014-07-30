@@ -157,10 +157,33 @@ def searchIdeasCount(db, terms, locationId, excludeProjectId=None):
 
 
 def searchLikers(db, ideaId):
+    betterData = []
     try:
-        sql = 'select user_id from idea__user where idea_id = $idea_id'
+        sql = """select
+              iu.user_id,
+              u.first_name,
+              u.last_name,
+              u.affiliation,
+              u.group_membership_bitmask,
+              u.image_id
+              from idea__user iu
+              left join user u on iu.user_id = u.user_id
+              where iu.idea_id = $idea_id
+              and u.is_active = 1 """
         data = list(db.query(sql, {'idea_id': ideaId}))
-        return data
+
+        for item in data:
+            betterData.append(dict(user_id=item.user_id,
+                                   user=formattingUtils.smallUserDisplay(item.user_id,
+                                                                         formattingUtils.userNameDisplay(
+                                                                             item.first_name,
+                                                                             item.last_name,
+                                                                             item.affiliation,
+                                                                             formattingUtils.isFullLastName(
+                                                                                 item.group_membership_bitmask)),
+                                                                         item.image_id)))
+
+        return betterData
 
     except Exception, e:
         log.info("*** couldn't get users who like idea")
@@ -215,12 +238,16 @@ def searchIdeas(db, terms, locationId, limit=1000, offset=0, excludeProjectId=No
                                    submission_type=item.submission_type,
                                    owner=owner,
                                    likes=item.likes,
-                                   liked=any(user_id == y.user_id for y in likers)))
+                                   liked=isLikedByUser(user_id, likers)))
     except Exception, e:
         log.info("*** couldn't get idea search data")
         log.error(e)
 
     return betterData
+
+
+def isLikedByUser(user_id, likers):
+    return any(user_id == y['user_id'] for y in likers)
 
 
 def findIdeasByUser(db, userId, limit=100):
@@ -387,6 +414,7 @@ def downvoteIdea(db, ideaId, userId):
         log.error(e)
         return False
 
+
 def findProjectsRelatedToIdea(db, ideaId):
     betterData = []
     try:
@@ -425,10 +453,10 @@ def findProjectsRelatedToIdea(db, ideaId):
                                'location_id': item.location_id,
                                'owner_user_id': item.owner_user_id,
                                'owner_full_display_name': formattingUtils.userNameDisplay(item.owner_first_name,
-                                                                          item.owner_last_name,
-                                                                          item.owner_affiliation,
-                                                                          formattingUtils.isFullLastName(
-                                                                              item.owner_group_membership_bitmask)),
+                                                                                          item.owner_last_name,
+                                                                                          item.owner_affiliation,
+                                                                                          formattingUtils.isFullLastName(
+                                                                                              item.owner_group_membership_bitmask)),
                                'owner_image_id': item.owner_image_id,
                                'num_members': item.num_members})
 
@@ -441,20 +469,20 @@ def findProjectsRelatedToIdea(db, ideaId):
 
 
 def ideamessage(id,
-            type,
-            message,
-            createdDatetime,
-            userId,
-            name,
-            imageId,
-            attachmentId=None,
-            ideaId=None,
-            idea=None,
-            ideaSubType=None,
-            ideaCreatedDatetime=None,
-            attachmentMediaType=None,
-            attachmentMediaId=None,
-            attachmentTitle=None):
+                type,
+                message,
+                createdDatetime,
+                userId,
+                name,
+                imageId,
+                attachmentId=None,
+                ideaId=None,
+                idea=None,
+                ideaSubType=None,
+                ideaCreatedDatetime=None,
+                attachmentMediaType=None,
+                attachmentMediaId=None,
+                attachmentTitle=None):
     """
     Construct and return a dictionary consisting of the data related to a
     message, given by the parameters.  This data is usually pulled off of
@@ -484,8 +512,8 @@ def ideamessage(id,
         ideaObj = None
 
     attachmentObj = formattingUtils.smallAttachment(attachmentMediaType,
-                                    attachmentMediaId,
-                                    attachmentTitle)
+                                                    attachmentMediaId,
+                                                    attachmentTitle)
 
     return dict(message_id=id,
                 message_type=type,
@@ -497,6 +525,7 @@ def ideamessage(id,
                 attachment=attachmentObj,
     )
 
+
 def addMessage(db, ideaId, message, message_type, userId=None, attachmentId=None):
     """
     Insert a new record into the idea_message table.  Return true if
@@ -505,7 +534,7 @@ def addMessage(db, ideaId, message, message_type, userId=None, attachmentId=None
     """
     try:
         # censor behavior
-        numFlags = helpers.censor.badwords(db, message) #TODO: add the numFlags to DB
+        numFlags = helpers.censor.badwords(db, message)  # TODO: add the numFlags to DB
         isActive = 0 if numFlags == 2 else 1
 
         db.insert('idea_message', idea_id=ideaId,
@@ -579,21 +608,23 @@ def getMessages(db, ideaId, limit=10, offset=0, filterBy=None):
 
         for item in data:
             messages.append(ideamessage(id=item.idea_message_id,
-                                    type=item.message_type,
-                                    message=item.message,
-                                    attachmentId=item.file_id,
-                                    createdDatetime=item.created_datetime,
-                                    userId=item.user_id,
-                                    name=formattingUtils.userNameDisplay(item.first_name, item.last_name, item.affiliation,
-                                                         formattingUtils.isFullLastName(item.group_membership_bitmask)),
-                                    imageId=item.image_id,
-                                    ideaId=item.idea_id,
-                                    idea=item.idea_description,
-                                    ideaSubType=item.idea_submission_type,
-                                    ideaCreatedDatetime=item.idea_created_datetime,
-                                    attachmentMediaType=item.attachment_type,
-                                    attachmentMediaId=item.attachment_id,
-                                    attachmentTitle=item.attachment_title))
+                                        type=item.message_type,
+                                        message=item.message,
+                                        attachmentId=item.file_id,
+                                        createdDatetime=item.created_datetime,
+                                        userId=item.user_id,
+                                        name=formattingUtils.userNameDisplay(item.first_name, item.last_name,
+                                                                             item.affiliation,
+                                                                             formattingUtils.isFullLastName(
+                                                                                 item.group_membership_bitmask)),
+                                        imageId=item.image_id,
+                                        ideaId=item.idea_id,
+                                        idea=item.idea_description,
+                                        ideaSubType=item.idea_submission_type,
+                                        ideaCreatedDatetime=item.idea_created_datetime,
+                                        attachmentMediaType=item.attachment_type,
+                                        attachmentMediaId=item.attachment_id,
+                                        attachmentTitle=item.attachment_title))
     except Exception, e:
         log.info("*** couldn't get messages for idea %s", ideaId)
         log.error(e)
