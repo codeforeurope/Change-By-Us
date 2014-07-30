@@ -12,6 +12,7 @@ import giveaminute.messaging as mMessaging
 import giveaminute.models as models
 import helpers.censor
 import json
+import giveaminute.formattingUtils as formattingUtils
 import re
 import datetime
 
@@ -202,10 +203,10 @@ class Project(Controller):
                                                     projectId,
                                                     project.data.title,
                                                     self.user.id,
-                                                    mProject.userNameDisplay(self.user.firstName,
+                                                    formattingUtils.userNameDisplay(self.user.firstName,
                                                                              self.user.lastName,
                                                                              self.user.affiliation,
-                                                                             mProject.isFullLastName(self.user.groupMembershipBitmask)))):
+                                                                             formattingUtils.isFullLastName(self.user.groupMembershipBitmask)))):
                     log.error("*** couldn't email admin on user_id = %s joining project %s" % (self.user.id, projectId))
 
                 if (not mProject.addMessage(self.db,
