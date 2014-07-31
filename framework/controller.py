@@ -308,7 +308,10 @@ class Controller (object):
         elif hasattr(self.session, 'lang') and self.session.lang is not None:
             lang = self.session.lang
         elif accept_lang is not None:
-            lang = accept_lang[0]
+            if isinstance(accept_lang, list):
+                lang = accept_lang[0]
+            else:
+                lang = accept_lang.split(',')[0]
 
 
         # TODO: As a last resort, we should check for the user's language in
