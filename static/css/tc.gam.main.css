@@ -8215,6 +8215,59 @@ div.bottom {
     clear: left;
 }
 
+div.continent.idea-page .west.idea-page .bd {
+    background-color: #fff;
+    width: 500px;
+    padding-left: 30px;
+    padding-top: 20px;
+}
+
+div.continent.idea-page .bd .supporters {
+    float: right;
+    width: 100px;
+    margin-top: 30px;
+}
+
+div.continent.idea-page .bd .supporters h3 {
+    font-size: 20px;
+    font-weight: bold;
+    letter-spacing: 0.5px;
+    /*line-height: 20px;*/
+    margin-bottom: 15px;
+    padding-bottom: 6px;
+    text-transform: uppercase;
+}
+
+span.idea-page-control {
+    margin: 5px;
+    font-size: 10px;
+    font-style: italic;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+div.idea-page-conversation {
+    padding-top: 40px;
+}
+
+ol.idea-related-projects .project-header .main {
+    overflow: hidden;
+    line-height: normal;
+}
+
+ol.idea-related-projects .project-header .thumb {
+    width: 80px;
+}
+
+ol.idea-related-projects .project-header h3 {
+    font-weight: bold;
+}
+
+ol.idea-related-projects {
+    margin-top: 10px;
+}
+
+
 /* Search styles for results - list view */
 
 div.continent.search-results #list-view table.projects-list td {

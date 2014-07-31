@@ -16,59 +16,84 @@
 
             <div class="west idea-page">
 
+                <span class="pagination-controls idea-page-control"><a href="/search/#ideas">{{ _('See all') }} {{ _('Ideas') }} <span class="sm-arrow-forward light"></span></a></span>
                 <div class="hd">
-						<span class="see-all-control control"><a href="/search/#ideas">{{ _('See all') }} {{ _('Ideas') }} <span class="sm-arrow-forward light"></span></a></span>
-					</div>
 
-                <!-- start Ideas results -->
-				<div class="box results-box results-ideas clearfix">
+                    <div class="pagination-controls idea">
+							<span class="control">
+								<!--<a class="prev idea-carousel-prev" href="#"><span class="sm-arrow-back light"></span><span>{{ _('Previous') }}</span></a>-->
+								<!-- TODO: make calculations for ID of previous and next ideas -->
+								<!--<a class="next idea-carousel-next" href="#"><span>{{ _('Next') }}</span><span class="sm-arrow-forward light"></span></a>-->
+							</span>
+                    </div>
+                </div>
 
 
+                <div class="bd">
+                    <!-- start Ideas results -->
+                    <div class="box results-box results-ideas clearfix">
 
-
-                            {% if d.template_data and d.template_data.user %}
-                            <div class="note-card-public-controls">
-                                {% if d.template_data.user.data.projects|length > 0 and not(d.template_data.user.data.u_id == d.template_data.idea.data.idea_user_id ) %}
-                                    <a class="invite rounded-button small" href="#invite,{{ d.template_data.idea.data.idea_id }},{{ d.template_data.idea.data.idea_user_name }}">Invite</a>
-                                {% endif %}
-                                <span class="flag"><a href="#flagIdea,{{ d.template_data.idea.data.idea_id }}" class='flag-idea'>{{ _('Flag as Inappropriate') }}</a></span>
-                            </div>
+                        {% if d.template_data and d.template_data.user %}
+                        <div class="note-card-public-controls">
+                            {% if d.template_data.user.data.projects|length > 0 and not(d.template_data.user.data.u_id == d.template_data.idea.data.idea_user_id ) %}
+                                <a class="invite rounded-button small" href="#invite,{{ d.template_data.idea.data.idea_id }},{{ d.template_data.idea.data.idea_user_name }}">Invite</a>
                             {% endif %}
-                            <div class="note-card">
-                                <div class="membrane">
-                                    {% if d.template_data and d.template_data.user %}
-                                        {% if d.template_data.user.is_liker or d.template_data.user.data.u_id == d.template_data.idea.data.idea_user_id %}
-                                        <a class="close remove-idea" href="#removeIdea,{{ d.template_data.idea.data.idea_id }}"><span>{{ _('Close') }}</span></a>
-                                        {% endif %}
+                            <span class="flag"><a href="#flagIdea,{{ d.template_data.idea.data.idea_id }}" class='flag-idea'>{{ _('Flag as Inappropriate') }}</a></span>
+                        </div>
+                        {% endif %}
+                        <div class="note-card">
+                            <div class="membrane">
+                                {% if d.template_data and d.template_data.user %}
+                                    {% if d.template_data.user.is_liker or d.template_data.user.data.u_id == d.template_data.idea.data.idea_user_id %}
+                                    <a class="close remove-idea" href="#removeIdea,{{ d.template_data.idea.data.idea_id }}"><span>{{ _('Close') }}</span></a>
                                     {% endif %}
-                                    {% if d.template_data.idea.data.idea_user_id %}
-                                        <cite class="note-meta-hd">
-                                            <strong>
-                                                <a href="/useraccount/{{ d.template_data.idea.data.idea_user_id }}">{{ d.template_data.idea.data.idea_user_name|truncate(18) }}</a>
-                                            </strong> {{ _('said') }} &mdash;
-                                        </cite>
-                                    {% endif %}
-                                    <blockquote>{% if d.template_data and d.template_data.user and d.template_data.user.is_liker %}{% if not d.template_data.idea.data.idea_id %}<span class="topright-spacer"></span>{% endif %}{% endif %}<p>{{ d.template_data.idea.data.idea_description|truncate(175) }}</p></blockquote>
-                                    <cite class="note-meta-ft">{{ _('Posted') }} <strong class="time-since">{{ d.template_data.idea.data.created }}</strong> {{ _('via') }} <strong>{{ d.template_data.idea.data.submission_type }}</strong></cite>
-                                    <div class="like-container">
-                                        {%if d.template_data.idea.data.liked == False %}<a href="#likeIdea,{{ d.template_data.idea.data.idea_id }}" class='fancy-caps like-idea'>{% else %}<a href="#unlikeIdea,{{ d.template_data.idea.data.idea_id }}" class='fancy-caps unlike-idea'>{% endif %}<span class="like-count">{{ d.template_data.idea.data.likes }}</span></a>
-                                    </div>
+                                {% endif %}
+                                {% if d.template_data.idea.data.idea_user_id %}
+                                    <cite class="note-meta-hd">
+                                        <strong>
+                                            <a href="/useraccount/{{ d.template_data.idea.data.idea_user_id }}">{{ d.template_data.idea.data.idea_user_name|truncate(18) }}</a>
+                                        </strong> {{ _('said') }} &mdash;
+                                    </cite>
+                                {% endif %}
+                                <blockquote>{% if d.template_data and d.template_data.user and d.template_data.user.is_liker %}{% if not d.template_data.idea.data.idea_id %}<span class="topright-spacer"></span>{% endif %}{% endif %}<p>{{ d.template_data.idea.data.idea_description|truncate(175) }}</p></blockquote>
+                                <cite class="note-meta-ft">{{ _('Posted') }} <strong class="time-since">{{ d.template_data.idea.data.created }}</strong> {{ _('via') }} <strong>{{ d.template_data.idea.data.submission_type }}</strong></cite>
+                                <div class="like-container">
+                                    {%if d.template_data.idea.data.liked == False %}<a href="#likeIdea,{{ d.template_data.idea.data.idea_id }}" class='fancy-caps like-idea'>{% else %}<a href="#unlikeIdea,{{ d.template_data.idea.data.idea_id }}" class='fancy-caps unlike-idea'>{% endif %}<span class="like-count">{{ d.template_data.idea.data.likes }}</span></a>
                                 </div>
                             </div>
+                        </div>
+                    </div><!-- end results-box ideas -->
 
 
-					<div class="ft">
-						<a class="rounded-button small fancy-caps more-link" href="/">{{ _('Add <span>an</span> Idea') }} <span class="sm-arrow-forward"></span></a>
+                <!-- People who Like the idea -->
+                <div class="supporters">
+                    <div class="sub-hd">
+                        <h3>{{ _('Supporters') }}:</h3>
+                    </div>
 
-					</div>
-				</div><!-- end results-box ideas -->
+                    {% for liker in d.template_data.idea.data.likers%}
+                        <div class="clearfix">
+                            <div>
+                                <a href='/useraccount/{{ liker.user_id }}'>
+                                  {% if liker.user.image_id %}
+                                  <img width="35" src="{{d.template_data.media_root}}images/{{ liker.user.image_id % 10 }}/{{ liker.user.image_id }}.png" alt="{{ liker.user.name }}">
+                                  {% else %}
+                                  <img width='35' src="/static/images/thumb_genAvatar50.png" alt="{{ liker.user.name }}">
+                                  {% endif %}
+                                </a>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div><!-- End People who like idea -->
+
+            </div><!-- end .bd -->
+
             </div>  <!-- end West -->
             <div class="east idea-page">
 
-
                 <div class="box box-leaderboard">
                 <h3>{{ _('Related <strong>Projects</strong>') }}</h3>
-                <ol class="leaderboard">
+                <ol class="idea-related-projects">
                     {% for item in d.template_data.related_projects %}
                     <li {% if loop.index is even %}class="every-other"{% endif %}>
                         <table>
@@ -84,7 +109,7 @@
                                             <span class="overlay-tag"></span>
                                         </div>
                                         <div class='main'>
-                                            <h1><a href="/project/{{ item.project_id }}">{{ item.title|truncate(45) }}</a></h1>
+                                            <h3><a href="/project/{{ item.project_id }}">{{ item.title|truncate(45) }}</a></h3>
                                             <cite class="meta"><em>{{ _('Created by') }}</em> <a href="/useraccount/{{ item.owner_user_id }}">{{ item.owner_full_display_name }}</a></cite>
                                             <cite class="meta"><em>{{ item.num_members }}</em> {{ _('People') }}</cite>
                                         </div>
@@ -99,6 +124,11 @@
                     {% endif %}
                     {% endfor %}
                 </ol>
+                    {%if not d.template_data.related_projects %}
+                        <span class="control">{{ _('No projects found!') }}</span>
+                        <br>
+                        <a class="rounded-button small fancy-caps more-link" href="/create#idea,{{ d.template_data.idea.data.idea_id }}">{{ _('Start <span>a</span> Project') }} <span class="sm-arrow-forward"></span></a>
+                    {% endif %}
                 <div style="clear:both"></div>
             </div>
 
@@ -107,33 +137,7 @@
             </div> <!-- end East -->
 
             <!-- conversation and likers -->
-            <div class="bottom">
-
-            <!-- People who Like the idea -->
-            <div class="leadership">
-                <div class="sub-hd">
-                    <h3>{{ _('We like this idea') }}:</h3>
-                </div>
-
-                {% for liker in d.template_data.idea.data.likers%}
-                    <div class="clearfix">
-                        <ul>
-                            <li style="display:block;float:left;padding-right:8px;">
-                                <a href='/useraccount/{{ liker.user_id }}'>
-                                  {% if liker.user.image_id %}
-                                  <img width="35" src="{{d.template_data.media_root}}images/{{ liker.user.image_id % 10 }}/{{ liker.user.image_id }}.png" alt="{{ liker.user.name }}">
-                                  {% else %}
-                                  <img width='35' src="/static/images/thumb_genAvatar50.png" alt="{{ liker.user.name }}">
-                                  {% endif %}
-                                </a>
-                                <span class="vertical-align-middle-hack thumb-description">
-                                    <span class="serif"><a href='/useraccount/{{ liker.id }}'>{{ liker.user.name }}</a></span>
-                                </span>
-                            </li>
-                        </ul>
-                    </div>
-                {% endfor %}
-            </div>
+            <div class="idea-page-conversation bottom">
 
 
             <!-- Conversation -->
