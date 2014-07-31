@@ -85,18 +85,18 @@ tc.gam.project_widgets.related_resources = function(options){
             if (even) { temp = "<tr>"; }
             temp += "<td class='" + (resource.is_official ? "official-resource" : "") + "'>";
             
-            temp += '<a href="#add,'+ resource.link_id +'" class="add-button rounded-button small">Add</a>';
+            temp += '<a href="#add,'+ resource.link_id +'" class="add-button rounded-button small">' + app_page.messages['add'] + '</a>';
 
             if (resource.image_id > 0) {
                 temp += '<span class="thumb">';
                 if (options.user && options.user.is_admin) {
-                    temp += '<a class="close" href="#removeOrganization,'+resource.project_resource_id+'"><span>Close</span></a>';
+                    temp += '<a class="close" href="#removeOrganization,'+resource.project_resource_id+'"><span>' +  app_page.messages['close'] + '</span></a>';
                 }
                 temp += '<img src="'+media_root+'images/'+(resource.image_id % 10)+'/'+resource.image_id+'.png" width="30" height="30" alt="" /></span>';
             } else {            
                 temp += '<span class="thumb">';
                 if (options.user && options.user.is_admin) {
-                    temp += '<a class="close" href="#removeOrganization,'+resource.project_resource_id+'"><span>Close</span></a>';
+                    temp += '<a class="close" href="#removeOrganization,'+resource.project_resource_id+'"><span>' + app_page.messages['close'] +'</span></a>';
                 }
                 temp += '<img src="/static/images/thumb_genAvatar30.png" width="30" height="30" alt="" /></span>';
             };
@@ -108,8 +108,8 @@ tc.gam.project_widgets.related_resources = function(options){
             
             // hidden added dialog
             temp += '<div class="added-dialog">'+
-                        '<span class="added-header">Added <em>to</em> your project</span><br />'+
-                        '<span class="added-text">We\'ve sent them a link to your project page.'+
+                        '<span class="added-header">' + app_page.messages['added-to-your-project'] + '</span><br />'+
+                        '<span class="added-text">' + app_page.messages['we-sent-them-a-link'] + ''+
                         ' </span></div>';
             
             temp += "</td>";
