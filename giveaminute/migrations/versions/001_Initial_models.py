@@ -4,6 +4,7 @@
 """
 
 from sqlalchemy import *
+from sqlalchemy.dialects import mysql
 from migrate import *
 
 def upgrade(migrate_engine):
@@ -27,18 +28,20 @@ def upgrade(migrate_engine):
 
     # Create the project place table
     needs = Table('project_needs', meta,
-        Column('id', Integer, primary_key=True),
+        Column('id', mysql.INTEGER(11), primary_key=True, nullable=False),
         Column('type', String(10)),
         Column('item_needed', String(64)),
         Column('num_needed', Integer),
         Column('description', Text),
-        Column('project_id', Integer, ForeignKey('project.project_id'), nullable=False),
+        Column('project_id', mysql.INTEGER(11), ForeignKey('project.project_id'), nullable=False),
+        mysql_engine='MyISAM',
     )
     needs.create()
 
     volunteers = Table('project_need_volunteers', meta,
-        Column('need_id', Integer, ForeignKey('project_needs.id'), primary_key=True),
+        Column('need_id', mysql.INTEGER(11), ForeignKey('project_needs.id'), primary_key=True),
         Column('member_id', Integer, ForeignKey('user.user_id'), primary_key=True),
+        mysql_engine='MyISAM',
     )
     volunteers.create()
 

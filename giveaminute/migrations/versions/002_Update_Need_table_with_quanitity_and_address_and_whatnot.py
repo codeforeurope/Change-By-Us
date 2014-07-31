@@ -11,16 +11,17 @@ def upgrade(migrate_engine):
     # to your metadata
     
     meta = MetaData(migrate_engine)
-    
+
     # Create the project place table
-    place = Table('project_place', meta, 
-        Column('id', Integer, primary_key=True),
+    place = Table('project_place', meta,
+        Column('id', Integer, nullable=False, primary_key=True),
         Column('name', String(256)),
         Column('street', String(256)),
         Column('city', String(256)),
+        mysql_engine='MyISAM',
     )
     place.create()
-    
+
     # Rename the project_needs table to project_need
     need = Table('project_needs', meta, autoload=True)
     need.rename('project_need')
@@ -34,8 +35,13 @@ def upgrade(migrate_engine):
     # (the model of what's in the table) more than it is the rows, in this view.
     
     # Modify/add columns
-    alter_column('item_needed', name='request', table=need)
-    alter_column('num_needed', name='quantity', table=need)
+
+    sql_update_needs_request = "alter table project_need CHANGE item_needed request VARCHAR(64) "
+    sql_update_needs_quantity = "alter table project_need CHANGE num_needed quantity INTEGER(11) "
+    migrate_engine.execute(sql_update_needs_request)
+    migrate_engine.execute(sql_update_needs_quantity)
+
+
     create_column(Column('address_id', Integer, ForeignKey('project_place.id')), need)
     create_column(Column('date', Date), need)
     create_column(Column('time', String(32)), need)
@@ -56,8 +62,10 @@ def downgrade(migrate_engine):
     need.rename('project_needs')
     
     # Modify/remove columns
-    alter_column('request', name='item_needed', table=need)
-    alter_column('quantity', name='num_needed', table=need)
+    sql_update_needs_request = "alter table project_need CHANGE request item_needed VARCHAR(64) "
+    sql_update_needs_quantity = "alter table project_need CHANGE quantity num_needed INTEGER(11) "
+    migrate_engine.execute(sql_update_needs_request)
+    migrate_engine.execute(sql_update_needs_quantity)
     drop_column('address_id', need)
     drop_column('date', need)
     drop_column('time', need)
@@ -66,4 +74,3 @@ def downgrade(migrate_engine):
     # Get rid of the project place table
     place = Table('project_place', meta, autoload=True)
     place.drop()
-    
