@@ -33,6 +33,10 @@ class Resource(Controller):
                     return self.updateResourceAddress()
                 elif (param0 == 'keywords'):
                     return self.updateResourceKeywords()
+                elif (param0 == 'facebook_url'):
+                    return self.updateResourceFacebookUrl()
+                elif (param0 == 'twitter_url'):
+                    return self.updateResourceTwitterUrl()
                 elif (param0 == 'message'):
                     return self.updateResourceMessage()
                 else:
@@ -186,7 +190,23 @@ class Resource(Controller):
         else:
             log.error("*** resource edit attempt without address, resource id %s" % resourceId)
             return False
-    
+
+    def updateResourceFacebookUrl(self):
+        resourceId = util.try_f(int, self.request('resource_id'))
+        if (not self.user or not self.user.isResourceOwner(resourceId)):
+            log.error("*** resource edit attempt without ownership, resource id %s" % resourceId)
+            return False
+        facebook_url = self.request('facebook_url')
+        return mProjectResource.updateProjectResourceTextData(self.db, resourceId, 'facebook_url', facebook_url)
+
+    def updateResourceTwitterUrl(self):
+        resourceId = util.try_f(int, self.request('resource_id'))
+        if (not self.user or not self.user.isResourceOwner(resourceId)):
+            log.error("*** resource edit attempt without ownership, resource id %s" % resourceId)
+            return False
+        twitter_url = self.request('twitter_url')
+        return mProjectResource.updateProjectResourceTextData(self.db, resourceId, 'twitter_url', twitter_url)
+
     def updateResourceKeywords(self):
         resourceId = util.try_f(int, self.request('resource_id'))
 

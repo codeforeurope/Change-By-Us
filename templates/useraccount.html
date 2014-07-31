@@ -561,8 +561,6 @@
                                                 <div class="inline-edit-controls"></div>
                                                 <p class="editable-content">{{ resource.description }}</p>
                                             </div>
-                                            <!-- TODO EDIT FACEBOOK HERE -->
-
                                             <div class='box res-url mod-inline-edit'>
                                                 <span class='section-title'>{{ _('URL') }}</span>
                                                 <div class="inline-edit-controls"></div>
@@ -572,6 +570,16 @@
                                                 <span class='section-title'>{{ _('Email') }}</span>
                                                 <div class="inline-edit-controls"></div>
                                                 <p class="editable-content">{{ resource.contact_email }}</p>
+                                            </div>
+                                            <div class='box mod-inline-edit res-facebook'>
+                                                <span class='section-title'>{{ _('Facebook Address') }}</span>
+                                                <p class="editable-content">{{ resource.facebook_url|replace(',',', ') }}</p>
+                                                <div class="inline-edit-controls"></div>
+                                            </div>
+                                            <div class='box mod-inline-edit res-twitter'>
+                                                <span class='section-title'>{{ _('Twitter Address') }}</span>
+                                                <p class="editable-content">{{ resource.twitter_url|replace(',',', ') }}</p>
+                                                <div class="inline-edit-controls"></div>
                                             </div>
                                             <div class='box res-addr mod-inline-edit box-half'>
                                                 <span class='section-title'>{{ _('Physical Address') }}</span>

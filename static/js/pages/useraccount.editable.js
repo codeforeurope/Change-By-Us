@@ -380,6 +380,26 @@
 				}
 			});
 
+            //facebook address
+			new tc.inlineEditor({
+				dom: $r.find(".box.res-facebook"),
+				service: {
+					url: "/resource/edit/facebook_url",
+					param: "facebook_url",
+					post_data: post_data
+				}
+			});
+
+			//twitter address
+			new tc.inlineEditor({
+				dom: $r.find(".box.res-twitter"),
+				service: {
+					url: "/resource/edit/twitter_url",
+					param: "twitter_url",
+					post_data: post_data
+				}
+			});
+
 			//keywords
 			new tc.inlineEditor({
 				dom: $r.find(".box.res-keywords"),

@@ -21,7 +21,9 @@ class ProjectResource():
                         pr.contact_name, 
                         pr.contact_email, 
                         pr.image_id, 
-                        pr.location_id, 
+                        pr.location_id,
+                        pr.facebook_url,
+                        pr.twitter_url,
                         pr.is_official,
                         o.user_id as owner_user_id,
                         o.first_name as owner_first_name,
@@ -49,6 +51,8 @@ class ProjectResource():
                     description=self.data.description,
                     title=self.data.title,
                     url=self.data.url,
+                    twitter_url=self.data.twitter_url,
+                    facebook_url=self.data.facebook_url,
                     location_id=self.data.location_id,
                     is_official=self.data.is_official)
         return data
