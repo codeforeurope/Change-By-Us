@@ -107,7 +107,7 @@ class Admin(Controller):
                 if (added != False):
                     return self.text(added)
                 else:
-                    return false
+                    return False
             elif (param0 == 'delete'):
                 return self.deleteUser()
             elif (param0 == 'setrole'):
