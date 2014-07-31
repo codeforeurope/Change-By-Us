@@ -273,7 +273,7 @@
 				url: "/useraccount/editdescription",
 				param: "description"
 			},
-			empty_text: "Click here to add something about yourself."
+			empty_text: app_page.messages['click-here-to-add-something-about-yourself']
 		});
 
 
@@ -376,6 +376,26 @@
 				service: {
 					url: "/resource/edit/address",
 					param: "address",
+					post_data: post_data
+				}
+			});
+
+            //facebook address
+			new tc.inlineEditor({
+				dom: $r.find(".box.res-facebook"),
+				service: {
+					url: "/resource/edit/facebook_url",
+					param: "facebook_url",
+					post_data: post_data
+				}
+			});
+
+			//twitter address
+			new tc.inlineEditor({
+				dom: $r.find(".box.res-twitter"),
+				service: {
+					url: "/resource/edit/twitter_url",
+					param: "twitter_url",
 					post_data: post_data
 				}
 			});
