@@ -273,7 +273,7 @@
 				url: "/useraccount/editdescription",
 				param: "description"
 			},
-			empty_text: "Click here to add something about yourself."
+			empty_text: app_page.messages['click-here-to-add-something-about-yourself']
 		});
 
 
