@@ -22,7 +22,7 @@ class ProjectResource():
                         pr.contact_email, 
                         pr.image_id, 
                         pr.location_id, 
-                        pr.is_official
+                        pr.is_official,
                         o.user_id as owner_user_id,
                         o.first_name as owner_first_name,
                         o.last_name as owner_last_name,
