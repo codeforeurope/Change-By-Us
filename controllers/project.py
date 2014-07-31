@@ -16,6 +16,7 @@ import giveaminute.formattingUtils as formattingUtils
 import re
 import datetime
 
+
 class Project(Controller):
     def GET(self, action=None, param0=None, param1=None):
         if (action == 'resource'):
@@ -114,7 +115,7 @@ class Project(Controller):
                 projDictionary = project.getFullDictionary()
 
                 project_user = self.getProjectUser(projectId)
-                self.template_data['project_user'] = dict(data = project_user, json = json.dumps(project_user))
+                self.template_data['project_user'] = dict(data=project_user, json=json.dumps(project_user))
 
                 project_proxy = self.getProject(projectId)
                 project_proxy.json = json.dumps(projDictionary)
@@ -123,6 +124,7 @@ class Project(Controller):
                 self.template_data['project'] = project_proxy
 
                 import giveaminute.filters as gam_filters
+
                 gam_filters.register_filters()
                 return self.render('project')
             else:
@@ -136,33 +138,35 @@ class Project(Controller):
             project = mProject.Project(self.db, projectId)
             projDictionary = project.getFullDictionary()
 
-            self.template_data['project'] = dict(json = json.dumps(projDictionary), data = projDictionary)
+            self.template_data['project'] = dict(json=json.dumps(projDictionary), data=projDictionary)
 
             msgs = self.template_data['project']['data']['info']['messages']['items']
 
             for item in msgs:
-                item['created'] = datetime.datetime.strptime(item['created'], '%Y-%m-%d %H:%M:%S').strftime('%a, %d %b %Y %H:%M:%S EST')
+                item['created'] = datetime.datetime.strptime(item['created'], '%Y-%m-%d %H:%M:%S').strftime(
+                    '%a, %d %b %Y %H:%M:%S EST')
 
-            return self.render('project/conversation_rss', suffix='xml.rss', content_type = 'application/rss+xml')
+            return self.render('project/conversation_rss', suffix='xml.rss', content_type='application/rss+xml')
         else:
             return self.not_found()
 
     def getProjectUser(self, projectId):
-        projectUser = dict(is_project_admin = False, is_member = False, is_invited_by_idea = False, can_endorse = False)
+        projectUser = dict(is_project_admin=False, is_member=False, is_invited_by_idea=False, can_endorse=False)
 
         if (self.user):
             sqlInvited = """select pi.project_id from project_invite pi
                               inner join idea i on i.idea_id = pi.invitee_idea_id
                               where pi.project_id = $projectId and i.user_id = $userId
                               limit 1"""
-            dataInvited = list(self.db.query(sqlInvited, {'userId':self.user.id, 'email':self.user.email, 'projectId':projectId}))
+            dataInvited = list(
+                self.db.query(sqlInvited, {'userId': self.user.id, 'email': self.user.email, 'projectId': projectId}))
 
             projectUser['is_invited_by_idea'] = (len(dataInvited) == 1)
 
             sqlMember = "select is_project_admin from project__user where user_id = $userId and project_id = $projectId limit 1"
-            dataMember = list(self.db.query(sqlMember, {'userId':self.user.id, 'projectId':projectId}))
+            dataMember = list(self.db.query(sqlMember, {'userId': self.user.id, 'projectId': projectId}))
 
-            if (len(dataMember)== 1):
+            if (len(dataMember) == 1):
                 projectUser['is_member'] = True
 
                 if (dataMember[0].is_project_admin == 1):
@@ -171,7 +175,7 @@ class Project(Controller):
             # # #
             if (self.user.isLeader):
                 sqlEndorse = "select user_id from project_endorsement where project_id = $projectId and user_id = $userId limit 1"
-                dataEndorse = list(self.db.query(sqlEndorse,  {'userId':self.user.id, 'projectId':projectId}))
+                dataEndorse = list(self.db.query(sqlEndorse, {'userId': self.user.id, 'projectId': projectId}))
 
                 projectUser['can_endorse'] = (len(dataEndorse) == 0)
             else:
@@ -188,13 +192,13 @@ class Project(Controller):
         elif (not projectId):
             log.error("*** join submitted w/o logged project id")
             return False
-        
+
         else:
             isJoined = mProject.join(self.db, projectId, self.user.id)
 
             if (isJoined):
                 project = mProject.Project(self.db, projectId)
-                
+
                 # add a message to the queue about the join
                 message = 'New Member! Your project now has %s total!' % project.data.num_members
 
@@ -204,9 +208,10 @@ class Project(Controller):
                                                     project.data.title,
                                                     self.user.id,
                                                     formattingUtils.userNameDisplay(self.user.firstName,
-                                                                             self.user.lastName,
-                                                                             self.user.affiliation,
-                                                                             formattingUtils.isFullLastName(self.user.groupMembershipBitmask)))):
+                                                                                    self.user.lastName,
+                                                                                    self.user.affiliation,
+                                                                                    formattingUtils.isFullLastName(
+                                                                                            self.user.groupMembershipBitmask)))):
                     log.error("*** couldn't email admin on user_id = %s joining project %s" % (self.user.id, projectId))
 
                 if (not mProject.addMessage(self.db,
@@ -214,7 +219,8 @@ class Project(Controller):
                                             message,
                                             'join',
                                             self.user.id)):
-                    log.error("*** new message not created for user %s on joining project %s" % (self.user.id, projectId))
+                    log.error(
+                        "*** new message not created for user %s on joining project %s" % (self.user.id, projectId))
 
         return isJoined
 
@@ -255,19 +261,22 @@ class Project(Controller):
 
                 # email admin
                 if (not mMessaging.emailProjectEndorsement(project.data.owner_email,
-                                                    project.data.title,
-                                                    "%s %s" % (self.user.firstName, self.user.lastName))):
-                    log.error("*** couldn't email admin on user_id = %s endorsing project %s" % (self.user.id, projectId))
+                                                           project.data.title,
+                                                           "%s %s" % (self.user.firstName, self.user.lastName))):
+                    log.error(
+                        "*** couldn't email admin on user_id = %s endorsing project %s" % (self.user.id, projectId))
 
                 # add a message to the queue about the join
-                message = 'Congratulations! Your group has now been endorsed by %s %s.' % (self.user.firstName, self.user.lastName)
+                message = 'Congratulations! Your group has now been endorsed by %s %s.' % (
+                    self.user.firstName, self.user.lastName)
 
                 if (not mProject.addMessage(self.db,
                                             projectId,
                                             message,
                                             'endorsement',
                                             self.user.id)):
-                    log.error("*** new message not created for user %s on endorsing project %s" % (self.user.id, projectId))
+                    log.error(
+                        "*** new message not created for user %s on endorsing project %s" % (self.user.id, projectId))
 
             return isEndorsed
 
@@ -276,8 +285,8 @@ class Project(Controller):
         userId = util.try_f(int, self.request('user_id'))
 
         if (self.user and
-            ((self.user.isLeader and self.user.id == userId) or
-            self.user.isAdmin)):
+                ((self.user.isLeader and self.user.id == userId) or
+                     self.user.isAdmin)):
             isRemoved = mProject.removeEndorsement(self.db, projectId, userId)
 
             # if successfully removed, remove messages as well
@@ -311,8 +320,8 @@ class Project(Controller):
             return False
         else:
             if (not self.user.isAdmin and
-                not self.user.isModerator and
-                not self.user.isProjectAdmin(projectId)):
+                    not self.user.isModerator and
+                    not self.user.isProjectAdmin(projectId)):
                 log.warning("*** unauthorized link removal attempt by user_id = %s" % self.user.id)
                 return False
             else:
@@ -332,7 +341,8 @@ class Project(Controller):
                 project = mProject.Project(self.db, projectId)
                 res = mProjectResource.ProjectResource(self.db, projectResourceId)
 
-                if (not mMessaging.emailResourceNotification(res.data.contact_email, projectId, project.data.title, project.data.description, res.data.title)):
+                if (not mMessaging.emailResourceNotification(res.data.contact_email, projectId, project.data.title,
+                                                             project.data.description, res.data.title)):
                     log.error("*** couldn't email resource id %s" % projectResourceId)
             else:
                 log.error("*** couldn't add resource %s to project %s" % (projectResourceId, projectId))
@@ -347,8 +357,8 @@ class Project(Controller):
             return False
         else:
             if (not self.user.isAdmin and
-                not self.user.isModerator and
-                not self.user.isProjectAdmin(projectId)):
+                    not self.user.isModerator and
+                    not self.user.isProjectAdmin(projectId)):
                 log.warning("*** unauthorized resource removal attempt by user_id = %s" % self.user.id)
                 return False
             else:
@@ -368,8 +378,8 @@ class Project(Controller):
     def getResourcesAndLinks(self):
         projectId = self.request('project_id')
 
-        data = dict(links = mProject.getLinks(self.db, projectId),
-                    resources = mProject.getResources(self.db, projectId))
+        data = dict(links=mProject.getLinks(self.db, projectId),
+                    resources=mProject.getResources(self.db, projectId))
 
         return self.json(data)
 
@@ -384,7 +394,7 @@ class Project(Controller):
 
         resources = mProjectResource.searchProjectResources(self.db, keywords, locationId)
 
-        obj = dict(resources = resources)
+        obj = dict(resources=resources)
 
         return self.json(obj)
 
@@ -451,19 +461,19 @@ class Project(Controller):
         project = mProject.Project(self.db, projectId)
 
         return self.json(formattingUtils.smallProject(project.id,
-                                                project.data.title,
-                                                project.data.description,
-                                                project.data.image_id,
-                                                project.data.num_members,
-                                                project.data.owner_user_id,
-                                                project.data.owner_first_name,
-                                                project.data.owner_last_name,
-                                                project.data.owner_image_id))
+                                                      project.data.title,
+                                                      project.data.description,
+                                                      project.data.image_id,
+                                                      project.data.num_members,
+                                                      project.data.owner_user_id,
+                                                      project.data.owner_first_name,
+                                                      project.data.owner_last_name,
+                                                      project.data.owner_image_id))
 
     def addKeywords(self):
         projectId = self.request('project_id')
         keywords = self.request('text')
-                
+
         if (projectId and keywords):
             return mProject.addKeywords(self.db, projectId, keywords.split(','))
         else:
@@ -520,16 +530,16 @@ class Project(Controller):
     def setAdmin(self, b):
         projectId = self.request('project_id')
         userId = self.request('user_id')
-        
+
         projectUser = self.orm.query(models.ProjectMember).get((userId, projectId))
-        
+
         # TODO prevent last admin from being deleted
         # TODO on delete of creator, make oldest admin creator
-        
+
         if projectUser:
             projectUser.is_project_admin = b
             self.orm.commit()
-            
+
             return True
         else:
             return False
