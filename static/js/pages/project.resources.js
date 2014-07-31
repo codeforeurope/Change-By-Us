@@ -82,7 +82,12 @@ tc.gam.project_widgets.resources = function(options){
                             temptd.find('img').attr('src',options.media_root+'images/'+(d.links[i].image_id%10)+'/'+d.links[i].image_id+'.png');
                         }
                         temptd.find('a.close').attr('href','#removeLink,'+d.links[i].link_id);
-                        temptd.find('.link-link').attr('href',d.links[i].url).children('span').text(d.links[i].title);
+                        if(d.links[i].url == null) {
+                            temptd.find('.link-link').attr('href', d.links[i].url).children('span').text(d.links[i].title);
+                        }
+                        else{
+                            temptd.find('.link-link').attr('href', '#').children('span').text(d.links[i].title);
+                        }
                         temptbody.find('tr:last').append(temptd);
                     }
                     elements.links_table.children('tbody').replaceWith(temptbody);
@@ -106,11 +111,12 @@ tc.gam.project_widgets.resources = function(options){
                             temptd.find('img').attr('src',options.media_root+'images/'+(d.resources[i].image_id%10)+'/'+d.resources[i].image_id+'.png');
                         }
                         temptd.find('a.close').attr('href','#removeResource,'+d.resources[i].organization);
+                        resourceurl = d.resources[i].url == null ? '#' : d.resources[i].url;
                         temptd.find('.tooltip_trigger')
                             .attr('rel','#organization,'+d.resources[i].organization)
                             .children('span')
                             .children('a')
-                                .attr('href',d.resources[i].url).children('span').text(d.resources[i].title);
+                                .attr('href',resourceurl).children('span').text(d.resources[i].title);
                         components.tooltips.add_trigger(temptd.find('.tooltip_trigger'));
                         temptbody.find('tr:last').append(temptd);
                     }

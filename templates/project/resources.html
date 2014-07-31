@@ -42,7 +42,11 @@
 								</span>
 								<span class="resource-name">
 									<span>
-										<span><a target='_blank' href="http://{{ link.url|replace('http://','') }}" title="http://{{ link.url|replace('http://','') }}"><span>{{ link.title|truncate_external_link_title(10) }}</span></a></span>
+                                        {% if link.url %}
+										    <span><a target='_blank' href="http://{{ link.url|replace('http://','') }}" title="http://{{ link.url|replace('http://','') }}"><span>{{ link.title|truncate_external_link_title(10) }}</span></a></span>
+                                        {% else %}
+                                            <span><span>{{ link.title|truncate_external_link_title(10) }}</span></span>
+                                        {% endif %}
 									</span>
 								</span>
 							</td>
@@ -100,7 +104,11 @@
 								</span>
 								<span class="resource-name">
 									<span rel="#organization,{{ org.organization }}" class='tooltip_trigger'>
-										<span><a target='_blank' href="{{ org.url }}"><span>{{ org.title|truncate(24, true) }}</span></a></span>
+                                        {% if org.url %}
+										    <span><a target='_blank' href="{{ org.url }}"><span>{{ org.title|truncate(24, true) }}</span></a></span>
+                                        {% else %}
+										    <span><span>{{ org.title|truncate(24, true) }}</span></span>
+                                        {% endif %}
 									</span>
 								</span>
 							</td>
