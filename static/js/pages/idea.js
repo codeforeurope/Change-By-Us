@@ -135,5 +135,8 @@ app_page.features.push(function(app) {
 		// random note-card backgrounds
 		tc.randomNoteCardBg(tc.jQ('.ideas-list'));
 
+        //Manage the invite button
+        tc.gam.ideas_invite(app, {elements: tc.jQ('a.invite')});
+
 
 });

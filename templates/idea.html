@@ -36,7 +36,7 @@
                         {% if d.template_data and d.template_data.user %}
                         <div class="note-card-public-controls">
                             {% if d.template_data.user.data.projects|length > 0 and not(d.template_data.user.data.u_id == d.template_data.idea.data.idea_user_id ) %}
-                                <a class="invite rounded-button small" href="#invite,{{ d.template_data.idea.data.idea_id }},{{ d.template_data.idea.data.idea_user_name }}">Invite</a>
+                                <a class="invite rounded-button small" href="#invite,{{ d.template_data.idea.data.idea_id }}">{{ _('Invite') }}</a>
                             {% endif %}
                             <span class="flag"><a href="#flagIdea,{{ d.template_data.idea.data.idea_id }}" class='flag-idea'>{{ _('Flag as Inappropriate') }}</a></span>
                         </div>
@@ -56,7 +56,7 @@
                                     </cite>
                                 {% endif %}
                                 <blockquote>{% if d.template_data and d.template_data.user and d.template_data.user.is_liker %}{% if not d.template_data.idea.data.idea_id %}<span class="topright-spacer"></span>{% endif %}{% endif %}<p>{{ d.template_data.idea.data.idea_description|truncate(175) }}</p></blockquote>
-                                <cite class="note-meta-ft">{{ _('Posted') }} <strong class="time-since">{{ d.template_data.idea.data.created }}</strong> {{ _('via') }} <strong>{{ d.template_data.idea.data.submission_type }}</strong></cite>
+                                <cite class="note-meta-ft">{{ _('Posted') }} <strong class="time-since">{{ d.template_data.idea.data.created }}</strong> {{ _('via') }} <strong>{{ d.template_data.idea.data.idea_submission_type }}</strong></cite>
                                 <div class="like-container">
                                     {%if d.template_data.idea.data.liked == False %}<a href="#likeIdea,{{ d.template_data.idea.data.idea_id }}" class='fancy-caps like-idea'>{% else %}<a href="#unlikeIdea,{{ d.template_data.idea.data.idea_id }}" class='fancy-caps unlike-idea'>{% endif %}<span class="like-count">{{ d.template_data.idea.data.likes }}</span></a>
                                 </div>

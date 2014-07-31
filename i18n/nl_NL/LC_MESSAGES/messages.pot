@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-07-31 16:04+0200\n"
+"POT-Creation-Date: 2014-07-31 16:26+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -375,7 +375,7 @@ msgid ""
 "<strong>90px by 90px</strong>)"
 msgstr ""
 
-#: templates/create.html:152 templates/home.html:384 templates/idea.html:147
+#: templates/create.html:152 templates/home.html:384 templates/idea.html:152
 #: templates/join.html:243 templates/partials/add_resource.html:29
 #: templates/partials/base_idea_delete.html:16
 #: templates/partials/base_invite.html:54
@@ -410,7 +410,7 @@ msgstr ""
 msgid "We&#39;ve sent them a link to your project page."
 msgstr ""
 
-#: templates/create.html:183 templates/idea.html:144
+#: templates/create.html:183 templates/idea.html:149
 #: templates/project.html:180 templates/search.html:639
 msgid "<strong>Hold your horses!</strong> Please register."
 msgstr ""
@@ -831,7 +831,7 @@ msgstr ""
 msgid "Start Your Own"
 msgstr ""
 
-#: templates/home.html:166
+#: templates/home.html:166 templates/idea.html:128
 msgid "No projects found!"
 msgstr ""
 
@@ -953,6 +953,13 @@ msgstr ""
 msgid "Ideas"
 msgstr ""
 
+#: templates/idea.html:39 templates/partials/base_invite.html:7
+#: templates/partials/base_invite.html:22
+#: templates/project/fresh_ideas.html:28
+#: templates/project/invite_members.html:108 templates/search.html:322
+msgid "Invite"
+msgstr ""
+
 #: templates/idea.html:41 templates/project/fresh_ideas.html:32
 #: templates/project/invite_members.html:110 templates/search.html:324
 #: templates/search.html:690
@@ -998,7 +1005,11 @@ msgstr ""
 msgid "People"
 msgstr ""
 
-#: templates/idea.html:145 templates/search.html:640
+#: templates/idea.html:130 templates/search.html:136 templates/search.html:153
+msgid "Start <span>a</span> Project"
+msgstr ""
+
+#: templates/idea.html:150 templates/search.html:640
 #, python-format
 msgid ""
 "You must <strong><a href=\"/join\">register</a></strong> or <strong><a href="
@@ -1509,13 +1520,6 @@ msgstr ""
 #: templates/search.html:595 templates/search.html:631
 #: templates/useraccount.html:696
 msgid "No, keep it."
-msgstr ""
-
-#: templates/partials/base_invite.html:7
-#: templates/partials/base_invite.html:22
-#: templates/project/fresh_ideas.html:28
-#: templates/project/invite_members.html:108
-msgid "Invite"
 msgstr ""
 
 #: templates/partials/base_invite.html:7
@@ -2691,10 +2695,6 @@ msgstr ""
 #: templates/search.html:134 templates/search.html:242
 #: templates/search.html:353 templates/search.html:458
 msgid "found"
-msgstr ""
-
-#: templates/search.html:136 templates/search.html:153
-msgid "Start <span>a</span> Project"
 msgstr ""
 
 #: templates/search.html:177
