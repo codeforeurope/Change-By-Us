@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/local/bin/python
 
 """
     :copyright: (c) 2011 Local Projects, all rights reserved
