@@ -139,7 +139,7 @@ env.packages = {'rhel5': {
                 # Ubuntu 10.04 and following have python2.6.5 by default. We explicitly request 2.7
                 'ubuntu': {
                     'required':
-                        ['mysql-client', 'php5', 'php5-cli', 'php5-cgi', 'php5-gd', 'memcached',
+                        ['mysql-client', 'libmysqlclient-dev', 'php5', 'php5-cli', 'php5-cgi', 'php5-gd', 'memcached',
                          'php5-common', 'php5-mysql', 'php5-xmlrpc', 'php5-memcache', 'php5-curl', 'python2.7',
                          'python-setuptools', 'python-pip', 'python-imaging', 'python-mysqldb', 'python-simplejson',
                          'elinks', 'sendmail', 'exim4', 'lighttpd',
