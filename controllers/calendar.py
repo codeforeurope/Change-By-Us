@@ -42,7 +42,7 @@ class Calendar(Controller):
         self.template_data['calendar']['is_active_month'] = self.isActiveMonth(d)
 
         #Get Month name to display
-        locale.setlocale(locale.LC_ALL, 'nl_NL')   #TODO: self.get_language()
+        # locale.setlocale(locale.LC_ALL, 'nl_NL')   #TODO: self.get_language()
 
         self.template_data['calendar']['month_name'] = d.strftime("%B")
         self.template_data['calendar']['year'] = d.year
