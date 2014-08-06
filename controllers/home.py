@@ -13,9 +13,10 @@ import giveaminute.messaging as mMessaging
 import giveaminute.formattingUtils as formattingUtils
 import framework.util as util
 import lib.web
-#temp
+# temp
 from framework.image_server import *
 import giveaminute.projectResource as mResource
+from urlparse import urlparse
 
 import cgi
 import oauth2 as oauth
@@ -30,11 +31,12 @@ tw_settings = Config.get('twitter')
 tw_consumer = oauth.Consumer(tw_settings['consumer_key'], tw_settings['consumer_secret'])
 tw_client = oauth.Client(tw_consumer)
 
+
 class Home(Controller):
     def GET(self, action=None, param0=None):
-        project_user = dict(is_member = True,
-                              is_project_admin = True)
-        self.template_data['project_user'] = dict(data = project_user, json = json.dumps(project_user))
+        project_user = dict(is_member=True,
+                            is_project_admin=True)
+        self.template_data['project_user'] = dict(data=project_user, json=json.dumps(project_user))
         homepagequestion = self.getHomepageQuestion()
         self.template_data['homepage_question'] = homepagequestion['question_text']
         self.template_data['homepage_question_id'] = homepagequestion['question_id']
@@ -46,7 +48,7 @@ class Home(Controller):
         elif (action == 'mobile'):
             return self.showMobile()
         elif (action == 'bb'):
-            return self.showMobile(isBlackBerry = True)
+            return self.showMobile(isBlackBerry=True)
         elif (action == 'feedback'):
             return self.showFeedback()
 
@@ -54,7 +56,7 @@ class Home(Controller):
         # TODO: This should be consolidated with the twitter & facebook actions
         elif (action == 'login'):
             return self.showLogin()
-        
+
         # Twetter-related actions
         elif action == 'twitter':
             return self._twitter_action(action=param0)
@@ -68,22 +70,22 @@ class Home(Controller):
             self.redirect('http://nyc.changeby.us/')
         elif (action == 'beta'):
             return self.showBeta()
-        
+
         # About page can be city-specific
         elif (action == 'about'):
             for action in ["%s_about" % Config.get("site").get("city_id"), "about"]:
                 template = os.path.dirname(__file__) + '/../templates/%s.html' % action
                 if os.path.exists(template):
                     return self.render(action)
-                
+
             # If we got here, the template was not found
             return self.not_found()
-            
+
         else:
             # This is the default for all pages.  We should check
             # if there is a matching template, and if not, throw
             # a 404.
-            
+
             template = os.path.dirname(__file__) + '/../templates/' + action + '.html'
             print template
             if not os.path.exists(template):
@@ -149,8 +151,8 @@ class Home(Controller):
         locationData = mLocation.getSimpleLocationDictionary(self.db)
         allIdeasData = mIdea.getMostRecentIdeas(self.db, homepage['num_recent_ideas']);
 
-        locations = dict(data = locationData, json = json.dumps(locationData))
-        allIdeas = dict(data = allIdeasData, json = json.dumps(allIdeasData))
+        locations = dict(data=locationData, json=json.dumps(locationData))
+        allIdeas = dict(data=allIdeasData, json=json.dumps(allIdeasData))
 
         news = self.getNewsItems()
 
@@ -182,9 +184,9 @@ class Home(Controller):
 
         return self.render('leaderboard')
 
-    def showMobile(self, isBlackBerry = False):
+    def showMobile(self, isBlackBerry=False):
         locationData = mLocation.getSimpleLocationDictionary(self.db)
-        locations = dict(data =locationData, json = json.dumps(locationData))
+        locations = dict(data=locationData, json=json.dumps(locationData))
         self.template_data['locations'] = locations
 
         t = 'bb' if isBlackBerry else 'mobile'
@@ -201,7 +203,7 @@ class Home(Controller):
             return self.render('login')
         else:
             return self.redirect('/')
-        
+
     def showFeedback(self):
         return self.render('feedback')
 
@@ -225,7 +227,7 @@ class Home(Controller):
                 self.session.user_id = user['u_id']
                 self.session.invalidate()
                 # set cbu_key for blog access
-                web.setcookie('cbu_key', util.obfuscate(user['u_id']), domain = ".changeby.us")
+                web.setcookie('cbu_key', util.obfuscate(user['u_id']), domain=".changeby.us")
 
                 return self.json(user)
             else:
@@ -272,7 +274,7 @@ class Home(Controller):
         resp.close()
 
         sql = "select * from facebook_user where facebook_id = $id"
-        res = list(self.db.query(sql, { 'id':profile['id'] }))
+        res = list(self.db.query(sql, {'id': profile['id']}))
 
         associated_user = -1
 
@@ -287,13 +289,13 @@ class Home(Controller):
         else:
             email = profile["email"]
             check_if_email_exists = "select * from user where email = $email"
-            users_with_this_email = list(self.db.query(check_if_email_exists, {'email':email}))
+            users_with_this_email = list(self.db.query(check_if_email_exists, {'email': email}))
             email_exists = len(users_with_this_email)
 
             # see if we have a user with this email on a regular account
             if email_exists == 1:
                 uid = users_with_this_email[0].user_id
-            else: # no regular account with this email
+            else:  # no regular account with this email
 
                 # see if the user is logged in
                 s = SessionHolder.get_session()
@@ -302,7 +304,7 @@ class Home(Controller):
                 try:
                     uid = s.user_id
                     if uid is not None:
-                        make_new_user = False # user is logged in
+                        make_new_user = False  # user is logged in
                 except AttributeError:
                     pass
                     #uid = mUser.createUser(self.db, profile["email"], passw, profile["first_name"], profile["last_name"])
@@ -314,9 +316,9 @@ class Home(Controller):
                     self.session._changed = True
                     SessionHolder.set(self.session)
 
-            if not created_user: # we can associate an existing account with this data
+            if not created_user:  # we can associate an existing account with this data
                 try:
-                    self.db.insert('facebook_user', user_id = uid, facebook_id = profile['id'])
+                    self.db.insert('facebook_user', user_id=uid, facebook_id=profile['id'])
                 except MySQLdb.IntegrityError:
                     # Means that we already have a record for this user
                     # Check if the facebook user id is the same as what's in the database
@@ -324,12 +326,14 @@ class Home(Controller):
                     # otherwise add the new facebook uid
                     log.info("Got IntegrityError inserting fbid %s for uid %s" % (profile['id'], uid))
                     query = "select facebook_id from facebook_user where user_id = $uid"
-                    res = self.db.query(query, {'uid':uid})
+                    res = self.db.query(query, {'uid': uid})
                     fbid = None
                     if len(res) > 0:
                         fbid = res[0].facebook_id
                     if fbid is not None and fbid != profile['id']:
-                        log.info("Stored fbid (%s) does not match provided fbid (%s). Updating facebook_user for uid %s" % (fbid, profile['id'], uid))
+                        log.info(
+                            "Stored fbid (%s) does not match provided fbid (%s). Updating facebook_user for uid %s" % (
+                                fbid, profile['id'], uid))
                         # Check if the existing id is correct or not
                         # If it's not correct, update the record
                         self.db.update('facebook_user', where='user_id=%s' % uid, facebook_id=profile['id'])
@@ -341,9 +345,9 @@ class Home(Controller):
                 self.session.invalidate()
 
         if created_user:
-            return self.render('join', {'new_account_via_facebook': True, 'facebook_data': profile}) # go to TOS
+            return self.render('join', {'new_account_via_facebook': True, 'facebook_data': profile})  # go to TOS
         else:
-            raise self.redirect('/') # user had already signed up with us before
+            raise self.redirect('/')  # user had already signed up with us before
 
     def login_facebook_create(self):
 
@@ -354,7 +358,7 @@ class Home(Controller):
 
         passw = hashlib.sha224(profile["email"]).hexdigest()[:10]
         uid = mUser.createUser(self.db, profile["email"], passw, profile["first_name"], profile["last_name"])
-        self.db.insert('facebook_user', user_id = uid, facebook_id = profile['id'])
+        self.db.insert('facebook_user', user_id=uid, facebook_id=profile['id'])
 
         self.session.user_id = uid
         self.session.invalidate()
@@ -374,7 +378,7 @@ class Home(Controller):
 
         # Step 2. Store the request token in a session for later use.
 
-        req_token = dict(cgi.parse_qsl(content))
+        req_token = dict(urlparse.parse_qsl(content))
 
         self.session.request_token = req_token
         self.session._changed = True
@@ -395,7 +399,7 @@ class Home(Controller):
 
         s = SessionHolder.get_session()
         token = oauth.Token(s.request_token['oauth_token'],
-            s.request_token['oauth_token_secret'])
+                            s.request_token['oauth_token_secret'])
         client = oauth.Client(tw_consumer, token)
 
         # Step 2. Request the authorized access token from Twitter.
@@ -403,12 +407,12 @@ class Home(Controller):
         if resp['status'] != '200':
             return self.redirect('/')
 
-        access_token = dict(cgi.parse_qsl(content))
+        access_token = dict(urlparse.parse_qsl(content))
         log.info(str(access_token))
 
         # Step 3. Lookup the user or create them if they don't exist
         sql = "select * from twitter_user where twitter_id = $id"
-        res = list(self.db.query(sql, {'id':access_token['user_id']}))
+        res = list(self.db.query(sql, {'id': access_token['user_id']}))
 
         associated_user = -1
 
@@ -422,25 +426,26 @@ class Home(Controller):
             self.session.invalidate()
             return self.redirect('/')
 
-        else: # no existing twitter data
+        else:  # no existing twitter data
             # is the user logged in with a regular or FB account?
             make_new_user = True
             try:
                 uid = s.user_id
                 if uid is not None:
-                    make_new_user = False # user is logged in
+                    make_new_user = False  # user is logged in
             except AttributeError:
                 pass
                 #uid = mUser.createUser(self.db, profile["email"], passw, profile["first_name"], profile["last_name"])
 
-            if make_new_user: # no existing account data, make a new one after TOS
+            if make_new_user:  # no existing account data, make a new one after TOS
                 created_user = True
                 self.session.tw_access_token = access_token
                 self.session._changed = True
                 SessionHolder.set(self.session)
 
-            else: # no twitter data, but logged in, associate the accounts
-                self.db.insert('twitter_user', user_id = uid, twitter_username = access_token['screen_name'], twitter_id = access_token['user_id'])
+            else:  # no twitter data, but logged in, associate the accounts
+                self.db.insert('twitter_user', user_id=uid, twitter_username=access_token['screen_name'],
+                               twitter_id=access_token['user_id'])
                 associated_user = uid
                 created_twitter_user = True
 
@@ -448,9 +453,9 @@ class Home(Controller):
                 self.session.invalidate()
 
         if created_user:
-            return self.render('join', {'new_account_via_twitter': True, 'twitter_data': access_token}) # go to TOS
+            return self.render('join', {'new_account_via_twitter': True, 'twitter_data': access_token})  # go to TOS
         else:
-            return self.render('join', {'twitter_error': True}) # go to TOS
+            return self.render('join', {'twitter_error': True})  # go to TOS
 
 
     def login_twitter_create(self):
@@ -475,7 +480,8 @@ class Home(Controller):
         else:
             #userId = user.createUser(self.db, email, password, firstName, lastName, phone)
             userId = mUser.createUser(self.db, email, access_token['oauth_token_secret'], firstName, lastName, phone)
-            self.db.insert('twitter_user', user_id = userId, twitter_username = access_token['screen_name'], twitter_id = access_token['user_id'])
+            self.db.insert('twitter_user', user_id=userId, twitter_username=access_token['screen_name'],
+                           twitter_id=access_token['user_id'])
             self.session.user_id = userId
             self.session.invalidate()
             #following 3 lines commented out for oauth dev
@@ -483,7 +489,7 @@ class Home(Controller):
             #if (phone and len(phone) > 0):
             #    idea.attachIdeasByPhone(self.db, phone)
 
-        return userId;
+        return userId
 
     def disconnect_twitter(self):
 
@@ -491,7 +497,7 @@ class Home(Controller):
 
         self.db.delete("twitter_user", "user_id = %d" % uid)
 
-        return json.dumps({'success':True})
+        return json.dumps({'success': True})
 
     def disconnect_facebook(self):
 
@@ -499,11 +505,11 @@ class Home(Controller):
 
         self.db.delete("facebook_user", "user_id = %d" % uid)
 
-        return json.dumps({'success':True})
+        return json.dumps({'success': True})
 
     def logout(self):
         self.session.kill()
-        web.setcookie('cbu_key', None, expires = -1, domain = ".changeby.us")
+        web.setcookie('cbu_key', None, expires=-1, domain=".changeby.us")
 
         return True
 
@@ -514,7 +520,7 @@ class Home(Controller):
             try:
                 # BUGFIX: couldn't parse json from production blog, hence the string conversion
                 # eholda 2011-06-19
-                raw = urllib2.urlopen(feedUrl, timeout = 1)
+                raw = urllib2.urlopen(feedUrl, timeout=1)
                 data = json.loads(raw.read())
                 raw.close()
             except Exception, e:
@@ -522,20 +528,20 @@ class Home(Controller):
                 log.error(e)
 
         return data
-        
+
     def getHomepageQuestion(self):
         q = None
-    
+
         if (Config.get('homepage').get('is_question_from_cms')):
             sql = "select question, homepage_question_id from homepage_question where is_active = 1 and is_featured = 1"
             data = list(self.db.query(sql))
-            
+
             if (len(data) == 1):
                 q = dict(question_text=data[0].question, question_id=data[0].homepage_question_id)
-                
+
         if (not q):
             q = dict(question_text=Config.get('homepage').get('question'), question_id=None)
-            
+
         return q
 
     def submitFeedback(self):
@@ -544,16 +550,19 @@ class Home(Controller):
         comment = self.request('text')
         t = self.request('type')
 
-        if (t == 'feature'): feedbackType = 'feature'
-        elif (t == 'bugs'): feedbackType = 'bug'
-        else: feedbackType = 'general'
+        if (t == 'feature'):
+            feedbackType = 'feature'
+        elif (t == 'bugs'):
+            feedbackType = 'bug'
+        else:
+            feedbackType = 'general'
 
         try:
-            self.db.insert('site_feedback', submitter_name = name,
-                                            submitter_email = email,
-                                            comment = comment,
-                                            feedback_type = feedbackType,
-                                            created_datetime = None)
+            self.db.insert('site_feedback', submitter_name=name,
+                           submitter_email=email,
+                           comment=comment,
+                           feedback_type=feedbackType,
+                           created_datetime=None)
 
             return True
         except Exception, e:
@@ -566,8 +575,8 @@ class Home(Controller):
         comment = self.request('text')
 
         try:
-            self.db.insert('beta_invite_request',email = email,
-                                            comment = comment)
+            self.db.insert('beta_invite_request', email=email,
+                           comment=comment)
 
             return True
         except Exception, e:
