@@ -378,7 +378,7 @@ class Home(Controller):
 
         # Step 2. Store the request token in a session for later use.
 
-        req_token = dict(urlparse.parse_qsl(content))
+        req_token = dict(urlparse.parse_qs(content))
 
         self.session.request_token = req_token
         self.session._changed = True
@@ -407,7 +407,7 @@ class Home(Controller):
         if resp['status'] != '200':
             return self.redirect('/')
 
-        access_token = dict(urlparse.parse_qsl(content))
+        access_token = dict(urlparse.parse_qs(content))
         log.info(str(access_token))
 
         # Step 3. Lookup the user or create them if they don't exist
