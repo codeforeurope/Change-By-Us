@@ -20,7 +20,7 @@ import framework.util as util
 import giveaminute.user as mUser
 import giveaminute.models as models
 import jinja2
-from urlparse import urlparse
+import urlparse
 
 class Controller (object):
 

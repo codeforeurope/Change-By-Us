@@ -16,7 +16,7 @@ import lib.web
 # temp
 from framework.image_server import *
 import giveaminute.projectResource as mResource
-from urlparse import urlparse
+import urlparse
 
 import cgi
 import oauth2 as oauth
