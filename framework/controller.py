@@ -20,6 +20,7 @@ import framework.util as util
 import giveaminute.user as mUser
 import giveaminute.models as models
 import jinja2
+import urlparse
 
 class Controller (object):
 
@@ -158,7 +159,6 @@ class Controller (object):
             if not web.input():
                 return None
         except TypeError, e:
-            import urlparse
             querystring = web.ctx.query[1:]
             params = urlparse.parse_qs(querystring)
             return params
