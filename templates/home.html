@@ -393,7 +393,7 @@
                 You can also follow us on Twitter at <a href="http://twitter.com/#!/changebyus">@changebyus</a> for updates, and thanks for stopping by.</p>
         </div>
 
-        <a class='close' href="#"><span>close</span></a>
+        <a class='close' href="#"><span>{{ _('close') }}</span></a>
     </div>
     
 	<li class='template-content project-item'>
@@ -426,14 +426,23 @@
     {% if d.template_data.features['is_show_beta_splash'] %}
         <script type="text/javascript" src='/static/js/pages/beta_splash.js'></script>
     {% endif %}
+
+        {# This may look complicated, but it's necessary because xgettext cannot extract strings within quotes, so we set these variables first
+        See: https://www.gnu.org/software/gettext/manual/html_node/Perl-Pitfalls.html #}
+        {% set msg1 =  _('Start typing a neighborhood') %}
+        {% set msg2 =  _('Please enter your email address') %}
+        {% set msg3 =  _('Created by') %}
+        {% set msg4 =  _('See more related projects') %}
+        {% set msg5 =   _('You') %}
+        {% set msg6 =   _('Say') %}
     <script>
         app_page.messages = {
-            'start-typing-a-neighborhood' : "{{ _('Start typing a neighborhood') }}",
-            'please-enter-email-address': "{{ _('Please enter your email address') }}",
-            'created-by': "{{ _('Created by') }}",
-            'see-more-related-projects': "{{ _('See more related projects') }}",
-            'you' : "{{ _('You') }}",
-            'say' : "{{ _('say') }}"
+            'start-typing-a-neighborhood' : '{{ msg1 }}',
+            'please-enter-email-address': '{{ msg2 }}',
+            'created-by': '{{ msg3 }}',
+            'see-more-related-projects': '{{ msg4 }}',
+            'you' : '{{ msg5 }}',
+            'say' : '{{ msg6 }}'
         };
     </script>
 {% endblock page_js %}
