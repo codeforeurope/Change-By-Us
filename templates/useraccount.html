@@ -455,8 +455,9 @@
                                             </div>
                                         </div>
                                         <div class="">
-                                            <input class="rounded-button info-save-button" type="submit" value="
-                                            {{ _('Save Changes') }}"/>
+                                            {% set savechanges = _('Save Changes') %}
+
+                                            <input class="rounded-button info-save-button" type="submit" value="{{ savechanges }}"/>
                                             <a href="#user-account,password" class="change-password">{{ _('Change Password') }}</a>
                                         </div>
 
@@ -479,8 +480,8 @@
                                                     <input type="password" class="has-been-focused confirm-new-password" />
                                                 </div>
                                                 <div class="controls">
-                                                    <input class="rounded-button password-save-button" type="submit" value="
-                                                    {{ _('Save') }}"/>
+                                                    {% set savemsg = _('Save') %}
+                                                    <input class="rounded-button password-save-button" type="submit" value="{{ savemsg }}"/>
                                                     <a href="#user-account,account" class="cancel">{{ _('Cancel') }}</a>
                                                 </div>
                                             </div>

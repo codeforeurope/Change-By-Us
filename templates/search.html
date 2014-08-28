@@ -43,8 +43,8 @@
 					<a class="clear-field" href=""></a>
 					<div class="location-hood-list" style="display:none"><ul></ul></div>
 				</div>
-				<input type="submit" class="rounded-button search-submit" value="
-				{{ _('Search') }}" />
+                {% set searchmsg = _('Search') %}
+				<input type="submit" class="rounded-button search-submit" value="{{ searchmsg }}" />
 			</div>
 		</form>
 	</div>

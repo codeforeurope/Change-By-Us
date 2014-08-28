@@ -8,8 +8,8 @@
 				<h2>{{ _('Send <strong class="to_u_name">&nbsp;</strong> a message') }}</h2>
 				<div class="clearfix">
 					<textarea class="contact-user-text" id="contact-user-text" name="contact-user-text"></textarea>
-					<input type="submit" class="contact-user-submit rounded-button" id="contact-user-submit" name="contact-user-submit" value="
-					{{ _('Send') }}" />
+                    {% set sendbutton = _('Send') %}
+					<input type="submit" class="contact-user-submit rounded-button" id="contact-user-submit" name="contact-user-submit" value="{{ sendbutton }}" />
 				</div>
 				<div>
 					<span class="charlimit">0/200</span>

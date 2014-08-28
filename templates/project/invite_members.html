@@ -68,8 +68,8 @@
                         <div class="sub-bd form-pane">
                             <div class="fields">
                                 <div class="row clearfix" style='margin-top:0px;'>
-                                    <input class="rounded-button email-invite-submit-button" id="send-invites" name="send-invites" type="submit" value="
-                                    {{ _('Send Invites') }}" />
+                                    {% set sendinvites = _('Send Invites') %}
+                                    <input class="rounded-button email-invite-submit-button" id="send-invites" name="send-invites" type="submit" value="{{ sendinvites }}" />
                                 </div>
                             </div>
                         </div>
@@ -113,7 +113,7 @@
                                                 <div class="note-card">
                                                     <div class="membrane">
                                                         {% if d.template_data and d.template_data.user and d.template_data.user.is_admin %}
-                                                            <a class="close remove-idea" href="#removeIdea,{{ idea.idea_id }}"><span>Close</span></a>
+                                                            <a class="close remove-idea" href="#removeIdea,{{ idea.idea_id }}"><span>{{ _('Close') }}</span></a>
                                                         {% endif %}
 
                                                         {% if idea.owner.name %}
