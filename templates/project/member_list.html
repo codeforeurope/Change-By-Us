@@ -29,7 +29,7 @@
 
                 <!-- Begin Members.Stack -->
                 {#
-                 # Grab the project admins here so that we don't have to rerun
+                 # Grab the project admins here so that we do not have to rerun
                  # the query for each member
                  #}
                 {% with project_admins=d.template_data.project.admins %}
@@ -91,7 +91,7 @@
                             </div>
                             {% endif %}
                             {% if d.template_data.project_user.data.is_project_admin or d.template_data and d.template_data.user and d.template_data.user.is_admin %}
-                            {% if member not in project_admins %} {# Don't go removing the project admin from here #}
+                            {% if member not in project_admins %} {# Do not go removing the project admin from here #}
                                 <a class="close" href="#removeMember,{{member.id}}"><span>Close</span></a>
                             {% endif %}
                             {% endif %}

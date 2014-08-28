@@ -152,10 +152,13 @@
 {% endblock continent %}
 
 {% block page_js %}
+        {# This may look complicated, but it's necessary because xgettext cannot extract strings within quotes, so we set these variables first
+        See: https://www.gnu.org/software/gettext/manual/html_node/Perl-Pitfalls.html #}
+        {%  set msg1 = _('Start typing a neighborhood') %}
 <script type='text/javascript' src="/static/js/pages/resource.js"></script>
         <script>
             app_page.messages = {
-                'start-typing-a-neighborhood': "{{ _('Start typing a neighborhood') }}"
+                'start-typing-a-neighborhood': "{{ msg1 }}"
             };
         </script>
 {% endblock page_js %}

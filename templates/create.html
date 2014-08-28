@@ -182,7 +182,7 @@
 <div class="template-content modal-content join-no-user">
     <h2>{{ _('<strong>Hold your horses!</strong> Please register.') }}</h2>
     <p>{{ _('You must <strong><a href="/join">register</a></strong> or <strong><a href="/login">login</a></strong> with %(site_name)s in order to create<br />your own project.')|format(site_name=d.config.site.name) }}</p>
-    <p><a href="/join" class="rounded-button">Join</a>&nbsp;<a href="/login" class="rounded-button">Login</a></p>
+    <p><a href="/join" class="rounded-button">{{ _('Join') }}</a>&nbsp;<a href="/login" class="rounded-button">{{ _('Login') }}</a></p>
 </div>
 
 <div class="template-content" id="organization-markup-source">
@@ -213,34 +213,63 @@
             app_page.data.user = {{ d.template_data.user.json }};
         {% endif %}
     </script>
+
+        {# This may look complicated, but it's necessary because xgettext cannot extract strings within quotes, so we set these variables first
+        See: https://www.gnu.org/software/gettext/manual/html_node/Perl-Pitfalls.html #}
+        {%  set msg1 = _('Turn an idea into a project.') %}
+        {%  set msg2 =  _('Hey') %}
+        {%  set msg3 = _('let\'s get started with some basic details.') %}
+        {%  set msg4 = _('e.g. More Greenways Downtown') %}
+        {%  set msg5 = _('Field Organization, Program, Community Group, etc.') %}
+        {%  set msg6 = _('Add a description') %}
+        {%  set msg7 = _('Separate keywords by commas') %}
+        {%  set msg8 = _('Turn ideas into solutions') %}
+        {%  set msg9 = _('Get found by other people, resources,<br />and other projects in your area.') %}
+        {%  set msg10 = _('Start typing a neighborhood') %}
+        {%  set msg11 = _('Let\'s have a look for similar projects.') %}
+        {%  set msg12 = _('Starting something new is great, but there<br />may also be a great project to join up with.') %}
+        {%  set msg13 = _('Let\'s have a look for similar projects.') %}
+        {%  set msg14 = _('Starting something new is great, but there<br />may also be a great project to join up with.') %}
+        {%  set msg15 = _('Created by') %}
+        {%  set msg16 = _('Add a resource.') %}
+        {%  set msg17 = _('When you add a resource, we will email them an<br />introduction and link to your project!') %}
+        {%  set msg18 = _('Add a resource.') %}
+        {%  set msg19 = _('When you add a resource, we will email them an<br />introduction and link to your project!') %}
+        {%  set msg20 = _('Close') %}
+        {%  set msg21 = _('Added <em>to</em> your project') %}
+        {%  set msg22 = _('We\'ve sent them a link to your project page.') %}
+        {%  set msg23 = _('Add a resource.') %}
+        {%  set msg24 = _('When you add a resource, we will email them an<br />introduction and link to your project!') %}
+        {%  set msg25 = _('Thank you!') %}
+        {%  set msg26 = _("Thank you for adding a project.") %}
     <script>
         app_page.messages = {
-            'steps-start-title': "{{ _('Turn an idea into a project.') }}",
-            'hey': "{{ _('Hey') }}",
-            'lets-get-started': "{{ _('let\'s get started with some basic details.') }}",
-            'steps-start-title-hint':"{{ _('e.g. More Greenways Downtown') }}",
-            'steps-start-organization-hint':  "{{ _('Field Organization, Program, Community Group, etc.') }}",
-            'steps-start-description-hint': "{{ _('Add a description') }}",
-            'steps-start-keywords-hint': "{{ _('Separate keywords by commas') }}",
-            'steps-location-title': "{{ _('Turn ideas into solutions') }}",
-            'steps-location-subtitle': "{{ _('Get found by other people, resources,<br />and other projects in your area.') }}",
-            'steps-location-hint': "{{ _('Start typing a neighborhood') }}",
-            'steps-check-title': "{{ _('Let\'s have a look for similar projects.') }}",
-            'steps-check-subtitle': "{{ _('Starting something new is great, but there<br />may also be a great project to join up with.') }}",
-            'steps-check-projects-title': "{{ _('Let\'s have a look for similar projects.') }}",
-            'steps-check-projects-subtitle': "{{ _('Starting something new is great, but there<br />may also be a great project to join up with.') }}",
-            'created-by': "{{ _('Created by') }}",
-            'steps-addresource-process-title': "{{ _('Add a resource.') }}",
-            'steps-addresource-process-subtitle': "{{ _('When you add a resource, we will email them an<br />introduction and link to your project!') }}",
-            'steps-addresource-title': "{{ _('Add a resource.') }}",
-            'steps-addresource-subtitle': "{{ _('When you add a resource, we will email them an<br />introduction and link to your project!') }}",
-            'close': "{{ _('Close') }}",
-            'steps-addresource-added': "{{ _('Added <em>to</em> your project') }}",
-            'steps-addresource-emailed': "{{ _('We\'ve sent them a link to your project page.') }}",
-            'steps-add-noresource-title': "{{ _('Add a resource.') }}",
-            'steps-add-noresource-subtitle': "{{ _('When you add a resource, we will email them an<br />introduction and link to your project!') }}",
-            'steps-finish-title': "{{ _('Thank you!') }}",
-            'steps-finish-subtitle': "{{ _('Thank you for adding a project.') }}"
+            'steps-start-title': "{{ msg1 }}",
+            'hey': "{{ msg2 }}",
+            'lets-get-started': "{{ msg3 }}",
+            'steps-start-title-hint':"{{ msg4 }}",
+            'steps-start-organization-hint':  "{{ msg5 }}",
+            'steps-start-description-hint': "{{ msg6 }}",
+            'steps-start-keywords-hint': "{{ msg7 }}",
+            'steps-location-title': "{{ msg8 }}",
+            'steps-location-subtitle': "{{ msg9 }}",
+            'steps-location-hint': "{{ msg10 }}",
+            'steps-check-title': "{{ msg11 }}",
+            'steps-check-subtitle': "{{ msg12 }}",
+            'steps-check-projects-title': "{{ msg13 }}",
+            'steps-check-projects-subtitle': "{{ msg14 }}",
+            'created-by': "{{ msg15 }}",
+            'steps-addresource-process-title': "{{ msg16 }}",
+            'steps-addresource-process-subtitle': "{{ msg17 }}",
+            'steps-addresource-title': "{{ msg18 }}",
+            'steps-addresource-subtitle': "{{ msg19 }}",
+            'close': "{{ msg20 }}",
+            'steps-addresource-added': "{{ msg21 }}",
+            'steps-addresource-emailed': "{{msg22 }}",
+            'steps-add-noresource-title': "{{ msg23 }}",
+            'steps-add-noresource-subtitle': "{{ msg24 }}",
+            'steps-finish-title': "{{ msg25 }}",
+            'steps-finish-subtitle': "{{ msg26 }}"
         };
     </script>
     <script type="text/javascript" src="/static/js/pages/create.js"></script>

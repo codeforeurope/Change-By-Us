@@ -263,5 +263,22 @@
 
 {% block page_js %}
 	<script type='text/javascript' src="/static/js/pages/cms.adminsettings.js"></script>
-    <script>app_page.messages = { 'city-leader': "{{ _('City Leader') }}", 'moderator': "{{ _('Moderator') }}", 'super-admin':"{{ _('Super Admin') }}", 'on-call': "{{ _('On Call') }}", 'delete': "{{ _('Delete') }}", 'loading': "{{ _('Loading') }}" };</script>
+
+        {# This may look complicated, but it's necessary because xgettext cannot extract strings within quotes, so we set these variables first
+        See: https://www.gnu.org/software/gettext/manual/html_node/Perl-Pitfalls.html #}
+        {%  set msg1 = _('City Leader') %}
+        {%  set msg2 = _('Moderator') %}
+        {%  set msg3 = _('Super Admin') %}
+        {%  set msg4 = _('On Call') %}
+        {%  set msg5 = _('Delete') %}
+        {%  set msg6 = _('Loading') %}
+
+    <script>app_page.messages = {
+        'city-leader': '{{ msg1 }}',
+        'moderator': '{{ msg2 }}',
+        'super-admin': '{{ msg3 }}',
+        'on-call': '{{ msg4 }}',
+        'delete': "{{ msg5 }}",
+        'loading': '{{ msg6 }}'
+    };</script>
 {% endblock page_js %}
