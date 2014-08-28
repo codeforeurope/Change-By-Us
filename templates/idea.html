@@ -174,7 +174,12 @@
         {% endif %}
     </script>
     <script type="text/javascript" src='/static/js/pages/idea.js'></script>
+        {# This may look complicated, but it's necessary because xgettext cannot extract strings within quotes, so we set these variables first
+        See: https://www.gnu.org/software/gettext/manual/html_node/Perl-Pitfalls.html #}
+        {%  set msg1 = _(' joined the project!') %}
     <script>
-        app_page.messages = { 'like-idea':'{{ _('Like') }}', 'unlike-idea': '{{ _('Unlike') }}', 'liked-idea': '{{ _('Liked!') }}', 'unliked-idea': '{{ _('Unliked!') }}', 'joined-the-project': "{{ _(' joined the project!') }}" };
+        app_page.messages = {
+            'joined-the-project': "{{ msg1 }}"
+        };
     </script>
 {% endblock %}

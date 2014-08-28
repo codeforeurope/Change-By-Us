@@ -455,7 +455,8 @@
                                             </div>
                                         </div>
                                         <div class="">
-                                            <input class="rounded-button info-save-button" type="submit" value="Save Changes"/>
+                                            <input class="rounded-button info-save-button" type="submit" value="
+                                            {{ _('Save Changes') }}"/>
                                             <a href="#user-account,password" class="change-password">{{ _('Change Password') }}</a>
                                         </div>
 
@@ -478,7 +479,8 @@
                                                     <input type="password" class="has-been-focused confirm-new-password" />
                                                 </div>
                                                 <div class="controls">
-                                                    <input class="rounded-button password-save-button" type="submit" value="Save"/>
+                                                    <input class="rounded-button password-save-button" type="submit" value="
+                                                    {{ _('Save') }}"/>
                                                     <a href="#user-account,account" class="cancel">{{ _('Cancel') }}</a>
                                                 </div>
                                             </div>
@@ -737,10 +739,13 @@
     {% endif %}
 
 
-
+        {# This may look complicated, but it's necessary because xgettext cannot extract strings within quotes, so we set these variables first
+        See: https://www.gnu.org/software/gettext/manual/html_node/Perl-Pitfalls.html #}
+        {%  set msg1 = _('Click here to add something about yourself.') %}
     <script>
+
         app_page.messages = {
-            'click-here-to-add-something-about-yourself': "{{ _('Click here to add something about yourself.') }}"
+            'click-here-to-add-something-about-yourself': "{{ msg1 }}"
         };
     </script>
 

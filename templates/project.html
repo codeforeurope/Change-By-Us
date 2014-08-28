@@ -332,32 +332,60 @@
     {% if d.template_data and d.template_data.user and d.template_data.user.is_admin %}
         <script type='text/javascript' src="/static/js/pages/project.admin.js"></script>
     {% endif %}
+
+        {# This may look complicated, but it's necessary because xgettext cannot extract strings within quotes, so we set these variables first
+        See: https://www.gnu.org/software/gettext/manual/html_node/Perl-Pitfalls.html #}
+        {% set month1 = _('January') %}
+        {% set month2 = _('February') %}
+        {% set month3 = _('March') %}
+        {% set month4 = _('April') %}
+        {% set month5 = _('May') %}
+        {% set month6 = _('June') %}
+        {% set month7 = _('July') %}
+        {% set month8 = _('August') %}
+        {% set month9 = _('September') %}
+        {% set month10 = _('October') %}
+        {% set month11 = _('November') %}
+        {% set month12 = _('December') %}
+
+        {%  set msg1 = _(' joined the project!') %}
+        {%  set msg2 = _('I am helping') %}
+        {%  set msg3 = _('I can help') %}
+        {%  set msg4 = _('Complete!') %}
+        {%  set msg5 = _('Added <em>to</em> your project') %}
+        {%  set msg6 = _('We\'ve sent them a link to your project page.') %}
+        {%  set msg7 = _('Close') %}
+        {%  set msg8 = _('Add') %}
+
+        {%  set am = _('AM') %}
+        {%  set pm = _('PM') %}
+
     <script>
         app_page.messages = {
-            'joined-the-project': "{{ _(' joined the project!') }}" ,
-            'i-am-helping': "{{ _('I am helping') }}",
-            'i-can-help': "{{ _('I can help') }}",
-            'complete': "{{ _('Complete!') }}",
+            'joined-the-project': "{{ msg1 }}" ,
+            'i-am-helping': "{{ msg2 }}",
+            'i-can-help': "{{ msg3 }}",
+            'complete': "{{ msg4 }}",
             'months' : {
-                'jan': "{{ _('January') }}",
-                'feb': "{{ _('February') }}",
-                'mar': "{{ _('March') }}",
-                'apr': "{{ _('April') }}",
-                'may': "{{ _('May') }}",
-                'jun': "{{ _('June') }}",
-                'jul': "{{ _('July') }}",
-                'aug': "{{ _('August') }}",
-                'sep': "{{ _('September') }}",
-                'oct': "{{ _('October') }}",
-                'nov': "{{ _('November') }}",
-                'dec': "{{ _('December') }}"
+                'jan': "{{ month1 }}",
+                'feb': "{{ month2 }}",
+                'mar': "{{ month3 }}",
+                'apr': "{{ month4 }}",
+                'may': "{{ month5 }}",
+                'jun': "{{ month6 }}",
+                'jul': "{{ month7 }}",
+                'aug': "{{ month8 }}",
+                'sep': "{{ month9 }}",
+                'oct': "{{ month10 }}",
+                'nov': "{{ month11 }}",
+                'dec': "{{ month12 }}"
             },
-            'AM': "{{ _('AM') }}",
+            'AM': "{{ am }}",
             'PM': "{{ _('PM') }}",
-            'added-to-your-project': "{{ _('Added <em>to</em> your project') }}",
-            'we-sent-them-a-link': "{{ _('We\'ve sent them a link to your project page.') }}",
-            'close': "{{ _('Close') }}",
-            'add': "{{ _('Add') }}"
+            'added-to-your-project': "{{ msg5 }}",
+            'we-sent-them-a-link': "{{ msg6 }}",
+            'close': "{{ msg7 }}",
+            'add': "{{ msg8 }}"
         };
     </script>
 

@@ -43,7 +43,8 @@
 					<a class="clear-field" href=""></a>
 					<div class="location-hood-list" style="display:none"><ul></ul></div>
 				</div>
-				<input type="submit" class="rounded-button search-submit" value="{{ _('Search') }}" />
+				<input type="submit" class="rounded-button search-submit" value="
+				{{ _('Search') }}" />
 			</div>
 		</form>
 	</div>
@@ -728,7 +729,15 @@
 
 {% block page_js %}
 	<script type="text/javascript" src='/static/js/pages/search.js'></script>
+        {# This may look complicated, but it's necessary because xgettext cannot extract strings within quotes, so we set these variables first
+        See: https://www.gnu.org/software/gettext/manual/html_node/Perl-Pitfalls.html #}
+        {%  set msg1 = _('No Results') %}
+        {%  set msg2 = _('All neighborhoods') %}
+
     <script>
-        app_page.messages = { 'no-results': "{{ _('No Results') }}", 'all-neighborhoods': "{{ _('All neighborhoods') }}", 'like-idea':'{{ _('Like') }}', 'unlike-idea': '{{ _('Unlike') }}', 'liked-idea': '{{ _('Liked!') }}', 'unliked-idea': '{{ _('Unliked!') }}' };
+        app_page.messages = {
+            'no-results': "{{ msg1 }}",
+            'all-neighborhoods': "{{ msg2 }}"
+        };
     </script>
 {% endblock page_js %}

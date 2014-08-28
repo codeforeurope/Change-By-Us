@@ -272,14 +272,18 @@
 	{% endif %}
 </script>
 
+        {# This may look complicated, but it's necessary because xgettext cannot extract strings within quotes, so we set these variables first
+        See: https://www.gnu.org/software/gettext/manual/html_node/Perl-Pitfalls.html #}
+        {%  set msg1 = _('Oops! We found someone with that name and email address in our system.') %}
+        {%  set msg2 = _('Forgot your password?') %}
+        {%  set msg3 = _('First Name') %}
+        {%  set msg4 = _('Last name') %}
 <script>
     app_page.messages = {
-        'user-exists': "{{ _('Oops! We found someone with that name and email address in our system.') }}",
-        'forgot-your-password': "{{ _('Forgot your password?') }}",
-        'first-name' : "{{ _('First Name') }}",
-        'last-name' : "{{ _('Last name') }}"
-//        '' : "{{ _('') }}"
-
+        'user-exists': "{{ msg1 }}",
+        'forgot-your-password': "{{ msg2 }}",
+        'first-name' : "{{ msg3 }}",
+        'last-name' : "{{ msg4 }}"
     };
 </script>
 <script type="text/javascript" src='/static/js/pages/join.js'></script>

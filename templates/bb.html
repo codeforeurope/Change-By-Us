@@ -37,7 +37,8 @@
 				<h1>{{ _('Hey') }} {{ d.config.site.city }}, {{ d.config.homepage.question }}</h1>
 				<form>
 					<input type="text" id="idea-input" class="idea-input" name="idea-input" />
-					<input type="submit" id="idea-submit" class="submit idea-submit" name="idea-submit" value="{{ _('Post') }}" />
+					<input type="submit" id="idea-submit" class="submit idea-submit" name="idea-submit" value="
+					{{ _('Post') }}" />
 				</form>
 			</div><!--end step-->
 		
@@ -45,7 +46,8 @@
 				<h1>{{ _('Thanks for your idea!') }}<br /><span class="unbold">{{ _('We need a little more information.') }}</span></h1>
 				<form>
 					<input type="text" id="email-input" class="email-input" name="email-input" value="{% if d.template_data.user and d.template_data.user.data.email %}{{ d.template_data.user.data.email }}{% endif %}" />
-					<input type="submit" id="email-submit" class="submit email-submit" name="email-submit" value="Next" />
+					<input type="submit" id="email-submit" class="submit email-submit" name="email-submit" value="
+					{{ _('Next') }}" />
 				</form>
 			</div><!--end step-->
 					
@@ -65,7 +67,8 @@
 						</ul>
 					</div>
 
-					<input type="submit" id="hood-submit" class="submit hood-submit" name="hood-submit" value="{{ _('Next') }}" />
+					<input type="submit" id="hood-submit" class="submit hood-submit" name="hood-submit" value="
+					{{ _('Next') }}" />
 				</form>
 			</div><!--end step-->
 			
@@ -140,7 +143,8 @@
 					<input type="text" id="login-email" class="login-email" name="login-email" />
 					<label for="login-pass">{{ _('Password') }}</label>
 					<input type="password" id="login-pass" class="login-pass" name="login-pass" />
-					<input type="submit" id="login-submit" class="submit login-submit" name="login-submit" value="{{ _('Login') }}" />
+					<input type="submit" id="login-submit" class="submit login-submit" name="login-submit" value="
+					{{ _('Login') }}" />
 				</form>
 			</div><!--end step-->
 		
