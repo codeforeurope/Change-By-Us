@@ -72,7 +72,7 @@
                     <li class="box event">
                         <div class="clearfix">
                             <div class="empty-state-box big">
-                                    <p>{{ _('There are no %(sitename)s events in this month.')|format(site_name=d.config.site.name) }}</p>
+                                    <p>{{ _('There are no %(sitename)s events in this month.')|format(sitename=d.config.site.name) }}</p>
                                     {% if (d.template_data.calendar.is_active_month) %}
                                     <p>{{ _('Contact your project admins to see how you can help!') }}</p>
                                     {% endif %}
