@@ -309,16 +309,16 @@
 
 
         <!-- Who are the most active users? -->
-          <div class="box box-whoslistening">
+          <div class="box box-whosmostactive ">
               <h1><strong>{{ _('Who&#39;s giving the most?') }}</strong></h1>
               <h2>{{ _('These people are making a difference in <a href="/search#ideas">ideas</a> and <a href="/search#projects">projects</a>.') }}</h2>
               <ul class="clearfix">
                 {% for active_user in d.template_data.most_active_users %}
                   <li {% if loop.index % 4 == 0 %}class="every-fourth"{% endif %}>
                     {% if active_user.user_image_id %}
-                      <img src="{{d.template_data.media_root}}images/{{ active_user.user_image_id % 10 }}/{{ active_user.user_image_id }}.png" alt="{{ active_user.user_full_display_name|e }}" width="150" />
+                      <img src="{{d.template_data.media_root}}images/{{ active_user.user_image_id % 10 }}/{{ active_user.user_image_id }}.png" alt="{{ active_user.user_full_display_name|e }}"/>
                     {% else %}
-                      <img src="/static/images/thumb_genAvatar100.png" alt="{{ active_user.user_full_display_name }}" width="150">
+                      <img src="/static/images/thumb_genAvatar100.png" alt="{{ active_user.user_full_display_name }}">
                     {% endif %}
                       <p class="name"><a href="/useraccount/{{active_user.user_id}}">{{ active_user.user_full_display_name|e }}</a></p>
                       <p class="job">{% if active_user.location_name %}{{ active_user.location_name|e }}{% endif %}</p>
