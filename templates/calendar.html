@@ -72,7 +72,7 @@
                     <li class="box event">
                         <div class="clearfix">
                             <div class="empty-state-box big">
-                                    <p>{{ _('There are no Change By Us events in this month.') }}</p>
+                                    <p>{{ _('There are no %(sitename)s events in this month.')|format(site_name=d.config.site.name) }}</p>
                                     {% if (d.template_data.calendar.is_active_month) %}
                                     <p>{{ _('Contact your project admins to see how you can help!') }}</p>
                                     {% endif %}
@@ -87,9 +87,7 @@
     	    <div class="box calendar">
                 <div class="hd clearfix">
                     <div class="wrapper">
-                        {{ _("""Here's a listing of events organized by the Change By Us projects in
-                        your city. Click on the event for more details and to find out how
-                        you can get involved.""") }}
+                        {{ _("Here's a listing of events organized by the %(sitename)s projects in your city. Click on the event for more details and to find out how you can get involved.")|format(sitename=d.config.site.name) }}
         	        </div>
                 </div>
             </div>
