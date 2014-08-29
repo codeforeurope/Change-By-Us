@@ -95,7 +95,7 @@ tc.app.prototype.init = function(page) {
                     dataType: 'text',
                     success: function(data, ts, xhr) {
                         var me = this;
-                        if (FB._userStatus == 'unknown') {
+                        if (FB._userStatus == 'unknown' || FB._userStatus == null) {
                             me.finish_logout(e);
                         } else {
                             FB.getLoginStatus(function (response) {
