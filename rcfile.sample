@@ -99,6 +99,7 @@ instance = ChangeByUs-dev
 # htaccess -- Yes or no.  Is the site behind htaccess.
 htaccess = No
 
+# default_host should end with /
 default_host = http://localhost:8080/
 blog_host = http://blog.changeby.us/
 blog_host_feed = http://blog.changeby.us/?feed=cbujson

@@ -387,7 +387,7 @@ class Home(Controller):
 
         # Step 3. Redirect the user to the authentication URL.
 
-        url = "%s?oauth_token=%s&force_login=true" % (tw_settings['authenticate_url'], req_token['oauth_token'])
+        url = "%s?oauth_token=%s&force_login=true" % (tw_settings['authenticate_url'], req_token['oauth_token'][0])
 
         log.info("twitter login")
         log.info(s)
@@ -398,12 +398,17 @@ class Home(Controller):
         # Step 1. Use the request token in the session to build a new client.
 
         s = SessionHolder.get_session()
-        token = oauth.Token(s.request_token['oauth_token'],
-                            s.request_token['oauth_token_secret'])
+        token = oauth.Token(s.request_token['oauth_token'][0],
+                            s.request_token['oauth_token_secret'][0])
         client = oauth.Client(tw_consumer, token)
 
+        # Step 1a. Use the oauth_verifier received as a parameter to build a set of parameters to send to /oauth/request_token
+        # see: https://dev.twitter.com/discussions/16443
+
+        callback = Config.get('default_host')+"twitter/callback"
+        myParameters = {"oauth_callback": callback, "oauth_verifier": web.input(_method='get')['oauth_verifier']}
         # Step 2. Request the authorized access token from Twitter.
-        resp, content = client.request(tw_settings['access_token_url'], "GET")
+        resp, content = client.request(tw_settings['access_token_url'], "POST", urllib.urlencode(myParameters))
         if resp['status'] != '200':
             return self.redirect('/')
 
@@ -412,7 +417,7 @@ class Home(Controller):
 
         # Step 3. Lookup the user or create them if they don't exist
         sql = "select * from twitter_user where twitter_id = $id"
-        res = list(self.db.query(sql, {'id': access_token['user_id']}))
+        res = list(self.db.query(sql, {'id': access_token['user_id'][0]}))
 
         associated_user = -1
 
@@ -444,8 +449,8 @@ class Home(Controller):
                 SessionHolder.set(self.session)
 
             else:  # no twitter data, but logged in, associate the accounts
-                self.db.insert('twitter_user', user_id=uid, twitter_username=access_token['screen_name'],
-                               twitter_id=access_token['user_id'])
+                self.db.insert('twitter_user', user_id=uid, twitter_username=access_token['screen_name'][0],
+                               twitter_id=access_token['user_id'][0])
                 associated_user = uid
                 created_twitter_user = True
 
@@ -479,9 +484,9 @@ class Home(Controller):
             return False
         else:
             #userId = user.createUser(self.db, email, password, firstName, lastName, phone)
-            userId = mUser.createUser(self.db, email, access_token['oauth_token_secret'], firstName, lastName, phone)
-            self.db.insert('twitter_user', user_id=userId, twitter_username=access_token['screen_name'],
-                           twitter_id=access_token['user_id'])
+            userId = mUser.createUser(self.db, email, access_token['oauth_token_secret'][0], firstName, lastName, phone)
+            self.db.insert('twitter_user', user_id=userId, twitter_username=access_token['screen_name'][0],
+                           twitter_id=int(access_token['user_id'][0]))
             self.session.user_id = userId
             self.session.invalidate()
             #following 3 lines commented out for oauth dev
