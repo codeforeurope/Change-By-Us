@@ -65,6 +65,11 @@ span.uncaps {
     line-height: 120%;
 }
 
+.larger {
+    font-size: 160%;
+    line-height: 120%;
+}
+
 body.chrome.windows .continent,
 body.chrome.windows .seafloor {
     text-shadow: 0 0 1px transparent
