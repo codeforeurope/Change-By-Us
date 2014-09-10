@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-09-10 13:46+0200\n"
+"POT-Creation-Date: 2014-09-10 17:26+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -133,7 +133,7 @@ msgstr ""
 
 #: templates/bb.html:117 templates/create.html:54 templates/create.html:233
 #: templates/home.html:254 templates/home.html:293 templates/home.html:434
-#: templates/idea.html:113 templates/project/mission.html:42
+#: templates/idea.html:116 templates/project/mission.html:42
 #: templates/search.html:121 templates/search.html:658
 msgid "Created by"
 msgstr ""
@@ -239,7 +239,9 @@ msgid "There are no %(sitename)s events in this month."
 msgstr ""
 
 #: templates/calendar.html:77
-msgid "Contact your project admins to see how you can help!"
+msgid ""
+"<a href=\"/search#projects\">Browse Projects</a> and contact a project admin "
+"to see how you can help!"
 msgstr ""
 
 #: templates/calendar.html:90
@@ -435,7 +437,7 @@ msgid ""
 msgstr ""
 
 #: templates/create.html:152 templates/home.html:384 templates/home.html:396
-#: templates/idea.html:152 templates/join.html:243
+#: templates/idea.html:155 templates/join.html:243
 #: templates/partials/add_resource.html:29
 #: templates/partials/base_idea_delete.html:16
 #: templates/partials/base_invite.html:54
@@ -471,7 +473,7 @@ msgstr ""
 msgid "We&#39;ve sent them a link to your project page."
 msgstr ""
 
-#: templates/create.html:183 templates/idea.html:149
+#: templates/create.html:183 templates/idea.html:152
 #: templates/project.html:180 templates/search.html:640
 msgid "<strong>Hold your horses!</strong> Please register."
 msgstr ""
@@ -522,7 +524,7 @@ msgstr ""
 
 #: templates/create.html:227
 msgid ""
-"Get found by other people, resources,<br />and other projects in your area."
+"Get found by other people, resources,<br />and other projects in the area."
 msgstr ""
 
 #: templates/create.html:228 templates/home.html:432
@@ -988,7 +990,7 @@ msgstr ""
 msgid "Start Your Own"
 msgstr ""
 
-#: templates/home.html:166 templates/idea.html:128
+#: templates/home.html:166 templates/idea.html:131
 msgid "No projects found!"
 msgstr ""
 
@@ -1153,26 +1155,30 @@ msgstr ""
 msgid "Supporters"
 msgstr ""
 
-#: templates/idea.html:95
+#: templates/idea.html:86
+msgid "Support this idea by clicking on the star next to it!"
+msgstr ""
+
+#: templates/idea.html:98
 msgid "Related <strong>Projects</strong>"
 msgstr ""
 
-#: templates/idea.html:114 templates/partials/base.html:175
+#: templates/idea.html:117 templates/partials/base.html:175
 msgid "People"
 msgstr ""
 
-#: templates/idea.html:130 templates/search.html:137 templates/search.html:154
+#: templates/idea.html:133 templates/search.html:137 templates/search.html:154
 msgid "Start <span>a</span> Project"
 msgstr ""
 
-#: templates/idea.html:150 templates/search.html:641
+#: templates/idea.html:153 templates/search.html:641
 #, python-format
 msgid ""
 "You must <strong><a href=\"/join\">register</a></strong> or <strong><a href="
 "\"/login\">login</a></strong> with %(sitename)s in order to vote for an idea."
 msgstr ""
 
-#: templates/idea.html:179 templates/project.html:351
+#: templates/idea.html:182 templates/project.html:351
 msgid " joined the project!"
 msgstr ""
 
