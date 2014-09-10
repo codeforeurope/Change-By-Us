@@ -82,6 +82,9 @@
                                   {% endif %}
                                 </a>
                             </div>
+                            {% if not d.template_data.idea.data.likers %}
+                                <p>{{ _('Support this idea by clicking on the star next to it!') }}</p>
+                            {% endif %}
                         </div>
                     {% endfor %}
                 </div><!-- End People who like idea -->
