@@ -10,9 +10,9 @@
     {{ super() }}
 
     {% if d.template_data.project.data.info.is_featured %}
-        <li class="feature state-disabled"><a href="#featureProject,{{ d.template_data.project.data.project_id }}" class="fancy-caps">{{ _('Featured Project!') }}</a></li>
+        <li class="feature state-disabled"><a href="#featureProject,{{ d.template_data.project.data.project_id }}" class="fancy-caps">{{ _('Project in the spotlight!') }}</a></li>
     {% else %}
-        <li class="feature"><a href="#featureProject,{{ d.template_data.project.data.project_id }}" class="fancy-caps">{{ _('Feature <span>this</span> project') }}</a></li>
+        <li class="feature"><a href="#featureProject,{{ d.template_data.project.data.project_id }}" class="fancy-caps">{{ _('Put <span>this</span> project in the spotlight') }}</a></li>
     {% endif %}
 
     <li class="delete"><a href="#deleteProject,{{ d.template_data.project.data.project_id }}" class="fancy-caps delete-project">{{ _('Delete <span>this</span> project') }}</a></li>
@@ -100,7 +100,7 @@
         <div class="project-navigation clearfix">
             <div class="similar-project">
                 <span class="control">
-                    <a class="find-similar-projects" href="/search?terms={{ d.template_data.project.keywords }}&location_id={{ d.template_data.project.location_id }}#projects">{{ _('Projects Like This') }}<span class="sm-arrow-forward light"></span></a>
+                    <a class="find-similar-projects" href="/search?terms={{ d.template_data.project.keywords }}&location_id={{ d.template_data.project.location_id }}#projects">{{ _('Projects <br>  Like This') }}<span class="sm-arrow-forward light"></span></a>
                 </span>
             </div>
 

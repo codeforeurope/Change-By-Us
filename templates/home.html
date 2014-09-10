@@ -271,7 +271,7 @@
 
         {% if d.config.features.is_display_featured_projects %}
             <div class="box box-leaderboard">
-                <h3>{{ _('Featured <strong>Projects</strong>') }}</h3>
+                <h3>{{ _('<strong>Projects</strong> in the spotlight') }}</h3>
                 <ol class="leaderboard">
                     {% for item in d.template_data.featured_projects %}
                     <li {% if loop.index is even %}class="every-other"{% endif %}>
