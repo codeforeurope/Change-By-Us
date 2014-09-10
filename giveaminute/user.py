@@ -504,7 +504,7 @@ where u.user_id = $id and u.is_active = 1"""
             data = list(self.db.query(sql, {'userId': self.id, 'limit': limit, 'offset': offset}))
 
             for item in data:
-                messages.append(mProject.message(id=item.project_message_id,
+                messages.append(formattingUtils.message(id=item.project_message_id,
                                                  type=item.message_type,
                                                  message=item.message,
                                                  createdDatetime=item.created_datetime,
