@@ -91,7 +91,7 @@ def searchProjectResources(db, terms, locationId, limit=1000, offset=0):
                     where
                     is_active = 1 and is_hidden = 0
                     and ($locationId is null or location_id = $locationId)
-                    and ($match = '' or match(title, keywords, description) against ($match in boolean mode))
+                    or ($match = '' or match(title, keywords, description) against ($match in boolean mode))
                     order by created_datetime desc
                     limit $limit offset $offset"""
 
