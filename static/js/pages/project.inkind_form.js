@@ -47,17 +47,17 @@ tc.gam.project_widgets.inkind_form = function(options) {
                       'quantity': {
                           selector: '#inkind-quantity',
                           validators: ['required', 'numeric'],
-                          hint:'Qty'
+                          hint:app_page.messages['qty']
                       },
                       'request': {
                           selector: '#inkind-request',
                           validators: ['required', 'max-100'],
-                          hint:'What you need - rakes, truck, etc'
+                          hint:app_page.messages['inkind-request-hint']
                       },
                       'description': {
                         selector: '#inkind-desc',
                         validators: ['required', 'max-200'],
-                        hint:'Write a brief description of why you need this',
+                        hint:app_page.messages['inkind-request-desc-hint'],
                         counter:{
                           selector:'.charlimit.title',
                           limit:200

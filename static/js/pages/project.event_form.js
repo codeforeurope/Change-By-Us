@@ -62,7 +62,7 @@ tc.gam.project_widgets.event_form = function(options) {
                         'day': {
                           selector: '#event-day',
                           validators: ['required', 'numeric'],
-                          hint:'Day'
+                          hint:app_page.messages['day']
                         },
                         'year': {
                           selector: '#event-year'
@@ -70,12 +70,12 @@ tc.gam.project_widgets.event_form = function(options) {
                         'hour': {
                           selector: '#event-hour',
                           validators: ['required', 'numeric'],
-                          hint:'Hour'
+                          hint:app_page.messages['hour']
                         },
                         'minute': {
                           selector: '#event-minute',
                           validators: ['required', 'numeric'],
-                          hint:'Minute'
+                          hint:app_page.messages['minute']
                         },
                         'meridiem': {
                           selector: '#event-meridiem',
@@ -86,7 +86,7 @@ tc.gam.project_widgets.event_form = function(options) {
                         'address': {
                           selector: '#event-street',
                           validators: ['required'],
-                          hint:'Street Address'
+                          hint:app_page.messages['street-address']
                         },
                         'need_list': {
                           selector: '.linked-needs-list'
@@ -194,7 +194,19 @@ tc.gam.project_widgets.event_form = function(options) {
           return this.start_hour % 12;
         },
         monthOpts: function() { 
-          var months = ['January','February','March','April','May','June','July','August','September','October','November','December'],
+          var months = [app_page.messages['months']['jan'],
+            app_page.messages['months']['feb'],
+            app_page.messages['months']['mar'],
+            app_page.messages['months']['apr'],
+            app_page.messages['months']['may'],
+            app_page.messages['months']['jun'],
+            app_page.messages['months']['jul'],
+            app_page.messages['months']['aug'],
+            app_page.messages['months']['sep'],
+            app_page.messages['months']['oct'],
+            app_page.messages['months']['nov'],
+            app_page.messages['months']['dec']
+              ],
               options = '';
           
           for (var i = 0; i < months.length; i++) {

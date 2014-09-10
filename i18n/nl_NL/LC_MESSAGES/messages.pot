@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-09-10 12:02+0200\n"
+"POT-Creation-Date: 2014-09-10 13:46+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -271,9 +271,10 @@ msgstr ""
 #: templates/project/event_teaser.html:18
 #: templates/project/member_list.html:137 templates/project/mission.html:177
 #: templates/project/need_teaser.html:40 templates/project/resources.html:191
-#: templates/project.html:228 templates/project.html:278
-#: templates/search.html:590 templates/search.html:626
-#: templates/useraccount.html:679 templates/useraccount.html:693
+#: templates/project/volunteer_need.html:58 templates/project.html:228
+#: templates/project.html:278 templates/search.html:590
+#: templates/search.html:626 templates/useraccount.html:679
+#: templates/useraccount.html:693
 msgid "Delete"
 msgstr ""
 
@@ -610,12 +611,12 @@ msgstr ""
 #: templates/email/direct_message.txt:13
 #: templates/email/forgot_password.html:22
 #: templates/email/forgot_password.txt:14
-#: templates/email/idea_confirmation.html:29
+#: templates/email/idea_confirmation.html:28
 #: templates/email/idea_confirmation.txt:23
 #: templates/email/project_endorsement.html:20
 #: templates/email/project_endorsement.txt:9
 #: templates/email/project_invite.html:25
-#: templates/email/project_invite.txt:18 templates/email/project_join.html:28
+#: templates/email/project_invite.txt:18 templates/email/project_join.html:26
 #: templates/email/project_join.txt:15
 #: templates/email/resource_approval.html:26
 #: templates/email/resource_approval.txt:10
@@ -658,7 +659,6 @@ msgid "Or go here to start your own project:"
 msgstr ""
 
 #: templates/email/content_block_sample.html:27
-#: templates/email/project_join.html:26
 #, python-format
 msgid ""
 "We hope you find %(sitename)s useful. If you have any questions or comments, "
@@ -760,7 +760,8 @@ msgstr ""
 #, python-format
 msgid ""
 "We hope you find %(sitename)s useful. If you have any questions or comments, "
-"please get in touch at <a href=\"%(email)s\">%(email)s</a>."
+"please get in touch at <a href=\"%(respond_email_link)s\">"
+"%(respond_email_text)s</a>."
 msgstr ""
 
 #: templates/email/idea_confirmation.txt:9
@@ -1607,7 +1608,7 @@ msgstr ""
 msgid "people"
 msgstr ""
 
-#: templates/partials/base.html:246
+#: templates/partials/base.html:246 templates/project/volunteer_need.html:85
 msgid "and"
 msgstr ""
 
@@ -2007,7 +2008,6 @@ msgstr ""
 #: templates/project/event.html:72 templates/project/event_needs.html:70
 #: templates/project/event_teaser.html:55
 #: templates/project/need_teaser.html:29
-#: templates/project/volunteer_need.html:46
 #: templates/project/volunteer_need_form.html:41
 msgid "volunteer"
 msgstr ""
@@ -2267,6 +2267,10 @@ msgstr ""
 msgid "Keywords"
 msgstr ""
 
+#: templates/project/mission.html:138
+msgid "Add Keyword"
+msgstr ""
+
 #: templates/project/mission.html:148
 msgid "<strong>Support</strong> this project?"
 msgstr ""
@@ -2443,6 +2447,10 @@ msgstr ""
 
 #: templates/project/volunteer_need.html:42
 msgid "We need to borrow"
+msgstr ""
+
+#: templates/project/volunteer_need.html:46
+msgid "volunteer(s)"
 msgstr ""
 
 #: templates/project/volunteer_need.html:68
@@ -2712,12 +2720,48 @@ msgstr ""
 msgid "Complete!"
 msgstr ""
 
+#: templates/project.html:359
+msgid "Qty"
+msgstr ""
+
 #: templates/project.html:360
-msgid "AM"
+msgid "What you need - rakes, truck, etc"
 msgstr ""
 
 #: templates/project.html:361
+msgid "Write a brief description of why you need this"
+msgstr ""
+
+#: templates/project.html:362
+msgid "Job Title - DJ, Cashier, etc"
+msgstr ""
+
+#: templates/project.html:363
+msgid "Write a brief description of the volunteer tasks and skills."
+msgstr ""
+
+#: templates/project.html:364
+msgid "Street Address"
+msgstr ""
+
+#: templates/project.html:367
+msgid "AM"
+msgstr ""
+
+#: templates/project.html:368
 msgid "PM"
+msgstr ""
+
+#: templates/project.html:369
+msgid "Day"
+msgstr ""
+
+#: templates/project.html:370
+msgid "Minute"
+msgstr ""
+
+#: templates/project.html:371
+msgid "Hour"
 msgstr ""
 
 #: templates/resource.html:7

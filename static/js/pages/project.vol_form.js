@@ -99,17 +99,17 @@ tc.gam.project_widgets.vol_form = function(options) {
                         'quantity': {
                             selector: '#vol-quantity',
                             validators: ['required', 'numeric'],
-                            hint:'Qty'
+                            hint:app_page.messages['qty']
                         },
                         'request': {
                             selector: '#vol-job',
                             validators: ['required', 'max-100'],
-                            hint:'Job Title - DJ, Cashier, etc'
+                            hint:app_page.messages['volunteer-request-hint']
                         },
                         'description': {
                           selector: '#vol-desc',
                           validators: ['required', 'max-200'],
-                          hint:'Write a brief description of the volunteer tasks and skills.',
+                          hint:app_page.messages['volunteer-request-desc-hint'],
                           counter:{
                             selector:'.charlimit.title',
                             limit:200
@@ -259,7 +259,20 @@ tc.gam.project_widgets.vol_form = function(options) {
                 day: function() { return this.date ? (new Date(this.date).getUTCDate()) : ''; },
                 monthOpts: function() {
                   var needDate = this.date ? (new Date(this.date).getUTCMonth()) : '';
-                  var months = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+                  var months = [
+                    app_page.messages['months']['jan'],
+                    app_page.messages['months']['feb'],
+                    app_page.messages['months']['mar'],
+                    app_page.messages['months']['apr'],
+                    app_page.messages['months']['may'],
+                    app_page.messages['months']['jun'],
+                    app_page.messages['months']['jul'],
+                    app_page.messages['months']['aug'],
+                    app_page.messages['months']['sep'],
+                    app_page.messages['months']['oct'],
+                    app_page.messages['months']['nov'],
+                    app_page.messages['months']['dec']
+                  ];
                   var options = '';
                   for (var i = 0; i < months.length; i++) {
                     if (i === needDate) {

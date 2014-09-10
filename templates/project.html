@@ -356,9 +356,20 @@
         {%  set msg6 = _('We\'ve sent them a link to your project page.') %}
         {%  set msg7 = _('Close') %}
         {%  set msg8 = _('Add') %}
+        {%  set msg9 = _('Qty') %}
+        {%  set msg10 = _('What you need - rakes, truck, etc') %}
+        {%  set msg11 = _('Write a brief description of why you need this') %}
+        {%  set msg12 = _('Job Title - DJ, Cashier, etc') %}
+        {%  set msg13 = _('Write a brief description of the volunteer tasks and skills.') %}
+        {%  set msg14 = _('Street Address') %}
+
 
         {%  set am = _('AM') %}
         {%  set pm = _('PM') %}
+        {%  set daymsg = _('Day') %}
+        {%  set minutemsg = _('Minute') %}
+        {%  set hourmsg = _('Hour') %}
+
 
     <script>
         app_page.messages = {
@@ -381,11 +392,20 @@
                 'dec': "{{ month12 }}"
             },
             'AM': "{{ am }}",
-            'PM': "{{ _('PM') }}",
+            'PM': "{{ pm }}",
+            'day': "{{ daymsg }}",
+            'minute': "{{ minutemsg }}",
+            'hour': "{{ hourmsg }}",
             'added-to-your-project': "{{ msg5 }}",
             'we-sent-them-a-link': "{{ msg6 }}",
             'close': "{{ msg7 }}",
-            'add': "{{ msg8 }}"
+            'add': "{{ msg8 }}",
+            'qty': "{{msg9}}",
+            'inkind-request-hint': "{{msg10}}",
+            'inkind-request-desc-hint': "{{msg11}}",
+            'volunteer-request-hint': "{{msg12}}",
+            'volunteer-request-desc-hint': "{{msg13}}",
+            'street-address': "{{msg14}}"
         };
     </script>
 
