@@ -173,7 +173,7 @@ class Home(Controller):
         self.template_data['locations'] = locations
         self.template_data['all_ideas'] = allIdeas
         self.template_data['news'] = news
-        self.template_data['most_active_users'] = mUser.getMostActiveUsers(self.db, None, 8)
+        self.template_data['most_active_users'] = mUser.getMostActiveUsers(self.db, None, 10)
 
         return self.render('home', {'locations': locations, 'all_ideas': allIdeas})
 

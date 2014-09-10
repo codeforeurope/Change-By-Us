@@ -5315,8 +5315,8 @@ some_nowhitespace {
 .continent.home .midlands .box.box-whosmostactive { padding-top: 25px;  border-bottom: 1px solid #e5e5e3; }
 .continent.home .midlands .box.box-whosmostactive h2 { width: 95%; }
 .continent.home .midlands .box.box-whosmostactive ul { margin-top: 35px; margin-bottom: 30px; }
-.continent.home .midlands .box.box-whosmostactive ul li { width: 200px; margin-right: 53px; float: left; height: 250px; }
-.continent.home .midlands .box.box-whosmostactive ul li img { margin:0 0 3px 0; width: 120px; border: none; padding: 0;}
+.continent.home .midlands .box.box-whosmostactive ul li { width: 140px; margin-right: 53px; float: left; height: 250px; }
+.continent.home .midlands .box.box-whosmostactive ul li img { margin:0 0 3px 0; width: 100px; border: none; padding: 0;}
 .continent.home .midlands .box.box-whosmostactive ul li p { font-size: 14px; line-height: 18px;  }
 .continent.home .midlands .box.box-whosmostactive ul li p.name { font-weight: bold;  }
 .continent.home .midlands .box.box-whosmostactive ul li.every-fourth { margin-right: 0; }
