@@ -8854,7 +8854,7 @@ a.like-idea{
     color: #878786;
     width: 60px;
 	height: 25px;
-    background-image: url(../images/control_manage_questions_star.png);
+    background-image: url(/static/images/control_manage_questions_star.png);
 	background-position: 0 -60px;
     display: block;
     float: right;
@@ -8874,7 +8874,7 @@ a.unlike-idea {
     color: #e5e4e1;
     width: 60px;
 	height: 25px;
-    background-image: url(../images/control_manage_questions_star.png);
+    background-image: url(/static/images/control_manage_questions_star.png);
 	background-position: 0 0;
     display: block;
     float: right;
