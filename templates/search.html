@@ -339,7 +339,7 @@
 																	</strong> {{ _('said') }} &mdash;
 																</cite>
 															{% endif %}
-															<blockquote>{% if d.template_data and d.template_data.user and d.template_data.user.is_admin %}{% if not idea.owner.name %}<span class="topright-spacer"></span>{% endif %}{% endif %}<p>{{ idea.message|truncate(175) }}</p></blockquote>
+															<blockquote><a href="/idea/{{ idea.idea_id }}">{% if d.template_data and d.template_data.user and d.template_data.user.is_admin %}{% if not idea.owner.name %}<span class="topright-spacer"></span>{% endif %}{% endif %}<p>{{ idea.message|truncate(175) }}</p></a></blockquote>
 															<cite class="note-meta-ft">{{ _('Posted') }} <strong class="time-since">{{ idea.created }}</strong> {{ _('via') }} <strong>{{ idea.submission_type }}</strong></cite>
                                                             <div class="like-container">
                                                                 {%if idea.liked == False %}<a href="#likeIdea,{{ idea.idea_id }}" class='fancy-caps like-idea'>{% else %}<a href="#unlikeIdea,{{ idea.idea_id }}" class='fancy-caps unlike-idea'>{% endif %}<span class="like-count">{{ idea.likes }}</span></a>
@@ -680,7 +680,7 @@
 		</div>
 	</div>
 	
-	<!-- Idea detail -->
+	<!-- Idea template cell tempcell -->
 	<div class='template-content idea-cell'>
 		
 		{% if d.template_data and d.template_data.user %}
@@ -701,7 +701,7 @@
 				<cite class="note-meta-hd"><strong>
 					<a class='user-link' href="/useraccount/"></a>
 				</strong> {{ _('said') }} &mdash;</cite>
-				<blockquote>{% if d.template_data and d.template_data.user and d.template_data.user.is_admin %}{% endif %}<p class='idea-text'></p></blockquote>
+				<blockquote><a class="link-to-idea" href="/idea/">{% if d.template_data and d.template_data.user and d.template_data.user.is_admin %}{% endif %}<p class='idea-text'></p></a></blockquote>
 				<cite class="note-meta-ft">{{ _('Posted') }} <strong class="time-since"></strong> {{ _('via') }} <strong class='sub-type'></strong></cite>
                 <div class="like-container">
                     <a href="#likeIdea," class='fancy-caps like-idea'><span class="like-count">0</span></a>

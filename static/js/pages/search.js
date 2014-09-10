@@ -349,6 +349,7 @@ app_page.features.push(function(app){
 						tempcell.find('.invite').attr('href','#invite,'+d.results[i].idea_id);	
 						tempcell.find('cite.note-meta-hd').remove();
 						tempcell.find('blockquote').prepend('<span class="topright-spacer"></span>');
+                        tempcell.find('.link-to-idea').attr('href',"/idea/"+ d.results[i].idea_id);
 					}
 					tempcell.find('.flag-idea').attr('href','#flagIdea,'+d.results[i].idea_id);
                     if(d.results[i].liked == true){
