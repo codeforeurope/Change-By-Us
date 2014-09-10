@@ -70,7 +70,7 @@ class Resource(Controller):
         facebook_url = util.makeUrlAbsolute(self.request('facebook_url')) if self.request('facebook_url') else None
         twitter_url = util.makeUrlAbsolute(self.request('twitter_url')) if self.request('twitter_url') else None
         image_id = util.try_f(int, self.request('image'))
-        message = self.request('message')
+        message = self.request('message') if self.request('message') else None
         
         # TODO this is a temp fix for a form issue
         if (contact_name == 'null'):
