@@ -20,8 +20,8 @@
 					</div>
 
 					<div class="bd">
-						<p>Welcome! We&#39;re always looking to add great organizations, services, and programs to {{ d.config.site.name }}.</p>
-						<p>Please fill out the form at right and we will promise to take a careful look at your organization. We&#39;ll notify you by email when you have been approved. on {{ d.config.site.name }}.<span class="smaller">*</span> </p>
+						<p>{{ _('Welcome! We&#39;re always looking to list more valuable organizations, services, and programs on %(site_name)s – to give users a variety of resources to add to their projects.')|format(site_name=d.config.site.name) }}</p>
+						<p>{{ _('Please fill out the form at right and we will promise to take a careful look at your organization. We&#39;ll notify you by email when you have been approved') }}.<span class="smaller">*</span> </p>
 						<p>{{ _('Once you&#39;re on the site, users will be able to find your resource and &quot;add&quot; it to their project. When they do, you&#39;ll get an email with a link to their project. Go have a look and see if you can help!') }}</p>
 						<br />
 						<div class="smaller">
@@ -102,7 +102,8 @@
 						</div>
 					</div>
 					<div>
-						<input type='submit' name='add-org' id="add-org" class="rounded-button" value="{{ _('Add My Resource') }}" />
+                        {% set addmyresource = _('Add My Resource') %}
+						<input type='submit' name='add-org' id="add-org" class="rounded-button" value="{{ addmyresource }}" />
 					</div>
 				</form>
 

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-08-28 18:23+0200\n"
+"POT-Creation-Date: 2014-09-10 12:02+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -189,7 +189,7 @@ msgid ""
 "build teams, and make our city better."
 msgstr ""
 
-#: templates/bb.html:174 templates/partials/base.html:344
+#: templates/bb.html:174 templates/partials/base.html:345
 #: templates/partials/mobilebase.html:51
 msgid "Contact Us"
 msgstr ""
@@ -282,7 +282,7 @@ msgid "Loading"
 msgstr ""
 
 #: templates/cms_content.html:15
-msgid "Featured Projects"
+msgid "Projects in the spotlight"
 msgstr ""
 
 #: templates/cms_content.html:16
@@ -337,6 +337,10 @@ msgstr ""
 
 #: templates/create.html:27
 msgid "Next step"
+msgstr ""
+
+#: templates/create.html:46
+msgid "Add A Project Photo"
 msgstr ""
 
 #: templates/create.html:51
@@ -447,7 +451,7 @@ msgstr ""
 #: templates/project.html:200 templates/project.html:223
 #: templates/project.html:237 templates/project.html:253
 #: templates/project.html:270 templates/project.html:287
-#: templates/project.html:303 templates/resource.html:149
+#: templates/project.html:303 templates/resource.html:150
 #: templates/search.html:599 templates/search.html:635
 #: templates/search.html:642 templates/useraccount.html:662
 #: templates/useraccount.html:673 templates/useraccount.html:688
@@ -521,7 +525,7 @@ msgid ""
 msgstr ""
 
 #: templates/create.html:228 templates/home.html:432
-#: templates/resource.html:157
+#: templates/resource.html:158
 msgid "Start typing a neighborhood"
 msgstr ""
 
@@ -887,11 +891,16 @@ msgstr ""
 msgid "Question/Comment"
 msgstr ""
 
-#: templates/feedback.html:53 templates/feedback.html:58
+#: templates/feedback.html:48 templates/partials/base_message.html:11
+#: templates/project.html:165
+msgid "Send"
+msgstr ""
+
+#: templates/feedback.html:54 templates/feedback.html:59
 msgid "Thank you for the feedback"
 msgstr ""
 
-#: templates/feedback.html:62
+#: templates/feedback.html:63
 msgid "There was an issue saving your feedback, please try again later."
 msgstr ""
 
@@ -1036,7 +1045,7 @@ msgid "See the leaderboard"
 msgstr ""
 
 #: templates/home.html:274
-msgid "Featured <strong>Projects</strong>"
+msgid "<strong>Projects</strong> in the spotlight"
 msgstr ""
 
 #: templates/home.html:313
@@ -1577,7 +1586,8 @@ msgstr ""
 msgid "Create a project!"
 msgstr ""
 
-#: templates/partials/base.html:237 templates/search.html:46
+#: templates/partials/base.html:237 templates/partials/base.html:340
+#: templates/search.html:46
 msgid "Search"
 msgstr ""
 
@@ -1637,12 +1647,12 @@ msgstr ""
 msgid "Frequently Asked Questions"
 msgstr ""
 
-#: templates/partials/base.html:351
+#: templates/partials/base.html:352
 msgid "Design <span>and</span> Development"
 msgstr ""
 
-#: templates/partials/base.html:352 templates/partials/base.html:354
-#: templates/partials/base.html:355
+#: templates/partials/base.html:353 templates/partials/base.html:355
+#: templates/partials/base.html:356
 msgid "All rights reserved."
 msgstr ""
 
@@ -1711,10 +1721,6 @@ msgstr ""
 
 #: templates/partials/base_message.html:8
 msgid "Send <strong class=\"to_u_name\">&nbsp;</strong> a message"
-msgstr ""
-
-#: templates/partials/base_message.html:11 templates/project.html:165
-msgid "Send"
 msgstr ""
 
 #: templates/partials/base_message.html:20
@@ -2488,11 +2494,11 @@ msgid "at"
 msgstr ""
 
 #: templates/project.html:13
-msgid "Featured Project!"
+msgid "Project in the spotlight!"
 msgstr ""
 
 #: templates/project.html:15
-msgid "Feature <span>this</span> project"
+msgid "Put <span>this</span> project in the spotlight"
 msgstr ""
 
 #: templates/project.html:18
@@ -2526,7 +2532,7 @@ msgid ""
 msgstr ""
 
 #: templates/project.html:103
-msgid "Projects Like This"
+msgid "Projects <br>  Like This"
 msgstr ""
 
 #: templates/project.html:121
@@ -2718,8 +2724,23 @@ msgstr ""
 msgid "Add Resource"
 msgstr ""
 
-#: templates/resource.html:19 templates/resource.html:116
+#: templates/resource.html:19 templates/resource.html:117
 msgid "<strong>Add</strong> your resource"
+msgstr ""
+
+#: templates/resource.html:23 templates/resource.html:120
+#, python-format
+msgid ""
+"Welcome! We&#39;re always looking to list more valuable organizations, "
+"services, and programs on %(site_name)s – to give users a variety of "
+"resources to add to their projects."
+msgstr ""
+
+#: templates/resource.html:24
+msgid ""
+"Please fill out the form at right and we will promise to take a careful look "
+"at your organization. We&#39;ll notify you by email when you have been "
+"approved"
 msgstr ""
 
 #: templates/resource.html:25
@@ -2791,61 +2812,57 @@ msgid ""
 "I have read and accept the <a href=\"/tou\"><strong>Terms of Use</strong>"
 msgstr ""
 
-#: templates/resource.html:119
-#, python-format
-msgid ""
-"Welcome! We&#39;re always looking to list more valuable organizations, "
-"services, and programs on %(site_name)s – to give users a variety of "
-"resources to add to their projects."
+#: templates/resource.html:105
+msgid "Add My Resource"
 msgstr ""
 
-#: templates/resource.html:120
+#: templates/resource.html:121
 msgid "To be considered, just fill out this form."
 msgstr ""
 
-#: templates/resource.html:120
+#: templates/resource.html:121
 #, python-format
 msgid ""
 "We&#39;ll notify you by email when you have been approved as a resource to "
 "be listed on %(site_name)s"
 msgstr ""
 
-#: templates/resource.html:121
+#: templates/resource.html:122
 msgid ""
 "When you have been approved, users will be able to find your resource on the "
 "site and add it to their project pages. When they do, you&#39;ll get an "
 "email inviting you to visit their page to see if you can help."
 msgstr ""
 
-#: templates/resource.html:123
+#: templates/resource.html:124
 msgid ""
 "Please use this form only if you are an employee or direct affiliate of the "
 "organization, service, or program."
 msgstr ""
 
-#: templates/resource.html:124
+#: templates/resource.html:125
 msgid ""
 "We&#39;ll post only resources relevant to the questions being asked on the "
 "site."
 msgstr ""
 
-#: templates/resource.html:132
+#: templates/resource.html:133
 msgid "Your resource has been added for approval"
 msgstr ""
 
-#: templates/resource.html:133
+#: templates/resource.html:134
 msgid "Add another resource"
 msgstr ""
 
-#: templates/resource.html:134
+#: templates/resource.html:135
 msgid "Go back to the homepage"
 msgstr ""
 
-#: templates/resource.html:145
+#: templates/resource.html:146
 msgid "<strong>Upload</strong> a photo for your resource."
 msgstr ""
 
-#: templates/resource.html:146
+#: templates/resource.html:147
 msgid ""
 "Photos should be <strong>under 1MB</strong> please. (We also crop photos to "
 "<strong>100px by 100px</strong>)"

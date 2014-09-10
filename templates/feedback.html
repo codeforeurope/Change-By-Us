@@ -45,7 +45,8 @@
 			<div style="clear:both"></div>
 
 			<div class="row row-send">
-				<input type='submit' name='send' value="{{ _('Send') }}" class='submit rounded-button' />
+                {% set sendbutton = _('Send') %}
+				<input type='submit' name='send' value="{{ sendbutton }}" class='submit rounded-button' />
 			</div>
 		</div>
 
