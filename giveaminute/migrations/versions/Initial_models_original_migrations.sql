@@ -1,5 +1,5 @@
 /* 0002 Add a file_id column to project_message table */
-/* ALTER TABLE `project_message` ADD COLUMN `file_id` INTEGER  DEFAULT NULL AFTER `created_datetime`; */
+ALTER TABLE `project_message` ADD COLUMN `file_id` INTEGER  DEFAULT NULL AFTER `created_datetime`;
 
 
 /* 0003 - Rename files to attachments */
