@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-09-15 13:30+0200\n"
+"POT-Creation-Date: 2014-09-15 14:19+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -31,51 +31,57 @@ msgstr ""
 msgid "GO BACK <span class=\"lowercase\">to</span> WHERE YOU WERE"
 msgstr ""
 
-#: templates/about.html:12
+#: templates/about.html:12 templates/ams_about.html:12
 #, python-format
 msgid "<span class=\"unbold\">What is</span> %(site_name)s?"
 msgstr ""
 
-#: templates/about.html:19
+#: templates/about.html:17 templates/ams_about.html:17
+#, python-format
+msgid ""
+"<strong>%(site_name)s</strong> is a new platform in Amsterdam. The platform "
+"started in New York and is known by the name of Change by Us NYC. It is "
+"allows for an innovative partnership in the city between city leaders, "
+"welfare organizations, housing corporations and government."
+msgstr ""
+
+#: templates/about.html:18 templates/ams_about.html:18
 #, python-format
 msgid ""
 "<strong>Share Ideas:</strong> Amsterdammers have always been full of great "
-"ideas about what will improve their\n"
-"\t\t\t\tneighborhoods.   Use %(site_name)s to broadcast to others what you "
-"have in mind.  No idea is too big.  No idea is too\n"
-"\t\t\t\tsmall."
+"ideas about what will improve their neighborhoods.   Use %(site_name)s to "
+"broadcast to others what you have in mind.  No idea is too big.  No idea is "
+"too small."
 msgstr ""
 
-#: templates/about.html:22
+#: templates/about.html:19 templates/ams_about.html:19
 #, python-format
 msgid ""
 "<strong>Join or Create Projects:</strong> Look for projects in your "
-"neighborhood or around the city where you\n"
-"\t\t\t\tcan help.  Become a member and plug into a network of those who want "
-"what you want! You can also use  %(site_name)s to\n"
-"\t\t\t\tset up and lead your own project, and turn your idea into reality."
+"neighborhood or around the city where you can help.  Become a member and "
+"plug into a network of those who want what you want! You can also use  "
+"%(site_name)s to set up and lead your own project, and turn your idea into "
+"reality."
 msgstr ""
 
-#: templates/about.html:25
+#: templates/about.html:20 templates/ams_about.html:20
 #, python-format
 msgid ""
 "<strong>Build Teams:</strong>  Use  %(site_name)s to connect quickly with "
-"the people who will help your project\n"
-"\t\t\t\tfrom start to finish. Someone has the idea, someone has the plan, "
-"someone has the tools, and together you succeed."
+"the people who will help your project from start to finish. Someone has the "
+"idea, someone has the plan, someone has the tools, and together you succeed."
 msgstr ""
 
-#: templates/about.html:27
+#: templates/about.html:21 templates/ams_about.html:21
 #, python-format
 msgid ""
 "<strong>Find Resources:</strong> Use  %(site_name)s to find and connect with "
-"public and non-profit programs that can\n"
-"\t\t\t\thelp your project succeed. Whether you need to access a City service "
-"or find some local knowledge, there are resources\n"
-"\t\t\t\tready to provide guidance."
+"public and non-profit programs that can help your project succeed. Whether "
+"you need to access a City service or find some local knowledge, there are "
+"resources ready to provide guidance."
 msgstr ""
 
-#: templates/about.html:30
+#: templates/about.html:22 templates/ams_about.html:22
 #, python-format
 msgid ""
 "Help us spread the word about  %(site_name)s &mdash; and check back often to "
@@ -83,13 +89,21 @@ msgid ""
 "connect with community members online."
 msgstr ""
 
-#: templates/about.html:31
+#: templates/about.html:23 templates/ams_about.html:23
 #, python-format
 msgid ""
 "If there are any features or resources that you think will make  "
-"%(site_name)s easier to use or more\n"
-"\t\t\t\teffective, please contact us at <strong><span class=\"nospam infomail"
-"\"></span></strong>."
+"%(site_name)s easier to use or more effective, please contact us at "
+"<strong><span class=\"nospam infomail\"></span></strong>."
+msgstr ""
+
+#: templates/about.html:27 templates/ams_about.html:27
+#, python-format
+msgid ""
+"<strong>%(site_name)s</strong> is run by the City and its partners to "
+"facilitate the success of projects. The City is also proud to have the "
+"following partners with us on the site: Eigenwijks, Waagsociety, Voorjebuurt "
+"and Pakhuis de Zwijger."
 msgstr ""
 
 #: templates/bb.html:22 templates/partials/mobilebase.html:29

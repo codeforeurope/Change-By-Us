@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Change by Us v2\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-09-15 13:30+0200\n"
-"PO-Revision-Date: 2014-09-15 11:35+0000\n"
+"POT-Creation-Date: 2014-09-15 14:10+0200\n"
+"PO-Revision-Date: 2014-09-15 12:16+0000\n"
 "Last-Translator: Giovanni Maggini <giovanni.maggini@gmail.com>\n"
 "Language-Team: Dutch (http://www.transifex.com/projects/p/change-by-us-v2/language/nl/)\n"
 "MIME-Version: 1.0\n"
@@ -34,7 +34,7 @@ msgstr "Als je denkt dat er iets mis gaat op de site, <a href=\"/feedback\">meld
 msgid "GO BACK <span class=\"lowercase\">to</span> WHERE YOU WERE"
 msgstr "GA TERUG <span class=\"lowercase\">naar</span> WAAR JE WAS"
 
-#: templates/about.html:12
+#: templates/about.html:12 templates/ams_about.html:12
 #, python-format
 msgid "<span class=\"unbold\">What is</span> %(site_name)s?"
 msgstr "<span class=\"unbold\">Wat is</span> %(site_name)s?"
@@ -70,7 +70,7 @@ msgid ""
 "\t\t\t\tready to provide guidance."
 msgstr "<strong>Zoek Hulp</strong> Gebruik %(site_name)s om te verbinden met publieke en non-profit programma&#39;s die je project kunnen faciliteren. Of je nou toegang nodig hebt tot gemeentelijke diensten of opzoek bent naar informatie, er zijn genoeg organisaties klaar om advies te geven."
 
-#: templates/about.html:30
+#: templates/about.html:30 templates/ams_about.html:22
 #, python-format
 msgid ""
 "Help us spread the word about  %(site_name)s &mdash; and check back often to"
@@ -84,6 +84,68 @@ msgid ""
 "If there are any features or resources that you think will make  %(site_name)s easier to use or more\n"
 "\t\t\t\teffective, please contact us at <strong><span class=\"nospam infomail\"></span></strong>."
 msgstr "Neem contact op met ons via <strong><span class=\\\"nospam infomail\\\"></span></strong> als je suggesties hebt om de functionaliteiten van %(site_name)s te verbeteren."
+
+#: templates/ams_about.html:17
+#, python-format
+msgid ""
+"<strong>%(site_name)s</strong> is a new platform in Amsterdam. The platform "
+"started in New York and is known by the name of Change by Us NYC. It is "
+"allows for an innovative partnership in the city between city leaders, "
+"welfare organizations, housing corporations and government."
+msgstr "<strong>%(site_name)s</strong> is een nieuw platform in Amsterdam. Het is afkomstig uit New York en staat daar bekend onder de naam Change by Us NYC. Het platform staat bekend voor de innovatieve manier waarop verschillende partners in de stad (stadsmakers, welzijnorganisatie, corporatie en de overheid met elkaar samenwerken)"
+
+#: templates/ams_about.html:18
+#, python-format
+msgid ""
+"<strong>Share Ideas:</strong> Amsterdammers have always been full of great "
+"ideas about what will improve their neighborhoods.   Use %(site_name)s to "
+"broadcast to others what you have in mind.  No idea is too big.  No idea is "
+"too small."
+msgstr "<strong>Deel ideeën:</strong> Amsterdammers zitten vol leuke ideeën over hoe hun buurt leuker gemaakt kunnen worden. Gebruik %(site_name)s om bekend te maken wat jij in gedachte hebt! Geen idee te groot of klein. Geen wens is absurd."
+
+#: templates/ams_about.html:19
+#, python-format
+msgid ""
+"<strong>Join or Create Projects:</strong> Look for projects in your "
+"neighborhood or around the city where you can help.  Become a member and "
+"plug into a network of those who want what you want! You can also use  "
+"%(site_name)s to set up and lead your own project, and turn your idea into "
+"reality."
+msgstr "<strong>Creër of word lid van Projecten:</strong> Zoek projecten in je buurt of op de plek waar je kan helpen. Word lid en onderdeel van een netwerk die hetzelfde doel nastreeft als jij! Je kan %(site_name)s ook gebruiken om je eigen project op te zetten en hiermee je eigen ideeën waar te maken. "
+
+#: templates/ams_about.html:20
+#, python-format
+msgid ""
+"<strong>Build Teams:</strong>  Use  %(site_name)s to connect quickly with "
+"the people who will help your project from start to finish. Someone has the "
+"idea, someone has the plan, someone has the tools, and together you succeed."
+msgstr "<strong>Maak teams:</strong> Gebruik %(site_name)s om te verbinden met mensen die jouw project van de grond kunnen laten komen. Iemand heeft een idee, iemand heeft een plan, iemand heeft de tools en samen maak jullie het waar!"
+
+#: templates/ams_about.html:21
+#, python-format
+msgid ""
+"<strong>Find Resources:</strong> Use  %(site_name)s to find and connect with"
+" public and non-profit programs that can help your project succeed. Whether "
+"you need to access a City service or find some local knowledge, there are "
+"resources ready to provide guidance."
+msgstr "<strong>Zoek Hulp</strong> Gebruik %(site_name)s om te verbinden met publieke en non-profit programma&#39;s die je project kunnen faciliteren. Of je nou toegang nodig hebt tot gemeentelijke diensten of opzoek bent naar informatie, er zijn genoeg organisaties klaar om advies te geven."
+
+#: templates/ams_about.html:23
+#, python-format
+msgid ""
+"If there are any features or resources that you think will make  "
+"%(site_name)s easier to use or more effective, please contact us at "
+"<strong><span class=\"nospam infomail\"></span></strong>."
+msgstr "Neem contact op met ons via <strong><span class=\\\"nospam infomail\\\"></span></strong> als je suggesties hebt om de functionaliteiten van %(site_name)s te verbeteren."
+
+#: templates/ams_about.html:27
+#, python-format
+msgid ""
+"<strong>%(site_name)s</strong> is run by the City and its partners to "
+"facilitate the success of projects. The City is also proud to have the "
+"following partners with us on the site: Eigenwijks, Waagsociety, Voorjebuurt"
+" and Pakhuis de Zwijger."
+msgstr "<strong> %(site_name)s </strong> wordt gerund door de gemeente en haar partners om het succes van de projecten te faciliteren. De gemeente is ook trots op de volgende partners: Eigenwijks, Waagsociety, Voorjebuurt en Pakhuis de Zwijger."
 
 #: templates/bb.html:22 templates/partials/mobilebase.html:29
 msgid "Logout"
