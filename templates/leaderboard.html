@@ -11,7 +11,7 @@
 <div class='continent leaderboard'>
 	<div class='headlands'>
 		<a href="/" class="back east"><span>Go Back</span></a>
-		<h1><span><strong>{{ _('Top') }} {{ d.template_data.leaderboard|length }}*</strong> {{ _('Projects') }}<br />{{ _('on Change by Us') }}</span>{{
+		<h1><span><strong>{{ _('Top') }} {{ d.template_data.leaderboard|length }}*</strong> {{ _('Projects') }}<br />{{ _('on %(site_name)s')|format(site_name=d.config.site.name) }}</span>{{
             _('Leaderboard') }}</h1>
 	</div>
 

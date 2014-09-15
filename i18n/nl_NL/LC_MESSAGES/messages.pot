@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-09-10 17:26+0200\n"
+"POT-Creation-Date: 2014-09-15 13:30+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -34,6 +34,62 @@ msgstr ""
 #: templates/about.html:12
 #, python-format
 msgid "<span class=\"unbold\">What is</span> %(site_name)s?"
+msgstr ""
+
+#: templates/about.html:19
+#, python-format
+msgid ""
+"<strong>Share Ideas:</strong> Amsterdammers have always been full of great "
+"ideas about what will improve their\n"
+"\t\t\t\tneighborhoods.   Use %(site_name)s to broadcast to others what you "
+"have in mind.  No idea is too big.  No idea is too\n"
+"\t\t\t\tsmall."
+msgstr ""
+
+#: templates/about.html:22
+#, python-format
+msgid ""
+"<strong>Join or Create Projects:</strong> Look for projects in your "
+"neighborhood or around the city where you\n"
+"\t\t\t\tcan help.  Become a member and plug into a network of those who want "
+"what you want! You can also use  %(site_name)s to\n"
+"\t\t\t\tset up and lead your own project, and turn your idea into reality."
+msgstr ""
+
+#: templates/about.html:25
+#, python-format
+msgid ""
+"<strong>Build Teams:</strong>  Use  %(site_name)s to connect quickly with "
+"the people who will help your project\n"
+"\t\t\t\tfrom start to finish. Someone has the idea, someone has the plan, "
+"someone has the tools, and together you succeed."
+msgstr ""
+
+#: templates/about.html:27
+#, python-format
+msgid ""
+"<strong>Find Resources:</strong> Use  %(site_name)s to find and connect with "
+"public and non-profit programs that can\n"
+"\t\t\t\thelp your project succeed. Whether you need to access a City service "
+"or find some local knowledge, there are resources\n"
+"\t\t\t\tready to provide guidance."
+msgstr ""
+
+#: templates/about.html:30
+#, python-format
+msgid ""
+"Help us spread the word about  %(site_name)s &mdash; and check back often to "
+"see the line-up of influential people who have agreed to follow projects and "
+"connect with community members online."
+msgstr ""
+
+#: templates/about.html:31
+#, python-format
+msgid ""
+"If there are any features or resources that you think will make  "
+"%(site_name)s easier to use or more\n"
+"\t\t\t\teffective, please contact us at <strong><span class=\"nospam infomail"
+"\"></span></strong>."
 msgstr ""
 
 #: templates/bb.html:22 templates/partials/mobilebase.html:29
@@ -1052,13 +1108,13 @@ msgid "<strong>Projects</strong> in the spotlight"
 msgstr ""
 
 #: templates/home.html:313
-msgid "Who&#39;s giving the most?"
+msgid "Who is dedicated to improve the city?"
 msgstr ""
 
 #: templates/home.html:314
 msgid ""
-"These people are making a difference in <a href=\"/search#ideas\">ideas</a> "
-"and <a href=\"/search#projects\">projects</a>."
+"These people are making a difference with their <a href=\"/search#ideas"
+"\">ideas</a> and <a href=\"/search#projects\">projects</a>."
 msgstr ""
 
 #: templates/home.html:335
@@ -1351,7 +1407,8 @@ msgid "Projects"
 msgstr ""
 
 #: templates/leaderboard.html:14
-msgid "on Change by Us"
+#, python-format
+msgid "on %(site_name)s"
 msgstr ""
 
 #: templates/leaderboard.html:15
@@ -1454,94 +1511,6 @@ msgstr ""
 
 #: templates/mobile.html:13
 msgid "Join a Project"
-msgstr ""
-
-#: templates/nyc_about.html:8
-msgid "Change by Us NYC - About"
-msgstr ""
-
-#: templates/nyc_about.html:14
-msgid "<h1><span class=\"unbold\">What is</span> Change by Us NYC?</h1>"
-msgstr ""
-
-#: templates/nyc_about.html:20
-msgid ""
-"<h2><strong>Change by Us NYC</strong> is a new website created by Local "
-"Projects and run by the City of New York.\n"
-"\t\t\t\tIt&#39;s a place for New Yorkers to put their ideas into action by "
-"creating projects and building teams to make our city a \n"
-"\t\t\t\tbetter place to live.  We&#39;re kicking things off by asking how we "
-"can make our city greener.  Get started today.</h2>"
-msgstr ""
-
-#: templates/nyc_about.html:23
-msgid ""
-"<strong>Share Ideas:</strong> New Yorkers have always been full of great "
-"ideas about what will improve their\n"
-"\t\t\t\tneighborhoods.   Use Change by Us NYC to broadcast to others what "
-"you have in mind.  No idea is too big.  No idea is too \n"
-"\t\t\t\tsmall."
-msgstr ""
-
-#: templates/nyc_about.html:26
-msgid ""
-"<strong>Join or Create Projects:</strong> Look for projects in your "
-"neighborhood or around the city where you\n"
-"\t\t\t\tcan help.  Become a member and plug into a network of those who want "
-"what you want! You can also use Change by Us NYC to \n"
-"\t\t\t\tset up and lead your own project, and turn your idea into reality."
-msgstr ""
-
-#: templates/nyc_about.html:29
-msgid ""
-"<strong>Build Teams:</strong>  Use Change by Us NYC to connect quickly with "
-"the people who will help your project\n"
-"\t\t\t\tfrom start to finish. Someone has the idea, someone has the plan, "
-"someone has the tools, and together you succeed."
-msgstr ""
-
-#: templates/nyc_about.html:31
-msgid ""
-"<strong>Find Resources:</strong> Use Change by Us NYC to find and connect "
-"with public and non-profit programs that can\n"
-"\t\t\t\thelp your project succeed. Whether you need to access a City service "
-"or find some local knowledge, there are resources \n"
-"\t\t\t\tready to provide guidance."
-msgstr ""
-
-#: templates/nyc_about.html:34
-msgid ""
-"Help us spread the word about Change by Us NYC &mdash; and check back often "
-"to see the line-up of influential New\n"
-"\t\t\t\tYorkers who have agreed to follow projects and connect with "
-"community members online."
-msgstr ""
-
-#: templates/nyc_about.html:36
-msgid ""
-"If there are any features or resources that you think will make Change by Us "
-"NYC easier to use or more\n"
-"\t\t\t\teffective, please contact us at <strong><span class=\"nospam infomail"
-"\"></span></strong>."
-msgstr ""
-
-#: templates/nyc_about.html:42
-msgid ""
-"<strong>Change by Us NYC</strong> is a new platform created by Local "
-"Projects &mdash; known\n"
-"\t\t\t\tfor its innovative work on StoryCorps and the 9/11 Memorial Museum "
-"&mdash; and the urban think tank CEOs for Cities. It \n"
-"\t\t\t\tis funded with the generous support of the Rockefeller Foundation, "
-"the Knight Foundation, and the Case Foundation."
-msgstr ""
-
-#: templates/nyc_about.html:45
-msgid ""
-"<strong>Change by Us NYC</strong> is run by New York City&#39;s Office of "
-"the Mayor. New York City is\n"
-"\t\t\t\talso proud to have the following partners working with us on the "
-"site: Citizens Committee for New York City, Pratt Center for \n"
-"\t\t\t\tCommunity Development, ioby and the United States Forest Service."
 msgstr ""
 
 #: templates/partials/add_resource.html:7

@@ -310,8 +310,8 @@
 
         <!-- Who are the most active users? -->
           <div class="box box-whosmostactive ">
-              <h1><strong>{{ _('Who&#39;s giving the most?') }}</strong></h1>
-              <h2>{{ _('These people are making a difference in <a href="/search#ideas">ideas</a> and <a href="/search#projects">projects</a>.') }}</h2>
+              <h1><strong>{{ _('Who is dedicated to improve the city?') }}</strong></h1>
+              <h2>{{ _('These people are making a difference with their <a href="/search#ideas">ideas</a> and <a href="/search#projects">projects</a>.') }}</h2>
               <ul class="clearfix">
                 {% for active_user in d.template_data.most_active_users %}
                   <li {% if loop.index % 5 == 0 %}class="every-fourth"{% endif %}>
