@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-09-16 12:30+0200\n"
+"POT-Creation-Date: 2014-09-16 13:13+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -403,9 +403,11 @@ msgid "Check"
 msgstr ""
 
 #: templates/create.html:23 templates/create.html:172
-#: templates/create.html:245 templates/project/add_link.html:32
-#: templates/project.html:358 templates/search.html:548
-#: templates/search.html:666
+#: templates/create.html:245 templates/partials/add_resource.html:20
+#: templates/project/add_link.html:32 templates/project/mission.html:136
+#: templates/project.html:358 templates/search.html:216
+#: templates/search.html:548 templates/search.html:666
+#: templates/useraccount.html:252
 msgid "Add"
 msgstr ""
 
@@ -651,6 +653,12 @@ msgstr ""
 
 #: templates/create.html:244
 msgid "Thank you for adding a project."
+msgstr ""
+
+#: templates/create.html:246 templates/project/resources.html:157
+#: templates/search.html:224 templates/search.html:556
+#: templates/search.html:671
+msgid "Official Resource"
 msgstr ""
 
 #: templates/email/account_deactivation.html:17
@@ -2358,7 +2366,7 @@ msgstr ""
 msgid "We&#39;d love it if you could help!"
 msgstr ""
 
-#: templates/project/needs.html:116
+#: templates/project/needs.html:116 templates/project.html:366
 msgid "Add a message"
 msgstr ""
 
@@ -2422,11 +2430,6 @@ msgstr ""
 msgid "Add a resource"
 msgstr ""
 
-#: templates/project/resources.html:157 templates/search.html:224
-#: templates/search.html:556 templates/search.html:671
-msgid "Official Resource"
-msgstr ""
-
 #: templates/project/resources.html:191
 msgid "this Link?"
 msgstr ""
@@ -2483,7 +2486,7 @@ msgstr ""
 msgid "We will need them to come to"
 msgstr ""
 
-#: templates/project/volunteer_need_form.html:70
+#: templates/project/volunteer_need_form.html:70 templates/project.html:374
 msgid "Month"
 msgstr ""
 
@@ -2734,24 +2737,40 @@ msgstr ""
 msgid "Street Address"
 msgstr ""
 
-#: templates/project.html:367
-msgid "AM"
+#: templates/project.html:365
+msgid "Add emails separated by commas"
+msgstr ""
+
+#: templates/project.html:367 templates/resource.html:56
+msgid "Address"
 msgstr ""
 
 #: templates/project.html:368
-msgid "PM"
-msgstr ""
-
-#: templates/project.html:369
-msgid "Day"
-msgstr ""
-
-#: templates/project.html:370
-msgid "Minute"
+msgid "Must select a month."
 msgstr ""
 
 #: templates/project.html:371
+msgid "AM"
+msgstr ""
+
+#: templates/project.html:372
+msgid "PM"
+msgstr ""
+
+#: templates/project.html:373
+msgid "Day"
+msgstr ""
+
+#: templates/project.html:375
+msgid "Minute"
+msgstr ""
+
+#: templates/project.html:376
 msgid "Hour"
+msgstr ""
+
+#: templates/project.html:377
+msgid "Time"
 msgstr ""
 
 #: templates/resource.html:7
@@ -2800,10 +2819,6 @@ msgstr ""
 
 #: templates/resource.html:51
 msgid "Description"
-msgstr ""
-
-#: templates/resource.html:56
-msgid "Address"
 msgstr ""
 
 #: templates/resource.html:75

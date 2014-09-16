@@ -213,7 +213,7 @@
 													{% endif %}
 														<td {% if resource.is_official %}class="official-resource"{% endif %}>
 															{% if d.template_data and d.template_data.user and d.template_data.user.data.projects|length > 0 %}
-																<a class="add-button rounded-button small add-resource" href="#addProject,{{ resource.link_id }}">Add</a>
+																<a class="add-button rounded-button small add-resource" href="#addProject,{{ resource.link_id }}">{{ _('Add') }}</a>
 															{% endif %}
 															{% if resource.image_id > -1 %}
 																<span class="thumb">{% if d.template_data and d.template_data.user and d.template_data.user.is_admin %}<a class="close delete-resource" href="#removeResource,{{ resource.link_id }}"><span>{{ _('Remove') }}</span></a>{% endif %}<img width='35' height='35' src='{{d.template_data.media_root}}images/{{ resource.image_id % 10 }}/{{ resource.image_id }}.png' alt="" /></span>

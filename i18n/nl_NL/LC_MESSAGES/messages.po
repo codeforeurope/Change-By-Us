@@ -10,9 +10,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Change by Us v2\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-09-15 14:19+0200\n"
-"PO-Revision-Date: 2014-09-16 07:04+0000\n"
-"Last-Translator: jcgoilo <j.goilo@amsterdam.nl>\n"
+"POT-Creation-Date: 2014-09-16 13:13+0200\n"
+"PO-Revision-Date: 2014-09-16 11:16+0000\n"
+"Last-Translator: Giovanni Maggini <giovanni.maggini@gmail.com>\n"
 "Language-Team: Dutch (http://www.transifex.com/projects/p/change-by-us-v2/language/nl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -130,7 +130,7 @@ msgid "Hey"
 msgstr "Hoi"
 
 #: templates/bb.html:40 templates/home.html:207
-#: templates/partials/idea_conversation.html:54
+#: templates/partials/idea_conversation.html:53
 #: templates/project/conversation.html:62
 msgid "Post"
 msgstr "Plaats"
@@ -144,7 +144,7 @@ msgid "We need a little more information."
 msgstr "We hebben nog een beetje meer info nodig."
 
 #: templates/bb.html:49 templates/calendar.html:28 templates/idea.html:26
-#: templates/partials/idea_conversation.html:113
+#: templates/partials/idea_conversation.html:112
 #: templates/project/conversation.html:130
 #: templates/project/fresh_ideas.html:51
 #: templates/project/invite_members.html:137
@@ -292,7 +292,7 @@ msgid "Events"
 msgstr "Evenementen"
 
 #: templates/calendar.html:25 templates/cms_content.html:177
-#: templates/idea.html:24 templates/partials/idea_conversation.html:106
+#: templates/idea.html:24 templates/partials/idea_conversation.html:105
 #: templates/project/conversation.html:123
 #: templates/project/member_list.html:45 templates/search.html:74
 #: templates/search.html:185 templates/search.html:291
@@ -406,8 +406,11 @@ msgid "Check"
 msgstr "Check"
 
 #: templates/create.html:23 templates/create.html:172
-#: templates/project/add_link.html:32 templates/project.html:358
+#: templates/create.html:245 templates/partials/add_resource.html:20
+#: templates/project/add_link.html:32 templates/project/mission.html:136
+#: templates/project.html:358 templates/search.html:216
 #: templates/search.html:548 templates/search.html:666
+#: templates/useraccount.html:252
 msgid "Add"
 msgstr "Toevoegen"
 
@@ -515,8 +518,8 @@ msgstr "Foto's mogen maximaal <strong>1MB</strong> zijn. (Foto's worden afgesnij
 #: templates/partials/base_idea_delete.html:16
 #: templates/partials/base_invite.html:54
 #: templates/partials/base_message.html:32
-#: templates/partials/idea_conversation.html:116
-#: templates/partials/idea_conversation.html:157
+#: templates/partials/idea_conversation.html:115
+#: templates/partials/idea_conversation.html:156
 #: templates/project/conversation.html:133
 #: templates/project/conversation.html:174
 #: templates/project/member_list.html:146 templates/project/mission.html:99
@@ -561,7 +564,7 @@ msgstr "Om een eigen project aan te maken, moet je eerst <strong><a href=\"/logi
 
 #: templates/create.html:185 templates/join.html:7
 #: templates/partials/base.html:184
-#: templates/partials/idea_conversation.html:24
+#: templates/partials/idea_conversation.html:23
 #: templates/project/conversation.html:32 templates/project.html:75
 msgid "Join"
 msgstr "Doe mee"
@@ -629,7 +632,7 @@ msgstr "Wij zullen een email sturen naar de hulporganisatie met een link naar je
 
 #: templates/create.html:238 templates/idea.html:48
 #: templates/partials/base_message.html:25
-#: templates/partials/idea_conversation.html:123
+#: templates/partials/idea_conversation.html:122
 #: templates/partials/idea_conversation_message.html:12
 #: templates/project/conversation_message.html:12
 #: templates/project/fresh_ideas.html:37
@@ -654,6 +657,12 @@ msgstr "Bedankt!"
 #: templates/create.html:244
 msgid "Thank you for adding a project."
 msgstr "Bedankt voor het toevoegen van je project"
+
+#: templates/create.html:246 templates/project/resources.html:157
+#: templates/search.html:224 templates/search.html:556
+#: templates/search.html:671
+msgid "Official Resource"
+msgstr "Officiële Hulp"
 
 #: templates/email/account_deactivation.html:17
 #: templates/email/account_deactivation.txt:5
@@ -1666,7 +1675,7 @@ msgid "Yes, Delete Idea"
 msgstr "Ja, Idee Verwijder"
 
 #: templates/partials/base_idea_delete.html:13
-#: templates/partials/idea_conversation.html:154
+#: templates/partials/idea_conversation.html:153
 #: templates/project/conversation.html:171 templates/project.html:250
 #: templates/project.html:284 templates/project.html:300
 #: templates/search.html:596 templates/search.html:632
@@ -1736,48 +1745,48 @@ msgstr "Er ging iets mis tijdens het versturen van je bericht."
 msgid "Comments"
 msgstr "Reacties"
 
-#: templates/partials/idea_conversation.html:21
+#: templates/partials/idea_conversation.html:20
 msgid "All Comments"
 msgstr "Alle Reacties"
 
-#: templates/partials/idea_conversation.html:22
+#: templates/partials/idea_conversation.html:21
 #: templates/project/conversation.html:30
 msgid "Member Comments"
 msgstr "Opmerkingen van Leden"
 
-#: templates/partials/idea_conversation.html:23
+#: templates/partials/idea_conversation.html:22
 #: templates/project/conversation.html:31
 msgid "Admin Comments"
 msgstr "Opmerkingen van Beheerder"
 
-#: templates/partials/idea_conversation.html:25
+#: templates/partials/idea_conversation.html:24
 #: templates/project/conversation.html:33
 msgid "Endorsement"
 msgstr "Ondersteuning"
 
-#: templates/partials/idea_conversation.html:47
+#: templates/partials/idea_conversation.html:46
 msgid "Post a comment"
 msgstr "Plaats een reactie"
 
-#: templates/partials/idea_conversation.html:57
+#: templates/partials/idea_conversation.html:56
 #: templates/project/conversation.html:65
 msgid "Post your update as a comment or add links to photos and videos."
 msgstr "Plaats je update bij de opmerkingen of voeg links toe bij foto's of video's."
 
-#: templates/partials/idea_conversation.html:61
+#: templates/partials/idea_conversation.html:60
 msgid "Thank you for submitting a comment!"
 msgstr "Bedankt voor je reactie"
 
-#: templates/partials/idea_conversation.html:66
+#: templates/partials/idea_conversation.html:65
 msgid "There was an error submitting your comment!"
 msgstr "Er is een fout opgetreden bij het plaatsen van je reactie!"
 
-#: templates/partials/idea_conversation.html:86
+#: templates/partials/idea_conversation.html:85
 #: templates/project/conversation.html:94 templates/project/home.html:91
 msgid "<strong>Administrator</strong> says"
 msgstr "<strong>Beheerder</strong> zegt"
 
-#: templates/partials/idea_conversation.html:88
+#: templates/partials/idea_conversation.html:87
 #: templates/project/conversation.html:96
 #, python-format
 msgid ""
@@ -1785,27 +1794,27 @@ msgid ""
 "If there is anything we can help you with, please email us at"
 msgstr "Hoi &ndash; welkom bij %(sitename)s! Ik ben een beheerder van de site. Als er iets is waar we je mee kunnen helpen, stuur dan een mail naar"
 
-#: templates/partials/idea_conversation.html:98
+#: templates/partials/idea_conversation.html:97
 #: templates/project/conversation.html:106
 msgid "Older Posts"
 msgstr "Oudere berichten"
 
-#: templates/partials/idea_conversation.html:141
+#: templates/partials/idea_conversation.html:140
 #: templates/project/conversation.html:158
 msgid "Just Now"
 msgstr "Net geplaatst"
 
-#: templates/partials/idea_conversation.html:148
+#: templates/partials/idea_conversation.html:147
 msgid "<strong>Delete</strong> this Comment?"
 msgstr "<strong>Verwijder</strong> deze reactie?"
 
-#: templates/partials/idea_conversation.html:150
+#: templates/partials/idea_conversation.html:149
 #: templates/project/conversation.html:167
 msgid ""
 "This deletes the message from the system permanently! <br/>Are you sure?"
 msgstr "Dit verwijdert het bericht definitief uit het systeem! <br/>Weet je het zeker?"
 
-#: templates/partials/idea_conversation.html:153
+#: templates/partials/idea_conversation.html:152
 msgid "Yes, Delete Comment"
 msgstr "Ja, Verwijder Reactie"
 
@@ -2364,7 +2373,7 @@ msgstr "voor"
 msgid "We&#39;d love it if you could help!"
 msgstr "Wij willen graag dat je helpt!"
 
-#: templates/project/needs.html:116
+#: templates/project/needs.html:116 templates/project.html:366
 msgid "Add a message"
 msgstr "Voeg een boodschap toe"
 
@@ -2428,11 +2437,6 @@ msgstr "Als je een <a href=\"#show,related_resources\"> hulp toevoegt</a>, zulle
 msgid "Add a resource"
 msgstr "Voeg een hulp toe"
 
-#: templates/project/resources.html:157 templates/search.html:224
-#: templates/search.html:556 templates/search.html:671
-msgid "Official Resource"
-msgstr "Officiële Hulp"
-
 #: templates/project/resources.html:191
 msgid "this Link?"
 msgstr "deze Link?"
@@ -2489,7 +2493,7 @@ msgstr "uur"
 msgid "We will need them to come to"
 msgstr "Ze moeten aanwezig zijn op"
 
-#: templates/project/volunteer_need_form.html:70
+#: templates/project/volunteer_need_form.html:70 templates/project.html:374
 msgid "Month"
 msgstr "Maand"
 
@@ -2741,25 +2745,41 @@ msgstr "Omschrijf de taken en vaardigheden"
 msgid "Street Address"
 msgstr "Adres"
 
-#: templates/project.html:367
+#: templates/project.html:365
+msgid "Add emails separated by commas"
+msgstr "Emailadressen (onderscheiden middels komma)"
+
+#: templates/project.html:367 templates/resource.html:56
+msgid "Address"
+msgstr "Adres"
+
+#: templates/project.html:368
+msgid "Must select a month."
+msgstr "Moet een maand te selecteren"
+
+#: templates/project.html:371
 msgid "AM"
 msgstr "AM"
 
-#: templates/project.html:368
+#: templates/project.html:372
 msgid "PM"
 msgstr "PM"
 
-#: templates/project.html:369
+#: templates/project.html:373
 msgid "Day"
 msgstr "Dag"
 
-#: templates/project.html:370
+#: templates/project.html:375
 msgid "Minute"
 msgstr "Minuut"
 
-#: templates/project.html:371
+#: templates/project.html:376
 msgid "Hour"
 msgstr "Uur"
+
+#: templates/project.html:377
+msgid "Time"
+msgstr "Tijd"
 
 #: templates/resource.html:7
 msgid "Add Resource"
@@ -2808,10 +2828,6 @@ msgstr "Naam Hulp"
 #: templates/resource.html:51
 msgid "Description"
 msgstr "Omschrijving"
-
-#: templates/resource.html:56
-msgid "Address"
-msgstr "Adres"
 
 #: templates/resource.html:75
 msgid "Web Address"

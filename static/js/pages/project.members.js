@@ -106,12 +106,12 @@ tc.gam.project_widgets.members = function(options){
                         email_list:{
                             selector:'.email-list',
                             validators:['min-3','max-200','required','csv-email'],
-                            hint:'Add emails separated by commas'
+                            hint:app_page.messages['add-emails-separated-by-comma']
                         },
                         email_message:{
                             selector:'.email-message',
                             validators:['min-3','max-200','required'],
-                            hint:'Add a message'
+                            hint:app_page.messages['add-a-message']
                         }
                     },
                     init:function(merlin,dom){

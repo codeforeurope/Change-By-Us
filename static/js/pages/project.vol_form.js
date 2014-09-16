@@ -129,7 +129,7 @@ tc.gam.project_widgets.vol_form = function(options) {
                               return tc.validate($element, ['required']);
                             }
                           },
-                          hint:'Address'
+                          hint:app_page.messages['address']
                         },
                         'month': {
                           selector: '#vol-month',
@@ -145,10 +145,10 @@ tc.gam.project_widgets.vol_form = function(options) {
                               $ddSelect.addClass('has-been-focused valid');
                               return {valid:true};
                             } else {
-                              return {valid:false, errors: ['Must select a month.']};
+                              return {valid:false, errors: [app_page.messages['error-must-select-month']]};
                             }
                           },
-                          hint:'Month'
+                          hint:app_page.messages['month']
                         },
                         'day': {
                           selector: '#vol-day',
@@ -159,7 +159,7 @@ tc.gam.project_widgets.vol_form = function(options) {
                               return tc.validate($element, ['required', 'numeric']);
                             }
                           },
-                          hint:'Day'
+                          hint:app_page.messages['day']
                         },
                         'time': {
                           selector: '#vol-time',
@@ -170,7 +170,7 @@ tc.gam.project_widgets.vol_form = function(options) {
                               return tc.validate($element, ['required']);
                             }
                           },
-                          hint:'Time'
+                          hint:app_page.messages['time']
                         },
                         'event_link': {
                           selector: '#vol-event-list',

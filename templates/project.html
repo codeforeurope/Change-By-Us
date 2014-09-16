@@ -362,13 +362,19 @@
         {%  set msg12 = _('Job Title - DJ, Cashier, etc') %}
         {%  set msg13 = _('Write a brief description of the volunteer tasks and skills.') %}
         {%  set msg14 = _('Street Address') %}
+        {%  set msg15 = _('Add emails separated by commas') %}
+        {%  set msg16 = _('Add a message') %}
+        {%  set msg17 = _('Address') %}
+        {%  set msg18 = _('Must select a month.') %}
 
 
         {%  set am = _('AM') %}
         {%  set pm = _('PM') %}
         {%  set daymsg = _('Day') %}
+        {%  set monthmsg = _('Month') %}
         {%  set minutemsg = _('Minute') %}
         {%  set hourmsg = _('Hour') %}
+        {%  set timemsg = _('Time') %}
 
 
     <script>
@@ -394,8 +400,10 @@
             'AM': "{{ am }}",
             'PM': "{{ pm }}",
             'day': "{{ daymsg }}",
+            'month': "{{ monthmsg }}",
             'minute': "{{ minutemsg }}",
             'hour': "{{ hourmsg }}",
+            'time': "{{ timemsg }}",
             'added-to-your-project': "{{ msg5 }}",
             'we-sent-them-a-link': "{{ msg6 }}",
             'close': "{{ msg7 }}",
@@ -405,7 +413,11 @@
             'inkind-request-desc-hint': "{{msg11}}",
             'volunteer-request-hint': "{{msg12}}",
             'volunteer-request-desc-hint': "{{msg13}}",
-            'street-address': "{{msg14}}"
+            'street-address': "{{msg14}}",
+            'add-emails-separated-by-comma': "{{msg15}}",
+            'add-a-message': "{{msg16}}",
+            'address': "{{msg17}}",
+            'error-must-select-month': "{{msg18}}"
         };
     </script>
 
