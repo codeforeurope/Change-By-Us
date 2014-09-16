@@ -427,7 +427,7 @@
 								tempImgPath = '/static/images/thumb_genAvatar50.png'
 							}
 							temp += "<td class='" + (resource.is_official ? "official-resource" : "") + "'>";
-							temp += '<a href="#add,'+ resource.link_id +'" class="add-button rounded-button small">Add</a>'+
+							temp += '<a href="#add,'+ resource.link_id +'" class="add-button rounded-button small">'+ app_page.messages['add']+'</a>'+
 								'<span class="thumb">'+
 								(app.app_page.data.user.is_admin ? '<a class="close" href="#removeOrganization,'+resource.link_id+'"><span>' + app_page.messages['close'] + '</span></a>' : '')+
 								'<img width="35" src="'+tempImgPath+'" alt="" /></span>'+

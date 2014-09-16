@@ -10,9 +10,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Change by Us v2\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-09-15 14:10+0200\n"
-"PO-Revision-Date: 2014-09-15 12:16+0000\n"
-"Last-Translator: Giovanni Maggini <giovanni.maggini@gmail.com>\n"
+"POT-Creation-Date: 2014-09-15 14:19+0200\n"
+"PO-Revision-Date: 2014-09-16 07:04+0000\n"
+"Last-Translator: jcgoilo <j.goilo@amsterdam.nl>\n"
 "Language-Team: Dutch (http://www.transifex.com/projects/p/change-by-us-v2/language/nl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -39,53 +39,7 @@ msgstr "GA TERUG <span class=\"lowercase\">naar</span> WAAR JE WAS"
 msgid "<span class=\"unbold\">What is</span> %(site_name)s?"
 msgstr "<span class=\"unbold\">Wat is</span> %(site_name)s?"
 
-#: templates/about.html:19
-#, python-format
-msgid ""
-"<strong>Share Ideas:</strong> Amsterdammers have always been full of great ideas about what will improve their\n"
-"\t\t\t\tneighborhoods.   Use %(site_name)s to broadcast to others what you have in mind.  No idea is too big.  No idea is too\n"
-"\t\t\t\tsmall."
-msgstr "<strong>Deel ideeën:</strong> Amsterdammers zitten vol leuke ideeën over hoe hun buurt leuker gemaakt kunnen worden. Gebruik %(site_name)s om bekend te maken wat jij in gedachte hebt! Geen idee te groot of klein. Geen wens is absurd."
-
-#: templates/about.html:22
-#, python-format
-msgid ""
-"<strong>Join or Create Projects:</strong> Look for projects in your neighborhood or around the city where you\n"
-"\t\t\t\tcan help.  Become a member and plug into a network of those who want what you want! You can also use  %(site_name)s to\n"
-"\t\t\t\tset up and lead your own project, and turn your idea into reality."
-msgstr "<strong>Creër of word lid van Projecten:</strong> Zoek projecten in je buurt of op de plek waar je kan helpen. Word lid en onderdeel van een netwerk die hetzelfde doel nastreeft als jij! Je kan  %(site_name)s ook gebruiken om je eigen project op te zetten en hiermee je eigen ideeën waar te maken. "
-
-#: templates/about.html:25
-#, python-format
-msgid ""
-"<strong>Build Teams:</strong>  Use  %(site_name)s to connect quickly with the people who will help your project\n"
-"\t\t\t\tfrom start to finish. Someone has the idea, someone has the plan, someone has the tools, and together you succeed."
-msgstr "<strong>Maak teams:</strong> Gebruik %(site_name)s om te verbinden met mensen die jouw project van de grond kunnen laten komen. Iemand heeft een idee, iemand heeft een plan, iemand heeft de tools en samen maak jullie het waar!"
-
-#: templates/about.html:27
-#, python-format
-msgid ""
-"<strong>Find Resources:</strong> Use  %(site_name)s to find and connect with public and non-profit programs that can\n"
-"\t\t\t\thelp your project succeed. Whether you need to access a City service or find some local knowledge, there are resources\n"
-"\t\t\t\tready to provide guidance."
-msgstr "<strong>Zoek Hulp</strong> Gebruik %(site_name)s om te verbinden met publieke en non-profit programma&#39;s die je project kunnen faciliteren. Of je nou toegang nodig hebt tot gemeentelijke diensten of opzoek bent naar informatie, er zijn genoeg organisaties klaar om advies te geven."
-
-#: templates/about.html:30 templates/ams_about.html:22
-#, python-format
-msgid ""
-"Help us spread the word about  %(site_name)s &mdash; and check back often to"
-" see the line-up of influential people who have agreed to follow projects "
-"and connect with community members online."
-msgstr "De samenleving verandert. Help ons de boodschap te verspreiden over %(site_name)s &mdash; hou ons in de gaten om op de hoogte te blijven van de invloedrijke mensen in Amsterdam die zich hebben verbonden aan projecten en communities op de site."
-
-#: templates/about.html:31
-#, python-format
-msgid ""
-"If there are any features or resources that you think will make  %(site_name)s easier to use or more\n"
-"\t\t\t\teffective, please contact us at <strong><span class=\"nospam infomail\"></span></strong>."
-msgstr "Neem contact op met ons via <strong><span class=\\\"nospam infomail\\\"></span></strong> als je suggesties hebt om de functionaliteiten van %(site_name)s te verbeteren."
-
-#: templates/ams_about.html:17
+#: templates/about.html:17 templates/ams_about.html:17
 #, python-format
 msgid ""
 "<strong>%(site_name)s</strong> is a new platform in Amsterdam. The platform "
@@ -94,7 +48,7 @@ msgid ""
 "welfare organizations, housing corporations and government."
 msgstr "<strong>%(site_name)s</strong> is een nieuw platform in Amsterdam. Het is afkomstig uit New York en staat daar bekend onder de naam Change by Us NYC. Het platform staat bekend voor de innovatieve manier waarop verschillende partners in de stad (stadsmakers, welzijnorganisatie, corporatie en de overheid met elkaar samenwerken)"
 
-#: templates/ams_about.html:18
+#: templates/about.html:18 templates/ams_about.html:18
 #, python-format
 msgid ""
 "<strong>Share Ideas:</strong> Amsterdammers have always been full of great "
@@ -103,7 +57,7 @@ msgid ""
 "too small."
 msgstr "<strong>Deel ideeën:</strong> Amsterdammers zitten vol leuke ideeën over hoe hun buurt leuker gemaakt kunnen worden. Gebruik %(site_name)s om bekend te maken wat jij in gedachte hebt! Geen idee te groot of klein. Geen wens is absurd."
 
-#: templates/ams_about.html:19
+#: templates/about.html:19 templates/ams_about.html:19
 #, python-format
 msgid ""
 "<strong>Join or Create Projects:</strong> Look for projects in your "
@@ -113,7 +67,7 @@ msgid ""
 "reality."
 msgstr "<strong>Creër of word lid van Projecten:</strong> Zoek projecten in je buurt of op de plek waar je kan helpen. Word lid en onderdeel van een netwerk die hetzelfde doel nastreeft als jij! Je kan %(site_name)s ook gebruiken om je eigen project op te zetten en hiermee je eigen ideeën waar te maken. "
 
-#: templates/ams_about.html:20
+#: templates/about.html:20 templates/ams_about.html:20
 #, python-format
 msgid ""
 "<strong>Build Teams:</strong>  Use  %(site_name)s to connect quickly with "
@@ -121,7 +75,7 @@ msgid ""
 "idea, someone has the plan, someone has the tools, and together you succeed."
 msgstr "<strong>Maak teams:</strong> Gebruik %(site_name)s om te verbinden met mensen die jouw project van de grond kunnen laten komen. Iemand heeft een idee, iemand heeft een plan, iemand heeft de tools en samen maak jullie het waar!"
 
-#: templates/ams_about.html:21
+#: templates/about.html:21 templates/ams_about.html:21
 #, python-format
 msgid ""
 "<strong>Find Resources:</strong> Use  %(site_name)s to find and connect with"
@@ -130,7 +84,15 @@ msgid ""
 "resources ready to provide guidance."
 msgstr "<strong>Zoek Hulp</strong> Gebruik %(site_name)s om te verbinden met publieke en non-profit programma&#39;s die je project kunnen faciliteren. Of je nou toegang nodig hebt tot gemeentelijke diensten of opzoek bent naar informatie, er zijn genoeg organisaties klaar om advies te geven."
 
-#: templates/ams_about.html:23
+#: templates/about.html:22 templates/ams_about.html:22
+#, python-format
+msgid ""
+"Help us spread the word about  %(site_name)s &mdash; and check back often to"
+" see the line-up of influential people who have agreed to follow projects "
+"and connect with community members online."
+msgstr "De samenleving verandert. Help ons de boodschap te verspreiden over %(site_name)s &mdash; hou ons in de gaten om op de hoogte te blijven van de invloedrijke mensen in Amsterdam die zich hebben verbonden aan projecten en communities op de site."
+
+#: templates/about.html:23 templates/ams_about.html:23
 #, python-format
 msgid ""
 "If there are any features or resources that you think will make  "
@@ -138,7 +100,7 @@ msgid ""
 "<strong><span class=\"nospam infomail\"></span></strong>."
 msgstr "Neem contact op met ons via <strong><span class=\\\"nospam infomail\\\"></span></strong> als je suggesties hebt om de functionaliteiten van %(site_name)s te verbeteren."
 
-#: templates/ams_about.html:27
+#: templates/about.html:27 templates/ams_about.html:27
 #, python-format
 msgid ""
 "<strong>%(site_name)s</strong> is run by the City and its partners to "
@@ -619,7 +581,7 @@ msgstr "bijv. Bewonersrestaurant Het Zonnetje "
 
 #: templates/create.html:223
 msgid "Field Organization, Program, Community Group, etc."
-msgstr "Organisatie, Programma, Community, Vereniging, Commissie etc."
+msgstr "Organisatie, Programma, Community, Vereniging, etc."
 
 #: templates/create.html:224
 msgid "Add a description"
@@ -663,7 +625,7 @@ msgstr "Voeg een hulp toe"
 msgid ""
 "When you add a resource, we will email them an<br />introduction and link to"
 " your project!"
-msgstr "Wij zullen een email sturen naar de hulporganisatie met een link naar je project<br />, zodra je het toevoegt!"
+msgstr "Wij zullen een email sturen naar de hulporganisatie met een link naar je project, zodra je het toevoegt!"
 
 #: templates/create.html:238 templates/idea.html:48
 #: templates/partials/base_message.html:25
@@ -1031,11 +993,11 @@ msgstr "Hoi %(city)s!"
 
 #: templates/home.html:32 templates/home.html:35
 msgid "Thanks for your idea"
-msgstr "Bedankt voor je plan"
+msgstr "Bedankt voor je idee"
 
 #: templates/home.html:32
 msgid "We need just a few more details."
-msgstr "We nog een paar details nodig."
+msgstr "We hebben nog wat detailles van je nodig."
 
 #: templates/home.html:35
 msgid "Please wait while we process your idea!"
@@ -1043,7 +1005,7 @@ msgstr "Een moment geduld terwijl wij je plan verwerken."
 
 #: templates/home.html:42
 msgid "Your email?"
-msgstr "Je mailadres"
+msgstr "Je emailadres"
 
 #: templates/home.html:46 templates/join.html:78 templates/join.html:115
 msgid "Please enter a valid email address"
@@ -1061,7 +1023,7 @@ msgstr "Bekijk het <a href=\"/tou\" class=\"toc-link\">privacybeleid</a> voor me
 
 #: templates/home.html:53
 msgid "Your idea is for..."
-msgstr "Je plan is voor..."
+msgstr "Je idee is voor..."
 
 #: templates/home.html:84
 msgid "See more ideas"
@@ -1073,7 +1035,7 @@ msgstr "Nieuwe ideeën"
 
 #: templates/home.html:128
 msgid "Make that idea happen. Join a project, or start your own."
-msgstr "Laat je plan slagen. Sluit je aan bij een project of creëer er zelf een."
+msgstr "Laat je idee slagen. Sluit je aan bij een project of creëer er zelf één."
 
 #: templates/home.html:136
 msgid "Related Projects"

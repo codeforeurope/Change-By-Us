@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-09-15 14:19+0200\n"
+"POT-Creation-Date: 2014-09-16 12:30+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -127,7 +127,7 @@ msgid "Hey"
 msgstr ""
 
 #: templates/bb.html:40 templates/home.html:207
-#: templates/partials/idea_conversation.html:54
+#: templates/partials/idea_conversation.html:53
 #: templates/project/conversation.html:62
 msgid "Post"
 msgstr ""
@@ -141,7 +141,7 @@ msgid "We need a little more information."
 msgstr ""
 
 #: templates/bb.html:49 templates/calendar.html:28 templates/idea.html:26
-#: templates/partials/idea_conversation.html:113
+#: templates/partials/idea_conversation.html:112
 #: templates/project/conversation.html:130
 #: templates/project/fresh_ideas.html:51
 #: templates/project/invite_members.html:137
@@ -289,7 +289,7 @@ msgid "Events"
 msgstr ""
 
 #: templates/calendar.html:25 templates/cms_content.html:177
-#: templates/idea.html:24 templates/partials/idea_conversation.html:106
+#: templates/idea.html:24 templates/partials/idea_conversation.html:105
 #: templates/project/conversation.html:123
 #: templates/project/member_list.html:45 templates/search.html:74
 #: templates/search.html:185 templates/search.html:291
@@ -403,8 +403,9 @@ msgid "Check"
 msgstr ""
 
 #: templates/create.html:23 templates/create.html:172
-#: templates/project/add_link.html:32 templates/project.html:358
-#: templates/search.html:548 templates/search.html:666
+#: templates/create.html:245 templates/project/add_link.html:32
+#: templates/project.html:358 templates/search.html:548
+#: templates/search.html:666
 msgid "Add"
 msgstr ""
 
@@ -512,8 +513,8 @@ msgstr ""
 #: templates/partials/base_idea_delete.html:16
 #: templates/partials/base_invite.html:54
 #: templates/partials/base_message.html:32
-#: templates/partials/idea_conversation.html:116
-#: templates/partials/idea_conversation.html:157
+#: templates/partials/idea_conversation.html:115
+#: templates/partials/idea_conversation.html:156
 #: templates/project/conversation.html:133
 #: templates/project/conversation.html:174
 #: templates/project/member_list.html:146 templates/project/mission.html:99
@@ -558,7 +559,7 @@ msgstr ""
 
 #: templates/create.html:185 templates/join.html:7
 #: templates/partials/base.html:184
-#: templates/partials/idea_conversation.html:24
+#: templates/partials/idea_conversation.html:23
 #: templates/project/conversation.html:32 templates/project.html:75
 msgid "Join"
 msgstr ""
@@ -626,7 +627,7 @@ msgstr ""
 
 #: templates/create.html:238 templates/idea.html:48
 #: templates/partials/base_message.html:25
-#: templates/partials/idea_conversation.html:123
+#: templates/partials/idea_conversation.html:122
 #: templates/partials/idea_conversation_message.html:12
 #: templates/project/conversation_message.html:12
 #: templates/project/fresh_ideas.html:37
@@ -1659,7 +1660,7 @@ msgid "Yes, Delete Idea"
 msgstr ""
 
 #: templates/partials/base_idea_delete.html:13
-#: templates/partials/idea_conversation.html:154
+#: templates/partials/idea_conversation.html:153
 #: templates/project/conversation.html:171 templates/project.html:250
 #: templates/project.html:284 templates/project.html:300
 #: templates/search.html:596 templates/search.html:632
@@ -1729,48 +1730,48 @@ msgstr ""
 msgid "Comments"
 msgstr ""
 
-#: templates/partials/idea_conversation.html:21
+#: templates/partials/idea_conversation.html:20
 msgid "All Comments"
 msgstr ""
 
-#: templates/partials/idea_conversation.html:22
+#: templates/partials/idea_conversation.html:21
 #: templates/project/conversation.html:30
 msgid "Member Comments"
 msgstr ""
 
-#: templates/partials/idea_conversation.html:23
+#: templates/partials/idea_conversation.html:22
 #: templates/project/conversation.html:31
 msgid "Admin Comments"
 msgstr ""
 
-#: templates/partials/idea_conversation.html:25
+#: templates/partials/idea_conversation.html:24
 #: templates/project/conversation.html:33
 msgid "Endorsement"
 msgstr ""
 
-#: templates/partials/idea_conversation.html:47
+#: templates/partials/idea_conversation.html:46
 msgid "Post a comment"
 msgstr ""
 
-#: templates/partials/idea_conversation.html:57
+#: templates/partials/idea_conversation.html:56
 #: templates/project/conversation.html:65
 msgid "Post your update as a comment or add links to photos and videos."
 msgstr ""
 
-#: templates/partials/idea_conversation.html:61
+#: templates/partials/idea_conversation.html:60
 msgid "Thank you for submitting a comment!"
 msgstr ""
 
-#: templates/partials/idea_conversation.html:66
+#: templates/partials/idea_conversation.html:65
 msgid "There was an error submitting your comment!"
 msgstr ""
 
-#: templates/partials/idea_conversation.html:86
+#: templates/partials/idea_conversation.html:85
 #: templates/project/conversation.html:94 templates/project/home.html:91
 msgid "<strong>Administrator</strong> says"
 msgstr ""
 
-#: templates/partials/idea_conversation.html:88
+#: templates/partials/idea_conversation.html:87
 #: templates/project/conversation.html:96
 #, python-format
 msgid ""
@@ -1778,27 +1779,27 @@ msgid ""
 "If there is anything we can help you with, please email us at"
 msgstr ""
 
-#: templates/partials/idea_conversation.html:98
+#: templates/partials/idea_conversation.html:97
 #: templates/project/conversation.html:106
 msgid "Older Posts"
 msgstr ""
 
-#: templates/partials/idea_conversation.html:141
+#: templates/partials/idea_conversation.html:140
 #: templates/project/conversation.html:158
 msgid "Just Now"
 msgstr ""
 
-#: templates/partials/idea_conversation.html:148
+#: templates/partials/idea_conversation.html:147
 msgid "<strong>Delete</strong> this Comment?"
 msgstr ""
 
-#: templates/partials/idea_conversation.html:150
+#: templates/partials/idea_conversation.html:149
 #: templates/project/conversation.html:167
 msgid ""
 "This deletes the message from the system permanently! <br/>Are you sure?"
 msgstr ""
 
-#: templates/partials/idea_conversation.html:153
+#: templates/partials/idea_conversation.html:152
 msgid "Yes, Delete Comment"
 msgstr ""
 
