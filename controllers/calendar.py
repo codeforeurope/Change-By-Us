@@ -21,7 +21,7 @@ class Calendar(Controller):
 
                 d = datetime(int(year), int(month), 1)
                 start = "%s-%s" % (year, month)
-                end = (d + timedelta(days=32)).strftime('%Y-%m')
+                end = (d + datetime.timedelta(days=32)).strftime('%Y-%m')
                 events = self.getEvents(start, end)
 
                 if (action == 'show'):
