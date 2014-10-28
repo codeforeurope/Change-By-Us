@@ -16,7 +16,7 @@
 
 {{ create_link }}
 
-{{ _('We hope you find %(sitename)s useful. If you have any questions or comments, please get in touch at %(respondemail)s.')|format(sitename=config.site.name,respondemail=respond_email)  }}
+{{ _('We hope you find %(sitename)s useful. If you have any questions or comments, please get in touch at %(respondemail)s.')|format(sitename=config.site.name,respondemail=response_email)  }}
 
 
 
