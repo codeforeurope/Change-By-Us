@@ -88,10 +88,9 @@ def searchProjectResources(db, terms, locationId, limit=1000, offset=0):
     try:
         sql = """select project_resource_id as link_id, title, url, image_id, is_official 
                 from project_resource
-                    where
-                    is_active = 1 and is_hidden = 0
-                    and ($locationId is null or location_id = $locationId)
-                    or ($match = '' or match(title, keywords, description) against ($match in boolean mode))
+                    where is_active = 1 and is_hidden = 0
+                    and ( ($locationId is null or location_id = $locationId)
+                    or ($match = '' or match(title, keywords, description) against ($match in boolean mode)) )
                     order by created_datetime desc
                     limit $limit offset $offset"""
 
