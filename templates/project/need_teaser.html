@@ -17,7 +17,7 @@
     <div class="bd clearfix">
         <div class="vol-title serif">
           {% if need.type == "inkind" %}
-          We need to
+          {{ _('We need to') }}
               {% if need.subtype == 'borrow' %}
                   borrow
               {% elif need.subtype == 'donate' %}
@@ -25,7 +25,7 @@
               {% endif %}
               <a href="#show,need-detail,{{ need.id }}" class="vol-need"><span class="vol-count">{{ need.quantity }}</span> {{ need.request }}</a>
           {% else %}
-          We need <a href="#show,need-detail,{{ need.id }}" class="vol-need"><span class="vol-count">{{ need.quantity }}</span>
+          {{ _('We need') }} <a href="#show,need-detail,{{ need.id }}" class="vol-need"><span class="vol-count">{{ need.quantity }}</span>
             {{ _('volunteer') }} {{ need.request }}</a>
           {% endif %}
 
