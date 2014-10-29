@@ -152,7 +152,10 @@ class CreateProject(Controller):
 
     def uploadImage(self):
         if (len(self.request('qqfile')) > 100):
-            log.info("*** == %s" % type(web.input()['qqfile']))
+            try:
+                log.info("*** == %s" % type(web.input()['qqfile']).__name__)
+            except:
+                pass
             data = web.input()['qqfile']
         else:
             data = web.data()
@@ -174,7 +177,10 @@ class CreateProject(Controller):
 
         # Get file from the request
         if (len(self.request('qqfile')) > 100):
-            log.info("*** == %s" % type(web.input()['qqfile']))
+            try:
+                log.info("*** == %s" % type(web.input()['qqfile']).__name__)
+            except:
+                pass
             file_name = ''
             data = self.request('qqfile')
         else:
