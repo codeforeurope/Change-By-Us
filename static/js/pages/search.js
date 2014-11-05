@@ -304,7 +304,7 @@ app_page.features.push(function(app){
 					};
 										
 					temprow.append(tempcell);
-					if(i%3==1){
+					if(i%3==1 || i==0){
 						out.children('tbody').append(temprow);
 					}
 				}
