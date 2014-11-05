@@ -64,6 +64,8 @@
 				links:null,
 				resources:null,
 				image:'-1',
+                project_lat:null,
+                project_lng:null,
                 ideaid: window.location.hash.split(',')[0]=="#idea" ? window.location.hash.split(',')[1] : null,
 				main_text:""
 			},
@@ -248,6 +250,31 @@
 						}
 					},
 					init:function(merlin,dom){
+                        //Leaflet start
+                        map = L.map('leaflet-map').setView([52.373056, 4.892222], 13);
+                        //Use OpenStreetMap as a layer
+                        var osmUrl = 'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+                        osmAttribution = 'Map data &copy; 2012 <a href="http://openstreetmap.org">OpenStreetMap</a> contributors',
+                        osm = new L.TileLayer(osmUrl, {maxZoom: 18, attribution: osmAttribution});
+                        osm.addTo(map);
+                        map.on('click', function(e) {
+                             alert("You clicked the map at " + e.latlng);
+                                popup
+                                    .setLatLng(e.latlng)
+                                    .setContent("You clicked the map at " + e.latlng.toString())
+                                    .openOn(map);
+                                marker = new L.marker(e.latlng).addTo(map);
+
+                                merlin.options.data.project_lat = e.latlng.lat;
+                                merlin.options.data.project_lng = e.latlng.lng;
+
+                                //DEBUG
+                                alert('lat ' + merlin.options.data.project_lng  + ' lng ' + merlin.options.data.project_lng );
+                        });
+//                        map.on('click', L.bind(onMapClick, null, merlin));
+//                        merlin.options.data.project_lat = map.on('click', onMapClick)[0];
+//                        merlin.options.data.project_lng = map.on('click', onMapClick)[1];
+	                    //Leaflet end
 						if(!merlin.current_step.step_data.locationDropdown){
 							merlin.current_step.step_data.locationDropdown = new tc.locationDropdown({
 								radios:dom.find('input[type=radio]'),
@@ -553,4 +580,23 @@
 		tc.jQ('#location-hood-enter').attr('autocomplete', 'off');
 		
 	});
-	
+
+//Leaflet variables
+var map;
+var popup = L.popup();
+var marker = L.marker();
+
+function onMapClick(e, merlin) {
+    alert("You clicked the map at " + e.latlng);
+    popup
+        .setLatLng(e.latlng)
+        .setContent("You clicked the map at " + e.latlng.toString())
+        .openOn(map);
+    marker = new L.marker(e.latlng).addTo(map);
+
+    merlin.options.data.project_lat = e.latlng.lat;
+    merlin.options.data.project_lng = e.latlng.lng;
+
+    //DEBUG
+    alert('lat ' + merlin.options.data.project_lng  + ' lng ' + merlin.options.data.project_lng );
+}

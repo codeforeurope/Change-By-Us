@@ -41,7 +41,7 @@ def getLocations(db):
     data = []
 
     try:
-        sql = """select l.location_id, l.name, l.lat, l.lon from location l where l.location_id > 0
+        sql = """select l.location_id, l.name, l.lat, l.lon, l.geometry from location l where l.location_id > 0
                 order by l.location_id""";
         data = list(db.query(sql))
     except Exception, e:
@@ -76,8 +76,7 @@ def getSimpleLocationDictionary(db):
     locations = []
     
     for item in data:
-        locations.append({'name':item.name, 'location_id':item.location_id})
+        locations.append({'name': item.name, 'location_id': item.location_id, 'location_geometry': item.geometry})
         
     return locations
-    
-    
+

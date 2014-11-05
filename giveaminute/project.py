@@ -199,7 +199,7 @@ def addIdeaToProject(db, ideaId, projectId):
 
 
 def createProject(db, ownerUserId, title, description, keywords, locationId, imageId, isOfficial=False,
-                  organization=None, ideaId=None):
+                  organization=None, ideaId=None, latitude=None, longitude=None):
     projectId = None
 
     try:
@@ -217,7 +217,9 @@ def createProject(db, ownerUserId, title, description, keywords, locationId, ima
                               num_flags=numFlags,
                               is_active=isActive,
                               is_official=isOfficial,
-                              organization=organization)
+                              organization=organization,
+                              lat=latitude,
+                              lon=longitude)
 
         if (projectId):
             join(db, projectId, userId=ownerUserId, isAdmin=True, isProjectCreator=True)
@@ -1230,3 +1232,8 @@ def createAttachment(db, media_type, media_id,
         log.info("*** problem adding attachment to the database")
         log.error(e)
         return None
+
+def getLocations(db):
+    sql = "select location_id, geometry from location where id != -1"
+    data = list(db.query(sql))
+    return data

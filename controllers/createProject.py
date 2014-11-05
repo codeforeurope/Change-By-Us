@@ -17,6 +17,7 @@ from PIL import Image
 from StringIO import StringIO
 import lib.web
 import json
+from shapely.geometry import shape, Point
 
 
 class CreateProject(Controller):
@@ -60,9 +61,29 @@ class CreateProject(Controller):
                 self.request('keywords')) else []
             resourceIds = self.request('resources').split(',')
             isOfficial = self.user.isAdmin and supported_features.get('is_official_supported')
+            project_lat = self.request('project_lat') if self.request('project_lat') else None
+            project_lng = self.request('project_lng') if self.request('project_lng') else None
+
+
+            #TODO: CONVERT TO DOUBLE!!!
+
+
+
+            if(project_lat is not None and project_lng is not None):
+                point = Point(project_lat, project_lng)
+                locations = mProject.getLocations(self.db)
+                for item in locations:
+                    loc_id = item.location_id
+                    loc_geom = item.geometry
+                    js = json.load(loc_geom)
+                    polygon = shape(js['coordinates'])
+                    if polygon.contains(point):
+                        locationId = loc_id
+                        pass
+
 
             projectId = mProject.createProject(self.db, owner_user_id, title, description, ' '.join(keywords),
-                                               locationId, imageId, isOfficial, organization, ideaId)
+                                               locationId, imageId, isOfficial, organization, ideaId, project_lat, project_lng)
 
             for resourceId in resourceIds:
                 log.info("*** insert resource id %s" % resourceId)
@@ -274,4 +295,3 @@ class CreateProject(Controller):
 
         """
         return formattingUtils.getAttachmentThumbUrl(media_type, media_id, 'small')
-

@@ -49,8 +49,12 @@ def getProjectCounts(db):
                   (select count(pe.user_id) from project_endorsement pe 
                       inner join user u on u.user_id = pe.user_id and u.is_active = 1
                       where pe.project_id = p.project_id) as num_endorsements,
-                  coalesce(p.keywords, '') as keywords
+                  coalesce(p.keywords, '') as keywords,
+                  location.name as location,
+                  p.lat as lat,
+                  p.lon as lon
                 from project p
+                left join location on p.location_id = location.location_id
                 where p.is_active = 1
                 order by p.title"""
         data = list(db.query(sql))
