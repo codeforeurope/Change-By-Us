@@ -551,6 +551,14 @@
         </script>
     {% endif %}
 
+
+    {%  set msg1 = _('Oops! Please fill in the fields marked in red.') %}
+    <script>
+        app_page.general_messages = {
+            "oops_please_fill_fields_marked_red" : "{{ msg1 }}"
+        }
+    </script>
+
     {% block javascript_footer %}{% endblock %}
 
 </body>
