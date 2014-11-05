@@ -4,7 +4,6 @@
 """
 
 import os
-from datetime import timedelta
 
 from framework import util
 from framework.log import log
