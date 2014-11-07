@@ -29,14 +29,14 @@
 			<li class="tab tab-list active"><a href="#all">{{ _('List') }}</a></li>
 		</ul>
 		<form class="search-results-header" action="" method="GET">
-			<label>Search results for:</label>
+			<label>{{ _('Search results for') }}:</label>
 			<div class="form-tier west">
 				<div class="search-terms-container">
 					<input type="text" class="search-terms always-focused" value="{% if d.template_data.search_terms %}{{ d.template_data.search_terms }}{% endif %}"/> 
 					<input type='text' name='main_text' style='display:none;'></input>
 					<a class="clear-field" href=""></a>
 				</div>
-				<span class="in">in</span>
+				<span class="in">{{ _('in') }}</span>
 				<div class="search-hood-container">
                     <!--{{ _('All neighborhoods') }}-->
 					<input type='text' name='location-hood-enter' id='location-hood-enter' class='search-location location-group location-hood-enter always-focused' {% if d.template_data.search_location_id %}location_id="{{ d.template_data.search_location_id }}"{% endif %} value="{{ _('All neighborhoods') }}" placeholder="{{ _('A neighborhood') }}" />

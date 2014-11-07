@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-11-05 18:16+0100\n"
+"POT-Creation-Date: 2014-11-07 15:43+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -118,7 +118,8 @@ msgstr ""
 #: templates/bb.html:25 templates/bb.html:144 templates/create.html:185
 #: templates/login.html:7 templates/login.html:23 templates/login.html:44
 #: templates/partials/base.html:185 templates/partials/base.html:259
-#: templates/partials/mobilebase.html:32
+#: templates/partials/mobilebase.html:32 templates/project.html:182
+#: templates/search.html:648
 msgid "Login"
 msgstr ""
 
@@ -204,7 +205,7 @@ msgstr ""
 #: templates/bb.html:117 templates/create.html:54 templates/create.html:233
 #: templates/home.html:254 templates/home.html:293 templates/home.html:434
 #: templates/idea.html:116 templates/project/mission.html:42
-#: templates/search.html:121 templates/search.html:658
+#: templates/search.html:121 templates/search.html:665
 msgid "Created by"
 msgstr ""
 
@@ -406,7 +407,7 @@ msgstr ""
 #: templates/create.html:245 templates/partials/add_resource.html:20
 #: templates/project/add_link.html:32 templates/project/mission.html:136
 #: templates/project.html:358 templates/search.html:216
-#: templates/search.html:548 templates/search.html:666
+#: templates/search.html:548 templates/search.html:673
 #: templates/useraccount.html:252
 msgid "Add"
 msgstr ""
@@ -529,15 +530,15 @@ msgstr ""
 #: templates/project.html:270 templates/project.html:287
 #: templates/project.html:303 templates/resource.html:150
 #: templates/search.html:599 templates/search.html:635
-#: templates/search.html:642 templates/useraccount.html:662
-#: templates/useraccount.html:673 templates/useraccount.html:688
-#: templates/useraccount.html:702
+#: templates/search.html:642 templates/search.html:649
+#: templates/useraccount.html:662 templates/useraccount.html:673
+#: templates/useraccount.html:688 templates/useraccount.html:702
 msgid "close"
 msgstr ""
 
 #: templates/create.html:174 templates/create.html:239
 #: templates/project.html:355 templates/search.html:230
-#: templates/search.html:562 templates/search.html:677
+#: templates/search.html:562 templates/search.html:684
 #: templates/useraccount.html:266
 msgid "Added <em>to</em> your project"
 msgstr ""
@@ -548,6 +549,7 @@ msgstr ""
 
 #: templates/create.html:183 templates/idea.html:152
 #: templates/project.html:180 templates/search.html:640
+#: templates/search.html:646
 msgid "<strong>Hold your horses!</strong> Please register."
 msgstr ""
 
@@ -563,6 +565,7 @@ msgstr ""
 #: templates/partials/base.html:184
 #: templates/partials/idea_conversation.html:23
 #: templates/project/conversation.html:32 templates/project.html:75
+#: templates/project.html:182 templates/search.html:648
 msgid "Join"
 msgstr ""
 
@@ -636,14 +639,14 @@ msgstr ""
 #: templates/project/invite_members.html:116 templates/project.html:357
 #: templates/search.html:108 templates/search.html:221
 #: templates/search.html:332 templates/search.html:551
-#: templates/search.html:553 templates/search.html:648
-#: templates/search.html:669 templates/search.html:698
+#: templates/search.html:553 templates/search.html:655
+#: templates/search.html:676 templates/search.html:705
 msgid "Close"
 msgstr ""
 
 #: templates/create.html:240 templates/project.html:356
 #: templates/search.html:231 templates/search.html:563
-#: templates/search.html:678
+#: templates/search.html:685
 msgid "We've sent them a link to your project page."
 msgstr ""
 
@@ -657,7 +660,7 @@ msgstr ""
 
 #: templates/create.html:246 templates/project/resources.html:157
 #: templates/search.html:224 templates/search.html:556
-#: templates/search.html:671
+#: templates/search.html:678
 msgid "Official Resource"
 msgstr ""
 
@@ -1149,7 +1152,7 @@ msgstr ""
 
 #: templates/idea.html:19 templates/search.html:59 templates/search.html:285
 #: templates/search.html:354 templates/search.html:441
-#: templates/search.html:718 templates/useraccount.html:152
+#: templates/search.html:725 templates/useraccount.html:152
 #: templates/useraccount.html:196
 msgid "Ideas"
 msgstr ""
@@ -1163,22 +1166,22 @@ msgstr ""
 
 #: templates/idea.html:41 templates/project/fresh_ideas.html:32
 #: templates/project/invite_members.html:111 templates/search.html:325
-#: templates/search.html:691
+#: templates/search.html:698
 msgid "Flag as Inappropriate"
 msgstr ""
 
 #: templates/idea.html:55 templates/project/fresh_ideas.html:40
 #: templates/project/invite_members.html:122 templates/search.html:339
-#: templates/search.html:703
+#: templates/search.html:710
 msgid "said"
 msgstr ""
 
 #: templates/idea.html:59 templates/project/invite_members.html:127
-#: templates/search.html:343 templates/search.html:705
+#: templates/search.html:343 templates/search.html:712
 msgid "Posted"
 msgstr ""
 
-#: templates/idea.html:59 templates/search.html:343 templates/search.html:705
+#: templates/idea.html:59 templates/search.html:343 templates/search.html:712
 msgid "via"
 msgstr ""
 
@@ -1376,7 +1379,7 @@ msgstr ""
 
 #: templates/leaderboard.html:14 templates/search.html:57
 #: templates/search.html:135 templates/search.html:441
-#: templates/search.html:487 templates/search.html:718
+#: templates/search.html:487 templates/search.html:725
 #: templates/useraccount.html:105
 msgid "Projects"
 msgstr ""
@@ -2887,7 +2890,15 @@ msgstr ""
 msgid "List"
 msgstr ""
 
-#: templates/search.html:41 templates/search.html:735
+#: templates/search.html:32
+msgid "Search results for"
+msgstr ""
+
+#: templates/search.html:39
+msgid "in"
+msgstr ""
+
+#: templates/search.html:41 templates/search.html:742
 msgid "All neighborhoods"
 msgstr ""
 
@@ -2954,7 +2965,14 @@ msgstr ""
 msgid "You are about to delete this project from the system permanently!"
 msgstr ""
 
-#: templates/search.html:734
+#: templates/search.html:647
+#, python-format
+msgid ""
+"You must <strong><a href=\"/join\">register</a></strong> or <strong><a href="
+"\"/login\">login</a></strong> with %(sitename)s in order to add a Resource."
+msgstr ""
+
+#: templates/search.html:741
 msgid "No Results"
 msgstr ""
 
