@@ -241,7 +241,7 @@
 										{% else %}
 										<div class="none-found-message clearfix">
 											<h2>{{ _('There were') }} <span class="counter">0</span> <strong>{{ _('Resources') }}</strong> {{ _('found') }}</h2>
-											<a class="rounded-button small fancy-caps more-link" href="/resource">{{ _('Add <span>your</span> Resource') }} <span class="sm-arrow-forward"></span></a>
+											<a class="rounded-button small fancy-caps more-link new-resource" href="#">{{ _('Add <span>your</span> Resource') }} <span class="sm-arrow-forward"></span></a>
 										</div>
 										{% endif %}
 									</li>
@@ -257,7 +257,7 @@
 					
 					<div class="ft">
 						{% if d.template_data.total_count.data.resources > 0 %}
-						<a class="rounded-button small fancy-caps more-link" href="/resource">{{ _('Add <span>your</span> Resource') }} <span class="sm-arrow-forward"></span></a>
+						<a class="rounded-button small fancy-caps more-link new-resource" href="#">{{ _('Add <span>your</span> Resource') }} <span class="sm-arrow-forward"></span></a>
 						{% endif %}
 						<!-- <div class="pagination-controls resource">
 													<span class="control">
@@ -635,10 +635,17 @@
 		<a class='close' href="#"><span>{{ _('close') }}</span></a>
 	</div>
 
-    <!-- Templates for modal view when user is not logged in yet -->
-        <div class='template-content modal-content join-no-user'>
+    <!-- Templates for modal view when user is not logged in yet (Like/Unlike)-->
+    <div class='template-content modal-content join-no-user'>
         <h2>{{ _('<strong>Hold your horses!</strong> Please register.') }}</h2>
         <p>{{ _('You must <strong><a href="/join">register</a></strong> or <strong><a href="/login">login</a></strong> with %(sitename)s in order to vote for an idea.')|format(sitename=d.config.site.name) }}</p>
+        <a class='close' href="#"><span>{{ _('close') }}</span></a>
+    </div>
+    <!-- Templates for modal view when user is not logged in yet (Resource) -->
+    <div class='template-content modal-content join-no-user-resource'>
+        <h2>{{ _('<strong>Hold your horses!</strong> Please register.') }}</h2>
+        <p>{{ _('You must <strong><a href="/join">register</a></strong> or <strong><a href="/login">login</a></strong> with %(sitename)s in order to add a Resource.')|format(sitename=d.config.site.name) }}</p>
+        <p><a href="/join" class="rounded-button">{{ _('Join') }}</a>&nbsp;<a href="/login" class="rounded-button">{{ _('Login') }}</a></p>
         <a class='close' href="#"><span>{{ _('close') }}</span></a>
     </div>
 

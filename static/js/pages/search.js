@@ -487,6 +487,15 @@ app_page.features.push(function(app){
 		
 		
 		app.components.handlers = {
+            add_resource_clicked_handler:function(e){
+                e.preventDefault();
+                if(!e.data.app.app_page.user) {
+                    e.data.app.components.modal.show(e.data.no_user, e.target);
+                }
+                else{
+                    window.location = "/resource";
+                }
+            },
 			flag_idea_handler:function(e){
 				e.preventDefault();
 				tc.jQ.ajax({
@@ -667,6 +676,7 @@ app_page.features.push(function(app){
 		tc.jQ('a.delete-resource').bind('click', {app:app}, app.components.handlers.delete_resource_handler);
 		tc.jQ('a.delete-project').bind('click',{app:app},app.components.handlers.delete_project_handler);
 		tc.gam.add_resource(app, {elements: tc.jQ("a.add-resource")});
+        tc.jQ('a.new-resource').bind('click', {app:app},app.components.handlers.add_resource_clicked_handler);
 		
 		// turn location field autocomplete off
 		tc.jQ('#location-hood-enter').attr('autocomplete', 'off');
