@@ -246,7 +246,50 @@
 						location:{
 							selector:'.location-group',
 							validators:tc.locationDropdown.validator,
-							hint:app_page.messages['steps-location-hint']
+							hint:app_page.messages['steps-location-hint'],
+                            handlers:{
+                                change:function(e){
+                                    tc.util.log("Location Selection changed!");
+                                    var mrl = e.data.me;
+                                    var location_id = mrl.current_step.step_data.locationDropdown.getLocation();
+                                    tc.util.log("Location ID:" + location_id);
+                                    for(i=0;i<mrl.app.app_page.data.locations.length;i++){
+                                        var location = mrl.app.app_page.data.locations[i];
+                                        if(location.location_id == location_id) {
+                                            //Decode the geoJson for the location
+                                            var geojson = JSON.parse(location.location_geometry);
+                                            if (geojson) {
+                                                //Remove all polygons, marker, etc
+                                                for(j=0;j<polygons.length;j++){
+                                                    map.removeLayer(polygons[j]);
+                                                }
+                                                map.removeLayer(marker);
+                                                map.removeLayer(popup);
+                                                //Create new geoJson layer
+                                                var poly = L.geoJson(geojson);
+                                                //Center the map around this layer
+                                                map.fitBounds(poly.getBounds());
+
+                                                poly.fill = false;
+                                                poly.addTo(map);
+                                                polygons.push(poly);
+                                                poly.on('click', function (e) {
+                                                    alert("You clicked the poly at " + e.latlng);
+                                                    popup.setLatLng(e.latlng)
+                                                        .setContent("You clicked the poly at " + e.latlng.toString())
+                                                        .openOn(map);
+                                                    marker = new L.marker(e.latlng).addTo(map);
+
+                                                    mrl.options.data.project_lat = e.latlng.lat;
+                                                    mrl.options.data.project_lng = e.latlng.lng;
+
+                                                    tc.util.log('project_lat ' + mrl.options.data.project_lat + ' project_lng ' + mrl.options.data.project_lng);
+                                                });
+                                            }
+                                        }
+                                    }
+                                }
+                            }
 						}
 					},
 					init:function(merlin,dom){
@@ -255,25 +298,38 @@
                         //Use OpenStreetMap as a layer
                         var osmUrl = 'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
                         osmAttribution = 'Map data &copy; 2012 <a href="http://openstreetmap.org">OpenStreetMap</a> contributors',
-                        osm = new L.TileLayer(osmUrl, {maxZoom: 18, attribution: osmAttribution});
+                        southWest = L.latLng(52.0, 4.0), //TODO
+                        northEast = L.latLng(53.0, 5.0),
+                        mapBounds = L.latLngBounds(southWest, northEast)
+                        osm = new L.TileLayer(osmUrl, {maxZoom: 18, zoom:13, minZoom:10, attribution: osmAttribution, maxBounds:mapBounds});
                         osm.addTo(map);
                         map.on('click', function(e) {
-                             alert("You clicked the map at " + e.latlng);
-                                popup
-                                    .setLatLng(e.latlng)
-                                    .setContent("You clicked the map at " + e.latlng.toString())
-                                    .openOn(map);
-                                marker = new L.marker(e.latlng).addTo(map);
-
-                                merlin.options.data.project_lat = e.latlng.lat;
-                                merlin.options.data.project_lng = e.latlng.lng;
-
-                                //DEBUG
-                                alert('lat ' + merlin.options.data.project_lng  + ' lng ' + merlin.options.data.project_lng );
+                             alert("Oops! The pin does not match the location you selected above!");
                         });
-//                        map.on('click', L.bind(onMapClick, null, merlin));
-//                        merlin.options.data.project_lat = map.on('click', onMapClick)[0];
-//                        merlin.options.data.project_lng = map.on('click', onMapClick)[1];
+
+//                        for(i=0;i<merlin.app.app_page.data.locations.length;i++){
+//                            var location = merlin.app.app_page.data.locations[i];
+//                            var geojson = JSON.parse(location.location_geometry);
+//                            if(geojson){
+//                                var poly = L.geoJson(geojson);
+//                                poly.fill = false;
+//                                poly.addTo(map);
+//                                poly.on('click', function(e) {
+//                                    alert("You clicked the poly at " + e.latlng);
+//                                    popup.setLatLng(e.latlng)
+//                                         .setContent("You clicked the poly at " + e.latlng.toString())
+//                                         .openOn(map);
+//                                    marker = new L.marker(e.latlng).addTo(map);
+//
+//                                    merlin.options.data.project_lat = e.latlng.lat;
+//                                    merlin.options.data.project_lng = e.latlng.lng;
+//
+//                                    //DEBUG
+//                                    alert('lat ' + merlin.options.data.project_lng  + ' lng ' + merlin.options.data.project_lng );
+//                            });
+//                            }
+//
+//                        }
 	                    //Leaflet end
 						if(!merlin.current_step.step_data.locationDropdown){
 							merlin.current_step.step_data.locationDropdown = new tc.locationDropdown({
@@ -581,22 +637,8 @@
 		
 	});
 
-//Leaflet variables
+//Variables defined for Leaflet
 var map;
 var popup = L.popup();
 var marker = L.marker();
-
-function onMapClick(e, merlin) {
-    alert("You clicked the map at " + e.latlng);
-    popup
-        .setLatLng(e.latlng)
-        .setContent("You clicked the map at " + e.latlng.toString())
-        .openOn(map);
-    marker = new L.marker(e.latlng).addTo(map);
-
-    merlin.options.data.project_lat = e.latlng.lat;
-    merlin.options.data.project_lng = e.latlng.lng;
-
-    //DEBUG
-    alert('lat ' + merlin.options.data.project_lng  + ' lng ' + merlin.options.data.project_lng );
-}
+var polygons = [];
