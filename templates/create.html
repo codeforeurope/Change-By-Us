@@ -249,6 +249,7 @@
         {%  set msg26 = _('Thank you for adding a project.') %}
         {%  set msg27 = _('Add') %}
         {%  set msg28 = _('Official Resource') %}
+        {%  set msg29 = _('Oops! The pin does not match the location you selected above!') %}
 
     <script>
         app_page.messages = {
@@ -279,7 +280,8 @@
             'steps-finish-title': "{{ msg25 }}",
             'steps-finish-subtitle': "{{ msg26 }}",
             'add': "{{ msg27 }}",
-            'official-resource': "{{ msg28 }}"
+            'official-resource': "{{ msg28 }}",
+            'steps-location-clicked-map-outside-area': "{{ msg29 }}"
         };
     </script>
     <script type="text/javascript" src="/static/js/pages/create.js"></script>
