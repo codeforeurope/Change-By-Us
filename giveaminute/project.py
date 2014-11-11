@@ -1234,7 +1234,7 @@ def createAttachment(db, media_type, media_id,
         log.error(e)
         return None
 
-def getLocations(db):
-    sql = "select location_id, geometry from location where id != -1"
-    data = list(db.query(sql))
-    return data
+# def getLocations(db):
+#     sql = "select location_id, geometry from location"
+#     data = list(db.query(sql))
+#     return data

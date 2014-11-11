@@ -295,20 +295,26 @@
                                                 }
                                                 map.removeLayer(marker);
                                                 map.removeLayer(popup);
-                                                //Create new geoJson layer
-                                                var poly = L.geoJson(geojson);
+                                                //Create new geoJson layer with our own style
+                                                var myStyle = {
+                                                    "color": "#99cc00",
+                                                    "fillColor": "#99cc00",
+                                                    "weight": 5,
+                                                    "opacity": 0.5
+                                                };
+                                                var poly = L.geoJson(geojson, {
+                                                    style: myStyle
+                                                });
                                                 //Center the map around this layer
                                                 map.fitBounds(poly.getBounds());
-
-                                                poly.fill = false;
                                                 poly.addTo(map);
                                                 polygons.push(poly);
                                                 poly.on('click', function (e) {
 //                                                    alert("You clicked the poly at " + e.latlng);
                                                     tc.util.log("Clicked polygon at " + e.latlng);
-                                                    popup.setLatLng(e.latlng)
-                                                        .setContent("You clicked the poly at " + e.latlng.toString())
-                                                        .openOn(map);
+//                                                    popup.setLatLng(e.latlng)
+//                                                        .setContent("You clicked the poly at " + e.latlng.toString())
+//                                                        .openOn(map);
                                                     marker = new L.marker(e.latlng).addTo(map);
 
                                                     mrl.options.data.project_lat = e.latlng.lat;
