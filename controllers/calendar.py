@@ -41,7 +41,7 @@ class Calendar(Controller):
         self.template_data['calendar']['prev_month'] = (d + timedelta(days=-1)).strftime('%Y-%m')
         self.template_data['calendar']['is_active_month'] = self.isActiveMonth(d)
 
-        #Get Month name to display
+        # Get Month name to display
         # locale.setlocale(locale.LC_ALL, 'nl_NL')   #TODO: self.get_language()
 
         self.template_data['calendar']['month_name'] = d.strftime("%B")
@@ -53,8 +53,11 @@ class Calendar(Controller):
         return self.json({'events': events})
 
     def getEvents(self, start, end):
-        events = self.orm.query(models.Event).filter(and_(models.Event.start_datetime > start,
-                                                          models.Event.start_datetime < end)). \
+        events = self.orm.query(models.Event). \
+            join(models.Project). \
+            filter(and_(models.Event.start_datetime > start,
+                        models.Event.start_datetime < end,
+                        models.Project.is_active == 1)). \
             order_by("start_datetime")
         return events
 
