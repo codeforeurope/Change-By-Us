@@ -453,7 +453,7 @@ tc.gam.idea_widgets.conversation = function(options){
                     inputs: {
                         message: {
                             selector: 'textarea.message-input',
-                            validators: ['min-3', 'max-200', 'required'],
+                            validators: ['min-3', 'required'],
                             hint: '',
                             handlers: {
                                 focus: function (event, data) {
