@@ -91,6 +91,10 @@
                         <div class="location-hood-list"><ul></ul></div>
                         <span class="error">{{ _('Please enter a neighborhood.') }}</span>
                     </div>
+                    <h3>{{ _('Pin it on a map!') }}</h3>
+                    <div class="row row-4 clearfix">
+                        <div class="leaflet-map" id="leaflet-map"></div>
+                    </div>
                 </div>
             </div><!--end step-->
 
@@ -213,6 +217,7 @@
             app_page.data.user = {{ d.template_data.user.json }};
         {% endif %}
     </script>
+    <script src="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.js"></script>
 
         {# This may look complicated, but it's necessary because xgettext cannot extract strings within quotes, so we set these variables first
         See: https://www.gnu.org/software/gettext/manual/html_node/Perl-Pitfalls.html #}
@@ -244,6 +249,7 @@
         {%  set msg26 = _('Thank you for adding a project.') %}
         {%  set msg27 = _('Add') %}
         {%  set msg28 = _('Official Resource') %}
+        {%  set msg29 = _('Oops! The pin does not match the location you selected above!') %}
 
     <script>
         app_page.messages = {
@@ -274,7 +280,8 @@
             'steps-finish-title': "{{ msg25 }}",
             'steps-finish-subtitle': "{{ msg26 }}",
             'add': "{{ msg27 }}",
-            'official-resource': "{{ msg28 }}"
+            'official-resource': "{{ msg28 }}",
+            'steps-location-clicked-map-outside-area': "{{ msg29 }}"
         };
     </script>
     <script type="text/javascript" src="/static/js/pages/create.js"></script>

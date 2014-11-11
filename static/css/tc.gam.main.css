@@ -3272,6 +3272,10 @@ div.location-hood-list a span {
     font-weight: bold
 }
 
+div.leaflet-map {
+    height: 350px;
+}
+
 span.error {
     color: #e53224;
     display: block;

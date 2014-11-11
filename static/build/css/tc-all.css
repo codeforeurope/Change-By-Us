@@ -6399,6 +6399,11 @@ div.continent.create .midlands .step.location div.location-hood-list {
     width: 435px;
 }
 
+div.leaflet-map {
+    width: 435px;
+    height: 300px;
+}
+
 div.continent.create .midlands .step.check {
     margin-top: 0px
 }

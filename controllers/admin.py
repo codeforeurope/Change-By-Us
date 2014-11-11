@@ -476,10 +476,10 @@ class Admin(Controller):
         data = mMetrics.getProjectCounts(self.db)
         csv = []
 
-        csv.append('"PROJECT","USERS","IDEAS","RESOURCES","ENDORSEMENTS","KEYWORDS"')
+        csv.append('"PROJECT","USERS","IDEAS","RESOURCES","ENDORSEMENTS","KEYWORDS","NEIGHBORHOOD","LATITUDE","LONGITUDE"')
 
         for item in data:
-            csv.append('"%s","%s","%s","%s","%s","%s"' % (item.title, item.num_users, item.num_ideas, item.num_resources, item.num_endorsements, len(item.keywords.split())))
+            csv.append('"%s","%s","%s","%s","%s","%s"' % (item.title, item.num_users, item.num_ideas, item.num_resources, item.num_endorsements, len(item.keywords.split())), item.location, item.lat, item.lon)
 
         return self.csv('\n'.join(csv), "change_by_us.project.csv")
 
