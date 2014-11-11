@@ -824,6 +824,8 @@ def searchProjectsCount(db, terms, locationId):
         sql = """select count(*) as count
                     from project p
                     -- inner join project__user opu on opu.project_id = p.project_id and opu.is_project_creator = 1
+                    inner join project__user opu on opu.project_id = p.project_id and opu.is_project_creator = 1
+                    inner join user o on o.user_id = opu.user_id
                     where
                     p.is_active = 1
                     and ($locationId is null or p.location_id = $locationId)
