@@ -255,13 +255,13 @@
                             map = L.map('leaflet-map').setView([52.373056, 4.892222], 13);
                         }
                         //Use OpenStreetMap as a layer
-                        var osmUrl = 'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
-                        osmAttribution = 'Map data &copy; 2012 <a href="http://openstreetmap.org">OpenStreetMap</a> contributors',
+                        var osmUrl = 'http://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png',
+                        osmAttribution = 'Map data &copy; '+new Date().getFullYear()+' <a href="http://openstreetmap.org">OpenStreetMap</a> contributors',
                         //Set max bounds
-                        southWest = L.latLng(52.0, 4.0), //TODO
-                        northEast = L.latLng(53.0, 5.0),
+                        southWest = L.latLng(52.20129,4.63966),
+                        northEast = L.latLng(52.50786,5.16838),
                         mapBounds = L.latLngBounds(southWest, northEast)
-                        osm = new L.TileLayer(osmUrl, {maxZoom: 18, zoom:13, minZoom:10, attribution: osmAttribution, maxBounds:mapBounds});
+                        osm = new L.TileLayer(osmUrl, {maxZoom: 18, zoom:13, minZoom:12, attribution: osmAttribution, maxBounds:mapBounds});
                         osm.addTo(map);
                         map.on('click', function(e) {
                             //If user clicks outside a layer, warn him/her
@@ -282,7 +282,7 @@
                                     tc.util.log("Location Selection changed!");
                                     var mrl = e.data.merlin,
                                     location_id = mrl.current_step.step_data.locationDropdown.getLocation();
-                                    tc.util.log("New Location ID:" + location_id);
+//                                    tc.util.log("New Location ID:" + location_id);
                                     for(var i=0;i<mrl.app.app_page.data.locations.length;i++){
                                         var location = mrl.app.app_page.data.locations[i];
                                         if(location.location_id == location_id) {
@@ -297,8 +297,8 @@
                                                 map.removeLayer(popup);
                                                 //Create new geoJson layer with our own style
                                                 var myStyle = {
-                                                    "color": "#99cc00",
-                                                    "fillColor": "#99cc00",
+                                                    "color": "green",
+                                                    "fillColor": "green",
                                                     "weight": 5,
                                                     "opacity": 0.5
                                                 };
@@ -310,17 +310,22 @@
                                                 poly.addTo(map);
                                                 polygons.push(poly);
                                                 poly.on('click', function (e) {
-//                                                    alert("You clicked the poly at " + e.latlng);
                                                     tc.util.log("Clicked polygon at " + e.latlng);
 //                                                    popup.setLatLng(e.latlng)
 //                                                        .setContent("You clicked the poly at " + e.latlng.toString())
 //                                                        .openOn(map);
+                                                    //Remove old marker and popup
+                                                    map.removeLayer(marker);
+                                                    map.removeLayer(popup);
+                                                    //Add new marker
                                                     marker = new L.marker(e.latlng).addTo(map);
-
+                                                    marker.on('click', function(e){
+                                                        //When user taps on the marker
+                                                        alert(app_page.messages['steps-location-clicked-marker']);
+                                                    });
+                                                    //Save latitude and longitude for this project
                                                     mrl.options.data.project_lat = e.latlng.lat;
                                                     mrl.options.data.project_lng = e.latlng.lng;
-
-                                                    tc.util.log('project_lat ' + mrl.options.data.project_lat + ' project_lng ' + mrl.options.data.project_lng);
                                                 });
                                             }
                                         }
