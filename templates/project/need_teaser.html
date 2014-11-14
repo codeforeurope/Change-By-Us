@@ -19,9 +19,9 @@
           {% if need.type == "inkind" %}
           {{ _('We need to') }}
               {% if need.subtype == 'borrow' %}
-                  borrow
+                  {{ _('borrow') }}
               {% elif need.subtype == 'donate' %}
-                  get a donation of
+                  {{ _('get a donation of') }}
               {% endif %}
               <a href="#show,need-detail,{{ need.id }}" class="vol-need"><span class="vol-count">{{ need.quantity }}</span> {{ need.request }}</a>
           {% else %}

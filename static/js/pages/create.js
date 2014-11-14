@@ -265,7 +265,11 @@
                         osm.addTo(map);
                         map.on('click', function(e) {
                             //If user clicks outside a layer, warn him/her
-                            alert(app_page.messages['steps-location-clicked-map-outside-area']);
+                            if(!mrl.current_step.step_data.locationDropdown.getLocation()){
+                                alert(app_page.messages['steps-location-clicked-map-no-location']);
+                            }else {
+                                alert(app_page.messages['steps-location-clicked-map-outside-area']);
+                            }
                         });
 	                    //Leaflet end
 						if(!merlin.current_step.step_data.locationDropdown){
