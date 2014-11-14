@@ -91,7 +91,8 @@
                         <div class="location-hood-list"><ul></ul></div>
                         <span class="error">{{ _('Please enter a neighborhood.') }}</span>
                     </div>
-                    <h3>{{ _('Pin it on a map!') }}</h3>
+
+                    <h3>{{ _('Pin it on the map!') }}<span class="after-h1">({{ _('Optional') }})</span></h3>
                     <div class="row row-4 clearfix">
                         <div class="leaflet-map" id="leaflet-map"></div>
                     </div>
@@ -185,7 +186,7 @@
 
 <div class="template-content modal-content join-no-user">
     <h2>{{ _('<strong>Hold your horses!</strong> Please register.') }}</h2>
-    <p>{{ _('You must <strong><a href="/join">register</a></strong> or <strong><a href="/login">login</a></strong> with %(site_name)s in order to create<br />your own project.')|format(site_name=d.config.site.name) }}</p>
+    <p>{{ _('You must <strong><a href="/join">register</a></strong> or <strong><a href="/login">login</a></strong> to %(sitename)s in order to vote for an idea.')|format(sitename=d.config.site.name) }}</p>
     <p><a href="/join" class="rounded-button">{{ _('Join') }}</a>&nbsp;<a href="/login" class="rounded-button">{{ _('Login') }}</a></p>
 </div>
 

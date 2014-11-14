@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-11-14 11:15+0100\n"
+"POT-Creation-Date: 2014-11-14 14:05+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -115,15 +115,15 @@ msgstr ""
 msgid "Sign Up"
 msgstr ""
 
-#: templates/bb.html:25 templates/bb.html:144 templates/create.html:189
-#: templates/login.html:7 templates/login.html:23 templates/login.html:44
-#: templates/partials/base.html:186 templates/partials/base.html:260
-#: templates/partials/mobilebase.html:32 templates/project.html:182
-#: templates/search.html:648
+#: templates/bb.html:25 templates/bb.html:144 templates/create.html:190
+#: templates/idea.html:154 templates/login.html:7 templates/login.html:23
+#: templates/login.html:44 templates/partials/base.html:186
+#: templates/partials/base.html:260 templates/partials/mobilebase.html:32
+#: templates/project.html:182 templates/search.html:648
 msgid "Login"
 msgstr ""
 
-#: templates/bb.html:37 templates/create.html:15 templates/create.html:225
+#: templates/bb.html:37 templates/create.html:15 templates/create.html:226
 msgid "Hey"
 msgstr ""
 
@@ -202,7 +202,7 @@ msgstr ""
 msgid "Thanks, you've joined the project:"
 msgstr ""
 
-#: templates/bb.html:117 templates/create.html:54 templates/create.html:238
+#: templates/bb.html:117 templates/create.html:54 templates/create.html:239
 #: templates/home.html:254 templates/home.html:293 templates/home.html:434
 #: templates/idea.html:116 templates/project/mission.html:42
 #: templates/search.html:121 templates/search.html:665
@@ -384,7 +384,7 @@ msgstr ""
 msgid "Create <em>a</em> Project"
 msgstr ""
 
-#: templates/create.html:14 templates/create.html:224
+#: templates/create.html:14 templates/create.html:225
 msgid "Turn an idea into a project."
 msgstr ""
 
@@ -404,8 +404,8 @@ msgstr ""
 msgid "Check"
 msgstr ""
 
-#: templates/create.html:23 templates/create.html:176
-#: templates/create.html:250 templates/partials/add_resource.html:20
+#: templates/create.html:23 templates/create.html:177
+#: templates/create.html:251 templates/partials/add_resource.html:20
 #: templates/project/add_link.html:32 templates/project/mission.html:136
 #: templates/project.html:358 templates/search.html:216
 #: templates/search.html:548 templates/search.html:673
@@ -460,62 +460,66 @@ msgid "Please enter a neighborhood."
 msgstr ""
 
 #: templates/create.html:94
-msgid "Pin it on a map!"
+msgid "Optional"
 msgstr ""
 
-#: templates/create.html:102
+#: templates/create.html:95
+msgid "Pin it on the map!"
+msgstr ""
+
+#: templates/create.html:103
 msgid "Please wait while we check for similar projects."
 msgstr ""
 
-#: templates/create.html:107 templates/create.html:126
+#: templates/create.html:108 templates/create.html:127
 msgid "Similar Projects"
 msgstr ""
 
-#: templates/create.html:112
+#: templates/create.html:113
 msgid "Please wait while we search for relevant resources."
 msgstr ""
 
-#: templates/create.html:119
+#: templates/create.html:120
 msgid "You&#39;ve added <br /><strong>resources</strong>"
 msgstr ""
 
-#: templates/create.html:127
+#: templates/create.html:128
 msgid "No similar projects found."
 msgstr ""
 
-#: templates/create.html:128
+#: templates/create.html:129
 msgid "Thanks for taking the lead!"
 msgstr ""
 
-#: templates/create.html:133 templates/project/related_resources.html:25
+#: templates/create.html:134 templates/project/related_resources.html:25
 msgid "No resources found."
 msgstr ""
 
-#: templates/create.html:134
+#: templates/create.html:135
 msgid ""
 "Sorry! You can add resources later if you find something that looks helpful."
 msgstr ""
 
-#: templates/create.html:138 templates/join.html:224
+#: templates/create.html:139 templates/join.html:224
 msgid "Thank you for joining."
 msgstr ""
 
-#: templates/create.html:145 templates/join.html:235
+#: templates/create.html:146 templates/join.html:235
 msgid "Back"
 msgstr ""
 
-#: templates/create.html:150 templates/project.html:194
+#: templates/create.html:151 templates/project.html:194
 msgid "<strong>Upload</strong> a photo for your project."
 msgstr ""
 
-#: templates/create.html:152 templates/project.html:196
+#: templates/create.html:153 templates/project.html:196
 #: templates/useraccount.html:658 templates/useraccount.html:669
 msgid ""
 "Photos should be <strong>under 1MB</strong> please. (We also crop photos to "
 "<strong>90px by 90px</strong>)"
 msgstr ""
 
-#: templates/create.html:156 templates/home.html:384 templates/home.html:396
+#: templates/create.html:157 templates/home.html:384 templates/home.html:396
 #: templates/idea.html:155 templates/join.html:244
 #: templates/partials/add_resource.html:29
 #: templates/partials/base_idea_delete.html:16
@@ -541,32 +545,31 @@ msgstr ""
 msgid "close"
 msgstr ""
 
-#: templates/create.html:178 templates/create.html:244
+#: templates/create.html:179 templates/create.html:245
 #: templates/project.html:355 templates/search.html:230
 #: templates/search.html:562 templates/search.html:684
 #: templates/useraccount.html:266
 msgid "Added <em>to</em> your project"
 msgstr ""
 
-#: templates/create.html:179 templates/useraccount.html:267
+#: templates/create.html:180 templates/useraccount.html:267
 msgid "We&#39;ve sent them a link to your project page."
 msgstr ""
 
-#: templates/create.html:187 templates/idea.html:152
+#: templates/create.html:188 templates/idea.html:152
 #: templates/project.html:180 templates/search.html:640
 #: templates/search.html:646
 msgid "<strong>Hold your horses!</strong> Please register."
 msgstr ""
 
-#: templates/create.html:188
+#: templates/create.html:189 templates/idea.html:153 templates/search.html:641
 #, python-format
 msgid ""
 "You must <strong><a href=\"/join\">register</a></strong> or <strong><a href="
-"\"/login\">login</a></strong> with %(site_name)s in order to create<br /"
-">your own project."
+"\"/login\">login</a></strong> to %(sitename)s in order to vote for an idea."
 msgstr ""
 
-#: templates/create.html:189 templates/join.html:7
+#: templates/create.html:190 templates/idea.html:154 templates/join.html:7
 #: templates/partials/base.html:185
 #: templates/partials/idea_conversation.html:23
 #: templates/project/conversation.html:32 templates/project.html:75
@@ -574,68 +577,68 @@ msgstr ""
 msgid "Join"
 msgstr ""
 
-#: templates/create.html:206 templates/project/resources.html:183
+#: templates/create.html:207 templates/project/resources.html:183
 #: templates/search.html:617
 msgid "Visit Us"
 msgstr ""
 
-#: templates/create.html:226
+#: templates/create.html:227
 msgid "let's get started with some basic details."
 msgstr ""
 
-#: templates/create.html:227
+#: templates/create.html:228
 msgid "e.g. More Greenways Downtown"
 msgstr ""
 
-#: templates/create.html:228
+#: templates/create.html:229
 msgid "Field Organization, Program, Community Group, etc."
 msgstr ""
 
-#: templates/create.html:229
+#: templates/create.html:230
 msgid "Add a description"
 msgstr ""
 
-#: templates/create.html:230
+#: templates/create.html:231
 msgid "Separate keywords by commas"
 msgstr ""
 
-#: templates/create.html:231
+#: templates/create.html:232
 msgid "Turn ideas into solutions"
 msgstr ""
 
-#: templates/create.html:232
+#: templates/create.html:233
 msgid ""
 "Get found by other people, resources,<br />and other projects in the area."
 msgstr ""
 
-#: templates/create.html:233 templates/home.html:432
+#: templates/create.html:234 templates/home.html:432
 #: templates/resource.html:158
 msgid "Start typing a neighborhood"
 msgstr ""
 
-#: templates/create.html:234 templates/create.html:236
+#: templates/create.html:235 templates/create.html:237
 msgid "Let's have a look for similar projects."
 msgstr ""
 
-#: templates/create.html:235 templates/create.html:237
+#: templates/create.html:236 templates/create.html:238
 msgid ""
 "Starting something new is great, but there<br />may also be a great project "
 "to join up with."
 msgstr ""
 
-#: templates/create.html:239 templates/create.html:241
-#: templates/create.html:246
+#: templates/create.html:240 templates/create.html:242
+#: templates/create.html:247
 msgid "Add a resource."
 msgstr ""
 
-#: templates/create.html:240 templates/create.html:242
-#: templates/create.html:247
+#: templates/create.html:241 templates/create.html:243
+#: templates/create.html:248
 msgid ""
 "When you add a resource, we will email them an<br />introduction and link to "
 "your project!"
 msgstr ""
 
-#: templates/create.html:243 templates/idea.html:48
+#: templates/create.html:244 templates/idea.html:48
 #: templates/partials/base_message.html:25
 #: templates/partials/idea_conversation.html:122
 #: templates/partials/idea_conversation_message.html:12
@@ -649,35 +652,35 @@ msgstr ""
 msgid "Close"
 msgstr ""
 
-#: templates/create.html:245 templates/project.html:356
+#: templates/create.html:246 templates/project.html:356
 #: templates/search.html:231 templates/search.html:563
 #: templates/search.html:685
 msgid "We've sent them a link to your project page."
 msgstr ""
 
-#: templates/create.html:248
+#: templates/create.html:249
 msgid "Thank you!"
 msgstr ""
 
-#: templates/create.html:249
+#: templates/create.html:250
 msgid "Thank you for adding a project."
 msgstr ""
 
-#: templates/create.html:251 templates/project/resources.html:157
+#: templates/create.html:252 templates/project/resources.html:157
 #: templates/search.html:224 templates/search.html:556
 #: templates/search.html:678
 msgid "Official Resource"
 msgstr ""
 
-#: templates/create.html:252
+#: templates/create.html:253
 msgid "The pin does not match the area you selected!"
 msgstr ""
 
-#: templates/create.html:253
+#: templates/create.html:254
 msgid "Hey! This is you!"
 msgstr ""
 
-#: templates/create.html:254
+#: templates/create.html:255
 msgid "Please select an area from the list first!"
 msgstr ""
 
@@ -1164,6 +1167,7 @@ msgstr ""
 
 #: templates/idea.html:19 templates/search.html:69 templates/search.html:180
 #: templates/search.html:287 templates/search.html:398
+#: templates/search.html:489 templates/search.html:536
 msgid "See all"
 msgstr ""
 
@@ -1220,13 +1224,6 @@ msgstr ""
 
 #: templates/idea.html:133 templates/search.html:137 templates/search.html:154
 msgid "Start <span>a</span> Project"
-msgstr ""
-
-#: templates/idea.html:153 templates/search.html:641
-#, python-format
-msgid ""
-"You must <strong><a href=\"/join\">register</a></strong> or <strong><a href="
-"\"/login\">login</a></strong> with %(sitename)s in order to vote for an idea."
 msgstr ""
 
 #: templates/idea.html:182 templates/project.html:351
@@ -1528,8 +1525,8 @@ msgstr ""
 #: templates/partials/base.html:175 templates/project/resources.html:11
 #: templates/project/resources.html:82 templates/search.html:58
 #: templates/search.html:178 templates/search.html:243
-#: templates/useraccount.html:80 templates/useraccount.html:240
-#: templates/useraccount.html:536
+#: templates/search.html:534 templates/useraccount.html:80
+#: templates/useraccount.html:240 templates/useraccount.html:536
 msgid "Resources"
 msgstr ""
 
@@ -2545,7 +2542,7 @@ msgstr ""
 #, python-format
 msgid ""
 "You must <strong><a href=\"/join\">register</a></strong> or <strong><a href="
-"\"/login\">login</a></strong> with %(sitename)s in order to Join a project."
+"\"/login\">login</a></strong> to %(sitename)s in order to Join a project."
 msgstr ""
 
 #: templates/project.html:187
@@ -2993,7 +2990,7 @@ msgstr ""
 #, python-format
 msgid ""
 "You must <strong><a href=\"/join\">register</a></strong> or <strong><a href="
-"\"/login\">login</a></strong> with %(sitename)s in order to add a Resource."
+"\"/login\">login</a></strong> to %(sitename)s in order to add a Resource."
 msgstr ""
 
 #: templates/search.html:741

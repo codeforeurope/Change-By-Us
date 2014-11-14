@@ -486,7 +486,7 @@
 					<div class="hd">
 						<h2>{{ _('Projects') }} <span class="counter">{{ d.template_data.results.data.projects|length }}</span></h2>
 						{% if d.template_data.results.data.projects|length > 0 %}
-						<span class="control"><a href="#projects">See all <span class="sm-arrow-forward light"></span></a></span>
+						<span class="control"><a href="#projects">{{ _('See all') }} <span class="sm-arrow-forward light"></span></a></span>
 						{% endif %}
 					</div>
 					<div class="bd">
@@ -531,9 +531,9 @@
                 <!-- Start Resources on map -->
 				<div class="box results-box results-resources">
 					<div class="hd">
-						<h2>Resources <span class="counter">{{ d.template_data.total_count.data.resources }}</span></h2>
+						<h2>{{ _('Resources') }} <span class="counter">{{ d.template_data.total_count.data.resources }}</span></h2>
 						{% if d.template_data.total_count.data.resources > 0 %}
-						<span class="control"><a href="#resources">See all <span class="sm-arrow-forward light"></span></a></span>
+						<span class="control"><a href="#resources">{{ _('See all') }} <span class="sm-arrow-forward light"></span></a></span>
 						{% endif %}
 					</div>
 					<div class="bd">
@@ -638,13 +638,13 @@
     <!-- Templates for modal view when user is not logged in yet (Like/Unlike)-->
     <div class='template-content modal-content join-no-user'>
         <h2>{{ _('<strong>Hold your horses!</strong> Please register.') }}</h2>
-        <p>{{ _('You must <strong><a href="/join">register</a></strong> or <strong><a href="/login">login</a></strong> with %(sitename)s in order to vote for an idea.')|format(sitename=d.config.site.name) }}</p>
+        <p>{{ _('You must <strong><a href="/join">register</a></strong> or <strong><a href="/login">login</a></strong> to %(sitename)s in order to vote for an idea.')|format(sitename=d.config.site.name) }}</p>
         <a class='close' href="#"><span>{{ _('close') }}</span></a>
     </div>
     <!-- Templates for modal view when user is not logged in yet (Resource) -->
     <div class='template-content modal-content join-no-user-resource'>
         <h2>{{ _('<strong>Hold your horses!</strong> Please register.') }}</h2>
-        <p>{{ _('You must <strong><a href="/join">register</a></strong> or <strong><a href="/login">login</a></strong> with %(sitename)s in order to add a Resource.')|format(sitename=d.config.site.name) }}</p>
+        <p>{{ _('You must <strong><a href="/join">register</a></strong> or <strong><a href="/login">login</a></strong> to %(sitename)s in order to add a Resource.')|format(sitename=d.config.site.name) }}</p>
         <p><a href="/join" class="rounded-button">{{ _('Join') }}</a>&nbsp;<a href="/login" class="rounded-button">{{ _('Login') }}</a></p>
         <a class='close' href="#"><span>{{ _('close') }}</span></a>
     </div>
