@@ -265,7 +265,7 @@
                         osm.addTo(map);
                         map.on('click', function(e) {
                             //If user clicks outside a layer, warn him/her
-                            if(!mrl.current_step.step_data.locationDropdown.getLocation()){
+                            if(!merlin.current_step.step_data.locationDropdown.getLocation()){
                                 alert(app_page.messages['steps-location-clicked-map-no-location']);
                             }else {
                                 alert(app_page.messages['steps-location-clicked-map-outside-area']);
@@ -283,7 +283,7 @@
 						}
 
                         var handleChange = function(e){
-                                    tc.util.log("Location Selection changed!");
+                                    //tc.util.log("Location Selection changed!");
                                     var mrl = e.data.merlin,
                                     location_id = mrl.current_step.step_data.locationDropdown.getLocation();
 //                                    tc.util.log("New Location ID:" + location_id);
@@ -314,10 +314,7 @@
                                                 poly.addTo(map);
                                                 polygons.push(poly);
                                                 poly.on('click', function (e) {
-                                                    tc.util.log("Clicked polygon at " + e.latlng);
-//                                                    popup.setLatLng(e.latlng)
-//                                                        .setContent("You clicked the poly at " + e.latlng.toString())
-//                                                        .openOn(map);
+                                                    //tc.util.log("Clicked polygon at " + e.latlng);
                                                     //Remove old marker and popup
                                                     map.removeLayer(marker);
                                                     map.removeLayer(popup);
