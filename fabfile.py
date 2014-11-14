@@ -143,7 +143,7 @@ env.packages = {'rhel5': {
                          'php5-common', 'php5-mysql', 'php5-xmlrpc', 'php5-memcache', 'php5-curl', 'python2.7',
                          'python-setuptools', 'python-pip', 'python-imaging', 'python-mysqldb', 'python-simplejson',
                          'elinks', 'sendmail', 'exim4', 'lighttpd',
-                         's3cmd', 'git'],
+                         's3cmd', 'git', 'libgeos-dev'],
                     'optional': [],
                     'remove': ['apache2'],  # We don't want apache, we want lighttpd
                     'additional_commands': []}
