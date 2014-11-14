@@ -470,7 +470,7 @@ class Admin(Controller):
         for item in data:
             csv.append('"%s","%s","%s","%s"' % (item.word, str(item.num_projects + item.num_resources), item.num_projects, item.num_resources))
 
-        return self.csv('\n'.join(csv), "change_by_us.tags.csv")
+        return self.csv('\n'.join(csv), "idee_voor_je_buurt.tags.csv")
 
     def getProjectCSV(self):
         data = mMetrics.getProjectCounts(self.db)
@@ -481,7 +481,7 @@ class Admin(Controller):
         for item in data:
             csv.append('"%s","%s","%s","%s","%s","%s","%s","%s","%s"' % (item.title, item.num_users, item.num_ideas, item.num_resources, item.num_endorsements, len(item.keywords.split()), item.location, (item.lat if item.lat is not None else ''), (item.lon if item.lon is not None else '')))
 
-        return self.csv('\n'.join(csv), "change_by_us.project.csv")
+        return self.csv('\n'.join(csv), "idee_voor_je_buurt.project.csv")
 
     def getResourceCSV(self):
         data = mMetrics.getResourceCounts(self.db)
@@ -492,7 +492,7 @@ class Admin(Controller):
         for item in data:
             csv.append('"%s","%s","%s","%s"' % (item.title, item.description, item.project_count, item.created_datetime))
 
-        return self.csv('\n'.join(csv), "change_by_us.resource.csv")
+        return self.csv('\n'.join(csv), "idee_voor_je_buurt.resource.csv")
 
     def getUserCSV(self):
         data = mMetrics.getUserCounts(self.db)
@@ -503,7 +503,7 @@ class Admin(Controller):
         for item in data:
             csv.append('"%s","%s","%s","%s","%s"' % (item.last_name, item.first_name, item.email, item.num_projects, item.created_datetime))
 
-        return self.csv('\n'.join(csv), "change_by_us.user.csv")
+        return self.csv('\n'.join(csv), "idee_voor_je_buurt.user.csv")
 
     def getLocationCSV(self):
         data = mMetrics.getLocationCounts(self.db)
@@ -514,7 +514,7 @@ class Admin(Controller):
         for item in data:
             csv.append('"%s","%s","%s","%s","%s"' % (item.name, item.borough, item.num_projects, item.num_ideas, item.num_resources))
 
-        return self.csv('\n'.join(csv), "change_by_us.location.csv")
+        return self.csv('\n'.join(csv), "idee_voor_je_buurt.location.csv")
 
     def getSiteFeedbackCSV(self):
         csv = []
@@ -531,7 +531,7 @@ class Admin(Controller):
             log.info("*** there was a problem getting site feedback")
             log.error(e)
 
-        return self.csv('\n'.join(csv), "change_by_us.feedback.csv")
+        return self.csv('\n'.join(csv), "idee_voor_je_buurt.feedback.csv")
 
     def getBetaRequestsCSV(self):
         csv = []
@@ -548,7 +548,7 @@ class Admin(Controller):
             log.info("*** there was a problem getting beta invite requests")
             log.error(e)
 
-        return self.csv('\n'.join(csv), "change_by_us.beta_invite_requests.csv")
+        return self.csv('\n'.join(csv), "idee_voor_je_buurt.beta_invite_requests.csv")
     # END metrics methods
 
     def getAdminUsers(self):
