@@ -740,11 +740,15 @@
         See: https://www.gnu.org/software/gettext/manual/html_node/Perl-Pitfalls.html #}
         {%  set msg1 = _('No Results') %}
         {%  set msg2 = _('All neighborhoods') %}
+        {%  set msg3 = _('Ideas') %}
+        {%  set msg4 = _('Projects') %}
 
     <script>
         app_page.messages = {
             'no-results': "{{ msg1 }}",
-            'all-neighborhoods': "{{ msg2 }}"
+            'all-neighborhoods': "{{ msg2 }}",
+            'ideas': "{{ msg3 }}",
+            'projects': "{{ msg4 }}"
         };
     </script>
 {% endblock page_js %}

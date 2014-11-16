@@ -260,7 +260,7 @@ app_page.features.push(function(app){
 					tempcell.find('.creator').children('a').attr('href','/useraccount/'+d.results[i].owner.u_id).text(d.results[i].owner.name);
 					tempcell.find('.description').children('a').attr('href','/project/'+d.results[i].project_id).text( tc.truncate(d.results[i].description, 70, "...") );
 					temprow.append(tempcell);
-					if(i%2==1 || i==0){
+                    if(i%2==0){
 						out.children('tbody').append(temprow);
 					}
 				}
@@ -304,7 +304,7 @@ app_page.features.push(function(app){
 					};
 										
 					temprow.append(tempcell);
-					if(i%3==1 || i==0){
+					if(i%3==0){
 						out.children('tbody').append(temprow);
 					}
 				}
@@ -413,13 +413,13 @@ app_page.features.push(function(app){
 					} else {
 						tempcell.find('img').attr('src','/static/images/thumb_genAvatar50.png');
 					}
-					tempcell.find('.user-activity-count').text(d.results[i].num_ideas + ' ' + d.results[i].num_projects);
+					tempcell.find('.user-activity-count').html(d.results[i].num_ideas + ' ' + app_page.messages['ideas'] + '<br>' + d.results[i].num_projects + ' ' + app_page.messages['projects']);
 
 					tempcell.find('.link').children('a').attr('href','/useraccount/'+d.results[i].user_id).text( tc.truncate((d.results[i].first_name + ' ' + d.results[i].last_name), 50, "...") );
                     tempcell.find('.user-location').html(d.results[i].location_name);
 					tempcell.find('.description').children('a').attr('href','/useraccount/'+d.results[i].user_id).text( tc.truncate("", 70, "...") );
 					temprow.append(tempcell);
-					if(i%2==1 || i==0){
+					if(i%2==0){
 						out.children('tbody').append(temprow);
 					}
 				}
