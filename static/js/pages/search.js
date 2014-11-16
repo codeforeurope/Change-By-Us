@@ -675,8 +675,14 @@ app_page.features.push(function(app){
 		tc.jQ('a.remove-idea').bind('click', {app:app}, app.components.handlers.remove_idea_handler);
 		tc.jQ('a.delete-resource').bind('click', {app:app}, app.components.handlers.delete_resource_handler);
 		tc.jQ('a.delete-project').bind('click',{app:app},app.components.handlers.delete_project_handler);
-		tc.gam.add_resource(app, {elements: tc.jQ("a.add-resource")});
-        tc.jQ('a.new-resource').bind('click', {app:app},app.components.handlers.add_resource_clicked_handler);
+        tc.jQ('a.new-resource').bind('click', {app:app, no_user: {
+                        source_element: tc.jQ('.modal-content.join-no-user-resource'),
+                        init: function(modal, event_target, callback) {
+                            if (tc.jQ.isFunction(callback)) {
+                                callback(modal);
+                            }
+                        }
+                    }},app.components.handlers.add_resource_clicked_handler);
 		
 		// turn location field autocomplete off
 		tc.jQ('#location-hood-enter').attr('autocomplete', 'off');
