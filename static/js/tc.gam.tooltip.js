@@ -121,7 +121,7 @@ tc.resource_tooltip.prototype.generate_markup = function(data){
 	} else {
 		markup.find('img').attr('src','/static/images/thumb_genAvatar100.png');
 	}
-	markup.find('.main p').text(data.description);
+	markup.find('.main p').html(data.description);
 	markup.find('dd a').attr('target','_blank').attr('href',data.url).text(tc.truncate(data.url,28,'...'));
 	return tc.jQ('<div>').append(markup).html();
 };
