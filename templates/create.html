@@ -185,7 +185,7 @@
 </div>
 
 <div class="template-content modal-content join-no-user">
-    <h2>{{ _('<strong>Hold your horses!</strong> Please register.') }}</h2>
+    <h2>{{ _('<strong>Oops!</strong>') }}</h2>
     <p>{{ _('You must <strong><a href="/join">register</a></strong> or <strong><a href="/login">login</a></strong> to %(sitename)s in order to vote for an idea.')|format(sitename=d.config.site.name) }}</p>
     <p><a href="/join" class="rounded-button">{{ _('Join') }}</a>&nbsp;<a href="/login" class="rounded-button">{{ _('Login') }}</a></p>
 </div>
@@ -208,6 +208,21 @@
             <dd><a href=""></a></dd>
         </dl>
     </div>
+</div>
+
+<!-- Templates for modal view when user clicks on map outside of highlighted area and there is no location selected yet-->
+<div class='template-content modal-content clicked-map-no-location'>
+    <!--<h2><strong>{{ _('Oops!') }}</strong></h2>-->
+    <h2>{{ _('Please select an area from the list first!') }}</h2>
+    <p><a href="#" class="rounded-button cancel">{{ _('OK') }}</a></p>
+    <a class='close' href="#"><span>{{ _('close') }}</span></a>
+</div>
+<!-- Templates for modal view when user clicks on map outside of highlighted area -->
+<div class='template-content modal-content clicked-map-outside-area'>
+    <!--<h2><strong>{{ _('Oops!') }}</strong></h2>-->
+    <h2>{{ _('The pin does not match the area you selected!') }}</h2>
+    <p><a href="#" class="rounded-button cancel">{{ _('OK') }}</a></p>
+    <a class='close' href="#"><span>{{ _('close') }}</span></a>
 </div>
 
 {% endblock continent %}
@@ -250,9 +265,7 @@
         {%  set msg26 = _('Thank you for adding a project.') %}
         {%  set msg27 = _('Add') %}
         {%  set msg28 = _('Official Resource') %}
-        {%  set msg29 = _('The pin does not match the area you selected!') %}
-        {%  set msg30 = _('Hey! This is you!') %}
-        {%  set msg31 = _('Please select an area from the list first!') %}
+        {%  set msg29 = _('Hey! This is you!') %}
 
     <script>
         app_page.messages = {
@@ -284,9 +297,7 @@
             'steps-finish-subtitle': "{{ msg26 }}",
             'add': "{{ msg27 }}",
             'official-resource': "{{ msg28 }}",
-            'steps-location-clicked-map-outside-area': "{{ msg29 }}",
-            'steps-location-clicked-marker': "{{ msg30 }}",
-            'steps-location-clicked-map-no-location': "{{ msg31 }}"
+            'steps-location-clicked-marker': "{{ msg29 }}",
         };
     </script>
     <script type="text/javascript" src="/static/js/pages/create.js"></script>

@@ -263,14 +263,21 @@
                         mapBounds = L.latLngBounds(southWest, northEast)
                         osm = new L.TileLayer(osmUrl, {maxZoom: 18, zoom:13, minZoom:12, attribution: osmAttribution, maxBounds:mapBounds});
                         osm.addTo(map);
-                        map.on('click', function(e) {
+                        handleClickOnMap = function(){
                             //If user clicks outside a layer, warn him/her
                             if(!merlin.current_step.step_data.locationDropdown.getLocation()){
-                                alert(app_page.messages['steps-location-clicked-map-no-location']);
+                                merlin.app.components.modal.show({
+                                    preventClose:false,
+                                    source_element:tc.jQ('.modal-content.clicked-map-no-location')
+                                });
                             }else {
-                                alert(app_page.messages['steps-location-clicked-map-outside-area']);
+                                merlin.app.components.modal.show({
+                                    preventClose:false,
+                                    source_element:tc.jQ('.modal-content.clicked-map-outside-area')
+                                });
                             }
-                        });
+                        };
+                        map.on('click', handleClickOnMap);
 	                    //Leaflet end
 						if(!merlin.current_step.step_data.locationDropdown){
 							merlin.current_step.step_data.locationDropdown = new tc.locationDropdown({
@@ -331,13 +338,14 @@
                                             }
                                         }
                                     }
-                                }
+                                };
 
                         tc.jQ('#location-city').bind('change',{merlin:merlin},handleChange);
                         tc.jQ('#location-hood').bind('click',{merlin:merlin},handleChange);
                         tc.jQ('input.location-hood-enter').bind('change',{merlin:merlin},handleChange);
 					},
 					finish:function(merlin,dom){
+                        map.off('click', handleClickOnMap);
 						merlin.options.data = tc.jQ.extend(merlin.options.data,{
 							location_id:merlin.current_step.step_data.locationDropdown.getLocation()
 						});
@@ -638,3 +646,4 @@ var map;
 var popup = L.popup();
 var marker = L.marker();
 var polygons = [];
+var handleClickOnMap;
