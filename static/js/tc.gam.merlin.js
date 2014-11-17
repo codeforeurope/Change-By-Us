@@ -348,7 +348,7 @@ tc.merlin.prototype.show_step = function(step, force) {
     
     // Handle history (back and next)
     if (this.current_step && this.current_step.use_for_history) {
-        this.options.steps[step].prev_step = this.current_step.step_name;
+//        this.options.steps[step].prev_step = this.current_step.step_name; //Commenting this out helped in correctly managing the steps in "Create Project"
     } else if (this.current_step) {
         this.options.steps[step].prev_step = this.current_step.prev_step;
     }
