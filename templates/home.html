@@ -89,7 +89,7 @@
                                             <a href="idea/{{idea.idea_id}}">
                                             <div class="wrap">
                                                 <div class="note-meta-hd" {% if not idea.name %}style="display:none"{% endif %}>
-                                                    <strong>{% if idea.name %}{{ idea.name }}{% endif %}</strong> <em>said</em> &mdash;
+                                                    <strong>{% if idea.name %}{{ idea.name }}{% endif %}</strong> <em>{{ _('said') }}</em> &mdash;
                                                 </div>
                                                 <blockquote><p>{{ idea.text|truncate(140) }}</p></blockquote>
                                             </div>

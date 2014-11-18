@@ -169,12 +169,12 @@
                                             <div class="membrane">
                                                 {% if d.template_data and d.template_data.user %}
                                                     {% if d.template_data.user.is_admin or d.template_data.user.data.u_id == idea.owner.u_id %}
-                                                        <a class="close remove-idea" href="#removeIdea,{{ idea.idea_id }}"><span>Close</span></a>
+                                                        <a class="close remove-idea" href="#removeIdea,{{ idea.idea_id }}"><span>{{ _('Close') }}</span></a>
                                                     {% endif %}
                                                 {% endif %}
-                                                <cite class="note-meta-hd">{% if idea.owner %}<strong><a href="/useraccount/{{ idea.owner.u_id }}">{{ idea.owner.name|truncate(18) }}</a></strong> said &mdash;{% endif %}</cite>
+                                                <cite class="note-meta-hd">{% if idea.owner %}<strong><a href="/useraccount/{{ idea.owner.u_id }}">{{ idea.owner.name|truncate(18) }}</a></strong> {{ _('said') }} &mdash;{% endif %}</cite>
                                                 <blockquote><p>{{ idea.message|truncate(180) }}</p></blockquote>
-                                                <cite class="note-meta-ft">Posted <strong><span class="time-since">{{ idea.created }}</span></strong> via <strong>{{ idea.submission_type }}</strong></cite>
+                                                <cite class="note-meta-ft">Posted <strong><span class="time-since">{{ idea.created }}</span></strong> {{ _('via') }} <strong>{{ idea.submission_type }}</strong></cite>
                                             </div>
                                         </div>
                                     </li>
@@ -216,9 +216,9 @@
                                                         <a class="close remove-idea" href="#removeIdea,{{ idea.idea_id }}"><span>Close</span></a>
                                                     {% endif %}
                                                 {% endif %}
-                                                <cite class="note-meta-hd">{% if idea.owner %}<strong><a href="/useraccount/{{ idea.owner.u_id }}">{{ idea.owner.name|truncate(18) }}</a></strong> said &mdash;{% endif %}</cite>
+                                                <cite class="note-meta-hd">{% if idea.owner %}<strong><a href="/useraccount/{{ idea.owner.u_id }}">{{ idea.owner.name|truncate(18) }}</a></strong> {{ _('said') }} &mdash;{% endif %}</cite>
                                                 <blockquote><p>{{ idea.message|truncate(180) }}</p></blockquote>
-                                                <cite class="note-meta-ft">Posted <strong><span class="time-since">{{ idea.created }}</span></strong> via <strong>{{ idea.submission_type }}</strong></cite>
+                                                <cite class="note-meta-ft">Posted <strong><span class="time-since">{{ idea.created }}</span></strong> {{ _('via') }} <strong>{{ idea.submission_type }}</strong></cite>
                                             </div>
                                         </div>
                                     </li>
