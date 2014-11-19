@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: Change by Us v2\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-11-14 14:05+0100\n"
-"PO-Revision-Date: 2014-11-14 13:21+0000\n"
+"PO-Revision-Date: 2014-11-18 17:53+0000\n"
 "Last-Translator: jcgoilo <j.goilo@amsterdam.nl>\n"
 "Language-Team: Dutch (http://www.transifex.com/projects/p/change-by-us-v2/language/nl/)\n"
 "MIME-Version: 1.0\n"
@@ -240,7 +240,7 @@ msgstr "Email"
 
 #: templates/bb.html:142 templates/join.html:73 templates/login.html:39
 msgid "Password"
-msgstr "Password"
+msgstr "Wachtwoord"
 
 #: templates/bb.html:156
 msgid "There was a problem logging you in."
@@ -393,7 +393,7 @@ msgstr "Maak de stap van idee naar project."
 
 #: templates/create.html:15
 msgid "let&#39;s get started with some basic details."
-msgstr "Laten we beginnen met wat paar basisinformatie."
+msgstr "Laten we beginnen met wat algemene informatie."
 
 #: templates/create.html:20
 msgid "Describe"
@@ -588,7 +588,7 @@ msgstr "Bezoek ons"
 
 #: templates/create.html:227
 msgid "let's get started with some basic details."
-msgstr "Laten we beginnen met een paar basis details."
+msgstr "Laten we beginnen met een paar details."
 
 #: templates/create.html:228
 msgid "e.g. More Greenways Downtown"
@@ -678,7 +678,7 @@ msgstr "Officiële Hulp"
 
 #: templates/create.html:253
 msgid "The pin does not match the area you selected!"
-msgstr "Je pin komt niet overeen met het gebied die je hebt geselecteerd"
+msgstr "Je pin komt niet overeen met het gebied dat je hebt geselecteerd"
 
 #: templates/create.html:254
 msgid "Hey! This is you!"
@@ -827,7 +827,7 @@ msgstr "Bedankt voor het indienen van je idee naar %(sitename)s"
 msgid ""
 "Your password for %(sitename)s has been reset.  Go to %(sitelink)s and login"
 " with your new password:"
-msgstr "Je wachtwoord van %(sitename)s is gereset. Ga naar %(sitelink)s en login met het nieuwe wachtwoord"
+msgstr "Je wachtwoord voor %(sitename)s is gereset. Ga naar %(sitelink)s, je nieuwe wachtwoord is:"
 
 #: templates/email/forgot_password.html:19
 msgid ""
@@ -848,7 +848,7 @@ msgid ""
 "a project, or joining an existing project with people who share your goals. "
 "Based on your idea, you may also get invitations to projects in your area, "
 "or that match your idea."
-msgstr "%(sitename)s is ontwikkeld om je te helpen je idee tot een realiseerbaar project te om te vormen. Je kan je ook aansluiten bij projecten die dezelfde doelen als de joune nastreven. Afhankelijk van je idee wordt je uitgenodigd tot andere projecten die erop lijken of in de omgeving zijn."
+msgstr "%(sitename)s is ontwikkeld om je te helpen je idee tot een goed project om te zetten. Je kan je ook aansluiten bij projecten die dezelfde doelen als de joune nastreven. Afhankelijk van je idee word je uitgenodigd tot andere projecten die erop lijken of in de omgeving zijn."
 
 #: templates/email/project_endorsement.html:14
 #: templates/email/resource_approval.html:19
@@ -982,7 +982,7 @@ msgstr "Bedankt voor je idee"
 
 #: templates/home.html:32
 msgid "We need just a few more details."
-msgstr "We hebben nog wat detailles van je nodig."
+msgstr "We hebben nog wat gegevens van je nodig."
 
 #: templates/home.html:35
 msgid "Please wait while we process your idea!"
@@ -1393,7 +1393,7 @@ msgstr "Oeps! We hebben iemand gevonden met die naam of dat emailadres in ons sy
 
 #: templates/join.html:279 templates/login.html:41
 msgid "Forgot your password?"
-msgstr "Password vergeten?"
+msgstr "Wachtwoord vergeten?"
 
 #: templates/join.html:280
 msgid "First Name"
@@ -1463,7 +1463,7 @@ msgstr "Dank je voor het inloggen&hellip;"
 
 #: templates/login.html:66
 msgid "Your username or password was incorrect."
-msgstr "Je gebruikersnaam of password is incorrect."
+msgstr "Je gebruikersnaam of wachtwoord is incorrect."
 
 #: templates/login.html:67
 msgid ""
@@ -1475,7 +1475,7 @@ msgstr "Klik hier om terug te gaan naar het<br/><span class=\"spacer\"></span>in
 msgid ""
 "Forgot your password? <span>We'll send you an email with instructions to "
 "reset your password.</span>"
-msgstr "Je password vergeten?  <span>We sturen je een email met instructies om je password opnieuw in te stellen.</span>"
+msgstr "Je wachtwoord vergeten?  <span>We sturen je een email met instructies om je password opnieuw in te stellen.</span>"
 
 #: templates/login.html:75
 msgid "Enter your email"
@@ -1492,7 +1492,7 @@ msgstr "Even wachten aub"
 #: templates/login.html:98
 msgid ""
 "You will receive an email with further details on retrieving your password."
-msgstr "Je ontvangt een email met informatie om je password terug te halen."
+msgstr "Je ontvangt een email met informatie om je wachtwoord terug te halen."
 
 #: templates/login.html:102
 msgid ""
@@ -1519,7 +1519,7 @@ msgstr "Doe mee aan een Project"
 
 #: templates/partials/add_resource.html:7
 msgid "Add a <strong><span class=\"name\">Resource</span></strong>"
-msgstr "Voeg een<strong><span class=\"name\">Hulp</span></strong> toe "
+msgstr "Voeg een <strong><span class=\"name\">Hulp</span></strong> toe "
 
 #: templates/partials/add_resource.html:8
 msgid "Which project would you like to add this to?"
@@ -3100,7 +3100,7 @@ msgstr "Wijzigingen opslaan"
 
 #: templates/useraccount.html:461
 msgid "Change Password"
-msgstr "Verander Watchwoord"
+msgstr "Verander Wachtwoord"
 
 #: templates/useraccount.html:470
 msgid "Old Password"

@@ -604,12 +604,12 @@ tc.validate = function(element, validators) {
             if (isNaN(num_val)) {
                 if (value.length < (validators[i].split('-')[1] * 1.0)) {
                     valid = false;
-                    errors.push("Too short.");
+                    errors.push(app_page.general_messages['too_short']+".");
                 }
             } else {
                 if (value < (validators[i].split('-')[1] * 1.0)) {
                     valid = false;
-                    errors.push("Too small.");
+                    errors.push(app_page.general_messages['too_small']+".");
                 }
             }
             continue;
@@ -622,12 +622,12 @@ tc.validate = function(element, validators) {
             if (isNaN(num_val)) {
                 if (value.length > (validators[i].split('-')[1] * 1.0)) {
                     valid = false;
-                    errors.push("Too long.");
+                    errors.push(app_page.general_messages['too_long']+".");
                 }
             } else {
                 if (value > (validators[i].split('-')[1] * 1.0)) {
                     valid = false;
-                    errors.push("Too big.");
+                    errors.push(app_page.general_messages['too_big']+".");
                 }
             }
             continue;
@@ -636,7 +636,7 @@ tc.validate = function(element, validators) {
         if (validators[i].substring(0, 3) == 'not') {
             if (value === validators[i].split('-')[1]) {
                 valid = false;
-                errors.push("Invalid value.");
+                errors.push(app_page.general_messages['invalid_value']+".");
             }
             continue;
         }
@@ -646,13 +646,13 @@ tc.validate = function(element, validators) {
             tempelement = element.filter('.has-been-focused').siblings('.pass-strength');
             if (tempvalue < (validators[i].split('-')[1] * 1.0)) {
                 valid = false;
-                errors.push("Too Weak.");
+                errors.push(app_page.general_messages['too_weak']+".");
                 if (tempelement.length) {
-                    tempelement.text('Too weak').addClass('weak');
+                    tempelement.text(app_page.general_messages['too_weak']).addClass('weak');
                 }
             } else {
                 if (tempelement.length) {
-                    tempelement.text('Strong').removeClass('weak');
+                    tempelement.text(app_page.general_messages['strong']+".").removeClass('weak');
                 }
             }
             continue;
@@ -666,14 +666,14 @@ tc.validate = function(element, validators) {
                 if (element.get(0).type == 'checkbox') {
                     if (!element.filter(':checked').length || !element.get(0).checked) {
                         valid = false;
-                        errors.push("This is required.");
+                        errors.push(app_page.general_messages['required']+".");
                     }
                 } else {
                     value = tc.validator_utils.val_escape_hints(element);
                     if (!value.length) {
                         empty = true;
                         valid = false;
-                        errors.push("This is required.");
+                        errors.push(app_page.general_messages['required']+".");
                     }
                 }
                 break;
@@ -684,7 +684,7 @@ tc.validate = function(element, validators) {
                 for (j in value) {
                     if (!tc.validator_regex.email.test(tc.jQ.trim(value[j]))) {
                         valid = false;
-                        errors.push("Invalid Email.");
+                        errors.push(app_page.general_messages['invalid_email']+".");
                     }
                 }
                 break;
@@ -697,7 +697,7 @@ tc.validate = function(element, validators) {
                     if (tempelement.length) {
                         tempelement.show();
                     }
-                    errors.push("Invalid Email.");
+                    errors.push(app_page.general_messages['invalid_email']+".");
                 } else {
                     if (tempelement.length) {
                         tempelement.hide();
@@ -711,7 +711,7 @@ tc.validate = function(element, validators) {
                 for (j in value) {
                     if (!tc.validator_regex.url.test(tc.jQ.trim(value[j]))) {
                         valid = false;
-                        errors.push("Invalid Url.");
+                        errors.push(app_page.general_messages['invalid_url']+".");
                     }
                 }
                 break;
@@ -720,7 +720,7 @@ tc.validate = function(element, validators) {
             case 'url':
                 if (!tc.validator_regex.url.test(value)) {
                     valid = false;
-                    errors.push("Invalid Url.");
+                    errors.push(app_page.general_messages['invalid_url']+".");
                 }
                 break;
             
@@ -728,7 +728,7 @@ tc.validate = function(element, validators) {
             case 'numeric':
                 if (isNaN(Number(value))) {
                     valid = false;
-                    errors.push('Not a number.');
+                    errors.push(app_page.general_messages['not_number']+".");
                 }
                 break;
                 
@@ -736,7 +736,7 @@ tc.validate = function(element, validators) {
             case 'selected':
                 if (value == '-1') {
                     valid = false;
-                    errors.push('Must select a value.');
+                    errors.push(app_page.general_messages['must_select_value']+".");
                 }
                 break;
             }

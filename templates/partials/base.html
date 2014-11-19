@@ -554,9 +554,33 @@
 
 
     {%  set msg1 = _('Oops! Please fill in the fields marked in red.') %}
+    {%  set msg2 = _('Invalid Value') %}
+    {%  set msg3 = _('Too Weak') %}
+    {%  set msg4 = _('Strong') %}
+    {%  set msg5 = _('This is required') %}
+    {%  set msg6 = _('Invalid Email') %}
+    {%  set msg7 = _('Invalid Url') %}
+    {%  set msg8 = _('Not a number') %}
+    {%  set msg9 = _('Must select a value') %}
+    {%  set msg10 = _('Too short') %}
+    {%  set msg11 = _('Too long') %}
+    {%  set msg12 = _('Too big') %}
+    {%  set msg13 = _('Too small') %}
     <script>
         app_page.general_messages = {
-            "oops_please_fill_fields_marked_red" : "{{ msg1 }}"
+            "oops_please_fill_fields_marked_red" : "{{ msg1 }}",
+            "invalid_value" : "{{ msg2 }}",
+            "too_weak" : "{{ msg3 }}",
+            "strong" : "{{ msg4 }}",
+            "required" : "{{ msg5 }}",
+            "invalid_email" : "{{ msg6 }}",
+            "invalid_url" : "{{ msg7 }}",
+            "not_number" : "{{ msg8 }}",
+            "must_select_value" : "{{ msg9 }}",
+            "too_short" : "{{ msg10 }}",
+            "too_long" : "{{ msg11 }}",
+            "too_big" : "{{ msg12 }}",
+            "too_small" : "{{ msg13 }}"
         }
     </script>
 
