@@ -157,7 +157,7 @@ tc.inlineEditor.prototype = {
 	// for internal use:
 	
 	_generateControls: function() {
-		return '<a href="#" class="ca-btn save-btn">Save</a><a href="#" class="cancel-btn">Cancel</a>';
+		return '<a href="#" class="ca-btn save-btn">'+app_page.general_messages['save']+'</a><a href="#" class="cancel-btn">'+app_page.general_messages['cancel']+'</a>';
 	},
 	_renderDisplayContent: function() {
 		this.content.text(this.data);
