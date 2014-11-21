@@ -77,7 +77,7 @@
                             <li class="messages"><a href="#user-account,messages">{{ _('Messages') }} <span class="counter">{{ d.template_data.user.data.num_new_messages }}</span></a></li>
                             <li class="account"><a href="#user-account,account">{{ _('Account') }}</a></li>
                             {% if d.template_data.user_activity.data.resources and d.template_data.user_activity.data.resources > 0 %}
-                            <li class="resources"><a href="#user-account,resources">{{ _('Resources') }}</a></li>
+                            <li class="resources"><a href="#user-account,resources">{{ _('My') }} {{ _('Resources') }}</a></li>
                             {% endif %}
                             <a class="rounded-button small fancy-caps more-link" href="/resource">{{ _('Add <span>your</span> Resource') }} <span class="sm-arrow-forward"></span></a>
                         {% endif %}
