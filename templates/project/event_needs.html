@@ -69,7 +69,7 @@
         We need <a href="#show,need-detail,{{id}}" class="vol-need"><span class="vol-count">{{quantity}}</span> {{
         _('volunteer') }} {{request}}</a>
         {{#reason}} for {{reason}}{{/reason}}
-        {{#display_date}} on {{display_date}}{{/display_date}}
+        {{#display_date}} {% endraw %}{{ _('on') }}{% raw %} {{display_date}}{{/display_date}}
     </div>
 
 {% endraw %}

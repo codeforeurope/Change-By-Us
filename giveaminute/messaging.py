@@ -282,7 +282,6 @@ def emailTempPassword(email, password):
     emailAccount = Config.get('email')
     subject = translations.gettext("Your password has been reset")
     link = "%slogin" % Config.get('default_host')
-    link = "%stou" % Config.get('default_host')
     template_values = {
         'password': password,
         'link': link,

@@ -146,12 +146,12 @@ tc.validate = function(element, validators) {
             if (isNaN(num_val)) {
                 if (value.length < (validators[i].split('-')[1] * 1.0)) {
                     valid = false;
-                    errors.push(app_page.general_message['too_short']+".");
+                    errors.push(app_page.general_messages['too_short']+".");
                 }
             } else {
                 if (value < (validators[i].split('-')[1] * 1.0)) {
                     valid = false;
-                    errors.push(app_page.general_message['too_small']+".");
+                    errors.push(app_page.general_messages['too_small']+".");
                 }
             }
             continue;
@@ -278,7 +278,7 @@ tc.validate = function(element, validators) {
             case 'selected':
                 if (value == '-1') {
                     valid = false;
-                    errors.push(app_page.general_message['must_select_value']+'.');
+                    errors.push(app_page.general_messages['must_select_value']+'.');
                 }
                 break;
             }
