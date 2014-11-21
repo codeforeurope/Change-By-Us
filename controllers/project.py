@@ -199,8 +199,16 @@ class Project(Controller):
             if (isJoined):
                 project = mProject.Project(self.db, projectId)
 
+                #code to get language
+                locale_id = Config.get('default_lang')
+                # i18n directory.
+                cur_dir = os.path.abspath(os.path.dirname(__file__))
+                locale_dir = os.path.join(cur_dir, '..', 'i18n')
+                # Look in the translaton for the locale_id in locale_dir. Fallback to the
+                # default text if not found.
+                translations = gettext.translation('messages', locale_dir, [locale_id], fallback=True)
                 # add a message to the queue about the join
-                message = 'New Member! Your project now has %s total!' % project.data.num_members
+                message = translations.gettext('New Member! Your project now has %(number)s total!') % {'number': project.data.num_members}
 
                 # email admin
                 if (not mMessaging.emailProjectJoin(project.data.owner_email,
@@ -211,7 +219,7 @@ class Project(Controller):
                                                                                     self.user.lastName,
                                                                                     self.user.affiliation,
                                                                                     formattingUtils.isFullLastName(
-                                                                                            self.user.groupMembershipBitmask)))):
+                                                                                    self.user.groupMembershipBitmask)))):
                     log.error("*** couldn't email admin on user_id = %s joining project %s" % (self.user.id, projectId))
 
                 if (not mProject.addMessage(self.db,
