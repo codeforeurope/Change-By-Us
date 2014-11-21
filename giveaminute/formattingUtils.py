@@ -26,8 +26,12 @@ def userNameDisplay(first, last, affiliation=None, isFullLast=False):
     #return jinja2.Markup(name).unescape()
 
 def isFullLastName(bitmask):
-    # is admin or lead
-    return (util.getBit(bitmask, 1) or util.getBit(bitmask, 3))
+    # if site config does not request to always display full last names, check bitmask if is admin or lead
+    features = Config.get('features')
+    if features.get('is_users_last_name_displayed') == True:
+        return True
+    else:
+        return (util.getBit(bitmask, 1) or util.getBit(bitmask, 3))
 
 def smallAttachment(media_type, media_id, title):
     """Returns a dictionary representing basic attachment information"""
