@@ -7,7 +7,7 @@
 import re, base64, string, urlparse, datetime, json, jinja2
 from framework.log import log
 from framework.config import Config
-import locale
+from locale import setlocale, LC_TIME
 
 _TO_UNICODE_TYPES = (unicode, type(None))
 
@@ -746,6 +746,6 @@ def make_pretty_date(raw_date):
     """Returns dates that end in '1st' or '22nd' and the like using Python's functions."""
 
     lang = Config.get('default_lang')
-    locale.setlocale(locale.LC_TIME, lang)
-    display_date = raw_date.strftime('%B %d')
+    setlocale(LC_TIME, lang + 'UTF-8')
+    display_date = raw_date.strftime('%d %B')
     return display_date

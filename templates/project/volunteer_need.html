@@ -42,8 +42,7 @@
         {{ _('We need to borrow') }} <a href="#show,need-detail,{{id}}" class="vol-need"><span class="vol-count">{{quantity}}</span> {{request}}</a>
         {{/isInKind}}
         {{#isVolunteer}}
-        {{ _('We need') }} <a href="#show,need-detail,{{id}}" class="vol-need"><span class="vol-count">{{quantity}}</span> {{
-        _('volunteer(s)') }} {{request}}</a>
+        {% endraw %}{{ _('We need') }}{% raw %} <a href="#show,need-detail,{{id}}" class="vol-need"><span class="vol-count">{{quantity}}</span> {% endraw %}{{ _('volunteer(s)') }}{% raw %} {{request}}</a>
         {{/isVolunteer}}
 
         {{#reason}} {% endraw %}{{ _('for') }}{% raw %} {{reason}}{{/reason}}

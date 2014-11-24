@@ -449,8 +449,8 @@ class RestController (Controller):
             
             # All non-ascii (ond special) characters should be escaped with char-ref
             try:
-                if key in Model.__table__.c.keys() and str(Model.__table__.c.get(key).type).startswith('VARCHAR'):
-                    val = jinja2.escape(val).encode('ascii','xmlcharrefreplace')
+                if key in Model.__table__.c.keys() and (str(Model.__table__.c.get(key).type).startswith('VARCHAR') or str(Model.__table__.c.get(key).type).startswith('TEXT')):
+                    val = jinja2.escape(val).encode('ascii', 'xmlcharrefreplace')
                     if len(val) > 0: val = safeuni(val)
             except Exception, e:
                 log.debug("Exception encoding field %s: %s" % (key, e))
