@@ -43,7 +43,7 @@ class Calendar(Controller):
 
         # Get Month name to display
         lang = Config.get('default_lang')
-        locale.setlocale(locale.LC_TIME, lang + 'UTF-8')
+        locale.setlocale(locale.LC_TIME, lang + '.UTF-8')
 
         self.template_data['calendar']['month_name'] = d.strftime("%B")
         self.template_data['calendar']['year'] = d.year

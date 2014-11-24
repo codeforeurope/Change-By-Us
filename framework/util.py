@@ -746,6 +746,6 @@ def make_pretty_date(raw_date):
     """Returns dates that end in '1st' or '22nd' and the like using Python's functions."""
 
     lang = Config.get('default_lang')
-    setlocale(LC_TIME, lang + 'UTF-8')
+    setlocale(LC_TIME, lang + '.UTF-8')
     display_date = raw_date.strftime('%d %B')
     return display_date
