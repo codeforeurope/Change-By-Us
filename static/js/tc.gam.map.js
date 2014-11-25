@@ -67,7 +67,7 @@ function initialize(app) {
 	// InfoBox //
 	var boxText = document.createElement("div");
 	boxText.id = "infobox";
-	boxText.innerHTML = "<div id='ib-content'><div id='ib-title'><div class='outer'><div class='inner'>Neighborhood</div></div></div><img src='/static/images/map-infobox-projects.png' /><span id='ib-projects-num' class='ib-num'>10</span><br /><img src='/static/images/map-infobox-ideas.png' /><span id='ib-ideas-num' class='ib-num'>55</span><br /><img src='/static/images/map-infobox-resources.png' /><span id='ib-resources-num' class='ib-num'>3</span></div>";
+	boxText.innerHTML = "<div id='ib-content'><div id='ib-title'><div class='outer'><div class='inner'>Neighborhood</div></div></div>"+app_page.messages['projects']+"<span id='ib-projects-num' class='ib-num'>10</span><br />"+app_page.messages['ideas']+"<span id='ib-ideas-num' class='ib-num'>55</span><br />"+app_page.messages['resources']+"<span id='ib-resources-num' class='ib-num'>3</span></div>";
 
 	var myOptions = {
 		content: boxText,
@@ -175,7 +175,7 @@ function markerClick(e){
 	var boxText = document.createElement("div");
 	boxText.id = "infobox";
 	//  onClick='infoboxClick("+location_id+");'
-	boxText.innerHTML = "<div class='vCenter' id='ib-content'><div class='outer'><div class='inner'><div id='ib-title'>"+this.title+"</div><img src='/static/images/map-infobox-projects.png' /><span id='ib-projects-num' class='ib-num'>"+num_projects+"</span><br /><img src='/static/images/map-infobox-ideas.png' /><span id='ib-ideas-num' class='ib-num'>"+num_ideas+"</span><br /><img src='/static/images/map-infobox-resources.png' /><span id='ib-resources-num' class='ib-num'>"+num_resources+"</span></div></div></div>";
+	boxText.innerHTML = "<div class='vCenter' id='ib-content'><div class='outer'><div class='inner'><div id='ib-title'>"+this.title+"</div>"+app_page.messages['projects']+"<span id='ib-projects-num' class='ib-num'>"+num_projects+"</span><br />"+app_page.messages['ideas']+"<span id='ib-ideas-num' class='ib-num'>"+num_ideas+"</span><br />"+app_page.messages['resources']+"<span id='ib-resources-num' class='ib-num'>"+num_resources+"</span></div></div></div>";
 	
 	ib.setContent(boxText);
 	
@@ -208,7 +208,7 @@ function showInfoBox(e){
 	var boxText = document.createElement("div");
 	boxText.id = "infobox";
 	//  onClick='infoboxClick("+location_id+");'
-	boxText.innerHTML = "<div class='vCenter' id='ib-content'><div class='outer'><div class='inner'><div id='ib-title'>"+this.title+"</div><img src='/static/images/map-infobox-projects.png' /><span id='ib-projects-num' class='ib-num'>"+num_projects+"</span><br /><img src='/static/images/map-infobox-ideas.png' /><span id='ib-ideas-num' class='ib-num'>"+num_ideas+"</span><br /><img src='/static/images/map-infobox-resources.png' /><span id='ib-resources-num' class='ib-num'>"+num_resources+"</span></div></div></div>";
+	boxText.innerHTML = "<div class='vCenter' id='ib-content'><div class='outer'><div class='inner'><div id='ib-title'>"+this.title+"</div>"+app_page.messages['projects']+"<span id='ib-projects-num' class='ib-num'>"+num_projects+"</span><br />"+app_page.messages['ideas']+"<span id='ib-ideas-num' class='ib-num'>"+num_ideas+"</span><br />"+app_page.messages['resources']+"<span id='ib-resources-num' class='ib-num'>"+num_resources+"</span></div></div></div>";
 	ib.setContent(boxText);
 	
 	ib.setOptions({pixelOffset: new google.maps.Size((this.m_size / 2), -92)});
