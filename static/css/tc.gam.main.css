@@ -1351,9 +1351,9 @@ a.login-twitter {
     background-position: top left;
     background-repeat: no-repeat;
     display: block;
-    height: 54px;
+    height: 65px;
     margin-right: 20px;
-    width: 150px;
+    width: 164px;
 }
 
 a.login-facebook.has-been-clicked,
@@ -5870,7 +5870,7 @@ div.continent.login .midlands .west .email-login {
 
 div.continent.login .midlands .west .oauth-login {
     float: right;
-    width: 300px;
+    width: 164px;
 }
 
 div.continent.login .midlands .row {
@@ -6922,10 +6922,10 @@ div.continent.user-account .midlands .account-view a.connect-twitter {
     background-repeat: no-repeat;
     display: block;
     float: left;
-    height: 52px;
+    height: 65px;
     margin-bottom: 15px;
     margin-right: 17px;
-    width: 140px;
+    width: 164px;
 }
 
 div.continent.user-account .midlands .account-view div.social-networking a.connect-facebook {
@@ -6935,7 +6935,7 @@ div.continent.user-account .midlands .account-view div.social-networking a.conne
 div.continent.user-account .midlands .account-view div.social-networking.facebook-connected a.connect-facebook {
     background-image: url(../images/connected_fb.png);
     margin-right: 0px;
-    width: 157px;
+    width: 164px;
 }
 
 div.continent.user-account .midlands .account-view div.social-networking a.connect-twitter {
@@ -6945,7 +6945,7 @@ div.continent.user-account .midlands .account-view div.social-networking a.conne
 div.continent.user-account .midlands .account-view div.social-networking.twitter-connected a.connect-twitter {
     background-image: url(../images/connected_twitter.png);
     margin-right: 0px;
-    width: 157px;
+    width: 164px;
 }
 
 div.continent.user-account .midlands .account-view div.social-networking a.disconnect {

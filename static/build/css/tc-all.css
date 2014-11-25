@@ -1730,9 +1730,9 @@ a.login-twitter {
     background-position: top left;
     background-repeat: no-repeat;
     display: block;
-    height: 54px;
+    height: 65px;
     margin-right: 20px;
-    width: 150px;
+    width: 164px;
 }
 
 a.login-facebook.has-been-clicked,
@@ -6249,7 +6249,7 @@ div.continent.login .midlands .west .email-login {
 
 div.continent.login .midlands .west .oauth-login {
     float: right;
-    width: 300px;
+    width: 164px;
 }
 
 div.continent.login .midlands .row {
