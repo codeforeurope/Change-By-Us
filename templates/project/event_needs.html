@@ -66,8 +66,7 @@
 {% raw %}
   <div class="bd clearfix need-detail-cont">
     <div class="vol-title serif">
-        We need <a href="#show,need-detail,{{id}}" class="vol-need"><span class="vol-count">{{quantity}}</span> {{
-        _('volunteer') }} {{request}}</a>
+        {{ _('We need') }} <a href="#show,need-detail,{{id}}" class="vol-need"><span class="vol-count">{{quantity}}</span> {% endraw %}{{_('volunteer') }}{% raw %} {{request}}</a>
         {{#reason}} for {{reason}}{{/reason}}
         {{#display_date}} {% endraw %}{{ _('on') }}{% raw %} {{display_date}}{{/display_date}}
     </div>

@@ -803,6 +803,7 @@ class NeedModelRestController (RestController):
         if 'event_id' in data:
             try:
                 int(data['event_id'])
+                del data['date'] #get rid of date because we will use the Event's date as date
             except ValueError:
                 log.debug('Getting rid of an invalid event id: %r' % (data['event_id'],))
                 del data['event_id']

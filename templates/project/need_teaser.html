@@ -25,8 +25,7 @@
               {% endif %}
               <a href="#show,need-detail,{{ need.id }}" class="vol-need"><span class="vol-count">{{ need.quantity }}</span> {{ need.request }}</a>
           {% else %}
-          {{ _('We need') }} <a href="#show,need-detail,{{ need.id }}" class="vol-need"><span class="vol-count">{{ need.quantity }}</span>
-            {{ _('volunteer') }} {{ need.request }}</a>
+          {{ _('We need') }} <a href="#show,need-detail,{{ need.id }}" class="vol-need"><span class="vol-count">{{ need.quantity }}</span>{{ _('volunteer') }} {{ need.request }}</a>
           {% endif %}
 
           {% if need.reason %} for {{ need.reason }}{% endif %}
