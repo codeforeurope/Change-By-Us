@@ -4,7 +4,7 @@
     :copyright: (c) 2011 Local Projects, all rights reserved
     :license: Affero GNU GPL v3, see LICENSE for more details.
 """
-#------------------------------------------------------------------------------
+# ------------------------------------------------------------------------------
 #
 # Get a list of posts for the day
 # Send to the recipient list for this group
@@ -30,8 +30,9 @@ import boto
 from datetime import datetime
 from dateutil.relativedelta import relativedelta
 from optparse import OptionParser, IndentedHelpFormatter  # for command-line menu
-import time     # for sleeping
+import time  # for sleeping
 import re
+import jinja2
 
 # Assuming we start in the scripts folder, we need
 # to traverse up for everything in our project
@@ -43,11 +44,12 @@ from lib import web
 import logging
 
 LOG_LEVELS = {
-  'debug': logging.DEBUG,
-  'info': logging.INFO,
-  'warning': logging.WARNING,
-  'error': logging.ERROR,
-  'critical': logging.CRITICAL }
+    'debug': logging.DEBUG,
+    'info': logging.INFO,
+    'warning': logging.WARNING,
+    'error': logging.ERROR,
+    'critical': logging.CRITICAL}
+
 
 class Loggable():
     def configureLogger(self):
@@ -59,7 +61,7 @@ class Loggable():
             logLevel = conf.get('email').get('digest').get('log_level')
         except Exception, e:
             pass
-        
+
         if logFile and logLevel:
             if not os.path.exists((os.path.split(logFile)[0])):
                 print("Created folder for logfile %s" % logFile)
@@ -74,13 +76,14 @@ class Loggable():
                             filemode='a')
         logging.info('Started logging')
 
+
 class Mailable():
     SESHandle = None
     SESSendQuota = None
     MailerSettings = {}
 
     def setupMailer(self, settings=None):
-        self.MailerSettings['FromName']  = settings.get('from_name')
+        self.MailerSettings['FromName'] = settings.get('from_name')
         self.MailerSettings['FromEmail'] = settings.get('from_email')
 
         print self.MailerSettings
@@ -89,8 +92,8 @@ class Mailable():
             return
 
         self.SESHandle = boto.connect_ses(
-          aws_access_key_id     = settings.get('aws_ses').get('access_key_id'),
-          aws_secret_access_key = settings.get('aws_ses').get('secret_access_key'))
+            aws_access_key_id=settings.get('aws_ses').get('access_key_id'),
+            aws_secret_access_key=settings.get('aws_ses').get('secret_access_key'))
 
         self.SESSendQuota = self.SESHandle.get_send_quota()["GetSendQuotaResponse"]["GetSendQuotaResult"]
         # Check if we're close to the smtp quota. 10 seems like a good number
@@ -102,7 +105,7 @@ class Mailable():
         if max24HourSend is None:
             max24HourSend = 0
         max24HourSend = int(float(max24HourSend))
-        if sentLast24Hours >= max24HourSend- 10:
+        if sentLast24Hours >= max24HourSend - 10:
             self._enable_smtp()
 
         self._enable_aws_ses(settings)
@@ -124,38 +127,37 @@ class Mailable():
 
     def htmlify(self, body):
         body = re.sub('\n', '<br/>\n', body)
-        return "<html><head></head><body>%s</body></html>" % body 
-    
+        return "<html><head></head><body>%s</body></html>" % body
+
     def sendEmail(self, to=None, recipients=None, subject=None, body=None, maxRetries=10):
         complete = False
         failNum = 0
-        
+
         while not complete:
             complete = Emailer.send(addresses=to,
-                        subject=subject,
-                        text=None,
-                        html=body,
-                        from_name = self.MailerSettings.get('FromName'),
-                        from_address = self.MailerSettings.get('FromEmail'),
-                        bcc=recipients)
-                        
+                                    subject=subject,
+                                    text=None,
+                                    html=body,
+                                    from_name=self.MailerSettings.get('FromName'),
+                                    from_address=self.MailerSettings.get('FromEmail'),
+                                    bcc=recipients)
+
             if (not complete):
                 if (failNum < maxRetries):
                     failNum += 1
-                    
+
                     # Most probably we got an SES error, which means we should wait and retry
                     time.sleep(1)
                     pass
                 else:
                     complete = True
                     logging.error("Failed to send digest email '%s'. Quit after %s tries." % (subject, str(maxRetries)))
-                    
-                    return False
-        
-        return True
-        
 
-        
+                    return False
+
+        return True
+
+
 class Configurable():
     def loadConfigs(self, config_file, section=None):
         if not os.path.exists(config_file):
@@ -169,26 +171,27 @@ class Configurable():
         else:
             return conf
 
+
 class Taskable():
     """
     Ensure that this is either called from a WebpyDBConnectable or has connection parameters sent in
     """
     TaskName = None
-     
+
     def getAvailableTasks(self, taskName=None, limit=5):
         """
         Get the limit number of tasks from the tasks table, but only tasks that were not updated today
         """
         sql = """
-select *
-from tasks
-where task_name = $task_name
-    and (status is NULL or status = 'A' or status = '')
-    and updated_datetime < $threshold_datetime
-order by updated_datetime DESC
-limit 0, $limit
-"""
-        params = {'task_name': taskName, 'threshold_datetime' : datetime.utcnow().strftime("%Y-%m-%d"), 'limit':limit}
+        select *
+        from tasks
+        where task_name = $task_name
+            and (status is NULL or status = 'A' or status = '')
+            and updated_datetime < $threshold_datetime
+        order by updated_datetime DESC
+        limit 0, $limit
+        """
+        params = {'task_name': taskName, 'threshold_datetime': datetime.utcnow().strftime("%Y-%m-%d %H:%M"), 'limit': limit}
         try:
             tasks = self.executeSQL(sql, params)
             return tasks
@@ -198,27 +201,27 @@ limit 0, $limit
 
     def getMyTasks(self):
         sql = """
-select *
-from tasks
-where owner_id = $myid
-    and status='P'
-order by updated_datetime DESC
-"""
+        select *
+        from tasks
+        where owner_id = $myid
+            and status='P'
+        order by updated_datetime DESC
+        """
         try:
-            myTasks = self.executeSQL(sql, {'myid':self.MyID})
+            myTasks = self.executeSQL(sql, {'myid': self.MyID})
             return myTasks
         except Exception, e:
             logging.error(e)
             return False
 
     def reserveTask(self, taskId=None):
-        sql="""
-update tasks
-set owner_id=$myid, status=$status, updated_datetime=NOW()
-where task_id=$taskid
-    and (status is NULL or status = 'A' or status = '')
-"""
-        params = {'myid':self.MyID, 'status': 'P', 'taskid': taskId, 'myid':self.MyID}
+        sql = """
+        update tasks
+        set owner_id=$myid, status=$status, updated_datetime=NOW()
+        where task_id=$taskid
+            and (status is NULL or status = 'A' or status = '')
+        """
+        params = {'myid': self.MyID, 'status': 'P', 'taskid': taskId, 'myid': self.MyID}
         try:
             result = self.executeSQL(sql, params)
             if result != 1:
@@ -229,7 +232,7 @@ where task_id=$taskid
             return False
 
     def releaseTask(self, taskId):
-        sql="""
+        sql = """
 update tasks set owner_id=NULL, status=$status, updated_datetime=NOW()
 where task_id=$taskid
 """
@@ -248,7 +251,6 @@ where task_id=$taskid
             return False
 
 
-
 class WebpyDBConnectable():
     """
     Provide database connections stuff
@@ -258,7 +260,8 @@ class WebpyDBConnectable():
 
     # Library functions (internal only)
     def connectDB(self, dbParams):
-        self.DBHandle = web.database(dbn=dbParams.get('dbn'),user=dbParams.get('user'), pw=dbParams.get('password'), db=dbParams.get('db'), host=dbParams.get('host'))
+        self.DBHandle = web.database(dbn=dbParams.get('dbn'), user=dbParams.get('user'), pw=dbParams.get('password'),
+                                     db=dbParams.get('db'), host=dbParams.get('host'))
 
     def disconnectDB(self):
         if self.DBHandle is not None:
@@ -267,14 +270,15 @@ class WebpyDBConnectable():
     def executeSQL(self, sql, params):
         return self.DBHandle.query(sql, params)
 
+
 class GiveAMinuteDigest(Configurable, WebpyDBConnectable, Mailable, Loggable, Taskable):
-    Config = None       # Config object that stores all configs (duh)
-    FromDate = None     # Start Date that queries should use for created_datetime filter
-    ToDate = None       # End Date that queries should use for create_datetime filter
-    EmailOnly = False   # Only email the found digests from the DB, don't create them
-    AddOnly = False     # Only add digests to the database, don't email them
-    Digests = None      # Digests object for all the digests to be sent
-    MyID    = None
+    Config = None  # Config object that stores all configs (duh)
+    FromDate = None  # Start Date that queries should use for created_datetime filter
+    ToDate = None  # End Date that queries should use for create_datetime filter
+    EmailOnly = False  # Only email the found digests from the DB, don't create them
+    AddOnly = False  # Only add digests to the database, don't email them
+    Digests = None  # Digests object for all the digests to be sent
+    MyID = None
 
     def __init__(self, configFile=None):
         # Connect to the mysql database based on the params from Config.yaml
@@ -290,6 +294,7 @@ class GiveAMinuteDigest(Configurable, WebpyDBConnectable, Mailable, Loggable, Ta
         self.MyID = os.environ.get('EC2_INSTANCE_ID')
         if self.MyID is None or self.MyID == '':
             import socket
+
             self.MyID = socket.gethostname()
 
         if self.MyID is None or self.MyID == '':
@@ -298,7 +303,7 @@ class GiveAMinuteDigest(Configurable, WebpyDBConnectable, Mailable, Loggable, Ta
 
     # def __del__(self):
     #     self.disconnectDB()
-        
+
     # Publicly visible functions
 
     def getRecentMessages(self, projectId=None, filterBy='member_comment'):
@@ -307,35 +312,37 @@ class GiveAMinuteDigest(Configurable, WebpyDBConnectable, Mailable, Loggable, Ta
         """
 
         sql = """
-select 
-    pm.project_message_id,
-    pm.project_id,
-    pm.message_type,
-    pm.message,
-    pm.created_datetime,
-    u.user_id,
-    u.first_name,
-    u.last_name,
-    u.image_id,
-    u.email,
-    i.idea_id,
-    i.description as idea_description,
-    i.submission_type as idea_submission_type,
-    i.created_datetime as idea_created_datetime
-from project_message pm
-inner join user u on u.user_id = pm.user_id
-left join idea i on i.idea_id = pm.idea_id
-where pm.project_id = $id and pm.is_active = 1
-    and ($filterBy is null or pm.message_type = $filterBy)
-    and pm.created_datetime between $fromDate and $toDate
-order by pm.created_datetime desc
-"""
+        select
+            pm.project_message_id,
+            pm.project_id,
+            pm.message_type,
+            pm.message,
+            pm.created_datetime,
+            u.user_id,
+            u.first_name,
+            u.last_name,
+            u.image_id,
+            u.email,
+            i.idea_id,
+            i.description as idea_description,
+            i.submission_type as idea_submission_type,
+            i.created_datetime as idea_created_datetime
+        from project_message pm
+        inner join user u on u.user_id = pm.user_id
+        left join idea i on i.idea_id = pm.idea_id
+        where pm.project_id = $id and pm.is_active = 1
+            and ($filterBy is null or pm.message_type = $filterBy)
+            and pm.created_datetime between $fromDate and $toDate
+            and u.is_active=1
+        order by pm.created_datetime desc
+        """
         # TODO:
         # Should we be ordering/grouping by something other than the creationtime?
 
         # cursor = self.DBHandle.cursor()
         try:
-            comments = self.executeSQL(sql, {'id':int(projectId), 'fromDate':self.FromDate, 'toDate': self.ToDate, 'filterBy':filterBy})
+            comments = self.executeSQL(sql, {'id': int(projectId), 'fromDate': self.FromDate, 'toDate': self.ToDate,
+                                             'filterBy': filterBy})
             groups = {}
             for comment in comments:
                 if not groups.get(comment.project_id):
@@ -346,7 +353,7 @@ order by pm.created_datetime desc
                 return False
 
             return groups
-        
+
         except Exception, e:
             logging.error(e)
             return False
@@ -357,20 +364,21 @@ order by pm.created_datetime desc
         """
 
         sql = """
-select 
-    u.user_id,
-    u.first_name,
-    u.last_name,
-    u.image_id,
-    u.email_notification,
-    pu.created_datetime,
-    pu.project_id
-from user u 
-join project__user as pu on u.user_id = pu.user_id
-where pu.created_datetime between $fromDate and $toDate
-order by pu.project_id, u.created_datetime desc
-"""
-        params = {'fromDate':self.FromDate, 'toDate':self.ToDate}
+        select
+            u.user_id,
+            u.first_name,
+            u.last_name,
+            u.image_id,
+            u.email_notification,
+            pu.created_datetime,
+            pu.project_id
+        from user u
+        join project__user as pu on u.user_id = pu.user_id
+        where pu.created_datetime between $fromDate and $toDate
+        and u.is_active = 1
+        order by pu.project_id, u.created_datetime desc
+        """
+        params = {'fromDate': self.FromDate, 'toDate': self.ToDate}
         try:
             members = self.executeSQL(sql, params)
             projects = {}
@@ -392,27 +400,28 @@ order by pu.project_id, u.created_datetime desc
         """
 
         sql = """
-select
-    u.user_id,
-    u.first_name,
-    u.last_name,
-    u.image_id,
-    u.email,
-    u.email_notification,
-    u.created_datetime,
-    pu.project_id,
-    pu.is_project_admin
-from user u
-    join project__user as pu on u.user_id = pu.user_id
-where pu.project_id in $projects
-    and (u.email_notification = $digestNotifyFlag or pu.is_project_admin = 1)
-order by pu.project_id, u.created_datetime desc
-"""
+            select
+                u.user_id,
+                u.first_name,
+                u.last_name,
+                u.image_id,
+                u.email,
+                u.email_notification,
+                u.created_datetime,
+                pu.project_id,
+                pu.is_project_admin
+            from user u
+                join project__user as pu on u.user_id = pu.user_id
+            where pu.project_id in $projects
+                and (u.email_notification = $digestNotifyFlag or pu.is_project_admin = 1)
+                and u.is_active = 1
+            order by pu.project_id, u.created_datetime desc
+            """
         if projects == []:
             projects = [0]  # Set a default value for the "in" statement to work
         # We have to map() because python is too stupid to deal with dynamic typecasting for
         try:
-            members = self.executeSQL(sql, params = {'projects':projects, 'digestNotifyFlag':'digest'})
+            members = self.executeSQL(sql, params={'projects': projects, 'digestNotifyFlag': 'digest'})
             projects = {}
             for member in members:
                 if not projects.get(member.project_id):
@@ -440,7 +449,7 @@ order by pu.project_id, u.created_datetime desc
 
             if members_by_project.get(projId) is not None:
                 project_feed[projId]['members'] = members_by_project.get(projId)
-            
+
             if messages_by_project:
                 project_feed[projId]['messages'] = messages_by_project.get(projId)
 
@@ -472,35 +481,38 @@ order by pu.project_id, u.created_datetime desc
         digests = {}
         for projId in resp.keys():
             # Ignore all empty projects, and projects that have no recipients
-            if ((resp[projId].get('members') is None or len(resp[projId].get('members')) == 0) and\
-                (resp[projId].get('messages') is None or len(resp[projId].get('messages')) == 0)) or\
-                resp[projId].get('recipients') is None or len(resp[projId].get('recipients')) == 0:
-               continue
-            
+            if ((resp[projId].get('members') is None or len(resp[projId].get('members')) == 0) and \
+                        (resp[projId].get('messages') is None or len(resp[projId].get('messages')) == 0)) or \
+                            resp[projId].get('recipients') is None or len(resp[projId].get('recipients')) == 0:
+                continue
+
             # Initialize the digest data structure
             if digests.get(projId) is None:
-                digests[projId] = {'members':[], 'messages':[], 'recipients': ""}
+                digests[projId] = {'members': [], 'messages': [], 'recipients': ""}
 
             digests[projId]['recipients'] = resp[projId].get('recipients')
             digests[projId]['title'] = resp[projId].get('title')
             digests[projId]['project_id'] = projId
             digests[projId]['num_members'] = resp[projId].get('num_members')
-            digests[projId]['link'] = "<a href='%sproject/%s'>%s</a>" % (self.Config.get('default_host'), projId, resp[projId].get('title'))
+            digests[projId]['link'] = "<a href='%sproject/%s'>%s</a>" % (
+            self.Config.get('default_host'), projId, resp[projId].get('title'))
 
             if resp[projId].get('members') is not None and len(resp[projId].get('members')) > 0:
                 digests[projId]['members'] = resp[projId].get('members')
-            
+
             if resp[projId].get('messages') is not None and len(resp[projId].get('messages')) > 0:
                 digests[projId]['messages'] = resp[projId].get('messages')
 
         # Store the formatted body
         for digest in digests:
             currentDigest = digests.get(digest)
-            currentDigest['subject'] = "%s%s\n\n" % (self.Config.get('email').get('digest').get('digest_subject_prefix'), currentDigest.get('title'))
-            currentDigest['body'] = Emailer.render('email/digest', 
-                                                   {'digest':currentDigest,
-                                                   'baseUrl':base_url,
-                                                   'contactEmail':self.Config.get('email').get('from_email')})
+            currentDigest['subject'] = "%s%s\n\n" % (
+            self.Config.get('email').get('digest').get('digest_subject_prefix'), currentDigest.get('title'))
+            currentDigest['body'] = Emailer.render('email/digest',
+                                                   {'digest': currentDigest,
+                                                    'baseUrl': base_url,
+                                                    'contactEmail': self.Config.get('email').get('from_email'),
+                                                    'config': self.Config})
 
         # Store it for later consumption
         logging.info('Created digests (in DB) for %s projects' % len(digests.keys()))
@@ -514,32 +526,34 @@ order by pu.project_id, u.created_datetime desc
             "I think this is great, we should really do more though to organize the event on the 14th"
         """
         dt = message.created_datetime
-        msgDate = '%s/%s/%s at %s:%02d %s' % (dt.month, dt.day, dt.year, (dt.hour % 12), dt.minute, 'AM' if dt.hour<12 else 'PM')
-        msg_vars = { 'userName': message.first_name + ' ' + message.last_name,
-                     'msgDate' : msgDate,
-                     'msgText' : message.message
-                    }
+        msgDate = '%s/%s/%s at %s:%02d %s' % (
+        dt.month, dt.day, dt.year, (dt.hour % 12), dt.minute, 'AM' if dt.hour < 12 else 'PM')
+        msg_vars = {'userName': message.first_name + ' ' + message.last_name,
+                    'msgDate': msgDate,
+                    'msgText': message.message
+        }
         resp = "%(userName)s on %(msgDate)s\n\"%(msgText)s\"" % msg_vars
         return resp
 
     def getProjects(self, projects=[]):
         sql = """
-select distinct
-    pm.project_id,
-    p.title,
-    (select count(*) from project__user pu where pu.project_id = p.project_id) as num_members 
-from project_message pm
-    join project p on pm.project_id = p.project_id and p.is_active = 1
-where pm.message_type='member_comment'
-    and (pm.created_datetime between $fromDate and $toDate or pm.project_id in $projects)
-    order by pm.project_id
-"""
+        select distinct
+            pm.project_id,
+            p.title,
+            (select count(*) from project__user pu where pu.project_id = p.project_id) as num_members
+        from project_message pm
+            join project p on pm.project_id = p.project_id and p.is_active = 1
+        where pm.message_type='member_comment'
+            and (pm.created_datetime between $fromDate and $toDate or pm.project_id in $projects)
+            order by pm.project_id
+        """
         projectInfo = {}
         # Create a dummy list of project_id's to keep SQL happy in case we don't have any projects
         if len(projects) == 0:
             projects = [0]
         try:
-            results = self.executeSQL(sql, params = {'fromDate':self.FromDate, 'toDate': self.ToDate, 'projects': projects})
+            results = self.executeSQL(sql,
+                                      params={'fromDate': self.FromDate, 'toDate': self.ToDate, 'projects': projects})
             for project in results:
                 projectInfo[int(project.project_id)] = project
             return projectInfo
@@ -554,8 +568,8 @@ where pm.message_type='member_comment'
         if (self.Config.get('email').get('digest').get('max_retries')):
             maxRetries = int(self.Config.get('email').get('digest').get('max_retries'))
         else:
-            maxRetries = 10        
-        
+            maxRetries = 10
+
         for digest in self.Digests:
             currentDigest = None
             if type(digest) == dict:
@@ -573,8 +587,9 @@ where pm.message_type='member_comment'
                 body += "\n\nDevelopment Information:\nRecipients are: %s\n" % ', '.join(recipients)
 
             logging.info('Digest recipients: %s' % recipients)
-            isSent = self.sendEmail(to=self.Config.get('email').get('from_email'), recipients=recipients, subject=subject, body=body, maxRetries=maxRetries)
-            
+            isSent = self.sendEmail(to=self.Config.get('email').get('from_email'), recipients=recipients,
+                                    subject=subject, body=body, maxRetries=maxRetries)
+
             if (digest.get('digest_id') and isSent):
                 # Means that we've been called from a database record
                 # could also have done digest.__class__.__name__ == 'Storage'
@@ -593,17 +608,17 @@ values
 """
         for digest in self.Digests:
             currentDigest = self.Digests.get(digest)
-            status = ''     # We have not sent this email out yet
+            status = ''  # We have not sent this email out yet
             try:
                 results = self.executeSQL(sql,
-                                      params = {'sender': self.Config.get('email').get('from_email'),
-                                                'send_to': self.Config.get('email').get('from_email'),
-                                                'recipients': ','.join(currentDigest.get('recipients')),
-                                                'subject': currentDigest.get('subject'),
-                                                'body': currentDigest.get('body'),
-                                                'fromDate':self.FromDate, 'toDate':self.ToDate,
-                                                'status': status, 'myid': self.MyID}
-                                    )
+                                          params={'sender': self.Config.get('email').get('from_email'),
+                                                  'send_to': self.Config.get('email').get('from_email'),
+                                                  'recipients': ','.join(currentDigest.get('recipients')),
+                                                  'subject': jinja2.escape(currentDigest.get('subject').decode('utf-8')).encode('ascii', 'xmlcharrefreplace'),
+                                                  'body': jinja2.escape(currentDigest.get('body').decode('utf-8')).encode('ascii', 'xmlcharrefreplace'), 
+                                                  'fromDate': self.FromDate, 'toDate': self.ToDate,
+                                                  'status': status, 'myid': self.MyID}
+                )
             except Exception, e:
                 raise
 
@@ -627,11 +642,11 @@ where status is NULL or status = ''
 
     def setDigestAsSent(self, digest_id=None):
         sql = """
-update digests
-set status = 'C', sent_datetime = NOW()
-where digest_id = $digest_id
-"""
-        params = {'digest_id':int(digest_id)}
+        update digests
+        set status = 'C', sent_datetime = NOW()
+        where digest_id = $digest_id
+        """
+        params = {'digest_id': int(digest_id)}
         try:
             result = self.executeSQL(sql, params)
             return True
@@ -643,12 +658,12 @@ where digest_id = $digest_id
         """ Get the timestamp of the last digest sent """
         # We only care about the very last record that
         sql = """
-select digest_id, start_datetime, end_datetime, status, worker_id
-from digests
-where (status is NULL or status = 'A' or status = '')
-order by end_datetime DESC
-limit 0,1
-"""
+        select digest_id, start_datetime, end_datetime, status, worker_id
+        from digests
+        where (status is NULL or status = 'A' or status = '')
+        order by end_datetime DESC
+        limit 0,1
+        """
         try:
             rows = self.executeSQL(sql)
             if len(rows) == 0:
@@ -662,11 +677,13 @@ limit 0,1
             raise
             return False
 
-# /GiveAMinuteDigest class 
+
+# /GiveAMinuteDigest class
 
 def usage():
     print "Usage: %s -c/--configFile=<configfile> ] " % sys.argv[0]
     sys.exit(2)
+
 
 def main():
     if (len(sys.argv) == 1):
@@ -675,10 +692,14 @@ def main():
 
     parser = OptionParser()
     parser.add_option("-c", "--config_file", help="Configuration Yaml file", default="config.yaml")
-    parser.add_option("-f", "--from_date", help="Date to use as start-point for digest generation, in mysql-compatible format")
-    parser.add_option("-t", "--to_date", help="Date to use as end-point for digest generation, in mysql-compatible format")
-    parser.add_option("-e", "--email_only", help="Only Email (send) digests from the DB. Don't create/generate them", action="store_true", default=False)
-    parser.add_option("-a", "--add_only", help="Only Add (generate) digests and put into DB. Don't email anything", action="store_true", default=False)
+    parser.add_option("-f", "--from_date",
+                      help="Date to use as start-point for digest generation, in mysql-compatible format")
+    parser.add_option("-t", "--to_date",
+                      help="Date to use as end-point for digest generation, in mysql-compatible format")
+    parser.add_option("-e", "--email_only", help="Only Email (send) digests from the DB. Don't create/generate them",
+                      action="store_true", default=False)
+    parser.add_option("-a", "--add_only", help="Only Add (generate) digests and put into DB. Don't email anything",
+                      action="store_true", default=False)
 
     (opts, args) = parser.parse_args()
 
@@ -699,8 +720,9 @@ def main():
     # define whether the task does anything (it might return immediately)
     # TODO: Make these into decorated functions!
     if not gamDigest.EmailOnly:
-        taskName='Generate Digests'
+        taskName = 'Generate Digests'
         tasks = gamDigest.getAvailableTasks(taskName=taskName, limit=5)
+        logging.info("Found %s tasks for Generate Digests" % len(tasks))
         for task in tasks:  # really there should only be one task with this name!
             if not gamDigest.reserveTask(int(task.task_id)):
                 raise Exception("cannot reserve a task slot. Can't continue")
@@ -713,6 +735,7 @@ def main():
     if not gamDigest.AddOnly:
         taskName = "Email Digests"
         tasks = gamDigest.getAvailableTasks(taskName=taskName, limit=5)
+        logging.info("Found %s tasks for Email Digests" % len(tasks))
         for task in tasks:
             if not gamDigest.reserveTask(int(task.task_id)):
                 raise Exception("cannot reserve a task slot for %s. Can't continue" % taskName)
@@ -720,8 +743,8 @@ def main():
             gamDigest.sendDigests()
             gamDigest.releaseTask(int(task.task_id))
 
-if __name__ == "__main__":
 
+if __name__ == "__main__":
     # We don't want all the debug stuff that webpy gives us
     # .. especially not the SQL statements
     web.webapi.config.debug = True
