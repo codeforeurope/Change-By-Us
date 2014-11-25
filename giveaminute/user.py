@@ -417,7 +417,7 @@ where u.user_id = $id and u.is_active = 1"""
                 for item in data:
                     ideas.append(
                         formattingUtils.idea(item.idea_id, item.description, item.user_id, item.first_name, item.last_name,
-                                      item.created_datetime, item.submission_type))
+                                      item.created_datetime, item.submission_type, item.projects_count))
         except Exception, e:
             log.info("*** couldn't get user ideas")
             log.error(e)
@@ -480,10 +480,7 @@ where u.user_id = $id and u.is_active = 1"""
                         p.title,
                         null as project_message_id,
                         'invite' as message_type,
-                        concat('You''ve been invited to the ',
-                                ucase(p.title),
-                                ' project!',
-                                coalesce(concat('<br/><br/>"', inv.message, '"'), '')) as message,
+                        coalesce(concat('"', inv.message, '"'), '') as message,
                         inv.created_datetime as created_datetime,
                         iu.user_id,
                         iu.first_name,

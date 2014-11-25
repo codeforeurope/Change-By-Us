@@ -232,7 +232,7 @@
 												
 											case "invite":
 												template = tc.jQ("<li class='message-item user-notification invite-notification'></li>").append( tc.jQ(".template-content.message-item.invite-notification").children().clone() );
-												template.find(".title").html(message.body);
+												template.find(".title").html(app_page.messages['invited-to-join-project']+"<br><br>"+message.body);
 												template.find(".controls > a").attr("href", ("/project/"+ message.project_id + ""));
 												break;
 												

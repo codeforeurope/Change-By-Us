@@ -391,7 +391,7 @@
                                         {% elif message.message_type == "invite" %}
                                             <li class="message-item user-notification invite-notification">
                                                 <!--<a class="close" href="#"><span>Close</span></a>-->
-                                                <span class="title">{{ message.body }}</span>
+                                                <span class="title">{{ _('You have been invited to the %(project_title)s project!')|format(project_title=message.project_title) }}<br><br>{{ message.body }}</span>
 
                                                 <div class="controls">
                                                     <a href="/project/{{ message.project_id }}">{{ _('Click to see project') }}</a>
@@ -746,10 +746,12 @@
         {# This may look complicated, but it's necessary because xgettext cannot extract strings within quotes, so we set these variables first
         See: https://www.gnu.org/software/gettext/manual/html_node/Perl-Pitfalls.html #}
         {%  set msg1 = _('Click here to add something about yourself.') %}
+        {%  set msg2 = _('You have been invited to join a project!') %}
     <script>
 
         app_page.messages = {
-            'click-here-to-add-something-about-yourself': "{{ msg1 }}"
+            'click-here-to-add-something-about-yourself': "{{ msg1 }}",
+            'invited-to-join-project': "{{ msg2 }}"
         };
     </script>
 

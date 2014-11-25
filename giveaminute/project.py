@@ -558,7 +558,7 @@ def addLinkToProject(db, projectId, title, url):
                   num_flags=numFlags,
                   is_active=isActive)
 
-        return True;
+        return True
     except Exception, e:
         log.info("*** problem adding link to project")
         log.error(e)
@@ -949,7 +949,7 @@ def addMessage(db, projectId, message, message_type, userId=None, ideaId=None, a
                   num_flags=numFlags,
                   is_active=isActive)
 
-        return True;
+        return True
     except Exception, e:
         log.info("*** problem adding message to project")
         log.error(e)
@@ -1185,7 +1185,7 @@ def createInviteRecord(db, projectId, message, inviterUserId, ideaId, email=None
                   invitee_idea_id=ideaId,
                   invitee_email=email)
 
-        return True;
+        return True
     except Exception, e:
         log.info("*** problem adding invite to project")
         log.error(e)

@@ -197,12 +197,13 @@ def resource(id, title, url, imageId):
     return dict(organization=id, title=title, url=url, image_id=imageId)
 
 
-def idea(id, description, userId, firstName, lastName, createdDatetime, submissionType):
+def idea(id, description, userId, firstName, lastName, createdDatetime, submissionType, projects_count=0):
     return dict(idea_id=id,
                 message=description,
                 owner=smallUser(userId, firstName, lastName, None),
                 created=str(createdDatetime),
-                submission_type=submissionType)
+                submission_type=submissionType,
+                projects_count=projects_count)
 
 
 ## END FORMATTING FUNCTIONS

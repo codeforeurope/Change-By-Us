@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Change by Us v2\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-11-25 14:31+0100\n"
-"PO-Revision-Date: 2014-11-25 13:35+0000\n"
+"POT-Creation-Date: 2014-11-25 17:18+0100\n"
+"PO-Revision-Date: 2014-11-25 16:22+0000\n"
 "Last-Translator: Giovanni Maggini <giovanni.maggini@gmail.com>\n"
 "Language-Team: Dutch (http://www.transifex.com/projects/p/change-by-us-v2/language/nl/)\n"
 "MIME-Version: 1.0\n"
@@ -208,7 +208,8 @@ msgstr "Dank je, je doet mee aan het project."
 #: templates/bb.html:117 templates/create.html:55 templates/create.html:260
 #: templates/home.html:254 templates/home.html:293 templates/home.html:433
 #: templates/idea.html:116 templates/project/mission.html:42
-#: templates/search.html:121 templates/search.html:665
+#: templates/search.html:121 templates/search.html:516
+#: templates/search.html:665
 msgid "Created by"
 msgstr "Door:"
 
@@ -234,7 +235,7 @@ msgstr "om aan een project mee te doen of een nieuw project te starten."
 
 #: templates/bb.html:140 templates/feedback.html:36 templates/join.html:70
 #: templates/join.html:108 templates/login.html:35
-#: templates/useraccount.html:573
+#: templates/useraccount.html:576
 msgid "Email"
 msgstr "Email"
 
@@ -350,8 +351,8 @@ msgstr "Oproepbaar"
 #: templates/project/need_teaser.html:40 templates/project/resources.html:191
 #: templates/project/volunteer_need.html:57 templates/project.html:228
 #: templates/project.html:278 templates/search.html:590
-#: templates/search.html:626 templates/useraccount.html:679
-#: templates/useraccount.html:693
+#: templates/search.html:626 templates/useraccount.html:682
+#: templates/useraccount.html:696
 msgid "Delete"
 msgstr "Verwijder"
 
@@ -408,9 +409,9 @@ msgid "Check"
 msgstr "Check"
 
 #: templates/create.html:23 templates/create.html:183
-#: templates/partials/add_resource.html:20 templates/project/add_link.html:32
-#: templates/project/mission.html:138 templates/project.html:358
-#: templates/useraccount.html:263
+#: templates/create.html:272 templates/partials/add_resource.html:20
+#: templates/project/add_link.html:32 templates/project/mission.html:138
+#: templates/project.html:358
 msgid "Add"
 msgstr "Toevoegen"
 
@@ -514,7 +515,7 @@ msgid "<strong>Upload</strong> a photo for your project."
 msgstr "<strong>Upload</strong> een foto voor je project."
 
 #: templates/create.html:159 templates/project.html:196
-#: templates/useraccount.html:658 templates/useraccount.html:669
+#: templates/useraccount.html:661 templates/useraccount.html:672
 msgid ""
 "Photos should be <strong>under 1MB</strong> please. (We also crop photos to "
 "<strong>90px by 90px</strong>)"
@@ -542,19 +543,19 @@ msgstr "Foto's mogen maximaal <strong>1MB</strong> zijn. (Foto's worden afgesnij
 #: templates/project.html:303 templates/resource.html:150
 #: templates/search.html:599 templates/search.html:635
 #: templates/search.html:642 templates/search.html:649
-#: templates/useraccount.html:662 templates/useraccount.html:673
-#: templates/useraccount.html:688 templates/useraccount.html:702
+#: templates/useraccount.html:665 templates/useraccount.html:676
+#: templates/useraccount.html:691 templates/useraccount.html:705
 msgid "close"
 msgstr "sluiten"
 
 #: templates/create.html:185 templates/create.html:266
 #: templates/project.html:355 templates/search.html:230
 #: templates/search.html:562 templates/search.html:683
-#: templates/useraccount.html:266
+#: templates/useraccount.html:269
 msgid "Added <em>to</em> your project"
 msgstr "Toegevoegd <em>aan</em> je project"
 
-#: templates/create.html:186 templates/useraccount.html:267
+#: templates/create.html:186 templates/useraccount.html:270
 msgid "We&#39;ve sent them a link to your project page."
 msgstr "We hebben hen een link naar je project gestuurd."
 
@@ -663,10 +664,10 @@ msgstr "Wij zullen een email sturen naar de hulporganisatie met een link naar je
 #: templates/project/fresh_ideas.html:37
 #: templates/project/invite_members.html:116 templates/project.html:357
 #: templates/search.html:108 templates/search.html:218
-#: templates/search.html:332 templates/search.html:548
-#: templates/search.html:550 templates/search.html:655
-#: templates/search.html:672 templates/search.html:704
-#: templates/useraccount.html:172
+#: templates/search.html:332 templates/search.html:503
+#: templates/search.html:548 templates/search.html:550
+#: templates/search.html:655 templates/search.html:672
+#: templates/search.html:704 templates/useraccount.html:172
 msgid "Close"
 msgstr "Sluiten"
 
@@ -684,11 +685,6 @@ msgstr "Bedankt!"
 msgid "Thank you for adding a project."
 msgstr "Bedankt voor het toevoegen van je project"
 
-#: templates/create.html:272 templates/search.html:227
-#: templates/search.html:559 templates/search.html:680
-msgid "Add to Project"
-msgstr "Toevoegen aan project"
-
 #: templates/create.html:273 templates/project/resources.html:157
 #: templates/search.html:221 templates/search.html:553
 #: templates/search.html:674
@@ -698,6 +694,12 @@ msgstr "Officiële Hulp"
 #: templates/create.html:274
 msgid "Hey! This is you!"
 msgstr "Ha! Dit ben jij "
+
+#: templates/create.html:275 templates/search.html:227
+#: templates/search.html:559 templates/search.html:680
+#: templates/useraccount.html:266
+msgid "Add to Project"
+msgstr "Toevoegen aan project"
 
 #: templates/email/account_deactivation.html:17
 #, python-format
@@ -1098,7 +1100,7 @@ msgstr "Nieuwe ideeën"
 #: templates/project/fresh_ideas.html:40
 #: templates/project/invite_members.html:122 templates/search.html:339
 #: templates/search.html:709 templates/useraccount.html:175
-#: templates/useraccount.html:219
+#: templates/useraccount.html:222
 msgid "said"
 msgstr "zei"
 
@@ -1284,7 +1286,7 @@ msgstr "Toon alles"
 #: templates/idea.html:19 templates/search.html:59 templates/search.html:285
 #: templates/search.html:354 templates/search.html:441
 #: templates/search.html:724 templates/search.html:742
-#: templates/useraccount.html:152 templates/useraccount.html:196
+#: templates/useraccount.html:152 templates/useraccount.html:199
 msgid "Ideas"
 msgstr "Ideeën"
 
@@ -1303,11 +1305,12 @@ msgstr "Markeren als ongepast"
 
 #: templates/idea.html:59 templates/project/invite_members.html:127
 #: templates/search.html:343 templates/search.html:711
+#: templates/useraccount.html:177 templates/useraccount.html:224
 msgid "Posted"
 msgstr "Geplaatst"
 
 #: templates/idea.html:59 templates/search.html:343 templates/search.html:711
-#: templates/useraccount.html:177 templates/useraccount.html:221
+#: templates/useraccount.html:177 templates/useraccount.html:224
 msgid "via"
 msgstr "via"
 
@@ -1328,6 +1331,7 @@ msgid "People"
 msgstr "Leden"
 
 #: templates/idea.html:133 templates/search.html:137 templates/search.html:154
+#: templates/useraccount.html:181
 msgid "Start <span>a</span> Project"
 msgstr "Start <span>een</span> Project"
 
@@ -1375,12 +1379,12 @@ msgid "uses real names."
 msgstr "gebruik bestaande namen"
 
 #: templates/join.html:62 templates/join.html:100
-#: templates/useraccount.html:440
+#: templates/useraccount.html:443
 msgid "First name"
 msgstr "Voornaam"
 
 #: templates/join.html:66 templates/join.html:104 templates/join.html:282
-#: templates/useraccount.html:444
+#: templates/useraccount.html:447
 msgid "Last name"
 msgstr "Achternaam"
 
@@ -1608,7 +1612,7 @@ msgid ""
 "password screen and try again"
 msgstr "Klik hier om terug te gaan naar het<br/><span class=\"spacer\"></span>\"password vergeten\" scherm en probeer het opnieuw "
 
-#: templates/map.html:18 templates/useraccount.html:452
+#: templates/map.html:18 templates/useraccount.html:455
 msgid "Neighborhood"
 msgstr "Buurt"
 
@@ -1635,8 +1639,9 @@ msgstr "Dank voor het toevoegen van een hulp aan je project!"
 #: templates/partials/base.html:175 templates/project/resources.html:11
 #: templates/project/resources.html:82 templates/search.html:58
 #: templates/search.html:178 templates/search.html:243
-#: templates/search.html:534 templates/useraccount.html:80
-#: templates/useraccount.html:240 templates/useraccount.html:536
+#: templates/search.html:534 templates/search.html:744
+#: templates/useraccount.html:80 templates/useraccount.html:243
+#: templates/useraccount.html:539
 msgid "Resources"
 msgstr "Hulp"
 
@@ -1653,7 +1658,7 @@ msgid "Hi"
 msgstr "Hoi"
 
 #: templates/partials/base.html:201 templates/useraccount.html:78
-#: templates/useraccount.html:432
+#: templates/useraccount.html:435
 msgid "Account"
 msgstr "Account"
 
@@ -1791,12 +1796,12 @@ msgstr "Te groot"
 msgid "Too small"
 msgstr "Te klein"
 
-#: templates/partials/base.html:569 templates/useraccount.html:483
+#: templates/partials/base.html:569 templates/useraccount.html:486
 msgid "Save"
 msgstr "Opslaan"
 
 #: templates/partials/base.html:570 templates/project.html:213
-#: templates/useraccount.html:485
+#: templates/useraccount.html:488
 msgid "Cancel"
 msgstr "Annuleren"
 
@@ -1817,7 +1822,7 @@ msgstr "Ja, Idee Verwijder"
 #: templates/project/conversation.html:171 templates/project.html:250
 #: templates/project.html:284 templates/project.html:300
 #: templates/search.html:596 templates/search.html:632
-#: templates/useraccount.html:699
+#: templates/useraccount.html:702
 msgid "No, keep it."
 msgstr "Nee, laat het staan."
 
@@ -2363,8 +2368,8 @@ msgid "from the project permanently!"
 msgstr "uit het project voor altijd!"
 
 #: templates/project/member_list.html:139 templates/search.html:592
-#: templates/search.html:628 templates/useraccount.html:681
-#: templates/useraccount.html:695
+#: templates/search.html:628 templates/useraccount.html:684
+#: templates/useraccount.html:698
 msgid "Are you sure?"
 msgstr "Weet je het zeker?"
 
@@ -2377,7 +2382,7 @@ msgid "Member"
 msgstr "Deelnemer"
 
 #: templates/project/member_list.html:143 templates/project/resources.html:197
-#: templates/project.html:234 templates/useraccount.html:685
+#: templates/project.html:234 templates/useraccount.html:688
 msgid "No, keep them."
 msgstr "Nee, behouden"
 
@@ -2405,7 +2410,7 @@ msgstr "Onze Missie"
 msgid "Support <span>this</span> project"
 msgstr "Ondersteun dit project"
 
-#: templates/project/mission.html:123 templates/useraccount.html:593
+#: templates/project/mission.html:123 templates/useraccount.html:596
 msgid "Keywords"
 msgstr "Sleutelwoorden"
 
@@ -2655,7 +2660,7 @@ msgid "Official Project"
 msgstr "Officieel Project"
 
 #: templates/project.html:39 templates/useraccount.html:33
-#: templates/useraccount.html:544
+#: templates/useraccount.html:547
 msgid "Change Photo"
 msgstr "Verander Foto"
 
@@ -2760,7 +2765,7 @@ msgid ""
 msgstr "Weet je zeker dat je deze Hulp wilt verwijderen? <br/>Het is dan definitief uit het systeem verwijderd."
 
 #: templates/project.html:249 templates/search.html:595
-#: templates/useraccount.html:698
+#: templates/useraccount.html:701
 msgid "Yes, Delete Resource"
 msgstr "Ja, verwijder Hulp"
 
@@ -2970,11 +2975,11 @@ msgstr "Omschrijving"
 msgid "Web Address"
 msgstr "Weblink"
 
-#: templates/resource.html:79 templates/useraccount.html:578
+#: templates/resource.html:79 templates/useraccount.html:581
 msgid "Facebook Address"
 msgstr "Facebooklink"
 
-#: templates/resource.html:83 templates/useraccount.html:583
+#: templates/resource.html:83 templates/useraccount.html:586
 msgid "Twitter Address"
 msgstr "Twitterlink"
 
@@ -3114,8 +3119,8 @@ msgstr "gevonden"
 msgid "Resource"
 msgstr "Hulp"
 
-#: templates/search.html:216 templates/useraccount.html:252
-#: templates/useraccount.html:254
+#: templates/search.html:216 templates/useraccount.html:255
+#: templates/useraccount.html:257
 msgid "Remove"
 msgstr "Verwijder"
 
@@ -3132,11 +3137,11 @@ msgstr "Voeg <span>een</span> Idee toe"
 msgid "User"
 msgstr "Gebruiker"
 
-#: templates/search.html:590 templates/useraccount.html:693
+#: templates/search.html:590 templates/useraccount.html:696
 msgid "this Resource?"
 msgstr "deze Hulp?"
 
-#: templates/search.html:592 templates/useraccount.html:695
+#: templates/search.html:592 templates/useraccount.html:698
 msgid "You are about to delete this Resource from the system permanently!"
 msgstr "Weet je zeker dat je dezehulp wilt verwijderen? <br/>Het is dan definitief uit het systeem verwijderd."
 
@@ -3182,9 +3187,9 @@ msgstr "Plaatjes van hulp uploaden"
 msgid "Local Leader"
 msgstr "Gebiedsmanager"
 
-#: templates/useraccount.html:49 templates/useraccount.html:356
-#: templates/useraccount.html:376 templates/useraccount.html:620
-#: templates/useraccount.html:637
+#: templates/useraccount.html:49 templates/useraccount.html:359
+#: templates/useraccount.html:379 templates/useraccount.html:623
+#: templates/useraccount.html:640
 msgid "from"
 msgstr "van"
 
@@ -3192,13 +3197,13 @@ msgstr "van"
 msgid "Activity"
 msgstr "Activiteit"
 
-#: templates/useraccount.html:77 templates/useraccount.html:345
+#: templates/useraccount.html:77 templates/useraccount.html:348
 msgid "Messages"
 msgstr "Berichten"
 
 #: templates/useraccount.html:80 templates/useraccount.html:101
-#: templates/useraccount.html:148 templates/useraccount.html:236
-#: templates/useraccount.html:536
+#: templates/useraccount.html:148 templates/useraccount.html:239
+#: templates/useraccount.html:539
 msgid "My"
 msgstr "Mijn"
 
@@ -3207,123 +3212,132 @@ msgid "Send <span>a</span> message <span>to</span>"
 msgstr "Stuur <span>een</span> bericht <span>naar</span>"
 
 #: templates/useraccount.html:103 templates/useraccount.html:150
-#: templates/useraccount.html:238
+#: templates/useraccount.html:241
 #, python-format
 msgid "%(username)s&#39;s"
 msgstr "%(username)s&#39;s"
 
-#: templates/useraccount.html:192
+#: templates/useraccount.html:195
 msgid "Ideas I liked"
 msgstr "Ideëen die ik leuk vind"
 
-#: templates/useraccount.html:194
+#: templates/useraccount.html:197
 #, python-format
 msgid "Ideas liked by %(username)s"
 msgstr "Ideëen leuk gevonden door %(username)s"
 
-#: templates/useraccount.html:394 templates/useraccount.html:650
+#: templates/useraccount.html:394
+#, python-format
+msgid "You have been invited to the %(project_title)s project!"
+msgstr "Je bent uitgenodigd om aan %(project_title)s mee te doen!"
+
+#: templates/useraccount.html:397 templates/useraccount.html:653
 msgid "Click to see project"
 msgstr "Klik om project te zien"
 
-#: templates/useraccount.html:405
+#: templates/useraccount.html:408
 msgid "Older messages"
 msgstr "Oudere berichten"
 
-#: templates/useraccount.html:411
+#: templates/useraccount.html:414
 msgid "Email Preferences"
 msgstr "Emailinstellingen"
 
-#: templates/useraccount.html:418
+#: templates/useraccount.html:421
 msgid "Email daily digest"
 msgstr "Dagelijkse digest"
 
-#: templates/useraccount.html:422
+#: templates/useraccount.html:425
 msgid ""
 "No digest emails. You will still receive direct messages from other users."
 msgstr "Geen digest. Je ontvangt nog steeds directe berichten van andere gebruikers."
 
-#: templates/useraccount.html:448
+#: templates/useraccount.html:451
 msgid "Email address"
 msgstr "Email Adres"
 
-#: templates/useraccount.html:458
+#: templates/useraccount.html:461
 msgid "Save Changes"
 msgstr "Wijzigingen opslaan"
 
-#: templates/useraccount.html:461
+#: templates/useraccount.html:464
 msgid "Change Password"
 msgstr "Verander Wachtwoord"
 
-#: templates/useraccount.html:470
+#: templates/useraccount.html:473
 msgid "Old Password"
 msgstr "Oud Wachtwoord"
 
-#: templates/useraccount.html:474
+#: templates/useraccount.html:477
 msgid "New Password"
 msgstr "Nieuw Wachtwoord"
 
-#: templates/useraccount.html:479
+#: templates/useraccount.html:482
 msgid "Confirm Password"
 msgstr "Wachtwoord bevestigen"
 
-#: templates/useraccount.html:489
+#: templates/useraccount.html:492
 msgid "Changing your password"
 msgstr "Wachtwoord wijzigen"
 
-#: templates/useraccount.html:493
+#: templates/useraccount.html:496
 msgid "Password Changed"
 msgstr "Wachtwoord gewijzigd"
 
-#: templates/useraccount.html:496
+#: templates/useraccount.html:499
 msgid "There was an error changing your password."
 msgstr "Er is een fout opgetreden bij het wijzigen van je wachtwoord"
 
-#: templates/useraccount.html:519
+#: templates/useraccount.html:522
 msgid "Processing your account details"
 msgstr "Je gegevens worden verwerkt"
 
-#: templates/useraccount.html:524
+#: templates/useraccount.html:527
 msgid "Your account details have been updated!"
 msgstr "Je account is bijgewerkt!"
 
-#: templates/useraccount.html:528
+#: templates/useraccount.html:531
 msgid "There was an error updating your account details."
 msgstr "Het lukt niet om je account te updaten."
 
-#: templates/useraccount.html:563
+#: templates/useraccount.html:566
 msgid "Mission"
 msgstr "Missie"
 
-#: templates/useraccount.html:568
+#: templates/useraccount.html:571
 msgid "URL"
 msgstr "URL"
 
-#: templates/useraccount.html:588
+#: templates/useraccount.html:591
 msgid "Physical Address"
 msgstr "Adres"
 
-#: templates/useraccount.html:656
+#: templates/useraccount.html:659
 msgid "<strong>Upload</strong> a photo for your account."
 msgstr "<strong>Upload</strong> een foto voor je account"
 
-#: templates/useraccount.html:667
+#: templates/useraccount.html:670
 msgid "Upload</strong> a photo for your resource."
 msgstr "Upload</strong> een foto - hoe persoonlijker hoe beter."
 
-#: templates/useraccount.html:679
+#: templates/useraccount.html:682
 msgid "this User?"
 msgstr "dit Gebruiker?"
 
-#: templates/useraccount.html:681
+#: templates/useraccount.html:684
 msgid ""
 "You are about to delete this User and all projects owned by this user from "
 "the system permanently!"
 msgstr "Weet je zeker dat je dit Gebruiker en alles Projecten wilt verwijderen? <br/>Het is dan definitief uit het systeem verwijderd."
 
-#: templates/useraccount.html:684
+#: templates/useraccount.html:687
 msgid "Yes, Delete User and Projects"
 msgstr "Ja, verwijder Gebruiker en Projecten"
 
-#: templates/useraccount.html:745
+#: templates/useraccount.html:748
 msgid "Click here to add something about yourself."
 msgstr "Klik hier om iets toe te voegen over jezelf"
+
+#: templates/useraccount.html:749
+msgid "You have been invited to join a project!"
+msgstr "Je bent uitgenodigd om aan een project mee te doen!"

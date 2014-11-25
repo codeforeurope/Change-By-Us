@@ -3525,6 +3525,10 @@ table.resources-list a.add-button {
     margin-top: 2px;
 }
 
+table.resources-list a.add-button.add-resource {
+    font-size: 14px;
+}
+
 table.resources-list td div.added-dialog {
     display: none
 }

@@ -255,10 +255,13 @@ def findIdeasByUser(db, userId, limit=100):
     ideas = []
 
     try:
-        sql = """select i.idea_id, i.description, i.location_id, i.submission_type, i.user_id, u.first_name, u.last_name, i.created_datetime
+        sql = """select i.idea_id, i.description, i.location_id, i.submission_type, i.user_id, u.first_name, u.last_name, i.created_datetime,
+                    CASE WHEN NULL THEN 0 ELSE count(pi.project_id) END as projects_count
                     from idea i 
                     inner join user u on u.user_id = i.user_id
+                    left join project__idea pi on pi.idea_id = i.idea_id
                     where i.is_active = 1 and u.is_active = 1 and u.user_id = $userId
+                    group by idea_id
                 order by i.created_datetime desc
                 limit $limit"""
 
@@ -275,10 +278,10 @@ def findIdeasLikedByUser(db, userId, limit=50):
 
     try:
         sql = """select i.idea_id, i.description, i.location_id, i.submission_type, i.user_id, u.first_name, u.last_name, i.created_datetime
-					from idea__user iu
-                    right join idea i on i.idea_id = iu.idea_id
-                    left  join user u on u.user_id = i.user_id
-                    where i.is_active = 1 and u.is_active = 1 and iu.user_id = $userId
+                from idea__user iu
+                right join idea i on i.idea_id = iu.idea_id
+                left  join user u on u.user_id = i.user_id
+                where i.is_active = 1 and u.is_active = 1 and iu.user_id = $userId
                 order by i.created_datetime desc
                 limit $limit"""
 
