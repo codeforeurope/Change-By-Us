@@ -211,7 +211,7 @@ tc.addOfficialResourceTags = function(dom) {
         var tdPos = td.position();
         var tdWidth = td.outerWidth();
 
-        dom.before('<div class="official-resource-tag" id="tag-' + i + '" style="top:' + tdPos.top + 'px; left:' + tdPos.left + 'px; width:' + (tdWidth - 48) + 'px"><span>Official Resource</span></div>');
+        dom.before('<div class="official-resource-tag" id="tag-' + i + '" style="top:' + tdPos.top + 'px; left:' + tdPos.left + 'px; width:' + (tdWidth - 48) + 'px"><span>'+app_page.messages['official-resource']+'</span></div>');
         td.css({
             'padding-top': '25px'
         });
@@ -622,12 +622,12 @@ tc.validate = function(element, validators) {
             if (isNaN(num_val)) {
                 if (value.length > (validators[i].split('-')[1] * 1.0)) {
                     valid = false;
-                    errors.push(app_page.general_messages['too_long']+".");
+                    errors.push("Too long.");
                 }
             } else {
                 if (value > (validators[i].split('-')[1] * 1.0)) {
                     valid = false;
-                    errors.push(app_page.general_messages['too_big']+".");
+                    errors.push("Too big.");
                 }
             }
             continue;
@@ -652,7 +652,7 @@ tc.validate = function(element, validators) {
                 }
             } else {
                 if (tempelement.length) {
-                    tempelement.text(app_page.general_messages['strong']+".").removeClass('weak');
+                    tempelement.text(app_page.general_messages['strong']).removeClass('weak');
                 }
             }
             continue;
@@ -728,7 +728,7 @@ tc.validate = function(element, validators) {
             case 'numeric':
                 if (isNaN(Number(value))) {
                     valid = false;
-                    errors.push(app_page.general_messages['not_number']+".");
+                    errors.push(app_page.general_messages['not_number']+'.');
                 }
                 break;
                 
@@ -736,7 +736,7 @@ tc.validate = function(element, validators) {
             case 'selected':
                 if (value == '-1') {
                     valid = false;
-                    errors.push(app_page.general_messages['must_select_value']+".");
+                    errors.push(app_page.general_messages['must_select_value']+'.');
                 }
                 break;
             }
@@ -1032,13 +1032,29 @@ tc.merlin.prototype.setup_events = function(app) {
     
     // Handle back button.
     if (this.options.back_button) {
-        this.options.back_button.unbind('click').bind('click', this.event_data, this.handlers.prev_step);
+        //this.options.back_button.unbind('click').bind('click', this.event_data, this.handlers.prev_step);
+        if(Array.isArray(this.options.back_button)){
+            for(var i=0;i<this.options.back_button.length;i++){
+                var elem = this.options.back_button[i];
+                elem.unbind('click').bind('click', this.event_data, this.handlers.prev_step);
+            }
+        } else {
+            this.options.back_button.unbind('click').bind('click', this.event_data, this.handlers.prev_step);
+        }
     }
     
     // Handle next button.
     if (this.options.next_button) {
-        this.options.next_button.addClass('disabled');
-        this.options.next_button.unbind('click').bind('click', this.event_data, this.handlers.next_step);
+        if(Array.isArray(this.options.next_button)) {
+            for(var i=0;i<this.options.next_button.length;i++){
+                var elem = this.options.next_button[i];
+                elem.addClass('disabled');
+                elem.unbind('click').bind('click', this.event_data, this.handlers.next_step);
+            }
+        } else{
+            this.options.next_button.addClass('disabled');
+            this.options.next_button.unbind('click').bind('click', this.event_data, this.handlers.next_step);
+        }
     }
 };
 
@@ -1056,10 +1072,24 @@ tc.merlin.prototype.deallocate_magic = function() {
         this.dom.unbind('merlin-step-invalid', this.handlers.invalid);
     }
     if (this.options.back_button) {
-        this.options.back_button.unbind('click', this.handlers.prev_step);
+        if(Array.isArray(this.options.back_button)) {
+            for(var i=0;i<this.options.back_button.length;i++) {
+                var elem = this.options.back_button[i];
+                elem.unbind('click', this.handlers.prev_step);
+            }
+        } else {
+            this.options.back_button.unbind('click', this.handlers.prev_step);
+        }
     }
     if (this.options.next_button) {
-        this.options.next_button.unbind('click', this.handlers.next_step);
+        if(Array.isArray(this.options.next_button)) {
+            for(var i=0;i<this.options.next_button.length;i++){
+                var elem = this.options.next_button[i];
+                elem.unbind('click', this.handlers.next_step);
+            }
+        } else{
+            this.options.next_button.unbind('click', this.handlers.next_step);
+        }
     }
 };
 
@@ -1260,18 +1290,26 @@ tc.merlin.prototype.show_step = function(step, force) {
     this.options.steps[step].step_name = step;
     
     // Handle history (back and next)
-    if (this.current_step && this.current_step.use_for_history) {
-        this.options.steps[step].prev_step = this.current_step.step_name;
-    } else if (this.current_step) {
-        this.options.steps[step].prev_step = this.current_step.prev_step;
-    }
-    
+    //if (this.current_step && this.current_step.use_for_history) {
+    //    this.options.steps[step].prev_step = this.current_step.step_name;
+    //} else if (this.current_step) {
+    //    this.options.steps[step].prev_step = this.current_step.prev_step;
+    //}
+
+    tc.util.log('We are about to show step '+ step + ' and current step is ' + this.current_step + '(this.options.steps[step].prev_step ) = ' + this.options.steps[step].prev_step );
     // Define this as current step
     this.current_step = this.options.steps[step];
     
     // Enable next button if available.
     if (this.options.next_button) {
-        this.options.next_button.removeClass('disabled');
+        if(Array.isArray(this.options.next_button)) {
+            for(var i=0;i<this.options.next_button.length;i++) {
+                var elem = this.options.next_button[i];
+                elem.removeClass('disabled');
+            }
+        } else {
+            this.options.next_button.removeClass('disabled');
+        }
     }
     
     // Handle progress selector.
@@ -1619,9 +1657,17 @@ tc.merlin.prototype.handlers.focus = function (e, d) {
  */
 tc.merlin.prototype.handlers.keypress = function(e, d) {
     e.data.me.validate(false);
-    if (e.which == 13 && e.target.nodeName != 'TEXTAREA') {
-        if (e.data.me.options.next_button && e.data.me.options.next_button.hasClass('enabled')) {
-            e.data.me.options.next_button.click();
+    if (e.which == 13 && e.target.nodeName != 'TEXTAREA' && e.data.me.current_step.step_name != 'location') {  //Do Not proceed if user presses "ENTER" in Location
+        if(Array.isArray(e.data.me.options.next_button)){
+            var btn = e.data.me.options.next_button[0];
+            if(btn.hasClass('enabled')){
+                btn.click();
+            }
+        }
+        else {
+            if (e.data.me.options.next_button && e.data.me.options.next_button.hasClass('enabled')) {
+                e.data.me.options.next_button.click();
+            }
         }
     }
     if (e.data.input.counter && e.data.input.counter.dom) {
@@ -1658,7 +1704,14 @@ tc.merlin.prototype.handlers.blur = function (e, d) {
  */
 tc.merlin.prototype.handlers.valid = function (e, d) {
     if (e.data.me.options.next_button) {
-        e.data.me.options.next_button.removeClass('disabled').addClass('enabled');
+        if(Array.isArray(e.data.me.options.next_button)) {
+            for (var i = 0; i < e.data.me.options.next_button.length; i++) {
+                var elem = e.data.me.options.next_button[i];
+                elem.removeClass('disabled').addClass('enabled');
+            }
+        } else{
+            e.data.me.options.next_button.removeClass('disabled').addClass('enabled');
+        }
     }
     if (e.data.me.options.error_indicator) {
         e.data.me.options.error_indicator.hide();
@@ -1675,7 +1728,14 @@ tc.merlin.prototype.handlers.valid = function (e, d) {
  */
 tc.merlin.prototype.handlers.invalid = function (e, d) {
     if (e.data.me.options.next_button) {
-        e.data.me.options.next_button.removeClass('enabled').addClass('disabled');
+        if(Array.isArray(e.data.me.options.next_button)) {
+            for (var i = 0; i < e.data.me.options.next_button.length; i++) {
+                var elem = e.data.me.options.next_button[i];
+                elem.removeClass('enabled').addClass('disabled');
+            }
+        } else{
+            e.data.me.options.next_button.removeClass('enabled').addClass('disabled');
+        }
     }
 };
 
@@ -2264,7 +2324,7 @@ tc.resource_tooltip.prototype.generate_markup = function(data){
 	} else {
 		markup.find('img').attr('src','/static/images/thumb_genAvatar100.png');
 	}
-	markup.find('.main p').text(data.description);
+	markup.find('.main p').html(data.description);
 	markup.find('dd a').attr('target','_blank').attr('href',data.url).text(tc.truncate(data.url,28,'...'));
 	return tc.jQ('<div>').append(markup).html();
 };
@@ -2543,7 +2603,7 @@ tc.locationDropdown.prototype.inputFocusHandler = function(e){
 		tc.jQ('label[for="location-hood"]').trigger('fake-click',{preventChange:true});
 	}
 	dropdown.open();
-	if(e.target.value.toLowerCase() == 'all neighborhoods'){
+	if(e.target.value.toLowerCase() == ''){
 		e.target.value = '';
 	}
 };
@@ -2859,7 +2919,7 @@ tc.inlineEditor.prototype = {
 	// for internal use:
 	
 	_generateControls: function() {
-		return '<a href="#" class="ca-btn save-btn">'+ app_page.general_messages['save'] +'</a><a href="#" class="cancel-btn">'+app_page.general_messages['cancel']+'</a>';
+		return '<a href="#" class="ca-btn save-btn">'+app_page.general_messages['save']+'</a><a href="#" class="cancel-btn">'+app_page.general_messages['cancel']+'</a>';
 	},
 	_renderDisplayContent: function() {
 		this.content.text(this.data);
@@ -2929,7 +2989,8 @@ tc.gam.project = function(app, dom) {
         project_data: app.app_page.data.project,    //project specific data
         user: app.app_page.user,                    //user data
         project_user: app.app_page.project_user,    //project user data
-        media_root: app.app_page.media_root         //root directory for images and such
+        media_root: app.app_page.media_root,        //root directory for images and such
+        messages: app.app_page.messages             //messages for localization
     };
 
     app.components.project_widgets = {
@@ -3415,7 +3476,7 @@ tc.app.prototype.init = function(page) {
                     dataType: 'text',
                     success: function(data, ts, xhr) {
                         var me = this;
-                        if (FB._userStatus == 'unknown') {
+                        if (FB._userStatus == 'unknown' || FB._userStatus == null) {
                             me.finish_logout(e);
                         } else {
                             FB.getLoginStatus(function (response) {

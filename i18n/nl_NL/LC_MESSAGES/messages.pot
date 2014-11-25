@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-11-21 16:27+0100\n"
+"POT-Creation-Date: 2014-11-25 14:31+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -115,7 +115,7 @@ msgstr ""
 msgid "Sign Up"
 msgstr ""
 
-#: templates/bb.html:25 templates/bb.html:144 templates/create.html:191
+#: templates/bb.html:25 templates/bb.html:144 templates/create.html:196
 #: templates/idea.html:154 templates/login.html:7 templates/login.html:23
 #: templates/login.html:44 templates/partials/base.html:186
 #: templates/partials/base.html:260 templates/partials/mobilebase.html:32
@@ -123,7 +123,7 @@ msgstr ""
 msgid "Login"
 msgstr ""
 
-#: templates/bb.html:37 templates/create.html:15 templates/create.html:242
+#: templates/bb.html:37 templates/create.html:15 templates/create.html:247
 msgid "Hey"
 msgstr ""
 
@@ -202,7 +202,7 @@ msgstr ""
 msgid "Thanks, you've joined the project:"
 msgstr ""
 
-#: templates/bb.html:117 templates/create.html:55 templates/create.html:255
+#: templates/bb.html:117 templates/create.html:55 templates/create.html:260
 #: templates/home.html:254 templates/home.html:293 templates/home.html:433
 #: templates/idea.html:116 templates/project/mission.html:42
 #: templates/search.html:121 templates/search.html:665
@@ -229,13 +229,13 @@ msgstr ""
 msgid "to join or start a project."
 msgstr ""
 
-#: templates/bb.html:140 templates/feedback.html:36 templates/join.html:69
-#: templates/join.html:107 templates/login.html:35
+#: templates/bb.html:140 templates/feedback.html:36 templates/join.html:70
+#: templates/join.html:108 templates/login.html:35
 #: templates/useraccount.html:573
 msgid "Email"
 msgstr ""
 
-#: templates/bb.html:142 templates/join.html:73 templates/login.html:39
+#: templates/bb.html:142 templates/join.html:74 templates/login.html:39
 msgid "Password"
 msgstr ""
 
@@ -343,9 +343,9 @@ msgstr ""
 #: templates/cms_adminsettings.html:273 templates/project/event.html:38
 #: templates/project/event_needs.html:80
 #: templates/project/event_teaser.html:18
-#: templates/project/member_list.html:137 templates/project/mission.html:177
+#: templates/project/member_list.html:137 templates/project/mission.html:179
 #: templates/project/need_teaser.html:40 templates/project/resources.html:191
-#: templates/project/volunteer_need.html:58 templates/project.html:228
+#: templates/project/volunteer_need.html:57 templates/project.html:228
 #: templates/project.html:278 templates/search.html:590
 #: templates/search.html:626 templates/useraccount.html:679
 #: templates/useraccount.html:693
@@ -384,7 +384,7 @@ msgstr ""
 msgid "Create <em>a</em> Project"
 msgstr ""
 
-#: templates/create.html:14 templates/create.html:241
+#: templates/create.html:14 templates/create.html:246
 msgid "Turn an idea into a project."
 msgstr ""
 
@@ -396,7 +396,7 @@ msgstr ""
 msgid "Describe"
 msgstr ""
 
-#: templates/create.html:21 templates/project/mission.html:112
+#: templates/create.html:21 templates/project/mission.html:114
 msgid "Location"
 msgstr ""
 
@@ -404,20 +404,18 @@ msgstr ""
 msgid "Check"
 msgstr ""
 
-#: templates/create.html:23 templates/create.html:178
-#: templates/create.html:267 templates/partials/add_resource.html:20
-#: templates/project/add_link.html:32 templates/project/mission.html:136
-#: templates/project.html:358 templates/search.html:227
-#: templates/search.html:559 templates/search.html:680
+#: templates/create.html:23 templates/create.html:183
+#: templates/partials/add_resource.html:20 templates/project/add_link.html:32
+#: templates/project/mission.html:138 templates/project.html:358
 #: templates/useraccount.html:263
 msgid "Add"
 msgstr ""
 
-#: templates/create.html:27
+#: templates/create.html:27 templates/create.html:149
 msgid "Next step"
 msgstr ""
 
-#: templates/create.html:38 templates/create.html:147 templates/join.html:235
+#: templates/create.html:38 templates/create.html:152 templates/join.html:236
 msgid "Back"
 msgstr ""
 
@@ -504,24 +502,24 @@ msgid ""
 "Sorry! You can add resources later if you find something that looks helpful."
 msgstr ""
 
-#: templates/create.html:140 templates/join.html:224
+#: templates/create.html:140 templates/join.html:225
 msgid "Thank you for joining."
 msgstr ""
 
-#: templates/create.html:152 templates/project.html:194
+#: templates/create.html:157 templates/project.html:194
 msgid "<strong>Upload</strong> a photo for your project."
 msgstr ""
 
-#: templates/create.html:154 templates/project.html:196
+#: templates/create.html:159 templates/project.html:196
 #: templates/useraccount.html:658 templates/useraccount.html:669
 msgid ""
 "Photos should be <strong>under 1MB</strong> please. (We also crop photos to "
 "<strong>90px by 90px</strong>)"
 msgstr ""
 
-#: templates/create.html:158 templates/create.html:219
-#: templates/create.html:226 templates/home.html:384 templates/home.html:395
-#: templates/idea.html:155 templates/join.html:244
+#: templates/create.html:163 templates/create.html:224
+#: templates/create.html:231 templates/home.html:384 templates/home.html:395
+#: templates/idea.html:155 templates/join.html:245
 #: templates/partials/add_resource.html:29
 #: templates/partials/base_idea_delete.html:16
 #: templates/partials/base_invite.html:54
@@ -530,9 +528,9 @@ msgstr ""
 #: templates/partials/idea_conversation.html:156
 #: templates/project/conversation.html:133
 #: templates/project/conversation.html:174
-#: templates/project/member_list.html:146 templates/project/mission.html:99
-#: templates/project/mission.html:158 templates/project/mission.html:172
-#: templates/project/mission.html:186 templates/project/needs.html:126
+#: templates/project/member_list.html:146 templates/project/mission.html:101
+#: templates/project/mission.html:160 templates/project/mission.html:174
+#: templates/project/mission.html:188 templates/project/needs.html:126
 #: templates/project/needs.html:136 templates/project.html:176
 #: templates/project.html:183 templates/project.html:189
 #: templates/project.html:200 templates/project.html:223
@@ -546,29 +544,29 @@ msgstr ""
 msgid "close"
 msgstr ""
 
-#: templates/create.html:180 templates/create.html:261
+#: templates/create.html:185 templates/create.html:266
 #: templates/project.html:355 templates/search.html:230
 #: templates/search.html:562 templates/search.html:683
 #: templates/useraccount.html:266
 msgid "Added <em>to</em> your project"
 msgstr ""
 
-#: templates/create.html:181 templates/useraccount.html:267
+#: templates/create.html:186 templates/useraccount.html:267
 msgid "We&#39;ve sent them a link to your project page."
 msgstr ""
 
-#: templates/create.html:189
+#: templates/create.html:194
 msgid "<strong>Oops!</strong>"
 msgstr ""
 
-#: templates/create.html:190 templates/idea.html:153 templates/search.html:641
+#: templates/create.html:195 templates/idea.html:153 templates/search.html:641
 #, python-format
 msgid ""
 "You must <strong><a href=\"/join\">register</a></strong> or <strong><a href="
 "\"/login\">login</a></strong> to %(sitename)s in order to vote for an idea."
 msgstr ""
 
-#: templates/create.html:191 templates/idea.html:154 templates/join.html:7
+#: templates/create.html:196 templates/idea.html:154 templates/join.html:7
 #: templates/partials/base.html:185
 #: templates/partials/idea_conversation.html:23
 #: templates/project/conversation.html:32 templates/project.html:75
@@ -576,84 +574,84 @@ msgstr ""
 msgid "Join"
 msgstr ""
 
-#: templates/create.html:208 templates/project/resources.html:183
+#: templates/create.html:213 templates/project/resources.html:183
 #: templates/search.html:617
 msgid "Visit Us"
 msgstr ""
 
-#: templates/create.html:216 templates/create.html:223
+#: templates/create.html:221 templates/create.html:228
 msgid "Oops!"
 msgstr ""
 
-#: templates/create.html:217
+#: templates/create.html:222
 msgid "Please select an area from the list first!"
 msgstr ""
 
-#: templates/create.html:218 templates/create.html:225
+#: templates/create.html:223 templates/create.html:230
 msgid "OK"
 msgstr ""
 
-#: templates/create.html:224
+#: templates/create.html:229
 msgid "The pin does not match the area you selected!"
 msgstr ""
 
-#: templates/create.html:243
+#: templates/create.html:248
 msgid "let's get started with some basic details."
 msgstr ""
 
-#: templates/create.html:244
+#: templates/create.html:249
 msgid "e.g. More Greenways Downtown"
 msgstr ""
 
-#: templates/create.html:245
+#: templates/create.html:250
 msgid "Field Organization, Program, Community Group, etc."
 msgstr ""
 
-#: templates/create.html:246
+#: templates/create.html:251
 msgid "Add a description"
 msgstr ""
 
-#: templates/create.html:247
+#: templates/create.html:252
 msgid "Separate keywords by commas"
 msgstr ""
 
-#: templates/create.html:248
+#: templates/create.html:253
 msgid "Turn ideas into solutions"
 msgstr ""
 
-#: templates/create.html:249
+#: templates/create.html:254
 msgid ""
 "Get found by other people, resources,<br />and other projects in the area."
 msgstr ""
 
-#: templates/create.html:250 templates/home.html:431
+#: templates/create.html:255 templates/home.html:431
 #: templates/resource.html:158
 msgid "Start typing a neighborhood"
 msgstr ""
 
-#: templates/create.html:251 templates/create.html:253
+#: templates/create.html:256 templates/create.html:258
 msgid "Let's have a look for similar projects."
 msgstr ""
 
-#: templates/create.html:252 templates/create.html:254
+#: templates/create.html:257 templates/create.html:259
 msgid ""
 "Starting something new is great, but there<br />may also be a great project "
 "to join up with."
 msgstr ""
 
-#: templates/create.html:256 templates/create.html:258
-#: templates/create.html:263
+#: templates/create.html:261 templates/create.html:263
+#: templates/create.html:268
 msgid "Add a resource."
 msgstr ""
 
-#: templates/create.html:257 templates/create.html:259
-#: templates/create.html:264
+#: templates/create.html:262 templates/create.html:264
+#: templates/create.html:269
 msgid ""
 "When you add a resource, we will email them an<br />introduction and link to "
 "your project!"
 msgstr ""
 
-#: templates/create.html:260 templates/idea.html:48
+#: templates/create.html:265 templates/idea.html:48
 #: templates/partials/base_message.html:25
 #: templates/partials/idea_conversation.html:122
 #: templates/partials/idea_conversation_message.html:12
@@ -668,27 +666,32 @@ msgstr ""
 msgid "Close"
 msgstr ""
 
-#: templates/create.html:262 templates/project.html:356
+#: templates/create.html:267 templates/project.html:356
 #: templates/search.html:231 templates/search.html:563
 #: templates/search.html:684
 msgid "We've sent them a link to your project page."
 msgstr ""
 
-#: templates/create.html:265
+#: templates/create.html:270
 msgid "Thank you!"
 msgstr ""
 
-#: templates/create.html:266
+#: templates/create.html:271
 msgid "Thank you for adding a project."
 msgstr ""
 
-#: templates/create.html:268 templates/project/resources.html:157
+#: templates/create.html:272 templates/search.html:227
+#: templates/search.html:559 templates/search.html:680
+msgid "Add to Project"
+msgstr ""
+
+#: templates/create.html:273 templates/project/resources.html:157
 #: templates/search.html:221 templates/search.html:553
 #: templates/search.html:674
 msgid "Official Resource"
 msgstr ""
 
-#: templates/create.html:269
+#: templates/create.html:274
 msgid "Hey! This is you!"
 msgstr ""
 
@@ -797,7 +800,7 @@ msgstr ""
 
 #: templates/email/digest.html:33 templates/project/event_teaser.html:49
 #: templates/project/needs.html:67 templates/project/needs.html:85
-#: templates/project/volunteer_need.html:72
+#: templates/project/volunteer_need.html:71
 msgid "on"
 msgstr ""
 
@@ -1059,7 +1062,7 @@ msgstr ""
 msgid "Your email?"
 msgstr ""
 
-#: templates/home.html:46 templates/join.html:78 templates/join.html:115
+#: templates/home.html:46 templates/join.html:79 templates/join.html:116
 msgid "Please enter a valid email address"
 msgstr ""
 
@@ -1117,7 +1120,8 @@ msgstr ""
 msgid "Browse All"
 msgstr ""
 
-#: templates/home.html:158 templates/home.html:176 templates/login.html:30
+#: templates/home.html:158 templates/home.html:176 templates/join.html:48
+#: templates/login.html:30
 msgid "or"
 msgstr ""
 
@@ -1220,8 +1224,8 @@ msgstr ""
 msgid "Read more"
 msgstr ""
 
-#: templates/home.html:380 templates/join.html:85 templates/join.html:121
-#: templates/join.html:149 templates/join.html:240
+#: templates/home.html:380 templates/join.html:86 templates/join.html:122
+#: templates/join.html:150 templates/join.html:241
 #: templates/partials/base.html:335 templates/partials/mobilebase.html:73
 msgid "Terms of Use"
 msgstr ""
@@ -1300,7 +1304,7 @@ msgstr ""
 msgid "via"
 msgstr ""
 
-#: templates/idea.html:71 templates/project/mission.html:81
+#: templates/idea.html:71 templates/project/mission.html:82
 msgid "Supporters"
 msgstr ""
 
@@ -1347,147 +1351,147 @@ msgid ""
 "Create a login using <strong>Facebook</strong> or <strong>Twitter</strong>"
 msgstr ""
 
-#: templates/join.html:48
+#: templates/join.html:49
 msgid "Click Here"
 msgstr ""
 
-#: templates/join.html:48
+#: templates/join.html:49
 msgid "if you want to create a login without Facebook or Twitter"
 msgstr ""
 
-#: templates/join.html:52 templates/login.html:61
+#: templates/join.html:53 templates/login.html:61
 msgid "Connecting to Facebook..."
 msgstr ""
 
-#: templates/join.html:57
+#: templates/join.html:58
 msgid "uses real names."
 msgstr ""
 
-#: templates/join.html:61 templates/join.html:99
+#: templates/join.html:62 templates/join.html:100
 #: templates/useraccount.html:440
 msgid "First name"
 msgstr ""
 
-#: templates/join.html:65 templates/join.html:103 templates/join.html:281
+#: templates/join.html:66 templates/join.html:104 templates/join.html:282
 #: templates/useraccount.html:444
 msgid "Last name"
 msgstr ""
 
-#: templates/join.html:85 templates/join.html:121
+#: templates/join.html:86 templates/join.html:122
 msgid "I have read and accept the<br/>the"
 msgstr ""
 
-#: templates/join.html:95
+#: templates/join.html:96
 #, python-format
 msgid "Enter your email to get updates from %(sitename)s projects."
 msgstr ""
 
-#: templates/join.html:128
+#: templates/join.html:129
 msgid "Verifying account information"
 msgstr ""
 
-#: templates/join.html:149
+#: templates/join.html:150
 msgid "I accept and have read the"
 msgstr ""
 
-#: templates/join.html:157
+#: templates/join.html:158
 #, python-format
 msgid ""
 "Did you text your ideas to %(sitename)s?  Enter your phone number to link "
 "them to your profile."
 msgstr ""
 
-#: templates/join.html:168
+#: templates/join.html:169
 msgid "I didn&rquot;t text any ideas."
 msgstr ""
 
-#: templates/join.html:173
+#: templates/join.html:174
 msgid "Finding SMS submissions"
 msgstr ""
 
-#: templates/join.html:178
+#: templates/join.html:179
 msgid "We found <span class=\"n_ideas\">X</span> ideas from your phone number."
 msgstr ""
 
-#: templates/join.html:179
+#: templates/join.html:180
 msgid ""
 "We&rquot;ll add these to your profile and any others you send from that "
 "number."
 msgstr ""
 
-#: templates/join.html:183
+#: templates/join.html:184
 msgid "We couldn&#39;t find any ideas sent from"
 msgstr ""
 
-#: templates/join.html:188
+#: templates/join.html:189
 msgid "The number"
 msgstr ""
 
-#: templates/join.html:190
+#: templates/join.html:191
 msgid "is already associated with an account."
 msgstr ""
 
-#: templates/join.html:194
+#: templates/join.html:195
 msgid "Sending Email validation message"
 msgstr ""
 
-#: templates/join.html:199
+#: templates/join.html:200
 msgid "Thanks! You&rquot;re almost there."
 msgstr ""
 
-#: templates/join.html:200
+#: templates/join.html:201
 msgid ""
 "We sent an email to <strong class=\"email\">&nbsp;</strong>&nbsp;in order to "
 "verify your account."
 msgstr ""
 
-#: templates/join.html:201
+#: templates/join.html:202
 msgid ""
 "Check your junk mail folder if you do not receive it in a couple of minutes."
 msgstr ""
 
-#: templates/join.html:202
+#: templates/join.html:203
 msgid ""
 "Click on the link provided in the e-mail address to complete your "
 "registration."
 msgstr ""
 
-#: templates/join.html:206 templates/join.html:220
+#: templates/join.html:207 templates/join.html:221
 msgid "There was a problem authenticating your email."
 msgstr ""
 
-#: templates/join.html:210
+#: templates/join.html:211
 msgid "Awesome! You&rquot;re a member!"
 msgstr ""
 
-#: templates/join.html:211
+#: templates/join.html:212
 msgid "Thank you for verifying your e-mail address."
 msgstr ""
 
-#: templates/join.html:212
+#: templates/join.html:213
 msgid "Please wait while we redirect you home."
 msgstr ""
 
-#: templates/join.html:216
+#: templates/join.html:217
 #, python-format
 msgid ""
 " An account using that email already exists on %(sitename)s. To recover your "
 "password, please click <a href=\"/login#forgot-password\">here</a>."
 msgstr ""
 
-#: templates/join.html:229
+#: templates/join.html:230
 msgid "There was a problem creating your account."
 msgstr ""
 
-#: templates/join.html:278
+#: templates/join.html:279
 msgid "Oops! We found someone with that name and email address in our system."
 msgstr ""
 
-#: templates/join.html:279 templates/login.html:41
+#: templates/join.html:280 templates/login.html:41
 msgid "Forgot your password?"
 msgstr ""
 
-#: templates/join.html:280
+#: templates/join.html:281
 msgid "First Name"
 msgstr ""
 
@@ -1679,7 +1683,7 @@ msgstr ""
 msgid "people"
 msgstr ""
 
-#: templates/partials/base.html:247 templates/project/volunteer_need.html:85
+#: templates/partials/base.html:247 templates/project/volunteer_need.html:84
 msgid "and"
 msgstr ""
 
@@ -2129,7 +2133,7 @@ msgstr ""
 msgid "Edit This"
 msgstr ""
 
-#: templates/project/event.html:55 templates/project/volunteer_need.html:125
+#: templates/project/event.html:55 templates/project/volunteer_need.html:124
 msgid "Map it"
 msgstr ""
 
@@ -2209,7 +2213,7 @@ msgid "Go back to all needs"
 msgstr ""
 
 #: templates/project/event_needs.html:92
-#: templates/project/volunteer_need.html:79
+#: templates/project/volunteer_need.html:78
 msgid "Who&#39;s helping"
 msgstr ""
 
@@ -2220,13 +2224,13 @@ msgstr ""
 
 #: templates/project/event_needs.html:117
 #: templates/project/need_teaser.html:74
-#: templates/project/volunteer_need.html:97
+#: templates/project/volunteer_need.html:96
 msgid "We have"
 msgstr ""
 
 #: templates/project/event_needs.html:121
 #: templates/project/need_teaser.html:90 templates/project/needs.html:77
-#: templates/project/volunteer_need.html:106 templates/project.html:353
+#: templates/project/volunteer_need.html:105 templates/project.html:353
 msgid "I can help"
 msgstr ""
 
@@ -2390,71 +2394,71 @@ msgstr ""
 msgid "Our Mission"
 msgstr ""
 
-#: templates/project/mission.html:105
+#: templates/project/mission.html:107
 msgid "Support <span>this</span> project"
 msgstr ""
 
-#: templates/project/mission.html:121 templates/useraccount.html:593
+#: templates/project/mission.html:123 templates/useraccount.html:593
 msgid "Keywords"
 msgstr ""
 
-#: templates/project/mission.html:138
+#: templates/project/mission.html:140
 msgid "Add Keyword"
 msgstr ""
 
-#: templates/project/mission.html:148
+#: templates/project/mission.html:150
 msgid "<strong>Support</strong> this project?"
 msgstr ""
 
-#: templates/project/mission.html:150
+#: templates/project/mission.html:152
 #, python-format
 msgid "Do you want to endorse</p><p class=\"serif big\">%(project_title)s?"
 msgstr ""
 
-#: templates/project/mission.html:151
+#: templates/project/mission.html:153
 msgid "It will receive your seal of approval!"
 msgstr ""
 
-#: templates/project/mission.html:154 templates/project.html:212
+#: templates/project/mission.html:156 templates/project.html:212
 msgid "Yes"
 msgstr ""
 
-#: templates/project/mission.html:155 templates/project/mission.html:169
+#: templates/project/mission.html:157 templates/project/mission.html:171
 msgid "No"
 msgstr ""
 
-#: templates/project/mission.html:163
+#: templates/project/mission.html:165
 msgid "Are you sure you want to <strong>remove</strong> this endorsement?"
 msgstr ""
 
-#: templates/project/mission.html:165
+#: templates/project/mission.html:167
 msgid ""
 "Are you sure you want to remove this endorsement? To restore the "
 "endorsement, the city leader will need to endorse this project again."
 msgstr ""
 
-#: templates/project/mission.html:168
+#: templates/project/mission.html:170
 msgid "Yes, Remove Endorsement"
 msgstr ""
 
-#: templates/project/mission.html:177
+#: templates/project/mission.html:179
 msgid "this Keyword?"
 msgstr ""
 
-#: templates/project/mission.html:179
+#: templates/project/mission.html:181
 msgid "This deletes the keyword from this project! <br/>Are you sure?"
 msgstr ""
 
-#: templates/project/mission.html:182
+#: templates/project/mission.html:184
 msgid "Yes, Delete Keyword"
 msgstr ""
 
-#: templates/project/mission.html:183
+#: templates/project/mission.html:185
 msgid "No, keep it"
 msgstr ""
 
 #: templates/project/need_teaser.html:76
-#: templates/project/volunteer_need.html:101
+#: templates/project/volunteer_need.html:100
 msgid "donations"
 msgstr ""
 
@@ -2491,7 +2495,7 @@ msgid "I can bring"
 msgstr ""
 
 #: templates/project/needs.html:60 templates/project/needs.html:81
-#: templates/project/volunteer_need.html:115
+#: templates/project/volunteer_need.html:114
 msgid "for"
 msgstr ""
 
@@ -2575,27 +2579,27 @@ msgstr ""
 msgid "We need to borrow"
 msgstr ""
 
-#: templates/project/volunteer_need.html:46
+#: templates/project/volunteer_need.html:45
 msgid "volunteer(s)"
 msgstr ""
 
-#: templates/project/volunteer_need.html:68
+#: templates/project/volunteer_need.html:67
 msgid "Linked to event:"
 msgstr ""
 
-#: templates/project/volunteer_need.html:87
+#: templates/project/volunteer_need.html:86
 msgid "others volunteered."
 msgstr ""
 
-#: templates/project/volunteer_need.html:111
+#: templates/project/volunteer_need.html:110
 msgid "We&#39;ll need you at"
 msgstr ""
 
-#: templates/project/volunteer_need.html:117
+#: templates/project/volunteer_need.html:116
 msgid "hrs"
 msgstr ""
 
-#: templates/project/volunteer_need.html:120
+#: templates/project/volunteer_need.html:119
 msgid "We&#39;ll need you to go to"
 msgstr ""
 

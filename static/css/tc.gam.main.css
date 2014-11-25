@@ -810,15 +810,18 @@ a.close > span {
     display: none
 }
 
-a.ca-btn {
+a.ca-btn,
+a.ca-btn-bottom{
     display: block
 }
 
-a.ca-btn span {
+a.ca-btn span,
+a.ca-btn-bottom span{
     visibility: hidden
 }
 
-a.ca-btn.disabled:hover {
+a.ca-btn.disabled:hover,
+a.ca-btn-bottom.disabled:hover {
     cursor: default
 }
 
@@ -947,6 +950,7 @@ div.continent a.ddtoggle:focus {
 
 input[type="text"].has-been-focused,
 input[type="text"].always-focused,
+textarea.has-been-focused,
 .box textarea.has-been-focused,
 .box textarea.always-focused {
     color: #55504b;
@@ -1229,7 +1233,7 @@ a       span.sm-arrow-back,
 a       span.sm-arrow-forward {
     background-color: transparent;
     background-image: url(../images/control_Arrow_7px_sprite.png);
-    background-repeat: none;
+    background-repeat: no-repeat;
     display: inline-block;
     height: 7px;
     width: 9px;
@@ -1345,7 +1349,7 @@ a.login-facebook,
 a.login-twitter {
     background-color: transparent;
     background-position: top left;
-    background-repeat: none;
+    background-repeat: no-repeat;
     display: block;
     height: 54px;
     margin-right: 20px;
@@ -1931,8 +1935,20 @@ div.continent .headlands .next a.ca-btn {
     width: 138px;
 }
 
-div.continent .headlands .next a.ca-btn.disabled {
+div.continent .foothills .next a.ca-btn-bottom {
+    background: url(../images/button_nextActive.png) top left no-repeat transparent;
+    float: right;
+    height: 103px;
+    margin-top: 0px;
+    width: 138px;
+}
+
+div.continent .headlands .next a.ca-btn.disabled{
     background-image: url(../images/button_nextInactive.png)
+}
+
+div.continent .foothills .next a.ca-btn-bottom.disabled {
+    background-image: url(../images/button_nextInactive_bottom.png)
 }
 
 div.continent .headlands div.oops {
@@ -3128,6 +3144,10 @@ table.resources-list a.add-button {
     height: 22px;
     line-height: 22px;
     margin-top: 2px;
+}
+
+table.resources-list a.add-button.add-resource {
+    font-size: 14px;
 }
 
 table.resources-list td div.added-dialog {
@@ -4696,7 +4716,7 @@ div.invite-user .submit {
 
 .continent.home div.project-cards .small-note blockquote {
     overflow: hidden;
-    word-break: break-word;
+    word-break: break-all;
 }
 
 .continent.home div.project-cards .small-note em {
@@ -5850,7 +5870,7 @@ div.continent.login .midlands .west .email-login {
 
 div.continent.login .midlands .west .oauth-login {
     float: right;
-    width: ;
+    width: 300px;
 }
 
 div.continent.login .midlands .row {
@@ -7262,7 +7282,7 @@ div.continent.add-resource .midlands .thanks a {
 
 div.continent.add-resource .midlands .thanks a.prev {
     font-weight: normal;
-    margin-right: none;
+    margin-right: 0px;
 }
 
 div.continent.add-resource .midlands .thanks a.prev span.sm-arrow-back {
@@ -8333,6 +8353,10 @@ div.continent.search-results table.resources-list td a.add-button {
     line-height: 18px;
     margin-right: 0;
     margin-top: 2px;
+}
+
+div.continent.search-results table.resources-list td a.add-button.add-resource {
+    font-size: 14px;
 }
 
 div.continent.search-results #list-view ul.ideas-list {

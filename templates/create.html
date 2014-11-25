@@ -35,6 +35,7 @@
     </div>
 
     <div class="midlands">
+        <a class="back" href="#" style="display:none">{{ _('Back') }}</a>
         <form class="merlin" action="/join" method="POST">
 
             <div class="step start describe clearfix">
@@ -143,6 +144,11 @@
     </div>
 
     <div class="foothills">
+        <div class="box next">
+            <a class="ca-btn-bottom" href="#">
+                <span>{{ _('Next step') }}</span>
+            </a>
+        </div>
         <a class="back" href="#" style="display:none">{{ _('Back') }}</a>
     </div>
 
@@ -266,6 +272,7 @@
         {%  set msg27 = _('Add') %}
         {%  set msg28 = _('Official Resource') %}
         {%  set msg29 = _('Hey! This is you!') %}
+        {%  set msg30 = _('Add to Project') %}
 
     <script>
         app_page.messages = {
@@ -298,6 +305,7 @@
             'add': "{{ msg27 }}",
             'official-resource': "{{ msg28 }}",
             'steps-location-clicked-marker': "{{ msg29 }}",
+            'add-to-project': "{{ msg30 }}"
         };
     </script>
     <script type="text/javascript" src="/static/js/pages/create.js"></script>

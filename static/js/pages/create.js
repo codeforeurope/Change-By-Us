@@ -45,8 +45,8 @@
 		app.components.merlin = new tc.merlin(app,{
 			dom:tc.jQ('form.merlin'),
 			progress_element:tc.jQ('.merlin-progress'),
-			next_button:tc.jQ('.ca-btn'),
-			back_button:tc.jQ('.foothills .back'),
+			next_button:[tc.jQ('.ca-btn'), tc.jQ('.ca-btn-bottom')],
+			back_button:[tc.jQ('.foothills .back'),tc.jQ('.midlands .back')],
 			error_indicator:tc.jQ('.oops'),
 			title:tc.jQ('.headlands h1'),
 			sub_title:tc.jQ('.headlands h2'),
@@ -64,8 +64,8 @@
 				links:null,
 				resources:null,
 				image:'-1',
-                project_lat:null,
-                project_lng:null,
+                project_lat:'',
+                project_lng:'',
                 ideaid: window.location.hash.split(',')[0]=="#idea" ? window.location.hash.split(',')[1] : null,
 				main_text:""
 			},
@@ -211,10 +211,12 @@
 							}
 						});
 						tc.jQ('.foothills a.back').hide();
+                        tc.jQ('.midlands a.back').hide();
 					},
 					finish:function(merlin,dom){
 						tc.jQ('.foothills a.back').show();
-						
+						tc.jQ('.midlands a.back').show();
+
 						tc.util.dump(merlin.current_step.inputs);
 						
 						function val_escape_hints($input) {
@@ -483,7 +485,7 @@
 					sub_title:app_page.messages['steps-addresource-subtitle'],
 					progress_selector:'.4',
 					selector:'.step.add',
-					prev_step:'check',
+					prev_step:'location',
 					next_step:'finish',
 					use_for_history:true,
 					init:function(merlin,dom){
@@ -514,14 +516,14 @@
 								tempImgPath = '/static/images/thumb_genAvatar50.png'
 							}
 							temp += "<td class='" + (resource.is_official ? "official-resource" : "") + "'>";
-							temp += '<a href="#add,'+ resource.link_id +'" class="add-button rounded-button small">'+ app_page.messages['add']+'</a>'+
-								'<span class="thumb">'+
+							temp += '<span class="thumb">'+
 								(app.app_page.data.user.is_admin ? '<a class="close" href="#removeOrganization,'+resource.link_id+'"><span>' + app_page.messages['close'] + '</span></a>' : '')+
 								'<img width="35" src="'+tempImgPath+'" alt="" /></span>'+
 								'<span class="resource-name" ><span>'+
 								'<span class="organization-name tooltip_trigger" rel="#organization,'+ resource.link_id +'">'+ 
 									resource.title +
-								'</span></span></span>';
+								'</span></span></span>' +
+								'<a href="#add,'+ resource.link_id +'" class="add-button rounded-button small">'+ app_page.messages['add-to-project']+'</a>';
 							// hidden added dialog
 							temp += '<div class="added-dialog">'+
 								'<span class="added-header">' + app_page.messages['steps-addresource-added']+ '</span><br />'+
@@ -607,7 +609,7 @@
 					sub_title:app_page.messages['steps-add-noresource-subtitle'],
 					progress_selector:'.4',
 					selector:'.step.add-noresources',
-					prev_step:'check',
+					prev_step:'location',
 					next_step:'finish'
 				},
 				'finish':{

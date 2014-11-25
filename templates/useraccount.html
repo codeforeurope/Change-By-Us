@@ -174,9 +174,12 @@
                                                 {% endif %}
                                                 <cite class="note-meta-hd">{% if idea.owner %}<strong><a href="/useraccount/{{ idea.owner.u_id }}">{{ idea.owner.name|truncate(18) }}</a></strong> {{ _('said') }} &mdash;{% endif %}</cite>
                                                 <blockquote><p>{{ idea.message|truncate(180) }}</p></blockquote>
-                                                <cite class="note-meta-ft">Posted <strong><span class="time-since">{{ idea.created }}</span></strong> {{ _('via') }} <strong>{{ idea.submission_type }}</strong></cite>
+                                                <cite class="note-meta-ft">{{ _('Posted') }} <strong><span class="time-since">{{ idea.created }}</span></strong> {{ _('via') }} <strong>{{ idea.submission_type }}</strong></cite>
                                             </div>
                                         </div>
+                                        {% if idea.projects_count == 0 %}
+                                            <a class="rounded-button small fancy-caps more-link" href="/create#idea,{{ idea.idea_id }}">{{ _('Start <span>a</span> Project') }} <span class="sm-arrow-forward"></span></a>
+                                        {% endif %}
                                     </li>
                                 {% endfor %}
                             </ul>
@@ -218,7 +221,7 @@
                                                 {% endif %}
                                                 <cite class="note-meta-hd">{% if idea.owner %}<strong><a href="/useraccount/{{ idea.owner.u_id }}">{{ idea.owner.name|truncate(18) }}</a></strong> {{ _('said') }} &mdash;{% endif %}</cite>
                                                 <blockquote><p>{{ idea.message|truncate(180) }}</p></blockquote>
-                                                <cite class="note-meta-ft">Posted <strong><span class="time-since">{{ idea.created }}</span></strong> {{ _('via') }} <strong>{{ idea.submission_type }}</strong></cite>
+                                                <cite class="note-meta-ft">{{ _('Posted') }} <strong><span class="time-since">{{ idea.created }}</span></strong> {{ _('via') }} <strong>{{ idea.submission_type }}</strong></cite>
                                             </div>
                                         </div>
                                     </li>
@@ -248,9 +251,6 @@
                                         <tr>
                                         {% endif %}
                                             <td {% if resource.is_official %}class="official-resource"{% endif %}>
-                                                {% if d.template_data and d.template_data.user and d.template_data.user.data.projects|length > 0 %}
-                                                    <a class="add-button rounded-button small add-resource" href="#addResource,{{ resource.project_resource_id }}">{{ _('Add') }}</a>
-                                                {% endif %}
                                                 {% if resource.image_id > 0 %}
                                                 <span class="thumb">{% if d.template_data and d.template_data.user and d.template_data.user.is_admin %}<a class="close delete-resource" href="#removeResource,{{ resource.project_resource_id }}"><span>{{ _('Remove') }}</span></a>{% endif %}<img width='35' height='35' src='{{d.template_data.media_root}}images/{{ resource.image_id % 10 }}/{{ resource.image_id }}.png' alt="" /></span>
                                                 {% else %}
@@ -262,6 +262,9 @@
                                                         <span><a target='_blank' href="{{ resource.url }}"><span>{{ resource.title|truncate(25, true) }}</span></a></span>
                                                     </span>
                                                 </span>
+                                                {% if d.template_data and d.template_data.user and d.template_data.user.data.projects|length > 0 %}
+                                                    <a class="add-button rounded-button small add-resource" href="#addResource,{{ resource.project_resource_id }}">{{ _('Add to Project') }}</a>
+                                                {% endif %}
                                                 <div class="added-dialog">
                                                     <span class="added-header">{{ _('Added <em>to</em> your project') }}<br /></span>
                                                     <span class="added-text">{{ _('We&#39;ve sent them a link to your project page.') }}</span>

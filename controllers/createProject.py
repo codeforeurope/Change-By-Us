@@ -61,8 +61,8 @@ class CreateProject(Controller):
                 self.request('keywords')) else []
             resourceIds = self.request('resources').split(',')
             isOfficial = self.user.isAdmin and supported_features.get('is_official_supported')
-            project_lat = float(self.request('project_lat')) if self.request('project_lat') else None
-            project_lng = float(self.request('project_lng')) if self.request('project_lng') else None
+            project_lat = float(self.request('project_lat')) if not util.strNullOrEmpty(self.request('project_lat')) else None
+            project_lng = float(self.request('project_lng')) if not util.strNullOrEmpty(self.request('project_lng')) else None
 
 
             # if(project_lat is not None and project_lng is not None):
