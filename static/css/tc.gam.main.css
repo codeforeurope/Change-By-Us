@@ -7849,9 +7849,13 @@ div.continent.faq .midlands li {
 }
 
 div.continent.faq .midlands li h3 {
-    font: 28px/33px "ff-meta-serif-web-pro-1","ff-meta-serif-web-pro-2", Georgia, Times, Times New Roman, serif;
+    font: 20px/22px "ff-meta-serif-web-pro-1","ff-meta-serif-web-pro-2", Georgia, Times, Times New Roman, serif;
     font-weight: normal;
     margin-bottom: 13px;
+}
+
+div.continent.faq .midlands a {
+    font-weight: bold;
 }
 
 div.continent.faq .midlands p.fancy {

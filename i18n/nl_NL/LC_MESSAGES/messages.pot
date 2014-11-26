@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-11-25 17:18+0100\n"
+"POT-Creation-Date: 2014-11-26 17:33+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -300,9 +300,9 @@ msgstr ""
 msgid "Previous"
 msgstr ""
 
-#: templates/calendar.html:61 templates/project/event_needs.html:88
+#: templates/calendar.html:61 templates/project/event_needs.html:87
 #: templates/project/event_teaser.html:41
-#: templates/project/need_teaser.html:47
+#: templates/project/need_teaser.html:46
 msgid "Read More"
 msgstr ""
 
@@ -342,10 +342,10 @@ msgid "On Call"
 msgstr ""
 
 #: templates/cms_adminsettings.html:273 templates/project/event.html:38
-#: templates/project/event_needs.html:80
+#: templates/project/event_needs.html:79
 #: templates/project/event_teaser.html:18
 #: templates/project/member_list.html:137 templates/project/mission.html:179
-#: templates/project/need_teaser.html:40 templates/project/resources.html:191
+#: templates/project/need_teaser.html:39 templates/project/resources.html:191
 #: templates/project/volunteer_need.html:57 templates/project.html:228
 #: templates/project.html:278 templates/search.html:590
 #: templates/search.html:626 templates/useraccount.html:682
@@ -747,7 +747,7 @@ msgstr ""
 #: templates/email/idea_confirmation.html:24
 #: templates/email/project_invite.html:21 templates/email/project_join.html:21
 #: templates/email/project_join.html:24
-#: templates/email/resource_notification.html:21
+#: templates/email/resource_notification.html:21 templates/faq.html:153
 msgid "Click here"
 msgstr ""
 
@@ -828,6 +828,15 @@ msgstr ""
 msgid ""
 "If you&#39;d like to unsubscribe, you can change your message preferences on "
 "<a href=\"%(base_url)suseraccount\">your account page</a>."
+msgstr ""
+
+#: templates/email/digest.html:44
+#, python-format
+msgid "Thank you for using <a href=\"%(base_url)s\">%(site_name)s</a>"
+msgstr ""
+
+#: templates/email/digest.html:44
+msgid "if you have any questions or need help, please contact us at"
 msgstr ""
 
 #: templates/email/direct_message.html:14
@@ -981,6 +990,14 @@ msgstr ""
 msgid ""
 "Please take a moment to visit their page and see if you can help by sending "
 "links, providing advice, or answering questions:"
+msgstr ""
+
+#: templates/faq.html:150
+msgid "We Love Feedback"
+msgstr ""
+
+#: templates/faq.html:153
+msgid "Would you like to give us feedback? "
 msgstr ""
 
 #: templates/feedback.html:7
@@ -2146,18 +2163,26 @@ msgstr ""
 msgid "RSVP"
 msgstr ""
 
-#: templates/project/event.html:72 templates/project/event_needs.html:70
-#: templates/project/event_teaser.html:55
-#: templates/project/need_teaser.html:29
+#: templates/project/event.html:71 templates/project/event_needs.html:69
+#: templates/project/event_teaser.html:54
+#: templates/project/need_teaser.html:28
+#: templates/project/volunteer_need.html:45
+#: templates/project/volunteer_need_form.html:37
+msgid "We need"
+msgstr ""
+
+#: templates/project/event.html:71 templates/project/event_needs.html:69
+#: templates/project/event_teaser.html:54
+#: templates/project/need_teaser.html:28
 #: templates/project/volunteer_need_form.html:41
 msgid "volunteer"
 msgstr ""
 
-#: templates/project/event.html:73 templates/project/event_teaser.html:56
+#: templates/project/event.html:72 templates/project/event_teaser.html:55
 msgid "Show all needs for this event"
 msgstr ""
 
-#: templates/project/event.html:90 templates/project/event_teaser.html:74
+#: templates/project/event.html:89 templates/project/event_teaser.html:73
 msgid "No events found."
 msgstr ""
 
@@ -2217,33 +2242,26 @@ msgstr ""
 msgid "Go back to all needs"
 msgstr ""
 
-#: templates/project/event_needs.html:92
+#: templates/project/event_needs.html:91
 #: templates/project/volunteer_need.html:78
 msgid "Who&#39;s helping"
 msgstr ""
 
-#: templates/project/event_needs.html:108
-#: templates/project/need_teaser.html:67 templates/project/needs.html:100
+#: templates/project/event_needs.html:107
+#: templates/project/need_teaser.html:66 templates/project/needs.html:100
 msgid "Be the first to volunteer!"
 msgstr ""
 
-#: templates/project/event_needs.html:117
-#: templates/project/need_teaser.html:74
+#: templates/project/event_needs.html:116
+#: templates/project/need_teaser.html:73
 #: templates/project/volunteer_need.html:96
 msgid "We have"
 msgstr ""
 
-#: templates/project/event_needs.html:121
-#: templates/project/need_teaser.html:90 templates/project/needs.html:77
+#: templates/project/event_needs.html:120
+#: templates/project/need_teaser.html:89 templates/project/needs.html:77
 #: templates/project/volunteer_need.html:105 templates/project.html:353
 msgid "I can help"
-msgstr ""
-
-#: templates/project/event_teaser.html:54
-#: templates/project/need_teaser.html:28
-#: templates/project/volunteer_need.html:45
-#: templates/project/volunteer_need_form.html:37
-msgid "We need"
 msgstr ""
 
 #: templates/project/events.html:18
@@ -2462,24 +2480,24 @@ msgstr ""
 msgid "No, keep it"
 msgstr ""
 
-#: templates/project/need_teaser.html:76
+#: templates/project/need_teaser.html:75
 #: templates/project/volunteer_need.html:100
 msgid "donations"
 msgstr ""
 
-#: templates/project/need_teaser.html:78
+#: templates/project/need_teaser.html:77
 msgid "volunteers"
 msgstr ""
 
-#: templates/project/need_teaser.html:86 templates/project.html:352
+#: templates/project/need_teaser.html:85 templates/project.html:352
 msgid "I am helping"
 msgstr ""
 
-#: templates/project/need_teaser.html:88
+#: templates/project/need_teaser.html:87
 msgid "Completed!"
 msgstr ""
 
-#: templates/project/need_teaser.html:107
+#: templates/project/need_teaser.html:106
 msgid "No needs found."
 msgstr ""
 

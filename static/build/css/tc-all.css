@@ -7301,10 +7301,10 @@ div.continent.user-account .midlands .account-view a.connect-twitter {
     background-repeat: no-repeat;
     display: block;
     float: left;
-    height: 52px;
+    height: 65px;
     margin-bottom: 15px;
     margin-right: 17px;
-    width: 140px;
+    width: 164px;
 }
 
 div.continent.user-account .midlands .account-view div.social-networking a.connect-facebook {
@@ -7314,7 +7314,7 @@ div.continent.user-account .midlands .account-view div.social-networking a.conne
 div.continent.user-account .midlands .account-view div.social-networking.facebook-connected a.connect-facebook {
     background-image: url(../images/connected_fb.png);
     margin-right: 0px;
-    width: 157px;
+    width: 164px;
 }
 
 div.continent.user-account .midlands .account-view div.social-networking a.connect-twitter {
@@ -7324,7 +7324,7 @@ div.continent.user-account .midlands .account-view div.social-networking a.conne
 div.continent.user-account .midlands .account-view div.social-networking.twitter-connected a.connect-twitter {
     background-image: url(../images/connected_twitter.png);
     margin-right: 0px;
-    width: 157px;
+    width: 164px;
 }
 
 div.continent.user-account .midlands .account-view div.social-networking a.disconnect {
@@ -8228,9 +8228,13 @@ div.continent.faq .midlands li {
 }
 
 div.continent.faq .midlands li h3 {
-    font: 28px/33px "ff-meta-serif-web-pro-1","ff-meta-serif-web-pro-2", Georgia, Times, Times New Roman, serif;
+    font: 20px/22px "ff-meta-serif-web-pro-1","ff-meta-serif-web-pro-2", Georgia, Times, Times New Roman, serif;
     font-weight: normal;
     margin-bottom: 13px;
+}
+
+div.continent.faq .midlands a {
+    font-weight: bold;
 }
 
 div.continent.faq .midlands p.fancy {
