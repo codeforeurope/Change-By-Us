@@ -32,7 +32,6 @@ from dateutil.relativedelta import relativedelta
 from optparse import OptionParser, IndentedHelpFormatter  # for command-line menu
 import time  # for sleeping
 import re
-import jinja2
 
 # Assuming we start in the scripts folder, we need
 # to traverse up for everything in our project
@@ -130,30 +129,42 @@ class Mailable():
         return "<html><head></head><body>%s</body></html>" % body
 
     def sendEmail(self, to=None, recipients=None, subject=None, body=None, maxRetries=10):
-        complete = False
-        failNum = 0
+        # complete = False
+        # failNum = 0
 
-        while not complete:
-            complete = Emailer.send(addresses=to,
-                                    subject=subject,
+
+        for recipient in recipients:
+            complete = Emailer.send(addresses=recipient,
+                                    subject=subject.rstrip(),
                                     text=None,
-                                    html=body,
+                                    html=body.rstrip('\n'),
                                     from_name=self.MailerSettings.get('FromName'),
-                                    from_address=self.MailerSettings.get('FromEmail'),
-                                    bcc=recipients)
-
+                                    from_address=self.MailerSettings.get('FromEmail'))
             if (not complete):
-                if (failNum < maxRetries):
-                    failNum += 1
+                logging.error("Failed to send digest email '%s' to %s." % (subject, recipient))
 
-                    # Most probably we got an SES error, which means we should wait and retry
-                    time.sleep(1)
-                    pass
-                else:
-                    complete = True
-                    logging.error("Failed to send digest email '%s'. Quit after %s tries." % (subject, str(maxRetries)))
 
-                    return False
+        # while not complete:
+        #     complete = Emailer.send(addresses=to,
+        #                             subject=subject.rstrip(),
+        #                             text=None,
+        #                             html=body,
+        #                             from_name=self.MailerSettings.get('FromName'),
+        #                             from_address=self.MailerSettings.get('FromEmail'),
+        #                             bcc=recipients)
+        #
+        #     if (not complete):
+        #         if (failNum < maxRetries):
+        #             failNum += 1
+        #
+        #             # Most probably we got an SES error, which means we should wait and retry
+        #             time.sleep(1)
+        #             pass
+        #         else:
+        #             complete = True
+        #             logging.error("Failed to send digest email '%s'. Quit after %s tries." % (subject, str(maxRetries)))
+        #
+        #             return False
 
         return True
 
@@ -191,7 +202,7 @@ class Taskable():
         order by updated_datetime DESC
         limit 0, $limit
         """
-        params = {'task_name': taskName, 'threshold_datetime': datetime.utcnow().strftime("%Y-%m-%d %H:%M"), 'limit': limit}
+        params = {'task_name': taskName, 'threshold_datetime': datetime.now().strftime("%Y-%m-%d %H:%M"), 'limit': limit}
         try:
             tasks = self.executeSQL(sql, params)
             return tasks
@@ -470,7 +481,7 @@ class GiveAMinuteDigest(Configurable, WebpyDBConnectable, Mailable, Loggable, Ta
                 # Set the date range to yesterday
                 # TODO: This really should be a lot more configurable!
                 td = datetime.date(mark)
-                fd = td + relativedelta(days=-1)
+                fd = td + relativedelta(days=-30)  #-1
                 self.FromDate = str(fd)
                 self.ToDate = str(td)
                 logging.info('Getting digests for date range: %s to %s' % (fd, td))
@@ -506,7 +517,7 @@ class GiveAMinuteDigest(Configurable, WebpyDBConnectable, Mailable, Loggable, Ta
         # Store the formatted body
         for digest in digests:
             currentDigest = digests.get(digest)
-            currentDigest['subject'] = "%s%s\n\n" % (
+            currentDigest['subject'] = "%s%s" % (
             self.Config.get('email').get('digest').get('digest_subject_prefix'), currentDigest.get('title'))
             currentDigest['body'] = Emailer.render('email/digest',
                                                    {'digest': currentDigest,
@@ -614,8 +625,10 @@ values
                                           params={'sender': self.Config.get('email').get('from_email'),
                                                   'send_to': self.Config.get('email').get('from_email'),
                                                   'recipients': ','.join(currentDigest.get('recipients')),
-                                                  'subject': jinja2.escape(currentDigest.get('subject').decode('utf-8')).encode('ascii', 'xmlcharrefreplace'),
-                                                  'body': jinja2.escape(currentDigest.get('body').decode('utf-8')).encode('ascii', 'xmlcharrefreplace'), 
+                                                  'subject': currentDigest.get('subject').decode('utf-8').encode(
+                                                      'ascii', 'xmlcharrefreplace'),
+                                                  'body': currentDigest.get('body').decode('utf-8').encode('ascii',
+                                                                                                           'xmlcharrefreplace'),
                                                   'fromDate': self.FromDate, 'toDate': self.ToDate,
                                                   'status': status, 'myid': self.MyID}
                 )

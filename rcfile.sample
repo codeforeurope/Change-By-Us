@@ -131,7 +131,7 @@ digest_log_file = %(log_path)s/digests.log
 digest_log_level = debug
 # Comma-delimited (without-spaces) names of all recipients of debug messages
 digest_debug_recipients = a@b.com,admin@digest-admin.com
-digest_subject_prefix = '[CBU Digest]'
+digest_subject_prefix = '[IVJB Digest]'
 
 
 

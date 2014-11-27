@@ -225,7 +225,7 @@ def send_email_via_smtp(addresses, subject, text, html=None, attachment=None, fr
         part.add_header('Content-Disposition', 'attachment; filename="%s"' % os.path.basename(attachment))
         message.attach(part)
 
-    sender = from_name + "<" + from_address + ">"
+    sender = from_name + " <" + from_address + ">"
     cc = listify(kwargs.get('cc', []))
     bcc = listify(kwargs.get('bcc', []))
 

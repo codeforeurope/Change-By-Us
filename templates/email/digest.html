@@ -38,10 +38,10 @@
 
         <p>*********************</p>
         <p>
-            <small>{{ _('You are subscribed to this update because you are a member of') }} <a href="{{ baseUrl }}project/{{ digest.project_id }}">{{ digest.title }}</a>, {{ _('a project on') }} <a href="{{ baseUrl }}">{{ config.site.name }}</a>. {{ _('News digests only come when there is new news and there is only one per day.') }} {{ _('If you&#39;d like to unsubscribe, you can change your message preferences on <a href="%(base_url)suseraccount">your account page</a>.')|format(base_url=baseUrl ) }}</small>
+            <small>{{ _('You are subscribed to this update because you are a member of') }} <a href="{{ baseUrl }}project/{{ digest.project_id }}">{{ digest.title }}</a>, {{ _('a project on') }} <a href="{{ baseUrl }}">{{ config.site.name }}</a>. {{ _('News digests only come when there is new news and there is only one per day.') }} {{ _('If you&#39;d like to unsubscribe, you can change your message preferences on <a href="%(base_url)suseraccount">your account page</a>.')|format(base_url=baseUrl) }}</small>
         </p>
         <p>
-            <small>&#9829; {{ _('Thank you for using <a href="%(base_url)s">%(site_name)s</a>')|format(base_url=baseUrl,site_name=config.site.name) }} - {{ _('if you have any questions or need help, please contact us at') }} <a href="mailto:{{ contactEmail }}">{{ contactEmail }}</a>.</small>
+            <small>{{ _('Thank you for using <a href="%(base_url)s">%(site_name)s</a>')|format(base_url=baseUrl,site_name=config.site.name) }} - {{ _('if you have any questions or need help, please contact us at') }} <a href="mailto:{{ contactEmail }}">{{ contactEmail }}</a>.</small>
         </p>
     </body>
 </html>
