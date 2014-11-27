@@ -481,7 +481,7 @@ class GiveAMinuteDigest(Configurable, WebpyDBConnectable, Mailable, Loggable, Ta
                 # Set the date range to yesterday
                 # TODO: This really should be a lot more configurable!
                 td = datetime.date(mark)
-                fd = td + relativedelta(days=-30)  #-1
+                fd = td + relativedelta(days=-1)
                 self.FromDate = str(fd)
                 self.ToDate = str(td)
                 logging.info('Getting digests for date range: %s to %s' % (fd, td))
