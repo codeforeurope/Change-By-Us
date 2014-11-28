@@ -10,21 +10,21 @@
 <div class='continent tou'>
 	<div class='headlands'>
 		<span class="above-h1">{{ d.config.site.name }}</span>
-		<h1>Terms <em>of</em> Use</h1>
+		<h1>GEBRUIKERSVOORWAARDEN</h1>
 	</div>
 
 	<div class='midlands clearfix'>
 		<div class="west">
-			{% include 'partials/toc_seattle.html' %}
+			{% include 'partials/tou_amsterdam.html' %}
 		</div>
 		<div class="east">
 			<div class="box feedback">
-				<div class="hd">
-					<h2>We Love Feedback</h2>
-				</div>
-				<div class="bd">
-					<p>Do you want to comment on a post? <a href="/feedback"><strong>Send it to us</strong></a></p>
-				</div>
+					<div class="hd">
+						<h2>{{ _('We Love Feedback') }}</h2>
+					</div>
+					<div class="bd">
+						<p>{{ _('Would you like to give us feedback? ') }}<a href="/feedback"><strong>{{ _('Click here') }}</strong></a></p>
+					</div>
 			</div>
 		</div>
 	</div>
