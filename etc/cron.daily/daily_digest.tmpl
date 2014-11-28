@@ -6,8 +6,13 @@
 #
 # VARIABLES AND GLOBALS
 #   From and To should be
-#     from='2011/05/14 11:30:00'
-#     to='2011/05/14 11:30:00'
+#     from_date='2011/05/14 11:30:00'
+#     to_date='2011/05/14 11:30:00'
+#
+# ADDITIONAL CRON PARAMETERS
+#   To avoid receiving "new mail" in Ubuntu, add this at the end of the command that calls this file:  &> /dev/null
+#   E.g.: 25 13    * * *     cd /home/ubuntu/www/gam2/etc/cron.daily && ./daily_digest &> /dev/null
+#
 
 # Base project path could be different for different hosts, so make sure about this
 base_path=%(current_path)s 
