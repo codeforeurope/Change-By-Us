@@ -496,6 +496,71 @@ where u.user_id = $id and u.is_active = 1"""
                     inner join project p on p.project_id = inv.project_id and p.is_active = 1
                     inner join user iu on iu.user_id = inv.inviter_user_id
                     inner join idea i on i.idea_id = inv.invitee_idea_id and i.user_id =$userId
+                        union
+                    select
+                        NULL,
+                        NULL,
+                        NULL,
+                        'direct_message_to',
+                        dm.message,
+                        dm.created_datetime,
+                        dm.to_user_id,
+                        iu.first_name,
+                        iu.last_name,
+                        iu.affiliation,
+                        iu.group_membership_bitmask,
+                        iu.image_id,
+                        NULL,
+                        NULL,
+                        NULL,
+                        NULL
+                    from direct_message dm
+                    inner join user iu on dm.to_user_id = iu.user_id
+                    where dm.from_user_id = $userId
+                        union
+                    select
+                        NULL,
+                        NULL,
+                        NULL,
+                        'direct_message_from',
+                        dm.message,
+                        dm.created_datetime,
+                        dm.from_user_id,
+                        iu.first_name,
+                        iu.last_name,
+                        iu.affiliation,
+                        iu.group_membership_bitmask,
+                        iu.image_id,
+                        NULL,
+                        NULL,
+                        NULL,
+                        NULL
+                    from direct_message dm
+                    inner join user iu on dm.from_user_id = iu.user_id
+                    where dm.to_user_id = $userId
+
+                        union
+                    select
+                        NULL,
+                        NULL,
+                        NULL,
+                        'idea_comment',
+                        im.message,
+                        im.created_datetime,
+                        iu.user_id,
+                        iu.first_name,
+                        iu.last_name,
+                        iu.affiliation,
+                        iu.group_membership_bitmask,
+                        iu.image_id,
+                        i.idea_id,
+                        i.description as idea_description,
+                        i.submission_type as idea_submission_type,
+                        i.created_datetime as idea_created_datetime
+                    from idea_message im
+                    inner join user iu on iu.user_id = im.user_id
+                    left join idea i on i.idea_id = im.idea_id
+                    where i.user_id = $userId and i.is_active = 1
                     order by created_datetime desc
                     limit $limit offset $offset"""
             data = list(self.db.query(sql, {'userId': self.id, 'limit': limit, 'offset': offset}))
@@ -543,7 +608,13 @@ where u.user_id = $id and u.is_active = 1"""
                           where inv.created_datetime > $last) +
                         (select count(pm.project_message_id) from project_message pm
                           inner join project__user pu on pu.project_id = pm.project_id  and pu.user_id = $userId
-                          where pm.is_active = 1 and pm.created_datetime > $last) as total"""
+                          where pm.is_active = 1 and pm.created_datetime > $last) +
+                        (select count(im.message_id) from idea_message im
+                          inner join idea__user iu on iu.idea_id = im.idea_id  and i.user_id = $userId
+                          where i.is_active = 1 and iu.is_active = 1 and im.created_datetime > $last) +
+                        (select count(dm.message_id) from direct_message dm
+                          where dm.to_user_id = $userId and pm.created_datetime > $last)
+                          as total"""
             data = list(self.db.query(sql, {'userId': self.id, 'last': self.data.last_account_page_access_datetime}))
 
             num = data[0].total
