@@ -601,7 +601,11 @@ class Home(Controller):
             toName = "%s %s" % (toUser.firstName, toUser.lastName)
             toEmail = toUser.email
 
-            return mMessaging.directMessageUser(self.db, toUserId, toName, toEmail, fromUserId, fromName, message)
+            result = mMessaging.directMessageUser(self.db, toUserId, toName, toEmail, fromUserId, fromName, message)
+            if result:
+                return json.dumps({'message': message, 'to_user_imageid': toUser.imageId, 'to_user_id': toUser.id, 'to_user_name': toUser.firstName + ' ' + toUser.lastName})
+            else:
+                return False
         else:
             log.error("*** direct message missing to user_id or message")
             return False

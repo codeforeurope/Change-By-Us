@@ -231,8 +231,8 @@ app_page.features.push(function (app) {
                                             template.find(".sender").html("<a href='/useraccount/" + message.owner.u_id + "'>" + message.owner.name + "</a>");
                                             template.find(".excerpt p").html(message.body);
                                             template.find(".time-since").text(message.created).time_since();
-                                            template.find("a.reply-to-direct-message").setAttribute("data-userid", message.owner.u_id);
-                                            template.find("a.reply-to-direct-message").setAttribute("data-username", message.owner.name);
+                                            template.find("a.reply-to-direct-message").attr("data-userid", message.owner.u_id);
+                                            template.find("a.reply-to-direct-message").attr("data-username", message.owner.name);
 
                                             break;
                                         case "direct_message_to":
@@ -382,6 +382,25 @@ app_page.features.push(function (app) {
                                             this.show_step('contact-message-error');
                                             return;
                                         }
+
+                                        jsondata = JSON.parse(data);
+                                        if(jsondata) {
+                                            var template = tc.jQ("<li class='message-item direct-message-to'></li>").append(tc.jQ(".template-content.message-item.direct-message-to").children().clone());
+                                            if (jsondata.to_user_imageid) {
+                                                template.find(".thumb img").attr("src", app.app_page.media_root + "images/" + jsondata.to_user_imageid % 10 + "/" + jsondata.to_user_imageid + ".png").attr("alt", jsondata.to_user_name);
+                                            } else {
+                                                template.find(".thumb img").attr("src", "/static/images/thumb_genAvatar50.png").attr("alt", jsondata.to_user_name);
+                                            }
+                                            template.find(".sender").html("<a href='/useraccount/" + jsondata.to_user_id + "'>" + jsondata.to_user_name + "</a>");
+                                            template.find(".excerpt p").html(jsondata.message);
+                                            template.find(".time-since").text();
+
+                                            var list = tc.jQ('ol.message-stack');
+                                            list.prepend(template);
+                                            //list[0].insertBefore(template);
+                                            //list.insertBefore(template, list[0]);
+                                        }
+
                                         this.show_step('contact-message-success');
                                     },
                                     error: function (jqXHR, textStatus, errorThrown) {
