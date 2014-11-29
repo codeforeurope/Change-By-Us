@@ -561,6 +561,7 @@ where u.user_id = $id and u.is_active = 1"""
                     inner join user iu on iu.user_id = im.user_id
                     left join idea i on i.idea_id = im.idea_id
                     where i.user_id = $userId and i.is_active = 1
+                    and im.is_active = 1
                     order by created_datetime desc
                     limit $limit offset $offset"""
             data = list(self.db.query(sql, {'userId': self.id, 'limit': limit, 'offset': offset}))
