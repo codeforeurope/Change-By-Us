@@ -3,7 +3,7 @@
  # Licensed under the Affero GNU GPL v3, see LICENSE for more details.
  #}
 
-{{ _('There is a new message in your project "%(projectName)s"')|format(projectName=project_name) }}
+{{ _('There is a new message in your project "%(projectTitle)s"')|format(projectTitle=project_title) }}
 
 {{ _('Click here to view the messages:') }}
 
