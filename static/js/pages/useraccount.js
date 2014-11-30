@@ -370,7 +370,7 @@ app_page.features.push(function (app) {
                         'contact-message-submit': {
                             selector: '.contact-message-submit',
                             init: function (merlin, dom) {
-                                //dom.find('.to_u_name').text(app.app_page.data.contact_modal.to_u_name);
+                                dom.find('.to_u_name').text(var_to_user_name);
                                 tc.jQ.ajax({
                                     type: "POST",
                                     url: "/directmsg",
@@ -397,8 +397,6 @@ app_page.features.push(function (app) {
 
                                             var list = tc.jQ('ol.message-stack');
                                             list.prepend(template);
-                                            //list[0].insertBefore(template);
-                                            //list.insertBefore(template, list[0]);
                                         }
 
                                         this.show_step('contact-message-success');
@@ -412,7 +410,7 @@ app_page.features.push(function (app) {
                         'contact-message-success': {
                             selector: '.contact-message-success',
                             init: function (merlin, dom) {
-                                dom.find('.to_u_name').text(var_to_user_name);  //app.app_page.data.contact_modal.to_u_name
+                                dom.find('.to_u_name').text(var_to_user_name);
                                 tc.timer(1500, function () {
                                     modal.hide();
                                 });
@@ -434,11 +432,8 @@ app_page.features.push(function (app) {
             }
         }, function (e, d) {
             e.preventDefault();
-            tc.util.log("event e: " + e);
             var_to_user_id = e.currentTarget.getAttribute("data-userid");
             var_to_user_name = e.currentTarget.getAttribute("data-username");
-            //e.currentTarget.getAttribute("data-userid")
-            //e.currentTarget.getAttribute("data-username")
             e.data.app.components.modal.show(e.data, e.target);
         });
     };
@@ -446,6 +441,7 @@ app_page.features.push(function (app) {
     tc.gam.add_resource(app, {elements: tc.jQ("a.add-resource")});
     tc.gam.ideas_invite(app, {elements: tc.jQ("a.invite")});
     tc.gam.direct_message(app, {elements: tc.jQ('a.reply-to-direct-message')});
+    //global variables used by tc.gam.direct_message
     var var_to_user_id;
     var var_to_user_name;
 
