@@ -275,12 +275,11 @@ app_page.features.push(function (app) {
 
                                         default:
                                             break;
-
-                                        tc.gam.direct_message(app, {elements: tc.jQ('a.reply-to-direct-message')});
                                     }
                                     if (template) {
                                         dom_stack.append(template);
                                         me.current_step.current_offset += 1;
+                                        tc.gam.direct_message(app, {elements: tc.jQ('a.reply-to-direct-message')});
                                     } else {
                                         tc.util.log("no template for message", "warn");
                                     }
