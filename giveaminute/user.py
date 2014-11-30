@@ -610,11 +610,13 @@ where u.user_id = $id and u.is_active = 1"""
                         (select count(pm.project_message_id) from project_message pm
                           inner join project__user pu on pu.project_id = pm.project_id  and pu.user_id = $userId
                           where pm.is_active = 1 and pm.created_datetime > $last) +
-                        (select count(im.message_id) from idea_message im
-                          inner join idea__user iu on iu.idea_id = im.idea_id  and i.user_id = $userId
-                          where i.is_active = 1 and iu.is_active = 1 and im.created_datetime > $last) +
-                        (select count(dm.message_id) from direct_message dm
-                          where dm.to_user_id = $userId and pm.created_datetime > $last)
+                        (select count(im.idea_message_id) from idea_message im
+                          inner join idea__user iu on iu.idea_id = im.idea_id
+                          inner join idea i on i.idea_id = im.idea_id
+                          left join user u on iu.user_id = u.user_id
+                          where i.is_active = 1 and u.is_active = 1 and iu.user_id = $userId and im.created_datetime > $last) +
+                        (select count(dm.direct_message_id) from direct_message dm
+                          where dm.to_user_id = $userId and dm.created_datetime > $last)
                           as total"""
             data = list(self.db.query(sql, {'userId': self.id, 'last': self.data.last_account_page_access_datetime}))
 

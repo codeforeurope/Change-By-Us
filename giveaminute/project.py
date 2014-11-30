@@ -406,6 +406,24 @@ def hasUserEndorsedProject(db, projectId, userId):
         log.error(e)
         return False
 
+def getProjectAdmins(db, projectId):
+    try:
+        sql = """select
+                u.user_id,
+                u.email,
+                u.first_name,
+                u.last_name
+                from project__user pu
+                left join user u on u.user_id = pu.user_id
+                where pu.is_project_admin = 1
+                and pu.project_id = $projectId"""
+        data = list(db.query(sql, {'projectId': projectId}))
+        return data
+    except Exception, e:
+        log.info("*** couldn't get project admins")
+        log.error(e)
+        return False
+
 
 def getProjectLocation(db, projectId):
     try:

@@ -274,9 +274,16 @@ class Project(Controller):
                     log.error(
                         "*** couldn't email admin on user_id = %s endorsing project %s" % (self.user.id, projectId))
 
-                # add a message to the queue about the join
-                message = 'Congratulations! Your group has now been endorsed by %s %s.' % (
-                    self.user.firstName, self.user.lastName)
+                #code to get language
+                locale_id = Config.get('default_lang')
+                # i18n directory.
+                cur_dir = os.path.abspath(os.path.dirname(__file__))
+                locale_dir = os.path.join(cur_dir, '..', 'i18n')
+                # Look in the translaton for the locale_id in locale_dir. Fallback to the
+                # default text if not found.
+                translations = gettext.translation('messages', locale_dir, [locale_id], fallback=True)
+                # add a message to the queue about the endorsement
+                message = translations.gettext('Congratulations! Your group has now been endorsed by %(firstname) %(lastname)s.') % {'firstname': self.user.firstName, 'lastname': self.user.lastName}
 
                 if (not mProject.addMessage(self.db,
                                             projectId,
@@ -434,9 +441,22 @@ class Project(Controller):
             log.error("*** message add attempted w/ no message")
             return False
         else:
-            return mProject.addMessage(self.db, projectId, message,
+            message_added = mProject.addMessage(self.db, projectId, message,
                                        'member_comment', self.user.id,
                                        attachmentId=attachmentId)
+            if message_added:
+                #Send email
+                admins = mProject.getProjectAdmins(self.db, projectId)
+                this_project = self.orm.query(models.Project).get(projectId)
+                if admins:
+                    for admin in admins:
+                        #only email if the admin is not the author of the message being added!
+                        if admin.user_id is not self.user.id:
+                            mMessaging.emailProjectMessage(admin.email, this_project.id, this_project.title)
+                return True
+            else:
+                return False
+
 
 
     def removeMessage(self):

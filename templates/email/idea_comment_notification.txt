@@ -1,0 +1,15 @@
+{#
+ # Copyright (c) 2011 Local Projects. All rights reserved.
+ # Licensed under the Affero GNU GPL v3, see LICENSE for more details.
+ #}
+
+{{ _('There is a new comment on your idea "%(ideaDescription)s"')|format(ideaDescription=idea_description) }}
+
+{{ _('Click here to view the comments:') }}
+
+{{ idea_link }}
+
+{{ _('We hope you find %(sitename)s useful. If you have any questions or comments, please get in touch at %(respondemail)s.')|format(sitename=config.site.name,respondemail=response_email)  }}
+
+{{ _('Thank you,') }}
+{{ config.site.name }}

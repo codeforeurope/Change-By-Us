@@ -224,15 +224,30 @@ class Idea(Controller):
         attachmentId = self.request('attachment_id') or None
 
         if (not idea_id):
-            log.error("*** message add attempted w/o idea id")
+            log.error("*** idea comment add attempted w/o idea id")
             return False
         elif (util.strNullOrEmpty(message)):
-            log.error("*** message add attempted w/ no message")
+            log.error("*** idea comment add attempted w/ no message")
             return False
         else:
-            return mIdea.addMessage(self.db, idea_id, message,
+            result = mIdea.addMessage(self.db, idea_id, message,
                                     'member_comment', self.user.id,
                                     attachmentId=attachmentId)
+            this_idea = self.orm.query(models.Idea).get(idea_id)
+            if this_idea.user_id is None:
+                return result
+            else:
+                #The idea may have been sent anonymously, from a non-registered user
+                idea_author = self.orm.query(models.User).get(this_idea.user_id)
+                email = idea_author.email
+                if result:
+                    if not mMessaging.emailIdeaComment(email, idea_id, this_idea.description):
+                        log.error("*** idea comment was added but no email was sent")
+                        return False
+                    else:
+                        return True
+                else:
+                    return False
 
 
     def removeMessage(self):
