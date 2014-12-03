@@ -182,19 +182,19 @@ ul.adminbar li.active a {
 }
 
 .continent.cms ul.tabs {
-    font-size: 28px;
+    font-size: 20px;
     line-height: 1;
 }
 
 .continent.cms ul.tabs li {
     display: block;
     float: left;
-    margin-right: 25px;
+    margin-right: 20px;
 }
 
 .continent.cms ul.tabs li a {
     display: block;
-    padding: 9px 15px 8px;
+    padding: 9px 5px 8px;
 }
 
 .continent.cms ul.tabs li a:hover,
@@ -544,35 +544,42 @@ ul.adminbar li.active a {
     color: #55504b;
 }
 
-.continent.cms-content #pending-resources {
+.continent.cms-content #pending-resources,
+.continent.cms-content #approved-resources {
     margin-top: 18px;
 }
 
-.continent.cms-content #pending-resources .spinner-message ul.pending-resources-stack p {
+.continent.cms-content #pending-resources .spinner-message ul.pending-resources-stack p,
+.continent.cms-content #approved-resources .spinner-message ul.pending-resources-stack p {
     float: none !important;
 }
 
-.continent.cms-content #pending-resources .scrollable > ul.items > li {
+.continent.cms-content #pending-resources .scrollable > ul.items > li,
+.continent.cms-content #approved-resources .scrollable > ul.items > li {
     height: 1000px;
 }
 
-.continent.cms-content #pending-resources ul.pending-resources-stack {
+.continent.cms-content #pending-resources ul.pending-resources-stack,
+.continent.cms-content #approved-resources ul.pending-resources-stack {
     width: 564px
 }
 
-.continent.cms-content #pending-resources ul.pending-resources-stack li {
+.continent.cms-content #pending-resources ul.pending-resources-stack li,
+.continent.cms-content #approved-resources ul.pending-resources-stack li {
     border: 1px solid #cccbc8;
     margin-bottom: 30px;
     padding-bottom: 10px;
     width: 563px;
 }
 
-.continent.cms-content #pending-resources ul.pending-resources-stack li .control-approve {
+.continent.cms-content #pending-resources ul.pending-resources-stack li .control-approve,
+.continent.cms-content #approved-resources ul.pending-resources-stack li .control-approve {
     font-weight: bold;
     text-transform: uppercase;
 }
 
-.continent.cms-content #pending-resources ul.pending-resources-stack li .control-delete {
+.continent.cms-content #pending-resources ul.pending-resources-stack li .control-delete,
+.continent.cms-content #approved-resources ul.pending-resources-stack li .control-delete {
     color: #e06420;
     float: right;
     font-size: 11px;
@@ -581,110 +588,132 @@ ul.adminbar li.active a {
     text-transform: uppercase;
 }
 
-.continent.cms-content #pending-resources ul.pending-resources-stack li a:hover {
+.continent.cms-content #pending-resources ul.pending-resources-stack li a:hover,
+.continent.cms-content #approved-resources ul.pending-resources-stack li a:hover {
     text-decoration: underline;
 }
 
-.continent.cms-content #pending-resources ul.pending-resources-stack li .tags {
+.continent.cms-content #pending-resources ul.pending-resources-stack li .tags,
+.continent.cms-content #approved-resources ul.pending-resources-stack li .tags {
     margin-top: 29px;
 }
 
 .continent.cms-content #pending-resources ul.pending-resources-stack li .hd,
-.continent.cms-content #pending-resources ul.pending-resources-stack li .bd {
+.continent.cms-content #approved-resources ul.pending-resources-stack li .hd,
+.continent.cms-content #pending-resources ul.pending-resources-stack li .bd,
+.continent.cms-content #approved-resources ul.pending-resources-stack li .bd {
     padding: 10px 15px;
 }
 
-.continent.cms-content #pending-resources ul.pending-resources-stack li .bd label.checked {
+.continent.cms-content #pending-resources ul.pending-resources-stack li .bd label.checked,
+.continent.cms-content #approved-resources ul.pending-resources-stack li .bd label.checked {
     font-weight: bold;
 }
 
-.continent.cms-content #pending-resources ul.pending-resources-stack li .bd .box.half {
+.continent.cms-content #pending-resources ul.pending-resources-stack li .bd .box.half,
+.continent.cms-content #approved-resources ul.pending-resources-stack li .bd .box.half {
     float: left;
     margin-right: 25px;
     width: 138px;
     word-wrap: break-word;
 }
 
-.continent.cms-content #pending-resources ul.pending-resources-stack li .bd .box.half + .box.half {
+.continent.cms-content #pending-resources ul.pending-resources-stack li .bd .box.half + .box.half,
+.continent.cms-content #approved-resources ul.pending-resources-stack li .bd .box.half + .box.half {
     margin-right: 0;
 }
 
-.continent.cms-content #pending-resources ul.pending-resources-stack li .bd .box.half h4 {
+.continent.cms-content #pending-resources ul.pending-resources-stack li .bd .box.half h4,
+.continent.cms-content #approved-resources ul.pending-resources-stack li .bd .box.half h4 {
     margin-top: 12px !important;
     width: 138px;
 }
 
-.continent.cms-content #pending-resources ul.pending-resources-stack li .bd .mission {
+.continent.cms-content #pending-resources ul.pending-resources-stack li .bd .mission,
+.continent.cms-content #approved-resources ul.pending-resources-stack li .bd .mission {
     margin-left: 215px;
     padding-right: 10px;
 }
 
-.continent.cms-content #pending-resources ul.pending-resources-stack li .bd .mission h4 {
+.continent.cms-content #pending-resources ul.pending-resources-stack li .bd .mission h4,
+.continent.cms-content #approved-resources ul.pending-resources-stack li .bd .mission h4 {
     clear: right;
     margin-bottom: 3px;
     margin-top: 12px;
 }
 
-.continent.cms-content #pending-resources ul.pending-resources-stack li .bd .mission h4:first-child {
+.continent.cms-content #pending-resources ul.pending-resources-stack li .bd .mission h4:first-child,
+.continent.cms-content #approved-resources ul.pending-resources-stack li .bd .mission h4:first-child {
     margin-top: 0px;
 }
 
-.continent.cms-content #pending-resources ul.pending-resources-stack li .bd .mission p {
+.continent.cms-content #pending-resources ul.pending-resources-stack li .bd .mission p,
+.continent.cms-content #approved-resources ul.pending-resources-stack li .bd .mission p {
     margin-bottom: 10px;
 }
 
-.continent.cms-content #pending-resources ul.pending-resources-stack li .bd label {
+.continent.cms-content #pending-resources ul.pending-resources-stack li .bd label,
+.continent.cms-content #approved-resources ul.pending-resources-stack li .bd label {
     font-size: 16px;
     line-height: 1;
     margin: 15px 0;
 }
 
-.continent.cms-content #pending-resources ul.pending-resources-stack li .bd label .holderWrap {
+.continent.cms-content #pending-resources ul.pending-resources-stack li .bd label .holderWrap,
+.continent.cms-content #approved-resources ul.pending-resources-stack li .bd label .holderWrap {
     position: relative;
     top: -3px;
 }
 
-.continent.cms-content #pending-resources ul.pending-resources-stack li .bd .west {
+.continent.cms-content #pending-resources ul.pending-resources-stack li .bd .west,
+.continent.cms-content #approved-resources ul.pending-resources-stack li .bd .west {
     width: 175px;
 }
 
-.continent.cms-content #pending-resources ul.pending-resources-stack li .bd .west img {
+.continent.cms-content #pending-resources ul.pending-resources-stack li .bd .west img,
+.continent.cms-content #approved-resources ul.pending-resources-stack li .bd .west img {
     display: block;
     float: left;
     margin: 10px 10px 0 0;
     width: 38px;
 }
 
-.continent.cms-content #pending-resources ul.pending-resources-stack li .bd .west h3 {
+.continent.cms-content #pending-resources ul.pending-resources-stack li .bd .west h3,
+.continent.cms-content ,#approved-resources ul.pending-resources-stack li .bd .west h3 {
     margin-bottom: 10px;
 }
 
-.continent.cms-content #pending-resources ul.pending-resources-stack li .bd .west p {
+.continent.cms-content #pending-resources ul.pending-resources-stack li .bd .west p,
+.continent.cms-content #approved-resources ul.pending-resources-stack li .bd .west p {
     clear: left;
     margin-bottom: 10px;
 }
 
-.continent.cms-content #pending-resources ul.pending-resources-stack li .hd {
+.continent.cms-content #pending-resources ul.pending-resources-stack li .hd,
+.continent.cms-content #approved-resources ul.pending-resources-stack li .hd {
     background-color: #e5e4e1;
     font-size: 18px;
     line-height: 1;
     padding-bottom: 12px;
 }
 
-.continent.cms-content #pending-resources ul.pending-resources-stack li .bd {
+.continent.cms-content #pending-resources ul.pending-resources-stack li .bd,
+.continent.cms-content #approved-resources ul.pending-resources-stack li .bd {
     font-size: 14px;
     line-height: 18px;
     word-wrap: break-word;
 }
 
-.continent.cms-content #pending-resources ul.pending-resources-stack li h3 {
+.continent.cms-content #pending-resources ul.pending-resources-stack li h3,
+.continent.cms-content #approved-resources ul.pending-resources-stack li h3 {
     font-size: 19px;
     line-height: 24px;
     margin-bottom: 1px;
     word-wrap: break-word;
 }
 
-.continent.cms-content #pending-resources ul.pending-resources-stack li h4 {
+.continent.cms-content #pending-resources ul.pending-resources-stack li h4,
+.continent.cms-content #approved-resources ul.pending-resources-stack li h4 {
     color: #878786;
     display: inline-block;
     margin-bottom: 7px;
@@ -692,32 +721,38 @@ ul.adminbar li.active a {
     width: 300px;
 }
 
-.continent.cms-content #pending-resources .pagination-controls {
+.continent.cms-content #pending-resources .pagination-controls,
+.continent.cms-content #approved-resources .pagination-controls {
     float: none;
     width: 100%;
 }
 
-.continent.cms-content #pending-resources .pagination-controls .control {
+.continent.cms-content #pending-resources .pagination-controls .control,
+.continent.cms-content #approved-resources .pagination-controls .control {
     display: block;
     width: 100%;
 }
 
-.continent.cms-content #pending-resources .pagination-controls a.next {
+.continent.cms-content #pending-resources .pagination-controls a.next,
+.continent.cms-content #approved-resources .pagination-controls a.next {
     float: right;
 }
 
-.continent.cms-content #pending-resources > .west {
+.continent.cms-content #pending-resources > .west,
+.continent.cms-content #approved-resources > .west {
     font-size: 18px;
     line-height: 24px;
     padding-left: 15px;
     width: 310px;
 }
 
-.continent.cms-content #pending-resources > .east {
+.continent.cms-content #pending-resources > .east,
+.continent.cms-content #approved-resources > .east {
     width: 565px;
 }
 
-.continent.cms-content #pending-resources > .east > .hd {
+.continent.cms-content #pending-resources > .east > .hd,
+.continent.cms-content #approved-resources > .east > .hd {
     margin-top: 5px;
     width: 100%;
 }
