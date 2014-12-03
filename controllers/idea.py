@@ -237,17 +237,21 @@ class Idea(Controller):
             if this_idea.user_id is None:
                 return result
             else:
-                #The idea may have been sent anonymously, from a non-registered user
+                # The idea may have been sent anonymously, from a non-registered user
                 idea_author = self.orm.query(models.User).get(this_idea.user_id)
                 email = idea_author.email
-                if result:
-                    if not mMessaging.emailIdeaComment(email, idea_id, this_idea.description):
-                        log.error("*** idea comment was added but no email was sent")
-                        return False
-                    else:
-                        return True
+                if self.user.id == idea_author.id:
+                    # If the author of the comment is the same as the author of the idea, don't send email
+                    return result
                 else:
-                    return False
+                    if result:
+                        if not mMessaging.emailIdeaComment(email, idea_id, this_idea.description):
+                            log.error("*** idea comment was added but no email was sent")
+                            return False
+                        else:
+                            return True
+                    else:
+                        return False
 
 
     def removeMessage(self):

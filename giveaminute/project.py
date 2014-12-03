@@ -538,18 +538,18 @@ def removeKeyword(db, projectId, keyword):
 
 def addResourceToProject(db, projectId, resourceId):
     try:
-        if (not isResourceInProject(db, projectId, resourceId)):
+        if not isResourceInProject(db, projectId, resourceId):
             db.insert('project__project_resource', project_id=projectId,
                       project_resource_id=resourceId)
 
-            return True
+            return 1
         else:
             log.error("*** resource already in project")
-            return False
+            return 0
     except Exception, e:
         log.info("*** problem attaching resource to project")
         log.error(e)
-        return False
+        return -1
 
 
 def removeResourceFromProject(db, projectId, projectResourceId):

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-12-02 11:45+0100\n"
+"POT-Creation-Date: 2014-12-02 17:52+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -234,7 +234,7 @@ msgstr ""
 
 #: templates/bb.html:140 templates/feedback.html:36 templates/join.html:70
 #: templates/join.html:108 templates/login.html:35
-#: templates/useraccount.html:655
+#: templates/useraccount.html:656
 msgid "Email"
 msgstr ""
 
@@ -294,7 +294,7 @@ msgstr ""
 msgid "Events"
 msgstr ""
 
-#: templates/calendar.html:25 templates/cms_content.html:177
+#: templates/calendar.html:25 templates/cms_content.html:178
 #: templates/idea.html:24 templates/partials/idea_conversation.html:105
 #: templates/project/conversation.html:123
 #: templates/project/member_list.html:45 templates/search.html:74
@@ -351,12 +351,12 @@ msgstr ""
 #: templates/project/need_teaser.html:39 templates/project/resources.html:191
 #: templates/project/volunteer_need.html:57 templates/project.html:228
 #: templates/project.html:278 templates/search.html:590
-#: templates/search.html:626 templates/useraccount.html:819
-#: templates/useraccount.html:833
+#: templates/search.html:626 templates/useraccount.html:820
+#: templates/useraccount.html:834
 msgid "Delete"
 msgstr ""
 
-#: templates/cms_adminsettings.html:274 templates/cms_content.html:188
+#: templates/cms_adminsettings.html:274 templates/cms_content.html:189
 msgid "Loading"
 msgstr ""
 
@@ -376,11 +376,15 @@ msgstr ""
 msgid "Metrics"
 msgstr ""
 
-#: templates/cms_content.html:168
-msgid "These resources have been submitted to the site and await approval."
+#: templates/cms_content.html:19
+msgid "Approved Resources"
 msgstr ""
 
 #: templates/cms_content.html:169
+msgid "These resources have been submitted to the site and await approval."
+msgstr ""
+
+#: templates/cms_content.html:170
 msgid "Review and approve them to include them on the site."
 msgstr ""
 
@@ -515,7 +519,7 @@ msgid "<strong>Upload</strong> a photo for your project."
 msgstr ""
 
 #: templates/create.html:159 templates/project.html:196
-#: templates/useraccount.html:798 templates/useraccount.html:809
+#: templates/useraccount.html:799 templates/useraccount.html:810
 msgid ""
 "Photos should be <strong>under 1MB</strong> please. (We also crop photos to "
 "<strong>90px by 90px</strong>)"
@@ -543,8 +547,8 @@ msgstr ""
 #: templates/project.html:303 templates/resource.html:150
 #: templates/search.html:599 templates/search.html:635
 #: templates/search.html:642 templates/search.html:649
-#: templates/useraccount.html:802 templates/useraccount.html:813
-#: templates/useraccount.html:828 templates/useraccount.html:842
+#: templates/useraccount.html:803 templates/useraccount.html:814
+#: templates/useraccount.html:829 templates/useraccount.html:843
 msgid "close"
 msgstr ""
 
@@ -732,6 +736,7 @@ msgstr ""
 #: templates/email/project_invite.html:25 templates/email/project_join.html:26
 #: templates/email/resource_approval.html:26
 #: templates/email/resource_notification.html:27
+#: templates/email/resource_notification_reminder.html:27
 msgid "Thank you,"
 msgstr ""
 
@@ -754,8 +759,9 @@ msgstr ""
 #: templates/email/project_comment_notification.html:18
 #: templates/email/project_invite.html:21 templates/email/project_join.html:21
 #: templates/email/project_join.html:24
-#: templates/email/resource_notification.html:21 templates/faq.html:155
-#: templates/tou.html:26
+#: templates/email/resource_notification.html:21
+#: templates/email/resource_notification_reminder.html:21
+#: templates/faq.html:155 templates/tou.html:26
 msgid "Click here"
 msgstr ""
 
@@ -910,7 +916,7 @@ msgstr ""
 
 #: templates/email/email_subjects.html:26
 #, python-format
-msgid "There is a new comment on your idea on %(sitename)s!"
+msgid "Someone commented on your idea on %(sitename)s!"
 msgstr ""
 
 #: templates/email/email_subjects.html:28
@@ -1026,6 +1032,7 @@ msgid ""
 msgstr ""
 
 #: templates/email/resource_notification.html:16
+#: templates/email/resource_notification_reminder.html:16
 #, python-format
 msgid "A project on %(sitename)s has added %(resource)s as a resource."
 msgstr ""
@@ -1034,6 +1041,13 @@ msgstr ""
 msgid ""
 "Please take a moment to visit their page and see if you can help by sending "
 "links, providing advice, or answering questions:"
+msgstr ""
+
+#: templates/email/resource_notification_reminder.html:20
+#, python-format
+msgid ""
+"This is a reminder that you should check out the project \"%(projectname)s"
+"\". Please see how you can help:"
 msgstr ""
 
 #: templates/faq.html:152 templates/tou.html:23
@@ -1996,7 +2010,7 @@ msgstr ""
 #: templates/project/conversation.html:171 templates/project.html:250
 #: templates/project.html:284 templates/project.html:300
 #: templates/search.html:596 templates/search.html:632
-#: templates/useraccount.html:839
+#: templates/useraccount.html:840
 msgid "No, keep it."
 msgstr ""
 
@@ -2543,8 +2557,8 @@ msgid "from the project permanently!"
 msgstr ""
 
 #: templates/project/member_list.html:139 templates/search.html:592
-#: templates/search.html:628 templates/useraccount.html:821
-#: templates/useraccount.html:835
+#: templates/search.html:628 templates/useraccount.html:822
+#: templates/useraccount.html:836
 msgid "Are you sure?"
 msgstr ""
 
@@ -2557,7 +2571,7 @@ msgid "Member"
 msgstr ""
 
 #: templates/project/member_list.html:143 templates/project/resources.html:197
-#: templates/project.html:234 templates/useraccount.html:825
+#: templates/project.html:234 templates/useraccount.html:826
 msgid "No, keep them."
 msgstr ""
 
@@ -2585,7 +2599,7 @@ msgstr ""
 msgid "Support <span>this</span> project"
 msgstr ""
 
-#: templates/project/mission.html:123 templates/useraccount.html:675
+#: templates/project/mission.html:123 templates/useraccount.html:676
 msgid "Keywords"
 msgstr ""
 
@@ -2839,7 +2853,7 @@ msgid "Official Project"
 msgstr ""
 
 #: templates/project.html:39 templates/useraccount.html:33
-#: templates/useraccount.html:626
+#: templates/useraccount.html:627
 msgid "Change Photo"
 msgstr ""
 
@@ -2943,7 +2957,7 @@ msgid ""
 msgstr ""
 
 #: templates/project.html:249 templates/search.html:595
-#: templates/useraccount.html:838
+#: templates/useraccount.html:839
 msgid "Yes, Delete Resource"
 msgstr ""
 
@@ -3153,11 +3167,11 @@ msgstr ""
 msgid "Web Address"
 msgstr ""
 
-#: templates/resource.html:79 templates/useraccount.html:660
+#: templates/resource.html:79 templates/useraccount.html:661
 msgid "Facebook Address"
 msgstr ""
 
-#: templates/resource.html:83 templates/useraccount.html:665
+#: templates/resource.html:83 templates/useraccount.html:666
 msgid "Twitter Address"
 msgstr ""
 
@@ -3316,11 +3330,11 @@ msgstr ""
 msgid "User"
 msgstr ""
 
-#: templates/search.html:590 templates/useraccount.html:833
+#: templates/search.html:590 templates/useraccount.html:834
 msgid "this Resource?"
 msgstr ""
 
-#: templates/search.html:592 templates/useraccount.html:835
+#: templates/search.html:592 templates/useraccount.html:836
 msgid "You are about to delete this Resource from the system permanently!"
 msgstr ""
 
@@ -3366,8 +3380,8 @@ msgid "Local Leader"
 msgstr ""
 
 #: templates/useraccount.html:49 templates/useraccount.html:359
-#: templates/useraccount.html:452 templates/useraccount.html:702
-#: templates/useraccount.html:777
+#: templates/useraccount.html:452 templates/useraccount.html:703
+#: templates/useraccount.html:778
 msgid "from"
 msgstr ""
 
@@ -3404,19 +3418,19 @@ msgstr ""
 msgid "Ideas liked by %(username)s"
 msgstr ""
 
-#: templates/useraccount.html:377 templates/useraccount.html:740
+#: templates/useraccount.html:377 templates/useraccount.html:741
 msgid "sent you a direct message"
 msgstr ""
 
-#: templates/useraccount.html:382 templates/useraccount.html:747
+#: templates/useraccount.html:382 templates/useraccount.html:748
 msgid "Reply"
 msgstr ""
 
-#: templates/useraccount.html:401 templates/useraccount.html:720
+#: templates/useraccount.html:401 templates/useraccount.html:721
 msgid "You sent a message to"
 msgstr ""
 
-#: templates/useraccount.html:426 templates/useraccount.html:760
+#: templates/useraccount.html:426 templates/useraccount.html:761
 msgid "commented on"
 msgstr ""
 
@@ -3425,7 +3439,7 @@ msgstr ""
 msgid "You have been invited to the %(project_title)s project!"
 msgstr ""
 
-#: templates/useraccount.html:476 templates/useraccount.html:790
+#: templates/useraccount.html:476 templates/useraccount.html:791
 msgid "Click to see project"
 msgstr ""
 
@@ -3494,44 +3508,48 @@ msgstr ""
 msgid "There was an error updating your account details."
 msgstr ""
 
-#: templates/useraccount.html:645
+#: templates/useraccount.html:619
+msgid "Click on each text to edit or add information."
+msgstr ""
+
+#: templates/useraccount.html:646
 msgid "Mission"
 msgstr ""
 
-#: templates/useraccount.html:650
+#: templates/useraccount.html:651
 msgid "URL"
 msgstr ""
 
-#: templates/useraccount.html:670
+#: templates/useraccount.html:671
 msgid "Physical Address"
 msgstr ""
 
-#: templates/useraccount.html:796
+#: templates/useraccount.html:797
 msgid "<strong>Upload</strong> a photo for your account."
 msgstr ""
 
-#: templates/useraccount.html:807
+#: templates/useraccount.html:808
 msgid "Upload</strong> a photo for your resource."
 msgstr ""
 
-#: templates/useraccount.html:819
+#: templates/useraccount.html:820
 msgid "this User?"
 msgstr ""
 
-#: templates/useraccount.html:821
+#: templates/useraccount.html:822
 msgid ""
 "You are about to delete this User and all projects owned by this user from "
 "the system permanently!"
 msgstr ""
 
-#: templates/useraccount.html:824
+#: templates/useraccount.html:825
 msgid "Yes, Delete User and Projects"
 msgstr ""
 
-#: templates/useraccount.html:885
+#: templates/useraccount.html:886
 msgid "Click here to add something about yourself."
 msgstr ""
 
-#: templates/useraccount.html:886
+#: templates/useraccount.html:887
 msgid "You have been invited to join a project!"
 msgstr ""
