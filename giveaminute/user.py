@@ -304,15 +304,24 @@ where u.user_id = $id and u.is_active = 1"""
 
         return data
 
-    def getUserResources(self):
+    def getUserResources(self,includeNotApprovedResources=False):
         data = []
+        sql = ""
 
         try:
-            sql = """select r.project_resource_id, r.title, r.description, r.location_id, l.name as location_name,
+            if includeNotApprovedResources:
+                sql = """select r.project_resource_id, r.title, r.description, r.location_id, l.name as location_name,
+                            r.image_id, r.url, r.contact_email, r.physical_address, r.is_hidden, replace(r.keywords, ' ', ',') as keywords
+                    from project_resource r
+                    inner join location l on l.location_id = r.location_id
+                    where r.is_active = 1 and r.contact_user_id = $id"""
+            else:
+                sql = """select r.project_resource_id, r.title, r.description, r.location_id, l.name as location_name,
                             r.image_id, r.url, r.contact_email, r.physical_address, replace(r.keywords, ' ', ',') as keywords
                     from project_resource r
                     inner join location l on l.location_id = r.location_id
                     where r.is_active = 1 and r.is_hidden = 0 and r.contact_user_id = $id"""
+
             data = list(self.db.query(sql, {'id': self.id}))
         except Exception, e:
             log.info("*** couldn't get user resources")
@@ -363,7 +372,7 @@ where u.user_id = $id and u.is_active = 1"""
 
         return betterData
 
-    def getActivityDictionary(self):
+    def getActivityDictionary(self, includeNotApprovedResources = False):
         user = formattingUtils.smallUserDisplay(self.id,
                                          formattingUtils.userNameDisplay(self.firstName,
                                                                   self.lastName,
@@ -378,7 +387,7 @@ where u.user_id = $id and u.is_active = 1"""
         data = dict(projects=self.getProjects(),
                     ideas=self.getIdeas(),
                     messages=self.getMessages(10, 0),
-                    resources=self.getUserResources(),
+                    resources=self.getUserResources(includeNotApprovedResources),
                     endorsed_projects=self.getEndorsedProjects(),
                     user=user)
 

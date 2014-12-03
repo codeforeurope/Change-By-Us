@@ -38,7 +38,7 @@ class UserAccount(Controller):
         if (self.user and self.user.data):
             self.user.updateAccountPageVisit()
 
-            userActivity = self.user.getActivityDictionary()
+            userActivity = self.user.getActivityDictionary(True)
             likedIdeas = self.user.getLikedIdeas()
             userActivity['liked_ideas'] = likedIdeas
             locations = mLocation.getSimpleLocationDictionary(self.db)

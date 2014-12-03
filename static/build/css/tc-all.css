@@ -7488,6 +7488,12 @@ div.continent.user-account .resources-view ul.my-res > li .res-location.state-di
     margin: 0 8px;
 }
 
+div.continent.user-account .resources-view ul.my-res > li .not-yet-approved {
+    font-size: 16px;
+    color: red;
+    margin-top: 8px;
+}
+
 div.continent.user-account .resources-view ul.my-res > li .res-location .inline-edit-controls {
     clear: both;
     margin: 6px 0 0;

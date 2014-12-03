@@ -638,6 +638,11 @@
                                                     {{ resource.location_name }}
                                                 {% endif %}
                                                 </div>
+                                                <div class="box not-yet-approved">
+                                                    {% if resource.is_hidden ==1 %}
+                                                    {{ _('This resource is under review and not yet approved.') }}
+                                                    {% endif %}
+                                                </div>
                                                 <div class="inline-edit-controls"></div>
                                             </div>
                                         </div>
