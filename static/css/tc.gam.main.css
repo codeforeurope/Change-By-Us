@@ -4862,6 +4862,11 @@ div.invite-user .submit {
     opacity: 0.8;
 }
 
+.continent.home .note-card-pane .primary-action .ca-btn.finish {
+    background: url(../images/button_addmyidea_finish.png) top left no-repeat;
+}
+
+
 /*.continent.home .note-card-pane .oops { float: none; position: absolute; left: -215px; top: 82px; }_NO__DOTCOMMA__AFTER__*/
 
 .continent.home .note-card-pane .note-card-submit-idea {
