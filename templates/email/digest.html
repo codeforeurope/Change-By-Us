@@ -8,6 +8,8 @@
 # This is why, even if the current template and emailbase.html are in the same folder, the full path ./email/emailbase.html must be used
 #}
 
+{% block content %}
+
 <h1><a href="{{ baseUrl }}project/{{ digest.project_id }}">{{ digest.title }}</a></h1>
 <h3>{{ _(' %(sitename)s Project Update')|format(sitename = config.site.name) }}</h3>
 {%- if digest.members and digest.members|length > 0 -%}
@@ -41,3 +43,5 @@
 <p>
     <small>{{ _('Thank you for using <a href="%(base_url)s">%(site_name)s</a>')|format(base_url=baseUrl,site_name=config.site.name) }} - {{ _('if you have any questions or need help, please contact us at') }} <a href="mailto:{{ contactEmail }}">{{ contactEmail }}</a>.</small>
 </p>
+
+{% endblock content %}
