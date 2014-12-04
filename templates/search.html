@@ -442,7 +442,7 @@
 																</div>
 																<div class="user-info">
 																	<span class="link"><a href="/useraccount/{{ user.user_id }}">{{ user.first_name|truncate(50) }} {{ user.last_name|truncate(50) }}</a></span>
-                                                                    <span class="user-location">{{ user.location_name }}</span>
+                                                                    <span class="user-location">{% if user.location_name %}{{ user.location_name }}{% endif %}</span>
 																	<span class="description"><a href="/useraccount/{{ user.user_id }}">{{ user.description|truncate(70) }}</a></span>
 																</div>
 															</td>
