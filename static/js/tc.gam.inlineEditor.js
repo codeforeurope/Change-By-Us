@@ -192,7 +192,7 @@ tc.inlineLocationEditor.prototype = tc.jQ.extend({}, tc.inlineEditor.prototype, 
 				return;
 			}
 			if (this._getPostData() === "-1") {
-				this.data = "Citywide";
+				this.data = "De stad";
 			} else {
 				this.data = this.content.find("input.location-hood-enter").val();
 			}

@@ -4862,6 +4862,11 @@ div.invite-user .submit {
     opacity: 0.8;
 }
 
+.continent.home .note-card-pane .primary-action .ca-btn.finish {
+    background: url(../images/button_addmyidea_finish.png) top left no-repeat;
+}
+
+
 /*.continent.home .note-card-pane .oops { float: none; position: absolute; left: -215px; top: 82px; }_NO__DOTCOMMA__AFTER__*/
 
 .continent.home .note-card-pane .note-card-submit-idea {
@@ -7107,6 +7112,12 @@ div.continent.user-account .resources-view ul.my-res > li .right .mod-inline-edi
 div.continent.user-account .resources-view ul.my-res > li .res-location.state-display {
     font-size: 18px;
     margin: 0 8px;
+}
+
+div.continent.user-account .resources-view ul.my-res > li .not-yet-approved {
+    font-size: 16px;
+    color: red;
+    margin-top: 8px;
 }
 
 div.continent.user-account .resources-view ul.my-res > li .res-location .inline-edit-controls {

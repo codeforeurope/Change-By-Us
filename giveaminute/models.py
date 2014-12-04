@@ -32,7 +32,7 @@ from framework import util
 from giveaminute import formattingUtils as formattingUtils
 
 
-class Base (object):
+class Base(object):
     @classmethod
     def get_or_create(cls, orm, **kwargs):
         """will reraise sqlalchemy.orm.exc.MultipleResultsFound"""
@@ -47,7 +47,7 @@ class Base (object):
 Base = declarative_base(cls=Base)
 
 
-class User (Base):
+class User(Base):
     __tablename__ = 'user'
 
     id = Column('user_id', Integer, primary_key=True)
@@ -66,14 +66,15 @@ class User (Base):
     affiliation = Column(String(100), default=None)
     group_membership_bitmask = Column(SmallInteger, nullable=False, default=1)
     is_oncall = Column(Boolean, nullable=False, default=False)
-    email_notification = Column(Enum('none','digest'), nullable=False, default='digest')
+    email_notification = Column(Enum('none', 'digest'), nullable=False, default='digest')
     last_account_page_access_datetime = Column(DateTime, default=None)
     is_active = Column(Boolean, nullable=False, default=True)
     created_datetime = Column(DateTime, nullable=False, default=datetime(1, 1, 1, 0, 0, 0))
     updated_datetime = Column(DateTime, nullable=False, default=datetime.now, onupdate=datetime.now)
 
     commitments = relationship('Volunteer', cascade='all, delete, delete-orphan')
-    memberships = relationship('ProjectMember', primaryjoin='ProjectMember.user_id==User.id', cascade='all, delete, delete-orphan')
+    memberships = relationship('ProjectMember', primaryjoin='ProjectMember.user_id==User.id',
+                               cascade='all, delete, delete-orphan')
     location = relationship('Location')
 
     projects = association_proxy('memberships', 'project')
@@ -127,7 +128,7 @@ class User (Base):
                 self.unvolunteer_from(need)
 
 
-class ProjectMember (Base):
+class ProjectMember(Base):
     __tablename__ = 'project__user'
 
     user_id = Column(ForeignKey('user.user_id'), primary_key=True)
@@ -137,9 +138,10 @@ class ProjectMember (Base):
     created_datetime = Column(DateTime, nullable=False, default=datetime.now)
 
     member = relationship('User',
-        primaryjoin='ProjectMember.user_id==User.id')
+                          primaryjoin='ProjectMember.user_id==User.id')
 
-class Project (Base):
+
+class Project(Base):
     __tablename__ = 'project'
 
     id = Column('project_id', Integer, primary_key=True)
@@ -164,7 +166,7 @@ class Project (Base):
     needs = relationship('Need', order_by="desc(Need.id)", backref='project')
     events = relationship('Event')
     project_members = relationship('ProjectMember', backref='project',
-        primaryjoin='Project.id==ProjectMember.project_id')
+                                   primaryjoin='Project.id==ProjectMember.project_id')
 
     members = association_proxy('project_members', 'member')
 
@@ -184,7 +186,7 @@ class Project (Base):
         return nbt
 
 
-class Need (Base):
+class Need(Base):
     __tablename__ = 'project_need'
 
     id = Column(Integer, primary_key=True)
@@ -234,7 +236,7 @@ class Need (Base):
             return self.address
 
 
-class Volunteer (Base):
+class Volunteer(Base):
     __tablename__ = 'project_need_volunteer'
 
     need_id = Column(ForeignKey('project_need.id'), primary_key=True)
@@ -250,7 +252,7 @@ class Volunteer (Base):
         return self.need.project
 
 
-class CommunityLeader (Base):
+class CommunityLeader(Base):
     __tablename__ = 'community_leader'
 
     id = Column(Integer, primary_key=True)
@@ -260,7 +262,7 @@ class CommunityLeader (Base):
     order = Column(Integer)
 
 
-class Event (Base):
+class Event(Base):
     __tablename__ = 'project_event'
 
     id = Column(Integer, primary_key=True)
@@ -324,7 +326,7 @@ class Event (Base):
         return self.start_datetime.minute
 
 
-class SiteFeedback (Base):
+class SiteFeedback(Base):
     """
     Site Feedback ORM class.
     """
@@ -341,19 +343,21 @@ class SiteFeedback (Base):
     updated_datetime = Column(DateTime, nullable=False, default=datetime.now, onupdate=datetime.now)
 
 
-class Location (Base):
+class Location(Base):
     __tablename__ = 'location'
 
     id = Column('location_id', Integer, primary_key=True)
-    name =  Column(String(50), nullable=False)
-    lat =  Column(Float)
-    lon =  Column(Float)
-    borough =  Column(String(50))
-    address =  Column(String(100))
-    city =  Column(String(50))
-    state =  Column(String(2))
+    name = Column(String(50), nullable=False)
+    lat = Column(Float)
+    lon = Column(Float)
+    borough = Column(String(50))
+    address = Column(String(100))
+    city = Column(String(50))
+    state = Column(String(2))
+    geometry = Column(Text)
 
-class Idea (Base):
+
+class Idea(Base):
     """
     Idea ORM class.
     """
@@ -372,9 +376,11 @@ class Idea (Base):
     is_active = Column(SmallInteger, nullable=False, default=1)
     created_datetime = Column(DateTime, nullable=False, default=datetime(1, 1, 1, 0, 0, 0))
 
+
 if __name__ == '__main__':
     import sys
     import os
+
     sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
 
     from framework.orm_holder import OrmHolder

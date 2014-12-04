@@ -64,20 +64,6 @@ class CreateProject(Controller):
             project_lat = float(self.request('project_lat')) if not util.strNullOrEmpty(self.request('project_lat')) else None
             project_lng = float(self.request('project_lng')) if not util.strNullOrEmpty(self.request('project_lng')) else None
 
-
-            # if(project_lat is not None and project_lng is not None):
-            #     point = Point(project_lat, project_lng)
-            #     locations = mProject.getLocations(self.db)
-            #     for item in locations:
-            #         loc_id = item.location_id
-            #         loc_geom = item.geometry
-            #         js = json.load(loc_geom)
-            #         polygon = shape(js['coordinates'])
-            #         if polygon.contains(point):
-            #             locationId = loc_id
-            #             pass
-
-
             projectId = mProject.createProject(self.db, owner_user_id, title, description, ' '.join(keywords),
                                                locationId, imageId, isOfficial, organization, ideaId, project_lat, project_lng)
 

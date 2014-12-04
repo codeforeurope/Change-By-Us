@@ -67,6 +67,13 @@ app_page.features.push(function(app){
 					build_resources_carousel(merlin.app);
 				}
 			},
+			'approvedresources':{
+				selector:'#approved-resources',
+				init:function(merlin,dom){
+					tc.jQ('.headlands .tabs li.approved-resources').addClass('active').siblings().removeClass('active');
+					build_approved_resources_carousel(merlin.app);
+				}
+			},
 			'sitemetrics':{
 				selector:'#metrics',
 				init:function(merlin,dom){
@@ -302,6 +309,35 @@ app_page.features.push(function(app){
 				}
 			});
 			
+		},
+		save_approved_resource:function(e){
+			e.preventDefault();
+
+			data = {
+				resource_id: e.target.hash.split(',')[1]
+			};
+			data.is_official = tc.jQ(e.target).parents('.item-box').find('input.mark-official-checkbox').attr('checked');
+
+			if(!data.is_official){
+				data.is_official = 0;
+			} else {
+				data.is_official = 1;
+			}
+
+			tc.jQ.ajax({
+				type:"POST",
+				url:"/admin/resource/save",
+				data:data,
+				context:e,
+				dataType:"text",
+				success: function(data, ts, xhr) {
+					if(data == 'False'){
+						return;
+					}
+
+				}
+			});
+
 		}
 	};
 	
@@ -500,6 +536,207 @@ app_page.features.push(function(app){
 			app.components.resources_pagination.carousel.seekTo(0,0);
 		}
 		
+	}
+
+	function build_approved_resources_carousel(app){
+		var data, fn;
+
+		if(app.components.approved_resources_pagination){
+			return;
+		}
+
+		app.components.approved_resources_pagination = new tc.carousel({
+			element: tc.jQ(".approved-resources.carousel"),
+			next_button: tc.jQ('.resources-carousel-next'),
+			prev_button: tc.jQ('.resources-carousel-prev'),
+			scrollable: {
+				items: ".items",
+				speed: 300,
+				circular: false
+			}
+		});
+
+		app.components.approved_resources_pagination.data = {
+			current_page:null,
+			n_to_fetch: 10,
+			offset:0,
+			temp_item_source:tc.jQ('.template-content.approved-resource-box'),
+			next_button: tc.jQ('.resources-carousel-next'),
+			prev_button: tc.jQ('.resources-carousel-prev')
+		};
+
+
+		function approvedResourceCarouselSeekHandler(e,d){
+			e.data.app.components.approved_resources_pagination.data.current_page = e.data.app.components.approved_resources_pagination.carousel.getItems().eq(e.data.app.components.approved_resources_pagination.carousel.getIndex());
+			if(e.data.app.components.approved_resources_pagination.data.current_page.hasClass('loaded')){
+				approvedResourceCarouselResizePage();
+				handleApprovedResourcePaginationControls();
+			} else {
+				e.data.app.components.approved_resources_pagination.data.current_page.addClass('loaded');
+				tc.jQ.ajax({
+					type:"GET",
+					url:"/admin/resource/getreviewed",
+					data:{
+						n_limit: (e.data.app.components.approved_resources_pagination.data.n_to_fetch + 1),
+						offset: e.data.app.components.approved_resources_pagination.data.offset
+					},
+					context:e.data.app,
+					dataType:"text",
+					success: function(data, ts, xhr) {
+						var d, temptbody, tempitem;
+						try {
+							d = tc.jQ.parseJSON(data);
+						} catch(e) {
+							tc.util.log("/admin/resource/getreviewed: json parsing error", "warn");
+							return;
+						}
+						this.components.approved_resources_pagination.data.current_page.children('ul').addClass('pending-resources-stack').children().remove();
+
+
+						if(!d.length && this.components.approved_resources_pagination.data.offset > 0){
+							//no items, and we are on page > 0
+							this.components.approved_resources_pagination.data.current_page.remove();
+						} else if(!d.length && this.components.approved_resources_pagination.data.offset == 0){
+							//no items, and we are on page 0
+							this.components.approved_resources_pagination.data.current_page.children('ul').append('<li><p>No reviewed resources.</p></li>');
+						} else if(d.length == (this.components.approved_resources_pagination.data.n_to_fetch+1)) {
+							//full of items, and more. we DO have another page.
+
+							//lets pop off the extra one.
+							d.pop();
+
+							this.components.approved_resources_pagination.carousel.addItem('\
+								<li class="flagged-content-carousel-item clearfix spinner-message">\
+									<ul class="items warning-list-stack">\
+										<li><p>Loading...</p></li>\
+									</ul>\
+								</li>');
+						}
+
+						handleApprovedResourcePaginationControls();
+
+						for(i in d){
+							tempitem = this.components.approved_resources_pagination.data.temp_item_source.clone().removeClass('template-content').show();
+							tempitem.find('h3.resource-name').text(d[i].title);
+							tempitem.find('a.resource-link').attr('href',d[i].url).text(d[i].url);
+							tempitem.find('p.description').text(d[i].description);
+							tempitem.find('a.control-ok').attr('href','#save-resource,'+d[i].project_resource_id);
+							tempitem.find('a.control-delete').attr('href','#remove-resource,'+d[i].project_resource_id);
+							if(d[i].image_id != -1 && d[i].image_id != 'null' && d[i].image_id){
+								tempitem.find('div.west').prepend('<img src="'+this.app_page.media_root+'images/'+ d[i].image_id % 10 +'/'+ d[i].image_id +'.png"></img>');
+							}
+
+							//Only show the checkbox if official resources are supported
+							if (e.data.app.app_page.data.supported_features.is_official_supported) {
+								var checked = d[i].is_official == 1? 'checked' : '';
+						    	tempitem.find('div.west').append('<input type="checkbox" ' + checked +' name="mark-official-checkbox-'+(this.components.approved_resources_pagination.data.offset+i)+'" class="mark-official-checkbox" id="mark-official-checkbox-'+(this.components.approved_resources_pagination.data.offset+i)+'"/>');
+    							tempitem.find('div.west').append('<label for="mark-official-checkbox-'+(this.components.approved_resources_pagination.data.offset+i)+'">Official</label>');
+    						}
+
+							if(d[i].contact_name && d[i].contact_name.length) {
+								tempitem.find('div.west').append('<p><strong>Name:</strong> '+d[i].contact_name+'</p>');
+							}
+							if(d[i].twitter_url && d[i].twitter_url.length){
+								tempitem.find('div.west').append('<p><a href="'+d[i].twitter_url+'" target="_blank">Twitter</a></p>');
+							}
+							if(d[i].facebook_url && d[i].facebook_url.length){
+								tempitem.find('div.west').append('<p><a href="'+d[i].facebook_url+'" target="_blank">Facebook</a></p>');
+							}
+							if(d[i].url && d[i].url.length){
+								tempitem.find('div.mission').append('<h4>URL</h4>');
+								tempitem.find('div.mission').append("<span class='serif'><p><a href='"+d[i].url+"' target='_blank'>"+tc.truncate(d[i].url,24)+"</a></p></span>");
+							}
+							tempitem.find('div.mission').append('<h4>Email</h4>');
+							tempitem.find('div.mission').append("<span class='serif'><p><a href='mailto:"+d[i].contact_email+"'>"+tc.truncate(d[i].contact_email, 24)+"</a></p></span>");
+
+							tempitem.find('div.mission').append("<div class='box half'><h4>Physical Address</h4><span class='serif'><p>"+d[i].physical_address+"<br /><strong>"+d[i].location_name+"</strong></p></span></div>");
+							if(d[i].keywords){
+								tempitem.find('div.mission').append("<div class='box half'><h4>Keywords</h4><span class='serif'><p>"+d[i].keywords.replace(/,/g,', ')+"</p></span></div>");
+							}
+                            if(d[i].message && d[i].message.length) {
+                                tempitem.find('p.resource-message').text(d[i].message);
+                            }
+
+							this.components.approved_resources_pagination.data.offset++;
+							this.components.approved_resources_pagination.data.current_page.children('ul').append(tempitem);
+						}
+
+						approvedResourceCarouselResizePage();
+
+						this.components.approved_resources_pagination.data.current_page.find('a.control-ok').bind('click', {app:this}, this.components.content_functions.save_approved_resource);
+						this.components.approved_resources_pagination.data.current_page.find('a.control-delete').unbind('click').bind('click', {app:this}, this.components.content_functions.delete_content);
+						this.components.approved_resources_pagination.data.current_page.find('input[type=checkbox],input[type=radio]').not('.has-prettycheckbox').prettyCheckboxes();
+					}
+				});
+			}
+		}
+
+		function resourceCarouselResizePage(){
+			var itemsheight;
+			itemsheight = 0;
+			app.components.resources_pagination.data.current_page.find('li').each(function(i,j){
+				itemsheight += (tc.jQ(j).height() + 30);
+			});
+
+			app.components.resources_pagination.data.current_page.parent().parent().css('height',(itemsheight+200)+'px');
+		}
+
+		function approvedResourceCarouselResizePage(){
+			var itemsheight;
+			itemsheight = 0;
+			app.components.approved_resources_pagination.data.current_page.find('li').each(function(i,j){
+				itemsheight += (tc.jQ(j).height() + 30);
+			});
+
+			app.components.approved_resources_pagination.data.current_page.parent().parent().css('height',(itemsheight+200)+'px');
+		}
+
+		function handleApprovedResourcePaginationControls() {
+			if(app.components.approved_resources_pagination.carousel.getIndex() == 0){
+				//on first page, remove previous button.
+				app.components.approved_resources_pagination.data.prev_button.hide();
+			} else {
+				app.components.approved_resources_pagination.data.prev_button.show();
+			}
+
+			if(app.components.approved_resources_pagination.carousel.getIndex() == (app.components.approved_resources_pagination.carousel.getItems().length - 1)) {
+				//not on first page, lets show the previous button.
+				app.components.approved_resources_pagination.data.next_button.hide();
+			} else {
+				app.components.approved_resources_pagination.data.next_button.show();
+			}
+		}
+
+			if(app.components.approved_resources_pagination){
+			app.components.approved_resources_pagination.carousel.getRoot()
+				.unbind('onSeek', {app:app}, approvedResourceCarouselSeekHandler)
+				.bind('onSeek', {app:app}, approvedResourceCarouselSeekHandler);
+			app.components.approved_resources_pagination.carousel.seekTo(0,0);
+		}
+
+		function handleResourcePaginationControls(){
+			if(app.components.resources_pagination.carousel.getIndex() == 0){
+				//on first page, remove previous button.
+				app.components.resources_pagination.data.prev_button.hide();
+			} else {
+				app.components.resources_pagination.data.prev_button.show();
+			}
+
+			if(app.components.resources_pagination.carousel.getIndex() == (app.components.approved_resources_pagination.carousel.getItems().length - 1)) {
+				//not on first page, lets show the previous button.
+				app.components.resources_pagination.data.next_button.hide();
+			} else {
+				app.components.resources_pagination.data.next_button.show();
+			}
+		}
+
+		if(app.components.resources_pagination) {
+			app.components.resources_pagination.carousel.getRoot()
+				.unbind('onSeek', {app: app}, approvedResourceCarouselSeekHandler)
+				.bind('onSeek', {app: app}, approvedResourceCarouselSeekHandler);
+			app.components.resources_pagination.carousel.seekTo(0, 0);
+		}
+
 	}
 		
 		

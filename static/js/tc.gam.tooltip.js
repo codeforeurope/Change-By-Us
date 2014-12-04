@@ -122,7 +122,9 @@ tc.resource_tooltip.prototype.generate_markup = function(data){
 		markup.find('img').attr('src','/static/images/thumb_genAvatar100.png');
 	}
 	markup.find('.main p').html(data.description);
-	markup.find('dd a').attr('target','_blank').attr('href',data.url).text(tc.truncate(data.url,28,'...'));
+	markup.find('dd a.url').attr('target','_blank').attr('href',data.url).text(tc.truncate(data.url,28,'...'));
+	markup.find('dd a.facebook-url').attr('target','_blank').attr('href',data.facebook_url).text(tc.truncate(data.facebook_url,28,'...'));
+	markup.find('dd a.twitter-url').attr('target','_blank').attr('href',data.twitter_url).text(tc.truncate(data.twitter_url,28,'...'));
 	return tc.jQ('<div>').append(markup).html();
 };
 

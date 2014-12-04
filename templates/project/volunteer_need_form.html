@@ -65,7 +65,7 @@
               {% raw %}
             <input name="vol-street" id="vol-street" value="{{address}}" type="text" />
               {% endraw %}
-            <p class="madlib">on</p>
+            <p class="madlib">{{ _('on') }}</p>
             <select id="vol-month">
               <option value="Month">{{ _('Month') }}</option>
                 {% raw %}
@@ -79,7 +79,9 @@
                 {% endraw %}
           </div>
           <div class="event-link-cont">
-            <div class="event-link-label">&#8212;&#8212;&nbsp;&nbsp;&nbsp; {{ _('OR') }} &nbsp;&nbsp;&nbsp;&#8212;&#8212;</div>
+            <div class="event-link-label">&#8212;&#8212;&nbsp;&nbsp;&nbsp;
+                <b>{{ _('OR') }}</b>
+                &nbsp;&nbsp;&nbsp;&#8212;&#8212;</div>
             <select id="vol-event-list" class="need-event-list">
               <option value="">{{ _('Link to an event') }}</option>
                 {% raw %}

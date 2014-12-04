@@ -86,7 +86,7 @@ def searchProjectResources(db, terms, locationId, limit=1000, offset=0):
     match = ' '.join([(item + "*") for item in terms])
 
     try:
-        sql = """select project_resource_id as link_id, title, url, image_id, is_official 
+        sql = """select project_resource_id as link_id, title, url, facebook_url, twitter_url, image_id, is_official
                 from project_resource
                     where is_active = 1 and is_hidden = 0
                     and ( ($locationId is null or location_id = $locationId)
@@ -166,6 +166,36 @@ def getUnreviewedProjectResources(db, limit=10, offset=0):
 
     return data
 
+def getReviewedProjectResources(db, limit=10, offset=0):
+    data = []
+
+    try:
+        sql = """select pr.project_resource_id,
+                        pr.title, pr.description,
+                        pr.image_id,
+                        pr.location_id,
+                        pr.url,
+                        pr.twitter_url,
+                        pr.facebook_url,
+                        pr.physical_address,
+                        pr.contact_name,
+                        pr.contact_email,
+                        pr.message,
+                        pr.is_official,
+                        replace(pr.keywords, ' ', ',') as keywords,
+                        l.name as location_name
+                    from project_resource pr
+                    left join location l on l.location_id = pr.location_id
+                    where pr.is_active = 1 and pr.is_hidden = 0
+                    limit $limit offset $offset"""
+
+        data = list(db.query(sql, {'limit': limit, 'offset': offset}))
+    except Exception, e:
+        log.info("*** couldn't get reviewed resources")
+        log.error(e)
+
+    return data
+
 
 def approveProjectResource(db, projectResourceId, isOfficial=False):
     try:
@@ -174,5 +204,16 @@ def approveProjectResource(db, projectResourceId, isOfficial=False):
         return True
     except Exception, e:
         log.info("*** couldn't approve project resource %s" % projectResourceId)
+        log.error(e)
+        return False
+
+
+def toggleOfficialResource(db, projectResourceId, isOfficial=False):
+    try:
+        db.update('project_resource', where="project_resource_id = $projectResourceId",
+                  is_official=isOfficial, vars={'projectResourceId': projectResourceId})
+        return True
+    except Exception, e:
+        log.info("*** couldn't toggle Official Status for resource %s" % projectResourceId)
         log.error(e)
         return False

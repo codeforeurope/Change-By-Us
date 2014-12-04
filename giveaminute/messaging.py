@@ -139,6 +139,46 @@ def emailProjectEndorsement(email, title, leaderName):
         log.error(e)
         return False
 
+def emailProjectMessage(email, projectId, projectTitle):
+    """
+    Email project admins about new messages.  Using template: project_comment_notification
+
+    @type   email: string
+    @param  email: Email address to send to
+    ...
+
+    @rtype: Boolean
+    @returns: Whether emailer was successful or not.
+
+    """
+    #Get translations
+    translations = get_gettext_translation(get_default_language())
+
+    # Create values for template.
+    emailAccount = Config.get('email')
+    subject = translations.gettext("New message in your project on %(sitename)s") % {'sitename': Config.get('site')['name']}
+    host = Config.get('default_host')
+    projectLink = "%sproject/%s" % (host, projectId)
+    template_values = {
+        'project_link': projectLink,
+        'response_email': emailAccount['from_email'],
+        'project_title': projectTitle,
+        'config': Config.get_all()
+    }
+
+    # Render email body.
+    body = Emailer.render('email/project_comment_notification', template_values, suffix='txt')
+    html = Emailer.render('email/project_comment_notification', template_values, suffix='html')
+
+    # Send email.
+    try:
+        return Emailer.send(email, subject, body, html, from_name=emailAccount['from_name'],
+                            from_address=emailAccount['from_email'])
+    except Exception, e:
+        log.info("*** couldn't send endorsement email")
+        log.error(e)
+        return False
+
 
 def emailResourceNotification(email, projectId, title, description, resourceName):
     """
@@ -172,7 +212,53 @@ def emailResourceNotification(email, projectId, title, description, resourceName
     html = Emailer.render('email/resource_notification', template_values, suffix='html')
 
     # If dev, don't email resources
-    if (Config.get('dev')):
+    if Config.get('dev'):
+        log.info("*** body = %s" % body)
+        return True
+
+    # Send email.
+    try:
+        return Emailer.send(email, subject, body, html, from_name=emailAccount['from_name'],
+                            from_address=emailAccount['from_email'])
+    except Exception, e:
+        log.info("*** couldn't send resource notification email")
+        log.error(e)
+        return False
+
+
+def emailResourceNotificationReminder(email, projectId, title, description, resourceName):
+    """
+    Email resource contacts on resource add.  Using template: resource_notification
+
+    @type   email: string
+    @param  email: Email address to send to
+    ...
+
+    @rtype: Boolean
+    @returns: Whether emailer was successful or not.
+
+    """
+    #Get translations
+    translations = get_gettext_translation(get_default_language())
+
+    # Create values for template.
+    emailAccount = Config.get('email')
+    subject = translations.gettext("A project on %(sitename)s has added %(resourcename)s as a resource") % {'sitename': Config.get('site')['name'], 'resourcename': resourceName}
+    link = "%sproject/%s" % (Config.get('default_host'), str(projectId))
+    template_values = {
+        'title': title,
+        'description': description,
+        'resource_name': resourceName,
+        'link': link,
+        'config': Config.get_all()
+    }
+
+    # Render email body.
+    body = Emailer.render('email/resource_notification_reminder', template_values, suffix='txt')
+    html = Emailer.render('email/resource_notification_reminder', template_values, suffix='html')
+
+    # If dev, don't email resources
+    if Config.get('dev'):
         log.info("*** body = %s" % body)
         return True
 
@@ -434,10 +520,42 @@ def emailIdeaConfirmation(email, responseEmail, locationId):
         return False
 
 
+def emailIdeaComment(email, ideaId, ideaDescription):
+    #Get translations
+    translations = get_gettext_translation(get_default_language())
+
+    # Create values for template.
+    emailAccount = Config.get('email')
+    host = Config.get('default_host')
+    subject = translations.gettext('There is a new comment on your idea on %(sitename)s!') % {'sitename': Config.get('site')['name']}
+    ideaLink = "%sidea/%s" % (host, ideaId)
+    template_values = {
+        'idea_link': ideaLink,
+        'idea_description': ideaDescription,
+        'response_email': emailAccount['from_email'],
+        'config': Config.get_all()
+    }
+
+    # Render email body.
+    body = Emailer.render('email/idea_comment_notification', template_values, suffix='txt')
+    html = Emailer.render('email/idea_comment_notification', template_values, suffix='html')
+
+    # Send email.
+    try:
+        return Emailer.send(email, subject, body, html, from_name=emailAccount['from_name'],
+                            from_address=emailAccount['from_email'])
+    except Exception, e:
+        log.info("*** couldn't send authenticate user email")
+        log.error(e)
+        return False
+
+    return True
+
 ### SMS FUNCTIONS
 
-# add phone number to table of stopped numbers
+
 def stopSMS(db, phone):
+    # add phone number to table of stopped numbers
     try:
         db.insert('sms_stopped_phone', phone=phone)
         return True
@@ -512,6 +630,7 @@ def get_default_language():
     except:
         pass
     return lang
+
 
 def get_i18n_dir():
     """Return the path to the directory with the locale files"""

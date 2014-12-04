@@ -406,6 +406,24 @@ def hasUserEndorsedProject(db, projectId, userId):
         log.error(e)
         return False
 
+def getProjectAdmins(db, projectId):
+    try:
+        sql = """select
+                u.user_id,
+                u.email,
+                u.first_name,
+                u.last_name
+                from project__user pu
+                left join user u on u.user_id = pu.user_id
+                where pu.is_project_admin = 1
+                and pu.project_id = $projectId"""
+        data = list(db.query(sql, {'projectId': projectId}))
+        return data
+    except Exception, e:
+        log.info("*** couldn't get project admins")
+        log.error(e)
+        return False
+
 
 def getProjectLocation(db, projectId):
     try:
@@ -520,18 +538,18 @@ def removeKeyword(db, projectId, keyword):
 
 def addResourceToProject(db, projectId, resourceId):
     try:
-        if (not isResourceInProject(db, projectId, resourceId)):
+        if not isResourceInProject(db, projectId, resourceId):
             db.insert('project__project_resource', project_id=projectId,
                       project_resource_id=resourceId)
 
-            return True
+            return 1
         else:
             log.error("*** resource already in project")
-            return False
+            return 0
     except Exception, e:
         log.info("*** problem attaching resource to project")
         log.error(e)
-        return False
+        return -1
 
 
 def removeResourceFromProject(db, projectId, projectResourceId):

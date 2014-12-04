@@ -2,46 +2,46 @@
  # Copyright (c) 2011 Local Projects. All rights reserved.
  # Licensed under the Affero GNU GPL v3, see LICENSE for more details.
  #}
-<html>
-    <head>
-        <style type="text/css">
-            * { font-family: arial, helvetica, sans-serif; }
-            p, h1, h2, h3 { color:#000000; }
-        </style>
-    </head>
-    <body>
-        <h1><a href="{{ baseUrl }}project/{{ digest.project_id }}">{{ digest.title }}</a></h1>        
-        <h3>{{ _(' %(sitename)s Project Update')|format(sitename = config.site.name) }}</h3>
-        {%- if digest.members and digest.members|length > 0 -%}
-        <h2>{{ _('New Members:') }}</h2>
-        <p>
-            {{ _('Welcome to our new members!') }} <br/>
-            {{ _('We now have a total of %(number)s members')|format(number=digest.num_members) }} (<a href="{{ baseUrl }}project/{{ digest.project_id }}#show,members">{{ _('see all') }}</a>).
-        </p>
-        {%- for member in digest.members -%}
-        <p>
-            <a href="{{ baseUrl }}useraccount/{{ member.user_id }}">{{ member.first_name|title }} {{ member.last_name[0]|title }}.</a><br/>
-            {{ _('joined') }} {{ member.created_datetime.strftime('%m/%d') }}
-        </p>
-        {%- endfor -%}
-        {%- endif -%}
+{% extends "./email/emailbase.html" %}
+{#
+# Since emailer.py loads the templates based on the ./templates/ folder, the "extends" statement must be executed from the same path
+# This is why, even if the current template and emailbase.html are in the same folder, the full path ./email/emailbase.html must be used
+#}
 
-        {%- if digest.messages and digest.messages|length > 0 -%}
-        <h2>{{ _('Recent Messages:') }}</h2>
-        {%- for message in digest.messages -%}
-        <p>
-            <a href="{{ baseUrl }}useraccount/{{ message.user_id }}">{{ message.first_name|title }} {{ message.last_name[0]|title }}.</a> <em>{{ _('on') }} {{ message.created_datetime.strftime('%m/%d/%Y at %I:%M %p') }} {{ _('wrote') }}:</em><br/>
-            "{{ message.message }}"
-        </p>
-        {%- endfor -%}    
-        {%- endif -%}
+{% block content %}
 
-        <p>*********************</p>
-        <p>
-            <small>{{ _('You are subscribed to this update because you are a member of') }} <a href="{{ baseUrl }}project/{{ digest.project_id }}">{{ digest.title }}</a>, {{ _('a project on') }} <a href="{{ baseUrl }}">{{ config.site.name }}</a>. {{ _('News digests only come when there is new news and there is only one per day.') }} {{ _('If you&#39;d like to unsubscribe, you can change your message preferences on <a href="%(base_url)suseraccount">your account page</a>.')|format(base_url=baseUrl) }}</small>
-        </p>
-        <p>
-            <small>{{ _('Thank you for using <a href="%(base_url)s">%(site_name)s</a>')|format(base_url=baseUrl,site_name=config.site.name) }} - {{ _('if you have any questions or need help, please contact us at') }} <a href="mailto:{{ contactEmail }}">{{ contactEmail }}</a>.</small>
-        </p>
-    </body>
-</html>
+<h1><a href="{{ baseUrl }}project/{{ digest.project_id }}">{{ digest.title }}</a></h1>
+<h3>{{ _(' %(sitename)s Project Update')|format(sitename = config.site.name) }}</h3>
+{%- if digest.members and digest.members|length > 0 -%}
+<h2>{{ _('New Members:') }}</h2>
+<p>
+    {{ _('Welcome to our new members!') }} <br/>
+    {{ _('We now have a total of %(number)s members')|format(number=digest.num_members) }} (<a href="{{ baseUrl }}project/{{ digest.project_id }}#show,members">{{ _('see all') }}</a>).
+</p>
+{%- for member in digest.members -%}
+<p>
+    <a href="{{ baseUrl }}useraccount/{{ member.user_id }}">{{ member.first_name|title }} {{ member.last_name[0]|title }}.</a><br/>
+    {{ _('joined') }} {{ member.created_datetime.strftime('%m/%d') }}
+</p>
+{%- endfor -%}
+{%- endif -%}
+
+{%- if digest.messages and digest.messages|length > 0 -%}
+<h2>{{ _('Recent Messages:') }}</h2>
+{%- for message in digest.messages -%}
+<p>
+    <a href="{{ baseUrl }}useraccount/{{ message.user_id }}">{{ message.first_name|title }} {{ message.last_name[0]|title }}.</a> <em>{{ _('on') }} {{ message.created_datetime.strftime('%m/%d/%Y at %I:%M %p') }} {{ _('wrote') }}:</em><br/>
+    "{{ message.message }}"
+</p>
+{%- endfor -%}
+{%- endif -%}
+
+<hr>
+<p>
+    <small>{{ _('You are subscribed to this update because you are a member of') }} <a href="{{ baseUrl }}project/{{ digest.project_id }}">{{ digest.title }}</a>, {{ _('a project on') }} <a href="{{ baseUrl }}">{{ config.site.name }}</a>. {{ _('News digests only come when there is new news and there is only one per day.') }} {{ _('If you&#39;d like to unsubscribe, you can change your message preferences on <a href="%(base_url)suseraccount">your account page</a>.')|format(base_url=baseUrl) }}</small>
+</p>
+<p>
+    <small>{{ _('Thank you for using <a href="%(base_url)s">%(site_name)s</a>')|format(base_url=baseUrl,site_name=config.site.name) }} - {{ _('if you have any questions or need help, please contact us at') }} <a href="mailto:{{ contactEmail }}">{{ contactEmail }}</a>.</small>
+</p>
+
+{% endblock content %}

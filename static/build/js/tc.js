@@ -2325,7 +2325,9 @@ tc.resource_tooltip.prototype.generate_markup = function(data){
 		markup.find('img').attr('src','/static/images/thumb_genAvatar100.png');
 	}
 	markup.find('.main p').html(data.description);
-	markup.find('dd a').attr('target','_blank').attr('href',data.url).text(tc.truncate(data.url,28,'...'));
+	markup.find('dd a.url').attr('target','_blank').attr('href',data.url).text(tc.truncate(data.url,28,'...'));
+	markup.find('dd a.facebook-url').attr('target','_blank').attr('href',data.facebook_url).text(tc.truncate(data.facebook_url,28,'...'));
+	markup.find('dd a.twitter-url').attr('target','_blank').attr('href',data.twitter_url).text(tc.truncate(data.twitter_url,28,'...'));
 	return tc.jQ('<div>').append(markup).html();
 };
 
@@ -2954,7 +2956,7 @@ tc.inlineLocationEditor.prototype = tc.jQ.extend({}, tc.inlineEditor.prototype, 
 				return;
 			}
 			if (this._getPostData() === "-1") {
-				this.data = "Citywide";
+				this.data = "De stad";
 			} else {
 				this.data = this.content.find("input.location-hood-enter").val();
 			}
@@ -3288,9 +3290,9 @@ tc.gam.add_resource = function(app, options) {
 					},
 					'add-resource-submit':{
 						selector:'.add-resource-submit',
+						next_step:'add-resource-reminder',
 						init: function(merlin, dom) {
-						
-						
+
 							tc.jQ.ajax({
 								type:"POST",
 								url:"/project/resource/add",
@@ -3298,9 +3300,13 @@ tc.gam.add_resource = function(app, options) {
 								context:merlin,
 								dataType:"text",
 								success: function(data, ts, xhr) {
-									//if (data == "False") {
-									//	return false;
-									//}
+									if (data == "False") {
+										return false;
+									}
+									else if(data == 'Reminded'){
+										this.show_step('add-resource-reminder');
+										return;
+									}
 									//tc.jQ(event_target).addClass("disabled").text("Added");
 									tc.jQ(event_target).parents('td').addClass('added');
 									tc.timer(1000, function() {
@@ -3308,6 +3314,14 @@ tc.gam.add_resource = function(app, options) {
 									});
 								}
 							});
+						}
+					},
+					'add-resource-reminder':{
+						selector:'.add-resource-reminder',
+						init: function(merlin, dom) {
+							tc.timer(2000, function() {
+										modal.hide();
+									});
 						}
 					}
 				}

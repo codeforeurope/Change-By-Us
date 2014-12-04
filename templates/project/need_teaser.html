@@ -28,8 +28,8 @@
           {{ _('We need') }} <a href="#show,need-detail,{{ need.id }}" class="vol-need"><span class="vol-count">{{ need.quantity }}</span>{{ _('volunteer') }} {{ need.request }}</a>
           {% endif %}
 
-          {% if need.reason %} for {{ need.reason }}{% endif %}
-          {% if need.display_date %} on {{ need.display_date }}{% endif %}
+          {% if need.reason %} {{ _('for') }} {{ need.reason }}{% endif %}
+          {% if need.display_date %} {{ _('on') }} {{ need.display_date }}{% endif %}
         </div>
 
         {% if

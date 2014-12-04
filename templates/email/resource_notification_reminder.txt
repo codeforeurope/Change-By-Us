@@ -1,0 +1,16 @@
+{#
+ # Copyright (c) 2011 Local Projects. All rights reserved.
+ # Licensed under the Affero GNU GPL v3, see LICENSE for more details.
+ #}
+{{ _('A project on %(sitename)s has added %(resource)s as a resource.')|format(sitename=config.site.name,resource=resource_name) }}
+
+{{ _('This is a reminder that you should check out the project "%(projectname)s". Please see how you can help:')|format(projectname=title) }} {{ link }}
+
+{{title}}
+
+{{description}}
+
+
+
+{{ _('Thank you,') }}
+{{ config.site.name }}

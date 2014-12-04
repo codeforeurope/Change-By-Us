@@ -61,6 +61,7 @@ app_page.features.push(function(app){
 					},
 					init:function(merlin,dom){
 						tc.jQ('.note-card-submit-idea textarea').attr("disabled", false);
+						tc.jQ('.ca-btn').removeClass('finish');
 					},
 					finish:function(merlin,dom){
 						merlin.options.data = tc.jQ.extend(merlin.options.data,{
@@ -151,6 +152,7 @@ app_page.features.push(function(app){
 						};
 						
 						tc.jQ('.oops').addClass('idea-details');
+						tc.jQ('.ca-btn').addClass('finish');
 					},
 					finish:function(merlin,dom){
 						merlin.options.data = tc.jQ.extend(merlin.options.data,{

@@ -517,7 +517,7 @@ class GiveAMinuteDigest(Configurable, WebpyDBConnectable, Mailable, Loggable, Ta
         # Store the formatted body
         for digest in digests:
             currentDigest = digests.get(digest)
-            currentDigest['subject'] = "%s%s" % (
+            currentDigest['subject'] = "%s %s" % (
             self.Config.get('email').get('digest').get('digest_subject_prefix'), currentDigest.get('title'))
             currentDigest['body'] = Emailer.render('email/digest',
                                                    {'digest': currentDigest,

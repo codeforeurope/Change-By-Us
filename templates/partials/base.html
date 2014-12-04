@@ -174,7 +174,7 @@
                             {% endif %}
                             <a href="/search#resources">{{ _('Resources') }}</a>
                             <a href="/search#users">{{ _('People') }}</a>
-                            <!--<a href="/about">{{ _('About') }}</a>-->
+                            <a href="/about">{{ _('About') }}</a>
                             {% if d.config.features.is_calendar_enabled %}
                             <a href="/calendar/show">{{ _('Calendar') }}</a>
                             {% endif %}
@@ -568,6 +568,13 @@
     {%  set msg13 = _('Too small') %}
     {%  set msg14 = _('Save') %}
     {%  set msg15 = _('Cancel') %}
+    {%  set msg16 = _('just now') %}
+    {%  set msg17 = _('1 minute ago') %}
+    {%  set msg18 = _('minutes ago') %}
+    {%  set msg19 = _('hours ago') %}
+    {%  set msg20 = _('Yesterday') %}
+    {%  set msg21 = _('days ago') %}
+    {%  set msg22 = _('weeks ago') %}
     <script>
         app_page.general_messages = {
             "oops_please_fill_fields_marked_red" : "{{ msg1 }}",
@@ -584,7 +591,15 @@
             "too_big" : "{{ msg12 }}",
             "too_small" : "{{ msg13 }}",
             "save" : "{{ msg14 }}",
-            "cancel" : "{{ msg15 }}"
+            "cancel" : "{{ msg15 }}",
+            "just-now": "{{ msg16 }}",
+            "minute-ago": "{{ msg17 }}",
+            "minutes-ago": "{{ msg18 }}",
+            "hour-ago": "{{ msg19 }}",
+            "yesterday": "{{ msg20 }}",
+            "days-ago": "{{ msg21 }}",
+            "weeks-ago": "{{ msg22 }}"
+
         }
     </script>
 

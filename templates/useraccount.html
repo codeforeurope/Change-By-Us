@@ -362,6 +362,79 @@
                                         </li>
                                     {%- endmacro %}
 
+                                    {% macro direct_message_from(message, className='') -%}
+                                        <li class="message-item direct-message-from {{ className }}">
+                                            <div class="thumb">
+                                                {% if message.owner.image_id %}
+                                                    <img width='50' src='{{d.template_data.media_root}}images/{{ message.owner.image_id % 10 }}/{{ message.owner.image_id }}.png' alt="{{ message.owner.name }}" class='avatar'/>
+                                                {% else %}
+                                                    <img width='50' src="/static/images/thumb_genAvatar50.png" alt="{{ message.owner.name }}" class="avatar"/>
+                                                {% endif %}
+                                            </div>
+                                            <div class="main">
+                                                <div class="meta meta-top">
+                                                    <cite class="sender"><a href="/useraccount/{{ message.owner.u_id }}">{{ message.owner.name }}</a></cite>
+                                                    <cite class="project"><em>{{ _('sent you a direct message') }}:</em></cite>
+                                                </div>
+                                                <blockquote class="excerpt">
+                                                    <p>{{ message.body }}</p>
+                                                </blockquote>
+                                                <a href="#" data-userid="{{ message.owner.u_id }}" data-username="{{message.owner.name}}" class="reply-to-direct-message rounded-button small fancy-caps more-link">{{ _('Reply') }}</a>
+                                                <div class="meta meta-bottom">
+                                                    <cite class="time-since">{{ message.created }}</cite>
+                                                </div>
+                                            </div>
+                                        </li>
+                                    {%- endmacro %}
+
+                                    {% macro direct_message_to(message, className='') -%}
+                                        <li class="message-item direct-message-to {{ className }}">
+                                            <div class="thumb">
+                                                {% if message.owner.image_id %}
+                                                    <img width='50' src='{{d.template_data.media_root}}images/{{ message.owner.image_id % 10 }}/{{ message.owner.image_id }}.png' alt="{{ message.owner.name }}" class='avatar'/>
+                                                {% else %}
+                                                    <img width='50' src="/static/images/thumb_genAvatar50.png" alt="{{ message.owner.name }}" class="avatar"/>
+                                                {% endif %}
+                                            </div>
+                                            <div class="main">
+                                                <div class="meta meta-top">
+                                                    <cite class="project"><em>{{ _('You sent a message to') }} </em></cite>
+                                                    <cite class="sender"><a href="/useraccount/{{ message.owner.u_id }}">{{ message.owner.name }}</a>:</cite>
+                                                </div>
+                                                <blockquote class="excerpt">
+                                                    <p>{{ message.body }}</p>
+                                                </blockquote>
+                                                <div class="meta meta-bottom">
+                                                    <cite class="time-since">{{ message.created }}</cite>
+                                                </div>
+                                            </div>
+                                        </li>
+                                    {%- endmacro %}
+
+                                    {% macro notification_idea_comment(message, className='') -%}
+                                        <li class="message-item idea-comment {{ className }}">
+                                            <div class="thumb">
+                                                {% if message.owner.image_id %}
+                                                    <img width='50' src='{{d.template_data.media_root}}images/{{ message.owner.image_id % 10 }}/{{ message.owner.image_id }}.png' alt="{{ message.owner.name }}" class='avatar'/>
+                                                {% else %}
+                                                    <img width='50' src="/static/images/thumb_genAvatar50.png" alt="{{ message.owner.name }}" class="avatar"/>
+                                                {% endif %}
+                                            </div>
+                                            <div class="main">
+                                                <div class="meta meta-top">
+                                                    <cite class="sender"><a href="/useraccount/{{ message.owner.u_id }}">{{ message.owner.name }}</a></cite>
+                                                <cite class="project"><em>{{ _('commented on') }}:</em> <a href="/idea/{{ message.idea_id }}" class="serif">{{ message.idea_description }}</a></cite>
+                                                </div>
+                                                <blockquote class="excerpt">
+                                                    <p>{{ message.body }}</p>
+                                                </blockquote>
+                                                <div class="meta meta-bottom">
+                                                    <cite class="time-since">{{ message.created }}</cite>
+                                                </div>
+                                            </div>
+                                        </li>
+                                    {%- endmacro %}
+
                                     {% for message in d.template_data.user_activity.data.messages %}
                                         {% if message.message_type == "member_comment" %}
                                             <li class="message-item member-comment">
@@ -388,6 +461,12 @@
                                             </li>
                                         {% elif message.message_type == "join" %}
                                             {{ notification_message(message, 'join-notification') }}
+                                        {% elif message.message_type == "direct_message_to" %}
+                                            {{ direct_message_to(message, '') }}
+                                        {% elif message.message_type == "direct_message_from" %}
+                                            {{ direct_message_from(message, '') }}
+                                        {% elif message.message_type == "idea_comment" %}
+                                            {{ notification_idea_comment(message, '') }}
                                         {% elif message.message_type == "invite" %}
                                             <li class="message-item user-notification invite-notification">
                                                 <!--<a class="close" href="#"><span>Close</span></a>-->
@@ -537,6 +616,7 @@
                     <div class="resources-view step merlin">
                         <div class="hd">
                             <h2><span class="light">{{ _('My') }} </span>{{ _('Resources') }} <span class="counter">{{ d.template_data.user_activity.data.resources|length }}</span></h2>
+                            <h3>{{ _('Click on each text to edit or add information.') }}</h3>
                         </div>
                         <div class="bd">
                             <ul class='my-res'>
@@ -557,6 +637,11 @@
                                                 {% if resource.location_name %}
                                                     {{ resource.location_name }}
                                                 {% endif %}
+                                                </div>
+                                                <div class="box not-yet-approved">
+                                                    {% if resource.is_hidden ==1 %}
+                                                    {{ _('This resource is under review and not yet approved.') }}
+                                                    {% endif %}
                                                 </div>
                                                 <div class="inline-edit-controls"></div>
                                             </div>
@@ -621,6 +706,64 @@
             <div class="meta meta-top">
                 <cite class="sender"></cite>
                 <cite class="project"><em>{{ _('from') }}</em> <a class="serif"></a></cite>
+            </div>
+            <blockquote class="excerpt">
+                <p></p>
+            </blockquote>
+            <div class="meta meta-bottom">
+                <cite class="time-since"></cite>
+            </div>
+        </div>
+    </div>
+
+    <div class="template-content message-item direct-message-to">
+        <!--<a class="close" href="#"><span>Close</span></a>-->
+        <div class="thumb">
+            <img width='50' src=" " alt=" " class="avatar"/>
+        </div>
+        <div class="main">
+            <div class="meta meta-top">
+                <cite class="project"><em>{{ _('You sent a message to') }} </em></cite>
+                <cite class="sender"></cite>
+            </div>
+            <blockquote class="excerpt">
+                <p></p>
+            </blockquote>
+            <div class="meta meta-bottom">
+                <cite class="time-since"></cite>
+            </div>
+        </div>
+    </div>
+
+    <div class="template-content message-item direct-message-from">
+        <!--<a class="close" href="#"><span>Close</span></a>-->
+        <div class="thumb">
+            <img width='50' src=" " alt=" " class="avatar"/>
+        </div>
+        <div class="main">
+            <div class="meta meta-top">
+                <cite class="sender"></cite>
+                <cite class="project"><em>{{ _('sent you a direct message') }}</em> <a class="serif"></a></cite>
+            </div>
+            <blockquote class="excerpt">
+                <p></p>
+            </blockquote>
+            <div class="meta meta-bottom">
+                <cite class="time-since"></cite>
+                <a href="#" data-userid="" data-username="" class="reply-to-direct-message rounded-button small fancy-caps more-link">{{ _('Reply') }}</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="template-content message-item idea-comment">
+        <!--<a class="close" href="#"><span>Close</span></a>-->
+        <div class="thumb">
+            <img width='50' src=" " alt=" " class="avatar"/>
+        </div>
+        <div class="main">
+            <div class="meta meta-top">
+                <cite class="sender"></cite>
+                <cite class="project"><em>{{ _('commented on') }}</em> <a class="serif"></a></cite>
             </div>
             <blockquote class="excerpt">
                 <p></p>

@@ -13,10 +13,11 @@ import giveaminute.projectResource as mProjectResource
 import giveaminute.messaging as mMessaging
 import json
 
+
 class Admin(Controller):
-    def GET(self, action = None, param0 = None, param1 = None):
+    def GET(self, action=None, param0=None, param1=None):
         is_admin = self.require_login("/login", True)
-        
+
         # Check if admin first.
         if (is_admin != True):
             return self.redirect("/login")
@@ -62,6 +63,8 @@ class Admin(Controller):
         elif (action == 'resource'):
             if (param0 == 'getunreviewed'):
                 return self.getUnreviewedResources()
+            elif (param0 == 'getreviewed'):
+                return self.getReviewedResources()
             else:
                 return self.not_found()
         elif (action == 'metrics'):
@@ -92,13 +95,13 @@ class Admin(Controller):
         else:
             return self.not_found()
 
-    def POST(self, action = None, param0 = None, param1 = None):
+    def POST(self, action=None, param0=None, param1=None):
         is_admin = self.require_login("/login", True)
-        
+
         # Check if admin first.
         if (is_admin != True):
             return self.redirect("/login")
-            
+
         # User actions.
         elif (action == 'user'):
             if (param0 == 'add'):
@@ -156,6 +159,8 @@ class Admin(Controller):
                 return self.deleteItem('project_resource', self.request('resource_id'))
             elif (param0 == 'approve'):
                 return self.approveProjectResource()
+            elif (param0 == 'save'):
+                return self.toggleProjectResourceStatus()
             else:
                 return self.not_found()
         elif (action == 'questions'):
@@ -179,25 +184,24 @@ class Admin(Controller):
         # blacklist/graylist
         words = self.getBadwords()
 
-        self.template_data['users'] = dict(data = users, json = json.dumps(users))
-        self.template_data['words'] = dict(data = words, json = json.dumps(words))
+        self.template_data['users'] = dict(data=users, json=json.dumps(users))
+        self.template_data['words'] = dict(data=words, json=json.dumps(words))
 
         return self.render('cms_adminsettings')
-
 
     def showContent(self):
         featuredProjects = mProject.getFeaturedProjectsDictionary(self.db)
 
-        self.template_data['featured_projects'] = dict(data = featuredProjects, json = json.dumps(featuredProjects))
+        self.template_data['featured_projects'] = dict(data=featuredProjects, json=json.dumps(featuredProjects))
 
         return self.render('cms_content')
-        
+
     def showHomepageQuestions(self):
         questions = self.getHomepageQuestions()
-        
+
         self.template_data['questions'] = {'data': questions,
                                            'json': json.dumps(questions)}
-    
+
         return self.render('cms_homepage_questions')
 
     def deleteProject(self):
@@ -206,7 +210,7 @@ class Admin(Controller):
         isDeleted = self.deleteItem('project', projectId)
 
         if (isDeleted):
-            self.db.delete('featured_project', where="project_id = $id", vars = {'id':projectId})
+            self.db.delete('featured_project', where="project_id = $id", vars={'id': projectId})
 
         return isDeleted
 
@@ -315,7 +319,7 @@ class Admin(Controller):
         data = []
 
         try:
-            data = list(self.db.query(sql, {'limit':limit, 'offset':offset}))
+            data = list(self.db.query(sql, {'limit': limit, 'offset': offset}))
         except Exception, e:
             log.info("*** problem getting flagged items")
             log.error(e)
@@ -351,97 +355,97 @@ class Admin(Controller):
         try:
             data = list(self.db.query(sql))
 
-            obj = dict(flagged_items = dict((item.flagged_item, item.num) for item in data))
+            obj = dict(flagged_items=dict((item.flagged_item, item.num) for item in data))
         except Exception, e:
             log.info("*** couldn't get flagged item counts")
             log.error(e)
 
         return self.json(obj)
-    
+
     # BEGIN homepage question methods    
     def getHomepageQuestions(self):
         data = []
-        
+
         sql = """select homepage_question_id, 
                         question,
                         is_featured
                 from homepage_question
                 where is_active = 1"""
-                
+
         try:
             data = list(self.db.query(sql))
         except Exception, e:
             log.info("*** couldn't get homepage questions")
             log.error(e)
-        
+
         return data
-        
+
     def addHomepageQuestion(self):
         q = self.request('question')
-    
+
         if (util.strNullOrEmpty(q)):
             log.error("*** attempt to add question with no question content")
             return False
         else:
             try:
-                self.db.insert('homepage_question', question = q, created_datetime = None)
+                self.db.insert('homepage_question', question=q, created_datetime=None)
                 return True
             except Exception, e:
                 log.info("*** error inserting new question")
                 log.error(e)
                 return False
-                
+
     def deleteHomepageQuestion(self):
         id = self.request('question_id')
-        
+
         log.debug("*** deleting homepage question %s" % id)
 
         try:
-            self.db.update('homepage_question', 
-                            where = "homepage_question_id = $id", 
-                            is_active = 0, 
-                            vars = {'id': id})
+            self.db.update('homepage_question',
+                           where="homepage_question_id = $id",
+                           is_active=0,
+                           vars={'id': id})
             return True
         except Exception, e:
             log.info("*** there was a problem deleting homepage question id = %s" % id)
             log.error(e)
-            
-            return False        
-        
+
+            return False
+
     def updateHomepageQuestion(self):
         id = self.request('question_id')
         q = self.request('question')
 
         try:
-            self.db.update('homepage_question', 
-                            where = "homepage_question_id = $id", 
-                            question = q, 
-                            vars = {'id': id})
+            self.db.update('homepage_question',
+                           where="homepage_question_id = $id",
+                           question=q,
+                           vars={'id': id})
             return True
         except Exception, e:
             log.info("*** there was a problem updating homepage question id = %s" % id)
             log.error(e)
-            
-            return False        
-    
+
+            return False
+
     def featureHomepageQuestion(self):
         id = self.request('question_id')
-        
+
         try:
-            self.db.update('homepage_question', 
-                            where = "is_featured = 1",
-                            is_featured = 0)
-            self.db.update('homepage_question', 
-                            where = "homepage_question_id = $id", 
-                            is_featured = 1, 
-                            vars = {'id': id})
+            self.db.update('homepage_question',
+                           where="is_featured = 1",
+                           is_featured=0)
+            self.db.update('homepage_question',
+                           where="homepage_question_id = $id",
+                           is_featured=1,
+                           vars={'id': id})
             return True
         except Exception, e:
             log.info("*** there was a problem featuring homepage question id = %s" % id)
             log.error(e)
-            
+
             return False
-        
+
     # END homepage question methods    
 
     def getUnreviewedResources(self):
@@ -450,15 +454,21 @@ class Admin(Controller):
 
         return self.json(mProjectResource.getUnreviewedProjectResources(self.db, limit, offset))
 
+    def getReviewedResources(self):
+        limit = util.try_f(int, self.request('n_limit'), 10)
+        offset = util.try_f(int, self.request('offset'), 0)
+
+        return self.json(mProjectResource.getReviewedProjectResources(self.db, limit, offset))
+
     # BEGIN metrics methods
     def getBasicMetrics(self):
         numbers = mMetrics.getCounts(self.db)
         kwUsage = mMetrics.getKeywordUsage(self.db, 6, 0)
         kwNum = mMetrics.getNumKeywords(self.db)
 
-        data = dict(overall = numbers,
-                    tags = dict(num_total = kwNum,
-                                top = kwUsage))
+        data = dict(overall=numbers,
+                    tags=dict(num_total=kwNum,
+                              top=kwUsage))
         return self.json(data)
 
     def getTagsCSV(self):
@@ -468,7 +478,8 @@ class Admin(Controller):
         csv.append('"WORD","TOTAL","PROJECTS","RESOURCES"')
 
         for item in data:
-            csv.append('"%s","%s","%s","%s"' % (item.word, str(item.num_projects + item.num_resources), item.num_projects, item.num_resources))
+            csv.append('"%s","%s","%s","%s"' % (
+                item.word, str(item.num_projects + item.num_resources), item.num_projects, item.num_resources))
 
         return self.csv('\n'.join(csv), "idee_voor_je_buurt.tags.csv")
 
@@ -476,10 +487,14 @@ class Admin(Controller):
         data = mMetrics.getProjectCounts(self.db)
         csv = []
 
-        csv.append('"PROJECT","USERS","IDEAS","RESOURCES","ENDORSEMENTS","KEYWORDS","NEIGHBORHOOD","LATITUDE","LONGITUDE"')
+        csv.append(
+            '"PROJECT","USERS","IDEAS","RESOURCES","ENDORSEMENTS","KEYWORDS","NEIGHBORHOOD","LATITUDE","LONGITUDE"')
 
         for item in data:
-            csv.append('"%s","%s","%s","%s","%s","%s","%s","%s","%s"' % (item.title, item.num_users, item.num_ideas, item.num_resources, item.num_endorsements, len(item.keywords.split()), item.location, (item.lat if item.lat is not None else ''), (item.lon if item.lon is not None else '')))
+            csv.append('"%s","%s","%s","%s","%s","%s","%s","%s","%s"' % (
+                item.title, item.num_users, item.num_ideas, item.num_resources, item.num_endorsements,
+                len(item.keywords.split()), item.location, (item.lat if item.lat is not None else ''),
+                (item.lon if item.lon is not None else '')))
 
         return self.csv('\n'.join(csv), "idee_voor_je_buurt.project.csv")
 
@@ -490,7 +505,8 @@ class Admin(Controller):
         csv.append('"RESOURCE","DETAIL","NUM PROJECTS ADDED","DATE CREATED"')
 
         for item in data:
-            csv.append('"%s","%s","%s","%s"' % (item.title, item.description, item.project_count, item.created_datetime))
+            csv.append(
+                '"%s","%s","%s","%s"' % (item.title, item.description, item.project_count, item.created_datetime))
 
         return self.csv('\n'.join(csv), "idee_voor_je_buurt.resource.csv")
 
@@ -501,7 +517,8 @@ class Admin(Controller):
         csv.append('"LAST NAME","FIRST NAME","EMAIL","PROJECTS JOINED","DATE JOINED"')
 
         for item in data:
-            csv.append('"%s","%s","%s","%s","%s"' % (item.last_name, item.first_name, item.email, item.num_projects, item.created_datetime))
+            csv.append('"%s","%s","%s","%s","%s"' % (
+                item.last_name, item.first_name, item.email, item.num_projects, item.created_datetime))
 
         return self.csv('\n'.join(csv), "idee_voor_je_buurt.user.csv")
 
@@ -512,7 +529,8 @@ class Admin(Controller):
         csv.append('"LOCATION","BOROUGH","PROJECTS","IDEAS","RESOURCES"')
 
         for item in data:
-            csv.append('"%s","%s","%s","%s","%s"' % (item.name, item.borough, item.num_projects, item.num_ideas, item.num_resources))
+            csv.append('"%s","%s","%s","%s","%s"' % (
+                item.name, item.borough, item.num_projects, item.num_ideas, item.num_resources))
 
         return self.csv('\n'.join(csv), "idee_voor_je_buurt.location.csv")
 
@@ -526,7 +544,9 @@ class Admin(Controller):
             data = list(self.db.query(sql))
 
             for item in data:
-                csv.append('"%s","%s","%s","%s","%s","%s"' % (item.site_feedback_id, item.submitter_name, item.submitter_email, item.comment, item.feedback_type, str(item.created_datetime)))
+                csv.append('"%s","%s","%s","%s","%s","%s"' % (
+                    item.site_feedback_id, item.submitter_name, item.submitter_email, item.comment, item.feedback_type,
+                    str(item.created_datetime)))
         except Exception, e:
             log.info("*** there was a problem getting site feedback")
             log.error(e)
@@ -549,6 +569,7 @@ class Admin(Controller):
             log.error(e)
 
         return self.csv('\n'.join(csv), "idee_voor_je_buurt.beta_invite_requests.csv")
+
     # END metrics methods
 
     def getAdminUsers(self):
@@ -577,7 +598,7 @@ class Admin(Controller):
         userGroupId = util.try_f(int, self.request('role'))
         affiliation = self.request('affiliation')
 
-        if (util.strNullOrEmpty(email)or not util.validate_email(email)):
+        if (util.strNullOrEmpty(email) or not util.validate_email(email)):
             log.error("*** cms user submitted with invalid email")
             return False
         elif (util.strNullOrEmpty(password)):
@@ -587,7 +608,8 @@ class Admin(Controller):
             log.error("*** cms user submitted with no role")
             return False
         else:
-            userId = mUser.createUser(self.db, email, password, firstName, lastName, affiliation = affiliation, isAdmin = (userGroupId == 1 or userGroupId == 3))
+            userId = mUser.createUser(self.db, email, password, firstName, lastName, affiliation=affiliation,
+                                      isAdmin=(userGroupId == 1 or userGroupId == 3))
 
             # do we want to attach ideas to cms users?
             mIdea.attachIdeasByEmail(self.db, email)
@@ -606,11 +628,11 @@ class Admin(Controller):
             self.deleteItemsByUser('idea', userId)
 
             # email deleted user
-# TODO: temporarily commenting out because the only place this currently gets sent from is deletion of admins
-#             u = mUser.User(self.db, userId)
-#             
-#             if (not mMessaging.emailAccountDeactivation(u.email)):
-#                 log.error("*** couldn't email deleted user_id = %s" % userId)
+            # TODO: temporarily commenting out because the only place this currently gets sent from is deletion of admins
+            # u = mUser.User(self.db, userId)
+            #
+            # if (not mMessaging.emailAccountDeactivation(u.email)):
+            # log.error("*** couldn't email deleted user_id = %s" % userId)
 
             return True
         else:
@@ -663,27 +685,37 @@ class Admin(Controller):
             if mProjectResource.approveProjectResource(self.db, projectResourceId, isOfficial):
                 resource = mProjectResource.ProjectResource(self.db, projectResourceId)
 
-                mMessaging.emailResourceApproval(resource.data.contact_email, resource.data.title)
-                
-                if (resource.data.owner_email):
+                if resource.data.owner_email:
                     mMessaging.emailResourceApproval(resource.data.owner_email, resource.data.title)
                 return True
             else:
                 return False
 
+    def toggleProjectResourceStatus(self):
+        projectResourceId = self.request('resource_id')
+        isOfficial = bool(int(self.request('is_official')))
+
+        if not projectResourceId:
+            log.error("*** attempted to make resource official without resource id")
+            return False
+        else:
+            if mProjectResource.toggleOfficialResource(self.db, projectResourceId, isOfficial):
+                return True
+            else:
+                return False
 
     def updateBlacklist(self):
         blacklist = self.request('blacklist')
         graylist = self.request('graylist')
 
         try:
-            #replace delimiters, strip whitespace
+            # replace delimiters, strip whitespace
             newBlacklist = ' '.join([item.strip() for item in blacklist.split(',')])
             newGraylist = ' '.join([item.strip() for item in graylist.split(',')])
 
-            self.db.update('badwords', where = "id = 1",
-                                kill_words = newBlacklist,
-                                warn_words = newGraylist)
+            self.db.update('badwords', where="id = 1",
+                           kill_words=newBlacklist,
+                           warn_words=newGraylist)
             return True
         except Exception, e:
             log.info("*** couldn't update blacklist")
@@ -691,7 +723,7 @@ class Admin(Controller):
             return False
 
     def getBadwords(self):
-        words = dict(blacklist = '', graylist = '')
+        words = dict(blacklist='', graylist='')
 
         try:
             sql = "select kill_words, warn_words from badwords where id = 1 limit 1"

@@ -58,9 +58,9 @@ tc.gam.add_resource = function(app, options) {
 					},
 					'add-resource-submit':{
 						selector:'.add-resource-submit',
+						next_step:'add-resource-reminder',
 						init: function(merlin, dom) {
-						
-						
+
 							tc.jQ.ajax({
 								type:"POST",
 								url:"/project/resource/add",
@@ -68,9 +68,13 @@ tc.gam.add_resource = function(app, options) {
 								context:merlin,
 								dataType:"text",
 								success: function(data, ts, xhr) {
-									//if (data == "False") {
-									//	return false;
-									//}
+									if (data == "False") {
+										return false;
+									}
+									else if(data == 'Reminded'){
+										this.show_step('add-resource-reminder');
+										return;
+									}
 									//tc.jQ(event_target).addClass("disabled").text("Added");
 									tc.jQ(event_target).parents('td').addClass('added');
 									tc.timer(1000, function() {
@@ -78,6 +82,14 @@ tc.gam.add_resource = function(app, options) {
 									});
 								}
 							});
+						}
+					},
+					'add-resource-reminder':{
+						selector:'.add-resource-reminder',
+						init: function(merlin, dom) {
+							tc.timer(2000, function() {
+										modal.hide();
+									});
 						}
 					}
 				}
