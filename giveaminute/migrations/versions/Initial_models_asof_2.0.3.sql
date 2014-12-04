@@ -455,7 +455,7 @@ CREATE TABLE `project_invite` (
   `inviter_user_id` int(11) NOT NULL,
   `invitee_idea_id` int(11) DEFAULT NULL,
   `invitee_user_id` int(11) DEFAULT NULL,
-  `invitee_email` int(11) DEFAULT NULL,
+  `invitee_email` varchar(200) DEFAULT NULL,
   `accepted_datetime` timestamp NULL DEFAULT NULL,
   `created_datetime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`project_invite_id`)
