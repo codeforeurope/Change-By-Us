@@ -86,7 +86,7 @@ tc.app.prototype.init = function(page) {
             app: this
         },
         function(e) {
-            if (window.location.hash.substring(1, window.location.hash.length) === 'logout') {
+            if (window.location.hash.substring(1, window.location.hash.length) == 'logout') {
                 // Post to logout, when done, handle Facebook logout.
                 tc.jQ.ajax({
                     type: 'POST',

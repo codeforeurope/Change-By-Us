@@ -5554,6 +5554,7 @@ some_nowhitespace {
 .continent.home .projects-pane.not-found .row a {
     color: #3d3a36;
     float: left;
+    font-size: 30px;
 }
 
 .continent.home .projects-pane.not-found .row a:hover {

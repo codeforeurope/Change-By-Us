@@ -281,63 +281,7 @@
                     </div><!--end my-resources-->
                     {% endif %}
 
-                    <!--
 
-                    {% if d.template_data and d.template_data.user_activity.data.endorsed_projects|length > 0 %}
-                    <div class="box my-endorsed-projects my-projects">
-                        <div class="hd">
-                            <h2>
-                                {% if d.template_data.user and d.template_data.user.data.u_id == d.template_data.user_activity.data.user.u_id %}
-                                    <span class="light">My</span>
-                                {% else %}
-                                    <span class="light">{{ d.template_data.user_activity.data.user.name }}&#39;s</span>
-                                {% endif %}
-                                Supported Projects <span class="counter">{{ d.template_data.user_activity.data.endorsed_projects|length }}</span>
-                            </h2>
-                        </div>
-                        <div class="bd">
-
-                            {% for project in d.template_data.user_activity.data.endorsed_projects %}
-
-                                <div class='clearfix project-header'>
-                                    <div class="thumb">
-                                        {% if project.image_id > -1  %}
-                                            <img width='80' src='{{d.template_data.media_root}}images/{{ project.image_id % 10 }}/{{ project.image_id }}.png' alt="" class='proj'/>
-                                        {% else %}
-                                            <img width='80' src="/static/images/thumb_genAvatar100.png" alt="" class="proj"/>
-                                        {% endif %}
-                                        <span class="overlay-tag"></span>
-                                    </div>
-                                    <div class="tools">
-                                        <div class="members">
-                                            <a href="/project/{{ project.project_id }}#show,members">Members <span class="counter">{{ project.num_members }}</span></a>
-                                        </div>
-                                    </div>
-                                    <div class="main">
-                                        <h1><a href="/project/{{ project.project_id }}">{{ project.title }}</a></h1>
-                                        <cite class="meta"><span class="fancy-caps">Created <span>by</span></span> <strong><a href="/useraccount/{{ project.owner.u_id }}">{{ project.owner.name }}</a></strong></cite>
-                                        <div class="sub-ft">
-                                            {% if d.template_data and d.template_data.app_mode != 'beta' %}
-                                                <div class="twitter">
-                                                    <a href="http://twitter.com/share" data-url="http://changeby.us/project/{{ project.project_id }}" class="twitter-share-button" data-count="none">Tweet</a><script type="text/javascript" src="http://platform.twitter.com/widgets.js"></script>
-                                                </div>
-                                                <div class="facebook">
-                                                    <script src="http://connect.facebook.net/en_US/all.js#xfbml=1"></script>
-                                                    <fb:like href="http://changeby.us/project/{{ project.project_id }}" send="false" layout="button_count" width="100" show_faces="false"></fb:like>
-                                                </div>
-                                            {% endif %}
-                                        </div>
-                                    </div>
-                                </div>
-
-                            {% endfor %}
-
-                        </div>
-                    </div>
-                    {% endif %}
-
-                    -->
-                    <!-- end my-endorsed-projects -->
 
                 </div><!--end activity-view-->
 
