@@ -743,7 +743,7 @@ DROP TABLE IF EXISTS `project_resource`;
 CREATE TABLE `project_resource` (
   `project_resource_id` int(11) NOT NULL AUTO_INCREMENT,
   `title` varchar(100) NOT NULL,
-  `description` varchar(255) DEFAULT NULL,
+  `description` varchar(350) DEFAULT NULL,
   `url` varchar(255) DEFAULT NULL,
   `twitter_url` varchar(255) DEFAULT NULL,
   `facebook_url` varchar(255) DEFAULT NULL,
