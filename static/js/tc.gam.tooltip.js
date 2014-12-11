@@ -111,7 +111,7 @@ tc.resource_tooltip.prototype.generate_markup = function(data){
 	markup = this.options.markup_source_element.clone().css('display','block').removeClass('template-content');
 	markup.prepend("<div class='tooltip-tail-top'></div>");
 	markup.append("<div class='tooltip-tail-bottom'></div>");
-	markup.find('h2').text(data.title);
+	markup.find('h2').html(data.title);
 	
 	if(data.is_official && data.is_official === 1){
 		markup.find('.tooltip-hd').after('<div class="tooltip-md"><span>Official Resource</span></div>');
