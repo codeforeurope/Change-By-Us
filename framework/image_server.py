@@ -18,13 +18,13 @@ class ImageServer(Controller):
     def add(cls, db, data, app, max_size=None, grayscale=False, mirror=True, thumb_max_size=None):
         log.info("ImageServer.add")
         try:
-            id = db.insert('images', app=app)
+            image_id = db.insert('images', app=app)
         except Exception, e:
             log.error(e)
             return None
 
         # Determine file and directory paths.
-        path = ImageServer.path(app, id)
+        path = ImageServer.path(app, image_id)
         directory = os.path.dirname(path)
                    
         try:
@@ -43,23 +43,24 @@ class ImageServer(Controller):
         except Exception, e:
             log.error(e)
             try:
-                db.query("DELETE FROM images WHERE id=$id", {'id': id})
+                db.query("DELETE FROM images WHERE id=$id", {'id': image_id})
                 os.remove(path)
-            except Exception, e:
-                log.error(e)
-            log.warning("--> removed id %s" % id)
+            except Exception, ex:
+                log.error(ex)
+            log.warning("--> removed id %s" % image_id)
             return None
         if image.format != "PNG":
             log.info("--> converting %s to PNG" % image.format)
+        if image.mode != "RGB":
+            image = image.convert("RGB")
         if max_size and (image.size[0] > max_size[0] or image.size[1] > max_size[1]):
             image = ImageServer.cropToBox(image)
-            image = image.resize(max_size)
-        
+            image = image.resize(max_size, Image.ANTIALIAS)
         if grayscale:
             image = ImageOps.grayscale(image)                
         if thumb_max_size:    
             thumbImage = ImageServer.resizeToFit(image, thumb_max_size)
-            thumbPath = ''.join([path[:-4], "_thumb.png"]) 
+            thumbPath = ''.join([path[:-4], "_thumb.png"])
         try:
             image.save(path, "PNG")  
             if thumb_max_size:
@@ -69,7 +70,7 @@ class ImageServer(Controller):
             return None
         log.info("--> saved %s" % path)  
         
-        log.info("*** config = %s, mirror = %s" % (Config.get('media')['isS3mirror'] , mirror))
+        log.info("*** config = %s, mirror = %s" % (Config.get('media')['isS3mirror'], mirror))
         
         if (Config.get('media')['isS3mirror'] and mirror):
             try:
@@ -78,7 +79,7 @@ class ImageServer(Controller):
             except Exception, e:
                 log.error(e)  
         
-        return id
+        return image_id
         
     #
     @classmethod
@@ -95,16 +96,6 @@ class ImageServer(Controller):
         box = (left, top, left + max_length, top + max_length)
         
         return image.crop(box)
-         
-        
-    # old resize method    
-    @classmethod
-    def resizeToMax(cls, image, max_size):
-        ratio = float(max_size[0]) / float(image.size[0]) if image.size[0] > max_size[0] else float(max_size[1]) / float(image.size[1])
-        new_size = int(ratio * image.size[0]), int(ratio * image.size[1])
-        log.info("--> resizing to %sx%s" % new_size)
-        image = image.resize(new_size, Image.ANTIALIAS)     
-        return image
 
     # new resize method, eholda 2011-02-12
     @classmethod
@@ -181,12 +172,14 @@ class ImageServer(Controller):
         source_height = image.size[1]                                
         try:
             target_width = int(target_width)
-            if target_width < 1: raise Error
+            if target_width < 1:
+                raise
         except Exception:
             target_width = source_width
         try:
             target_height = int(target_height)
-            if target_height < 1: raise Error            
+            if target_height < 1:
+                raise
         except Exception:
             target_height = source_height
         source_ratio = float(source_width) / float(source_height)
@@ -226,8 +219,8 @@ class ImageServer(Controller):
                     log.info("--> image cached")
                 else:
                     log.warning("--> memcache set failed [no error]: %s" % key)
-            except Exception, e:
-                log.warning("--> memcache set failed [%s]: %s" % (e, key))
+            except Exception, ex:
+                log.warning("--> memcache set failed [%s]: %s" % (ex, key))
             return self.image(image)
         else:
             log.info("--> placeholder image, not caching")
