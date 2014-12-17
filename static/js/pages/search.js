@@ -408,7 +408,7 @@ app_page.features.push(function(app){
 						temprow = tc.jQ('<tr style="width:763px;"></tr>');
 					}
 					tempcell = tc.jQ('<td style="width:361px;"></td>').append(tc.jQ('.template-content.user-cell').html());
-					if(d.results[i].image_id > -1){
+					if(d.results[i].image_id && d.results[i].image_id > 0){
 						tempcell.find('img').attr('src',app.app_page.media_root + 'images/'+d.results[i].image_id%10+'/'+d.results[i].image_id+'.png');
 					} else {
 						tempcell.find('img').attr('src','/static/images/thumb_genAvatar50.png');

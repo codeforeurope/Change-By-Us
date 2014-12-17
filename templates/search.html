@@ -432,7 +432,7 @@
 														{% endif %}
 															<td>
 																<div class="thumb">
-																	{% if user.image_id > -1 %}
+																	{% if user.image_id > 0 %}
 																	<a href="/useraccount/{{ user.user_id }}"><img width='50' height='50' src='{{d.template_data.media_root}}images/{{ user.image_id % 10 }}/{{ user.image_id }}.png' alt="" class='user'/></a>
 																	{% else %}
 																	<img width='50' height='50' src="/static/images/thumb_genAvatar50.png" alt="" class="user"/>
