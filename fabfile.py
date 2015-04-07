@@ -12,6 +12,8 @@ from boto.ec2.connection import EC2Connection
 from boto.ec2.autoscale import AutoScaleConnection
 from boto.ec2.autoscale import LaunchConfiguration
 from boto.ec2.autoscale import AutoScalingGroup
+import logging
+logging.basicConfig()
 # from boto.ec2.autoscale import Trigger
 
 """
