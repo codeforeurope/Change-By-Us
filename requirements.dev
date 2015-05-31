@@ -18,7 +18,7 @@ Pillow==2.3.0
 oauth2
 python-dateutil
 flup
-shapely
+shapely<1.4
 
 # Database orm
 SQLAlchemy

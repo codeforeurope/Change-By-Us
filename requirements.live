@@ -20,7 +20,7 @@ oauth2
 python-dateutil
 flup
 jinja2
-shapely
+shapely<1.4
 
 # Database orm
 SQLAlchemy

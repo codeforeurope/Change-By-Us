@@ -144,8 +144,8 @@ env.packages = {'rhel5': {
                         ['mysql-client', 'libmysqlclient-dev', 'php5', 'php5-cli', 'php5-cgi', 'php5-gd', 'memcached',
                          'php5-common', 'php5-mysql', 'php5-xmlrpc', 'php5-memcache', 'php5-curl', 'python2.7',
                          'python-setuptools', 'python-pip', 'python-imaging', 'python-mysqldb', 'python-simplejson',
-                         'elinks', 'sendmail', 'exim4', 'lighttpd',
-                         's3cmd', 'git', 'libgeos-dev'],
+                         'elinks', 'sendmail', 'exim4', 'lighttpd', 'libjpeg-dev',
+                         's3cmd', 'git', 'libgeos-dev', 'libgeos-c1'],
                     'optional': [],
                     'remove': ['apache2'],  # We don't want apache, we want lighttpd
                     'additional_commands': []}
@@ -394,6 +394,9 @@ def upload_config_files():
 
 
 def install_pip_requirements():
+    # Check setuptools are up to date
+    run('pip install --upgrade setuptools')
+    # Install requirements
     run('cp %(app_path)s/current/requirements.live %(app_path)s/current/requirements.txt' % env)
     sudo('pip install -r %(app_path)s/current/requirements.txt' % env)
 
